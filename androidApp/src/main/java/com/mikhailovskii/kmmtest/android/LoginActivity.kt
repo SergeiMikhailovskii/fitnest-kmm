@@ -3,6 +3,7 @@ package com.mikhailovskii.kmmtest.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -18,7 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 
-class MainActivity : ComponentActivity() {
+class LoginActivity : ComponentActivity() {
+
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,10 @@ class MainActivity : ComponentActivity() {
         var login by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var passwordVisibility by remember { mutableStateOf(false) }
+
+        loginViewModel.loginResultLiveData.observe(this, {
+            println("Login result: $it")
+        })
 
         Column(Modifier.fillMaxWidth()) {
             OutlinedTextField(
@@ -64,7 +71,7 @@ class MainActivity : ComponentActivity() {
             )
             Button(
                 onClick = {
-                    println("$login $password")
+                    loginViewModel.loginUser(login, password)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
