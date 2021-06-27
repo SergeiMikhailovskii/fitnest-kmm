@@ -30,15 +30,6 @@ class LoginActivity : ComponentActivity() {
         setContent {
             LoginWindow()
         }
-    }
-
-    @Preview(showSystemUi = true)
-    @Composable
-    fun LoginWindow() {
-        var login by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-        var passwordVisibility by remember { mutableStateOf(false) }
-
         loginViewModel.loginResultLiveData.observe(this, {
             val toastText = when (it) {
                 LoginResultState.LoginSuccess -> {
@@ -50,6 +41,14 @@ class LoginActivity : ComponentActivity() {
             }
             Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
         })
+    }
+
+    @Preview(showSystemUi = true)
+    @Composable
+    fun LoginWindow() {
+        var login by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
+        var passwordVisibility by remember { mutableStateOf(false) }
 
         Scaffold(
             topBar = { TopAppBar(
