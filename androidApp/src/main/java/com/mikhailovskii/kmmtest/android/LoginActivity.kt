@@ -41,44 +41,51 @@ class LoginActivity : ComponentActivity() {
             println("Login result: $it")
         })
 
-        Column(Modifier.fillMaxWidth()) {
-            OutlinedTextField(
-                value = login,
-                onValueChange = { login = it },
-                label = { Text("Login") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text("Password") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                trailingIcon = {
-                    val image =
-                        if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
-                    IconButton(onClick = {
-                        passwordVisibility = !passwordVisibility
-                    }) {
-                        Icon(imageVector = image, "")
+        Scaffold(
+            topBar = { TopAppBar(
+                title = { Text("KMM Android") }
+            )},
+            content = {
+                Column {
+                    OutlinedTextField(
+                        value = login,
+                        onValueChange = { login = it },
+                        label = { Text("Login") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+                    OutlinedTextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        label = { Text("Password") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                        trailingIcon = {
+                            val image =
+                                if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                            IconButton(onClick = {
+                                passwordVisibility = !passwordVisibility
+                            }) {
+                                Icon(imageVector = image, "")
+                            }
+                        }
+                    )
+                    Button(
+                        onClick = {
+                            loginViewModel.loginUser(login, password)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Text("Login", modifier = Modifier.padding(8.dp))
                     }
                 }
-            )
-            Button(
-                onClick = {
-                    loginViewModel.loginUser(login, password)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text("Login", modifier = Modifier.padding(8.dp))
             }
-        }
+        )
     }
 }
