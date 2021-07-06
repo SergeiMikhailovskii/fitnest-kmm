@@ -9,16 +9,8 @@ struct ContentView: View {
         ZStack {
             Color.white.ignoresSafeArea()
             VStack(alignment: .center) {
-                TextField("Login", text: $login)
-                    .frame(height: 48)
-                    .overlay(RoundedRectangle(cornerRadius:16).stroke(Color.gray))
-                    .foregroundColor(Color.black)
-                    .padding(EdgeInsets(top: 32, leading: 16, bottom: 0, trailing: 16))
-                TextField("Password", text: $password)
-                    .frame(height: 48)
-                    .overlay(RoundedRectangle(cornerRadius:16).stroke(Color.gray))
-                    .foregroundColor(Color.black)
-                    .padding(EdgeInsets(top: 32, leading: 16, bottom: 0, trailing: 16))
+                TextFieldWithPlaceHolderColor(placeHolderText: "Login", text: $login)
+                TextFieldWithPlaceHolderColor(placeHolderText: "Password", text: $password)
                 Spacer()
                 Button("Login") {
                     LoginUseCase().run(params: LoginData(login: login, password: password), completionHandler:{_,_ in
@@ -29,6 +21,23 @@ struct ContentView: View {
         }.onTapGesture {
             hideKeyboard()
         }
+    }
+}
+
+struct TextFieldWithPlaceHolderColor: View {
+    var placeHolderText: String
+    @Binding var text: String
+    var editingChanged: (Bool) -> () = {_ in}
+    var commit: () -> () = {}
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            TextField("", text: $text)
+                .foregroundColor(.black)
+                .padding(16)
+            if text.isEmpty { Text(placeHolderText).foregroundColor(.gray).padding(.horizontal, 16) }
+        }.overlay(RoundedRectangle(cornerRadius:16).stroke(Color.gray))
+        .padding(16)
     }
 }
 
