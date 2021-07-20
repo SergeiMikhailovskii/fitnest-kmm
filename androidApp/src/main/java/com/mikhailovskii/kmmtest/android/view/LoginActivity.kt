@@ -32,7 +32,7 @@ class LoginActivity : ComponentActivity(), DIAware {
         import(viewModelModule)
     }
 
-    val loginViewModel: LoginViewModel by instance()
+    private val loginViewModel: LoginViewModel by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
