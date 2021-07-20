@@ -19,6 +19,8 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.3.0-beta02")
     implementation("com.google.android.material:compose-theme-adapter:1.0.0-beta09")
     implementation("androidx.compose.material:material-icons-extended:1.0.0-beta09")
+    implementation("org.kodein.di:kodein-di:7.6.0")
+    implementation("org.kodein.di:kodein-di-framework-android-x:7.6.0")
 }
 
 android {
