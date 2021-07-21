@@ -32,10 +32,10 @@ struct TextFieldWithPlaceHolderColor: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
+            if text.isEmpty { Text(placeHolderText).foregroundColor(.gray).padding(.horizontal, 16) }
             TextField("", text: $text)
                 .foregroundColor(.black)
                 .padding(16)
-            if text.isEmpty { Text(placeHolderText).foregroundColor(.gray).padding(.horizontal, 16) }
         }.overlay(RoundedRectangle(cornerRadius:16).stroke(Color.gray))
         .padding(16)
     }
