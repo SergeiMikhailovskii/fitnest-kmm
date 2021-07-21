@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.android
+package com.mikhailovskii.kmmtest.android.view
 
 import androidx.lifecycle.ViewModel
 import com.mikhailovskii.kmmtest.Failure

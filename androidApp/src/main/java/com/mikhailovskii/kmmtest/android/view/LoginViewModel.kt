@@ -1,14 +1,13 @@
-package com.mikhailovskii.kmmtest.android
+package com.mikhailovskii.kmmtest.android.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.mikhailovskii.kmmtest.entity.LoginData
 import com.mikhailovskii.kmmtest.state.LoginResultState
 import com.mikhailovskii.kmmtest.usecase.LoginUseCase
 
 class LoginViewModel(
-    private val loginUseCase: LoginUseCase = LoginUseCase()
+    private val loginUseCase: LoginUseCase
 ) : BaseViewModel() {
 
     private val _loginResultLiveData = MutableLiveData<LoginResultState>()

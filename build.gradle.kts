@@ -16,6 +16,14 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
+            content {
+                includeGroup("org.kodein")
+            }
+        }
+        maven(url = "https://jitpack.io")
+        maven(url = "https://dl.bintray.com/kodein-framework/Kodein-DI")
     }
 }
 
