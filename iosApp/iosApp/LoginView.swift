@@ -1,11 +1,18 @@
 import SwiftUI
 import shared
 
-struct ContentView: View {
+struct LoginView: View {
     @State private var login: String = ""
     @State private var password: String = ""
     
+    @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
+    
     var body: some View {
+        let loginResult = Binding<Bool>(
+            get: {self.viewModel.loginResult == .LoginSuccess()},
+            set: { _ in self.viewModel.loginResult = .LoginNone() }
+        )
+        
         ZStack {
             Color.white.ignoresSafeArea()
             VStack(alignment: .center) {
@@ -13,13 +20,13 @@ struct ContentView: View {
                 TextFieldWithPlaceHolderColor(placeHolderText: "Password", text: $password)
                 Spacer()
                 Button("Login") {
-                    LoginUseCase().run(params: LoginData(login: login, password: password), completionHandler:{_,_ in
-                        
-                    })
+                    viewModel.loginUser(data: LoginData(login: login, password: password))
                 }
             }
         }.onTapGesture {
             hideKeyboard()
+        }.alert(isPresented: loginResult) {
+            Alert(title: Text("Success"))
         }
     }
 }
@@ -43,7 +50,7 @@ struct TextFieldWithPlaceHolderColor: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LoginView()
     }
 }
 
