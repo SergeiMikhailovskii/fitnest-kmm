@@ -1,7 +1,5 @@
 package com.mikhailovskii.kmmtest.state
 
-sealed class LoginResultState {
-    object LoginSuccess: LoginResultState()
-    object LoginFailure: LoginResultState()
-    object LoginNone: LoginResultState()
+enum class LoginResultState {
+    LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_DEFAULT
 }

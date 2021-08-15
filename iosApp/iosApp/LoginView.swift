@@ -9,8 +9,8 @@ struct LoginView: View {
     
     var body: some View {
         let loginResult = Binding<Bool>(
-            get: {self.viewModel.loginResult == .LoginSuccess()},
-            set: { _ in self.viewModel.loginResult = .LoginNone() }
+            get: {self.viewModel.loginResult == .LOGIN_SUCCESS },
+            set: { _ in self.viewModel.loginResult = .LOGIN_DEFAULT }
         )
         
         ZStack {
