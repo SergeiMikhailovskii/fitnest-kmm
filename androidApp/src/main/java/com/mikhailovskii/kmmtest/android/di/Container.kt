@@ -2,7 +2,7 @@ package com.mikhailovskii.kmmtest.android.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.mikhailovskii.kmmtest.android.extension.ViewModelFactory
-import com.mikhailovskii.kmmtest.android.view.LoginViewModel
+import com.mikhailovskii.kmmtest.android.view.login.LoginViewModel
 import com.mikhailovskii.kmmtest.usecase.LoginUseCase
 import org.kodein.di.*
 

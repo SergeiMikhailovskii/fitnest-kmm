@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.android.view
+package com.mikhailovskii.kmmtest.android.view.login
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
