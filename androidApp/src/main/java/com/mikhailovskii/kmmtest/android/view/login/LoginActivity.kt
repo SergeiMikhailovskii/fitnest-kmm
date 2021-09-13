@@ -1,12 +1,12 @@
-package com.mikhailovskii.kmmtest.android.view
+package com.mikhailovskii.kmmtest.android.view.login
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -39,17 +40,27 @@ class LoginActivity : ComponentActivity(), DIAware {
         setContent {
             LoginWindow()
         }
+    }
+
+    @Preview(showSystemUi = true)
+    @Composable
+    fun LoginSuccessDialog() {
+        var dialogVisibility by remember { mutableStateOf(false) }
+
         loginViewModel.loginResultLiveData.observe(this, {
-            val toastText = when (it) {
-                LoginResultState.LoginSuccess -> {
-                    "Login success"
-                }
-                else -> {
-                    "Login failed"
-                }
-            }
-            Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
+            dialogVisibility = it == LoginResultState.LOGIN_SUCCESS
         })
+
+        if (dialogVisibility) {
+            AlertDialog(onDismissRequest = {},
+                confirmButton = {
+                    ClickableText(text = AnnotatedString("Ok")) {
+                        loginViewModel.dismissLoginDialog()
+                    }
+                }, text = {
+                    Text("Login success")
+                })
+        }
     }
 
     @Preview(showSystemUi = true)
@@ -67,6 +78,7 @@ class LoginActivity : ComponentActivity(), DIAware {
             },
             content = {
                 Column {
+                    LoginSuccessDialog()
                     OutlinedTextField(
                         value = login,
                         onValueChange = { login = it },
