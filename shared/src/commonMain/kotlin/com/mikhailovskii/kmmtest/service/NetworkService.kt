@@ -1,6 +1,7 @@
 package com.mikhailovskii.kmmtest.service
 
 import io.ktor.client.*
+import io.ktor.client.features.cookies.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
@@ -14,6 +15,9 @@ class NetworkService {
         install(Logging) {
             logger = Logger.DEFAULT
             level = LogLevel.ALL
+        }
+        install(HttpCookies) {
+            storage = AcceptAllCookiesStorage()
         }
         install(JsonFeature) {
             val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
