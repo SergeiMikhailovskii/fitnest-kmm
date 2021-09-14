@@ -3,15 +3,12 @@ package com.mikhailovskii.kmmtest.usecase
 import com.mikhailovskii.kmmtest.Either
 import com.mikhailovskii.kmmtest.Failure
 import com.mikhailovskii.kmmtest.entity.LoginData
-import com.mikhailovskii.kmmtest.repository.LocalStorageRepository
+import com.mikhailovskii.kmmtest.service.ApiService
 
 class LoginUseCase : UseCaseParams<Any, LoginData>() {
 
-    private val localStorageRepository: LocalStorageRepository = LocalStorageRepository()
-
     override suspend fun run(params: LoginData): Either<Failure, Any> {
-        localStorageRepository.saveValue("login", params.login)
-        localStorageRepository.saveValue("password", params.password)
+        val result = ApiService.loginUser(params)
         return Either.Right(Any())
     }
 

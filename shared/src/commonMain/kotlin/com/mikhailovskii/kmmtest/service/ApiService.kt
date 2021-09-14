@@ -3,15 +3,14 @@ package com.mikhailovskii.kmmtest.service
 import com.mikhailovskii.kmmtest.dispatchers.ktorScope
 import com.mikhailovskii.kmmtest.entity.LoginData
 
-class ApiService {
+object ApiService {
 
-    val networkService = NetworkService()
+    private val networkService = NetworkService()
 
-    suspend fun loginUser() {
+    suspend fun loginUser(data: LoginData) {
         ktorScope {
             val url = "http://10.0.2.2:8080/auth/login"
-            val result = networkService.sendData(url, LoginData("Sergei", "12345"))
-            println()
+            val result = networkService.sendData(url, data)
         }
     }
 
