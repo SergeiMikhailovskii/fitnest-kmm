@@ -6,10 +6,10 @@ import com.mikhailovskii.kmmtest.android.di.viewModelModule
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 
-class App : Application(), DIAware {
+class App : Application()/*, DIAware*/ {
 
-    override val di by DI.lazy {
-        import(appModule)
-    }
+//    override val di by DI.lazy {
+//        import(appModule)
+//    }
 
 }

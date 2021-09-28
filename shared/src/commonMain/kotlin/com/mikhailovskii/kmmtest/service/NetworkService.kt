@@ -9,8 +9,9 @@ import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import org.kodein.di.DI
 
-class NetworkService {
+class NetworkService(val di: DI) {
 
     private val httpClient = HttpClient {
         install(Logging) {
@@ -18,7 +19,7 @@ class NetworkService {
             level = LogLevel.ALL
         }
         install(HttpCookies) {
-            storage = CookiesStorage()
+            storage = CookiesStorage(di)
         }
         install(JsonFeature) {
             val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }

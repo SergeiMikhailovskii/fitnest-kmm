@@ -2,23 +2,24 @@ package com.mikhailovskii.kmmtest.cookie
 
 import io.ktor.client.features.cookies.CookiesStorage
 import io.ktor.http.*
+import org.kodein.di.DI
 
-class CookiesStorage : CookiesStorage {
+class CookiesStorage(val di: DI) : CookiesStorage {
 
-    private val cookieMap = mutableMapOf<String, String>()
+    private val cookiesStorageImpl = CookiesStorageImpl(di)
 
     override suspend fun addCookie(requestUrl: Url, cookie: Cookie) {
-        println("Set cookie name=${cookie.name}, value=${cookie.value}")
-        cookieMap[cookie.name] = cookie.value
+        cookiesStorageImpl.addCookie(requestUrl, cookie)
     }
 
     override fun close() {
     }
 
-    override suspend fun get(requestUrl: Url) = mutableListOf<Cookie>().apply {
-        cookieMap.forEach {
-            this.add(Cookie(it.key, it.value))
-        }
+    override suspend fun get(requestUrl: Url) = cookiesStorageImpl.getCookies()
+}
 
-    }
+expect class CookiesStorageImpl(di: DI) {
+    val di: DI
+    fun addCookie(requestUrl: Url, cookie: Cookie)
+    fun getCookies(): MutableList<Cookie>
 }
