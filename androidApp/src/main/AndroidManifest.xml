@@ -7,7 +7,6 @@
 
     <!--    todo need to handle cleartext traffic with separate file-->
     <application
-        android:name=".App"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"

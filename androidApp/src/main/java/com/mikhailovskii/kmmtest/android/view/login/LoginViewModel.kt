@@ -2,7 +2,7 @@ package com.mikhailovskii.kmmtest.android.view.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mikhailovskii.kmmtest.android.view.BaseViewModel
+import com.mikhailovskii.kmmtest.android.view.base.BaseViewModel
 import com.mikhailovskii.kmmtest.entity.LoginData
 import com.mikhailovskii.kmmtest.state.LoginResultState
 import com.mikhailovskii.kmmtest.usecase.LoginUseCase

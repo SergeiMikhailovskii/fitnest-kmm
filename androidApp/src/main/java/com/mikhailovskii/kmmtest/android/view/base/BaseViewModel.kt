@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.android.view
+package com.mikhailovskii.kmmtest.android.view.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
