@@ -13,6 +13,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.0.0-beta09")
     implementation("androidx.compose.foundation:foundation-layout:1.0.0-beta09")
     implementation("androidx.compose.material:material:1.0.0-beta09")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha02")
     implementation("androidx.compose.runtime:runtime-livedata:1.0.0-beta09")
     implementation("androidx.compose.ui:ui-tooling:1.0.0-beta09")
     implementation("androidx.compose.compiler:compiler:1.0.0-beta09")

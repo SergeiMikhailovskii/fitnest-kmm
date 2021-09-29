@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.mikhailovskii.kmmtest.android.di.viewModelModule
+import com.mikhailovskii.kmmtest.android.view.base.FitnestApp
 import org.kodein.di.*
 
 
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity(), DIAware {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LoginWindow()
+            FitnestApp()
         }
     }
 
