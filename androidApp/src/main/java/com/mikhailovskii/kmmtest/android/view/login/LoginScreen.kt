@@ -21,7 +21,7 @@ import org.kodein.di.compose.withDI
 
 @Preview(showSystemUi = true)
 @Composable
-fun LoginWindow() = withDI {
+fun LoginScreen() = withDI {
     val viewModel: LoginViewModel by instance()
 
     var login by remember { mutableStateOf("") }
