@@ -8,7 +8,6 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,7 +19,6 @@ import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.view.base.BrandGradient
 import com.mikhailovskii.kmmtest.android.view.base.poppinsFamily
-import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
