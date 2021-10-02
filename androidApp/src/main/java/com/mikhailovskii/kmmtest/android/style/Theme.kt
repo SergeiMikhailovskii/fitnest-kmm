@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.android.view.base
+package com.mikhailovskii.kmmtest.android.style
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors

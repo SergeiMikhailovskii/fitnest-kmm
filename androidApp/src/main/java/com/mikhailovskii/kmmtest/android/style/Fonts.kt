@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.android.view.base
+package com.mikhailovskii.kmmtest.android.style
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
