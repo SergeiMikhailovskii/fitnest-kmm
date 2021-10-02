@@ -1,10 +1,9 @@
 package com.mikhailovskii.kmmtest.android.view.base
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
-import androidx.compose.ui.graphics.Color
 
 @Composable
 fun FitnestTheme(
@@ -12,11 +11,21 @@ fun FitnestTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
+        colors = Colors(
+            primary = BrandColor,
+            primaryVariant = BrandColor1,
+            secondary = SecondaryColor,
+            secondaryVariant = SecondaryColor1,
+            background = WhiteColor,
+            surface = WhiteColor,
+            error = ErrorColor,
+            onPrimary = WhiteColor,
+            onSecondary = BlackColor,
+            onBackground = BlackColor,
+            onSurface = BlackColor,
+            onError = WhiteColor,
+            isLight = darkTheme
+        ),
         content = content
     )
 }
-
-@Stable
-class FitnestColors(
-    brandGradient: List<Color> = listOf(Gradient1, Gradient2)
-)
