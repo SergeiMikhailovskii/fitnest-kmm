@@ -1,10 +1,11 @@
-package com.mikhailovskii.kmmtest.android.view.base
+package com.mikhailovskii.kmmtest.android.base
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mikhailovskii.kmmtest.android.style.FitnestTheme
 import com.mikhailovskii.kmmtest.android.view.login.LoginScreen
 import com.mikhailovskii.kmmtest.android.view.splash.SplashScreen
 

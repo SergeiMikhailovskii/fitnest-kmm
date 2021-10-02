@@ -1,10 +1,10 @@
-package com.mikhailovskii.kmmtest.android.view.login
+package com.mikhailovskii.kmmtest.android.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.mikhailovskii.kmmtest.android.di.viewModelModule
-import com.mikhailovskii.kmmtest.android.view.base.FitnestApp
+import com.mikhailovskii.kmmtest.android.base.FitnestApp
 import org.kodein.di.*
 
 

@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
-import com.mikhailovskii.kmmtest.android.view.base.BrandGradient
-import com.mikhailovskii.kmmtest.android.view.base.poppinsFamily
+import com.mikhailovskii.kmmtest.android.style.BrandGradient
+import com.mikhailovskii.kmmtest.android.style.poppinsFamily
 
 @Composable
 fun SplashScreen(navController: NavController) {
