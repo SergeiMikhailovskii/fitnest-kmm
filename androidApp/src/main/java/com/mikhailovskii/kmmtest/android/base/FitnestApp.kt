@@ -2,11 +2,14 @@ package com.mikhailovskii.kmmtest.android.base
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.mikhailovskii.kmmtest.android.style.FitnestTheme
 import com.mikhailovskii.kmmtest.android.view.login.LoginScreen
+import com.mikhailovskii.kmmtest.android.view.onboarding.OnboardingScreen
 import com.mikhailovskii.kmmtest.android.view.splash.SplashScreen
 
 @Composable
@@ -17,10 +20,16 @@ fun FitnestApp() {
         Scaffold {
             NavHost(navController = navController, startDestination = "splash") {
                 composable(route = "splash") {
-                    SplashScreen(navController)
+                    SplashScreen(navController = navController)
                 }
                 composable(route = "login") {
                     LoginScreen()
+                }
+                composable(
+                    route = "onboarding/{type}",
+                    arguments = listOf(navArgument("type") { type = NavType.StringType })
+                ) {
+                    OnboardingScreen(navController = navController, type = it.arguments?.getString("type") ?: "")
                 }
             }
         }

@@ -22,12 +22,6 @@ import com.mikhailovskii.kmmtest.android.style.poppinsFamily
 
 @Composable
 fun SplashScreen(navController: NavController) {
-
-//    LaunchedEffect(key1 = true) {
-//        delay(3000)
-//        navController.navigate("login")
-//    }
-
     Scaffold {
         Box(
             modifier = Modifier
@@ -42,7 +36,7 @@ fun SplashScreen(navController: NavController) {
                 modifier = Modifier.align(Alignment.Center)
             )
             OutlinedButton(
-                onClick = {},
+                onClick = { navController.navigate("onboarding/FIRST") },
                 shape = CircleShape,
                 modifier = Modifier
                     .padding(start = 30.dp, end = 30.dp, bottom = 40.dp)
