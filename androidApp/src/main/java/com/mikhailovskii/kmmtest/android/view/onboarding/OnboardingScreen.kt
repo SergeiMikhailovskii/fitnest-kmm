@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 
 @Composable
 fun OnboardingScreen(navController: NavController, type: String) {
-    println()
     Scaffold {
 
     }
