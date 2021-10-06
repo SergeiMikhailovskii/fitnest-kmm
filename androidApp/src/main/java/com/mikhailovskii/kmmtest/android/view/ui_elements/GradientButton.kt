@@ -17,12 +17,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun GradientButton(
-    text: String,
     gradient: Brush,
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
     size: Dp? = null,
     onClick: () -> Unit = { },
+    body: @Composable () -> Unit
 ) {
     val buttonModifier = Modifier
         .width(IntrinsicSize.Min)
@@ -49,7 +49,7 @@ fun GradientButton(
                 .then(modifier),
             contentAlignment = Alignment.Center,
         ) {
-            Text(text = text)
+            body()
         }
     }
 }

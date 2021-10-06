@@ -1,9 +1,7 @@
 package com.mikhailovskii.kmmtest.android.view.onboarding
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,14 +10,11 @@ import androidx.compose.runtime.LaunchedEffect
  */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
@@ -40,11 +35,16 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
 
     Scaffold(floatingActionButton = {
         GradientButton(
-            text = "A",
             gradient = Brush.horizontalGradient(BrandGradient),
-            size = 50.dp
+            size = 50.dp,
+            onClick = {
+                println("Clicked")
+            }
         ) {
-            println("Clicked")
+            Image(
+                painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
+                contentDescription = null
+            )
         }
     }, floatingActionButtonPosition = FabPosition.End) {
         Column {
@@ -56,9 +56,14 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-            Text(text = "Track Your Goal", modifier = Modifier.padding(top = 64.dp, start = 30.dp))
             Text(
-                text = "Don't worry if you have trouble determining your goals, We can help you determine your goals and track your goals",
+                text = stringResource(id = screenState?.title ?: R.string.onboarding_first_title),
+                modifier = Modifier.padding(top = 64.dp, start = 30.dp)
+            )
+            Text(
+                text = stringResource(
+                    id = screenState?.description ?: R.string.onboarding_first_description
+                ),
                 modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp)
             )
         }

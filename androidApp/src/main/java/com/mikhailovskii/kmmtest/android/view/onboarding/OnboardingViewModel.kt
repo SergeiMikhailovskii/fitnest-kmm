@@ -15,8 +15,8 @@ class OnboardingViewModel : ViewModel() {
         if (type == "FIRST") {
             _stateLiveData.value = OnboardingState(
                 imageResId = R.drawable.ic_onboarding_first,
-                title = 0,
-                description = 0,
+                title = R.string.onboarding_first_title,
+                description = R.string.onboarding_first_description,
                 progress = 0
             )
         }
