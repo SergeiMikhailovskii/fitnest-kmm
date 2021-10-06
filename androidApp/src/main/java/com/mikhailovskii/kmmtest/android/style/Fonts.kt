@@ -6,5 +6,6 @@ import androidx.compose.ui.text.font.FontWeight
 import com.mikhailovskii.kmmtest.android.R
 
 val poppinsFamily = FontFamily(
-    Font(R.font.poppins_bold, FontWeight.Bold)
+    Font(R.font.poppins_bold, FontWeight.Bold),
+    Font(R.font.poppins_medium, FontWeight.Medium)
 )
