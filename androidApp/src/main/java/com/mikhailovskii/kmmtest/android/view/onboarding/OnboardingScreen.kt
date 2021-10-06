@@ -15,14 +15,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
-import com.mikhailovskii.kmmtest.android.style.BrandGradient
-import com.mikhailovskii.kmmtest.android.style.GrayColor1
-import com.mikhailovskii.kmmtest.android.style.poppinsFamily
+import com.mikhailovskii.kmmtest.android.style.*
 import com.mikhailovskii.kmmtest.android.view.ui_elements.GradientButton
 import com.mikhailovskii.kmmtest.entity.OnboardingState
 import org.kodein.di.compose.instance
@@ -63,19 +62,14 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
             Text(
                 text = stringResource(id = screenState?.title ?: R.string.onboarding_first_title),
                 modifier = Modifier.padding(top = 64.dp, start = 30.dp),
-                fontFamily = poppinsFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
+                style = PoppinsBoldStyle24Black
             )
             Text(
                 text = stringResource(
                     id = screenState?.description ?: R.string.onboarding_first_description
                 ),
                 modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp),
-                fontFamily = poppinsFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
-                color = GrayColor1
+                style = PoppinsMediumStyle14Gray1
             )
         }
     }
