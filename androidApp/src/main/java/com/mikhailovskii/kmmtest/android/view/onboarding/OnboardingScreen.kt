@@ -1,12 +1,10 @@
 package com.mikhailovskii.kmmtest.android.view.onboarding
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.FabPosition
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 /**
@@ -14,12 +12,19 @@ import androidx.compose.runtime.LaunchedEffect
  */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
+import com.mikhailovskii.kmmtest.android.style.BrandGradient
+import com.mikhailovskii.kmmtest.android.view.ui_elements.GradientButton
 import com.mikhailovskii.kmmtest.entity.OnboardingState
 import org.kodein.di.compose.instance
 import org.kodein.di.compose.withDI
@@ -34,8 +39,12 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
     }
 
     Scaffold(floatingActionButton = {
-        Button(onClick = {}, modifier = Modifier.size(50.dp),shape = CircleShape) {
-            Text("A")
+        GradientButton(
+            text = "A",
+            gradient = Brush.horizontalGradient(BrandGradient),
+            size = 50.dp
+        ) {
+            println("Clicked")
         }
     }, floatingActionButtonPosition = FabPosition.End) {
         Column {
@@ -55,3 +64,4 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
         }
     }
 }
+
