@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
+import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.BrandGradient
 import com.mikhailovskii.kmmtest.android.style.poppinsFamily
 
@@ -36,11 +37,13 @@ fun SplashScreen(navController: NavController) {
                 modifier = Modifier.align(Alignment.Center)
             )
             OutlinedButton(
-                onClick = { navController.navigate("onboarding/FIRST") {
-                    popUpTo("splash") {
-                        inclusive = true
+                onClick = {
+                    navController.navigate(Route.Onboarding("FIRST").screenName) {
+                        popUpTo(Route.Splash.screenName) {
+                            inclusive = true
+                        }
                     }
-                } },
+                },
                 shape = CircleShape,
                 modifier = Modifier
                     .padding(start = 30.dp, end = 30.dp, bottom = 40.dp)

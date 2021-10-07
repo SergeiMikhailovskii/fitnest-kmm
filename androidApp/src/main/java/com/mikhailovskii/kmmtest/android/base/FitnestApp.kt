@@ -18,11 +18,11 @@ fun FitnestApp() {
 
     FitnestTheme {
         Scaffold {
-            NavHost(navController = navController, startDestination = "splash") {
-                composable(route = "splash") {
+            NavHost(navController = navController, startDestination = Route.Splash.screenName) {
+                composable(route = Route.Splash.screenName) {
                     SplashScreen(navController = navController)
                 }
-                composable(route = "login") {
+                composable(route = Route.Login.screenName) {
                     LoginScreen()
                 }
                 composable(
