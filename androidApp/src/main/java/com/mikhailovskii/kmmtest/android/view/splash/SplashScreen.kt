@@ -36,7 +36,11 @@ fun SplashScreen(navController: NavController) {
                 modifier = Modifier.align(Alignment.Center)
             )
             OutlinedButton(
-                onClick = { navController.navigate("onboarding/FIRST") },
+                onClick = { navController.navigate("onboarding/FIRST") {
+                    popUpTo("splash") {
+                        inclusive = true
+                    }
+                } },
                 shape = CircleShape,
                 modifier = Modifier
                     .padding(start = 30.dp, end = 30.dp, bottom = 40.dp)

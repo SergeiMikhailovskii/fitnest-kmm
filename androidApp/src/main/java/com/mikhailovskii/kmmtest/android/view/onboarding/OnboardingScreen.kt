@@ -15,10 +15,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.style.*
@@ -60,8 +57,10 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
-                text = stringResource(id = screenState?.title ?: R.string.onboarding_first_title),
-                modifier = Modifier.padding(top = 64.dp, start = 30.dp),
+                text = stringResource(
+                    id = screenState?.title ?: R.string.onboarding_first_title
+                ),
+                modifier = Modifier.padding(top = 30.dp, start = 30.dp),
                 style = PoppinsBoldStyle24Black
             )
             Text(
