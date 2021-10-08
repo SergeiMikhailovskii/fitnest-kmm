@@ -9,6 +9,7 @@ import com.mikhailovskii.kmmtest.android.base.FitnestApp
 import org.kodein.di.*
 
 
+@ExperimentalAnimationApi
 class MainActivity : ComponentActivity(), DIAware {
 
     override val diContext: DIContext<*> = diContext(this)
@@ -17,7 +18,6 @@ class MainActivity : ComponentActivity(), DIAware {
         import(viewModelModule)
     }
 
-    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

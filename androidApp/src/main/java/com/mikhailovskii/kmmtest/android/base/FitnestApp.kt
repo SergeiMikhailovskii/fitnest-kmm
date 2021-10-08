@@ -3,6 +3,8 @@ package com.mikhailovskii.kmmtest.android.base
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -22,7 +24,10 @@ fun FitnestApp() {
 
     FitnestTheme {
         Scaffold {
-            AnimatedNavHost(navController = navController, startDestination = Route.Splash.screenName) {
+            AnimatedNavHost(
+                navController = navController,
+                startDestination = Route.Splash.screenName
+            ) {
                 composable(route = Route.Splash.screenName) {
                     SplashScreen(navController = navController)
                 }
@@ -33,8 +38,17 @@ fun FitnestApp() {
                     route = "onboarding/{type}",
                     arguments = listOf(navArgument("type") { type = NavType.StringType }),
                     enterTransition = { _, _ ->
-                        fadeIn(animationSpec = tween(2000))
-                    }
+                        slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(700))
+                    },
+                    exitTransition = { _, _ ->
+                        slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(700))
+                    },
+                    popEnterTransition = { _, _ ->
+                        slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(700))
+                    },
+                    popExitTransition = { _, _ ->
+                        slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(700))
+                    },
                 ) {
                     OnboardingScreen(
                         navController = navController,

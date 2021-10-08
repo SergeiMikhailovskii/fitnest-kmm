@@ -54,7 +54,7 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
                     id = screenState?.imageResId ?: R.drawable.ic_onboarding_first
                 ),
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
