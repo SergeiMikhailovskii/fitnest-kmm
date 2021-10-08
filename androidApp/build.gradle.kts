@@ -20,7 +20,6 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.3.0-beta02")
     implementation("com.google.android.material:compose-theme-adapter:1.0.0-beta09")
     implementation("androidx.compose.material:material-icons-extended:1.0.0-beta09")
-    implementation("com.google.accompanist:accompanist-navigation-animation:0.19.0")
 }
 
 android {
