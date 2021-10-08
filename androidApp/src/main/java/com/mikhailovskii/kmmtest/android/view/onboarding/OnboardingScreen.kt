@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
+import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.*
 import com.mikhailovskii.kmmtest.android.view.ui_elements.GradientButton
 import com.mikhailovskii.kmmtest.entity.OnboardingState
@@ -38,7 +39,7 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
             gradient = Brush.horizontalGradient(BrandGradient),
             size = 50.dp,
             onClick = {
-                println("Clicked")
+                navController.navigate(Route.Onboarding("SECOND").screenName)
             }
         ) {
             Image(

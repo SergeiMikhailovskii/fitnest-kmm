@@ -12,14 +12,33 @@ class OnboardingViewModel : ViewModel() {
     internal val stateLiveData: LiveData<OnboardingState> = _stateLiveData
 
     internal fun updateScreenState(type: String) {
-        if (type == "FIRST") {
-            _stateLiveData.value = OnboardingState(
-                imageResId = R.drawable.ic_onboarding_first,
-                title = R.string.onboarding_first_title,
-                description = R.string.onboarding_first_description,
-                progress = 0
-            )
+        when(type) {
+            "FIRST" -> {
+                _stateLiveData.value = OnboardingState(
+                    imageResId = R.drawable.ic_onboarding_first,
+                    title = R.string.onboarding_first_title,
+                    description = R.string.onboarding_first_description,
+                    progress = 0
+                )
+            }
+            "SECOND" -> {
+                _stateLiveData.value = OnboardingState(
+                    imageResId = R.drawable.ic_onboarding_second,
+                    title = R.string.onboarding_second_title,
+                    description = R.string.onboarding_second_description,
+                    progress = 1
+                )
+            }
+            "THIRD" -> {
+                _stateLiveData.value = OnboardingState(
+                    imageResId = R.drawable.ic_onboarding_third,
+                    title = R.string.onboarding_third_title,
+                    description = R.string.onboarding_third_description,
+                    progress = 2
+                )
+            }
         }
+
     }
 
 }
