@@ -1,5 +1,6 @@
 package com.mikhailovskii.kmmtest.android.view.onboarding
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -22,16 +23,24 @@ import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.*
 import com.mikhailovskii.kmmtest.android.view.ui_elements.GradientButton
 import com.mikhailovskii.kmmtest.entity.OnboardingState
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.instance
 import org.kodein.di.compose.withDI
 
 @Composable
-fun OnboardingScreen(navController: NavController, type: String) = withDI {
+fun OnboardingScreen(navController: NavController, progress: Int) = withDI {
     val viewModel: OnboardingViewModel by instance()
     val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
 
     LaunchedEffect(key1 = null) {
-        viewModel.updateScreenState(type)
+        viewModel.updateScreenState(progress)
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(route = it, navController = navController)
+            }
+        }
     }
 
     Scaffold(floatingActionButton = {
@@ -39,7 +48,7 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
             gradient = Brush.horizontalGradient(BrandGradient),
             size = 50.dp,
             onClick = {
-                navController.navigate(Route.Onboarding("SECOND").screenName)
+                viewModel.navigateToNextScreen()
             }
         ) {
             Image(
@@ -75,3 +84,8 @@ fun OnboardingScreen(navController: NavController, type: String) = withDI {
     }
 }
 
+fun handleNavigation(route: Route, navController: NavController) {
+    when (route) {
+        is Route.Onboarding -> navController.navigate(Route.Onboarding(route.progress).screenName)
+    }
+}

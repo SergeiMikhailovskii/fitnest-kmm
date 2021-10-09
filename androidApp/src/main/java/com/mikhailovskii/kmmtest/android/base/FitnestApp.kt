@@ -35,8 +35,8 @@ fun FitnestApp() {
                     LoginScreen()
                 }
                 composable(
-                    route = "onboarding/{type}",
-                    arguments = listOf(navArgument("type") { type = NavType.StringType }),
+                    route = "onboarding/{progress}",
+                    arguments = listOf(navArgument("progress") { type = NavType.IntType }),
                     enterTransition = { _, _ ->
                         slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(700))
                     },
@@ -52,7 +52,7 @@ fun FitnestApp() {
                 ) {
                     OnboardingScreen(
                         navController = navController,
-                        type = it.arguments?.getString("type") ?: ""
+                        progress = it.arguments?.getInt("progress") ?: 0
                     )
                 }
             }
