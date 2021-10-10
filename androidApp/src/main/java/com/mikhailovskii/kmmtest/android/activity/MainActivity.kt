@@ -1,5 +1,6 @@
 package com.mikhailovskii.kmmtest.android.activity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ class MainActivity : ComponentActivity(), DIAware {
     override val diContext: DIContext<*> = diContext(this)
 
     override val di by DI.lazy {
+        bind<Context>() with instance(this@MainActivity)
         import(viewModelModule)
     }
 
