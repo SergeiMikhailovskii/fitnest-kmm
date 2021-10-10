@@ -10,7 +10,7 @@ val PoppinsMediumStyle = TextStyle(
 )
 
 val PoppinsMediumStyle14 = PoppinsMediumStyle.copy(
-    fontSize = 14.sp
+    fontSize = TextSize.Size14
 )
 
 val PoppinsMediumStyle14Gray1 = PoppinsMediumStyle14.copy(
@@ -23,7 +23,7 @@ val PoppinsBoldStyle = TextStyle(
 )
 
 val PoppinsBoldStyle24 = PoppinsBoldStyle.copy(
-    fontSize = 24.sp
+    fontSize = TextSize.Size24
 )
 
 val PoppinsBoldStyle24Black = PoppinsBoldStyle24.copy(

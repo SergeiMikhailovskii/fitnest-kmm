@@ -32,6 +32,8 @@ fun OnboardingScreen(navController: NavController, progress: Int) = withDI {
     val viewModel: OnboardingViewModel by instance()
     val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
 
+    val progressMultiplier = 0.25F
+
     LaunchedEffect(key1 = null) {
         viewModel.updateScreenState(progress)
         launch {
@@ -44,9 +46,9 @@ fun OnboardingScreen(navController: NavController, progress: Int) = withDI {
     Scaffold(floatingActionButton = {
         GradientButtonWithProgress(
             gradient = Brush.horizontalGradient(BrandGradient),
-            size = 50.dp,
-            previousProgress = ((progress - 1) * 0.25F),
-            progress = progress * 0.25F,
+            size = Dimen.Dimen50,
+            previousProgress = ((progress - 1) * progressMultiplier),
+            progress = progress * progressMultiplier,
             onClick = {
                 viewModel.navigateToNextScreen()
             }
@@ -70,14 +72,18 @@ fun OnboardingScreen(navController: NavController, progress: Int) = withDI {
                 text = stringResource(
                     id = screenState?.title ?: R.string.onboarding_first_title
                 ),
-                modifier = Modifier.padding(top = 30.dp, start = 30.dp),
+                modifier = Modifier.padding(top = Padding.Padding30, start = Padding.Padding30),
                 style = PoppinsBoldStyle24Black
             )
             Text(
                 text = stringResource(
                     id = screenState?.description ?: R.string.onboarding_first_description
                 ),
-                modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp),
+                modifier = Modifier.padding(
+                    top = Padding.Padding15,
+                    start = Padding.Padding30,
+                    end = Padding.Padding30
+                ),
                 style = PoppinsMediumStyle14Gray1
             )
         }

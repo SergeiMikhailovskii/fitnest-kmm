@@ -7,6 +7,10 @@ data class OnboardingState(
     val progress: Int
 ) {
     companion object {
-        const val ONBOARDING_SCREENS_AMOUNT = 3
+        const val FIRST_SCREEN_PROGRESS = 1
+        const val SECOND_SCREEN_PROGRESS = 2
+        const val THIRD_SCREEN_PROGRESS = 3
+        const val FORTH_SCREEN_PROGRESS = 4
+        const val ONBOARDING_MAX_PROGRESS = 4
     }
 }
