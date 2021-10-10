@@ -12,28 +12,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
-import com.mikhailovskii.kmmtest.android.style.BrandGradient
-import com.mikhailovskii.kmmtest.android.style.poppinsFamily
+import com.mikhailovskii.kmmtest.android.base.Route
+import com.mikhailovskii.kmmtest.android.style.*
+import com.mikhailovskii.kmmtest.entity.OnboardingState
 
 @Composable
 fun SplashScreen(navController: NavController) {
-
-//    LaunchedEffect(key1 = true) {
-//        delay(3000)
-//        navController.navigate("login")
-//    }
-
     Scaffold {
         Box(
             modifier = Modifier
-                .background(
-                    brush = Brush.verticalGradient(colors = BrandGradient)
-                )
+                .background(brush = Brush.verticalGradient(colors = BrandGradient))
                 .fillMaxSize()
         ) {
             Image(
@@ -42,19 +34,27 @@ fun SplashScreen(navController: NavController) {
                 modifier = Modifier.align(Alignment.Center)
             )
             OutlinedButton(
-                onClick = {},
+                onClick = {
+                    navController.navigate(Route.Onboarding(OnboardingState.FIRST_SCREEN_PROGRESS).screenName) {
+                        popUpTo(Route.Splash.screenName) { inclusive = true }
+                    }
+                },
                 shape = CircleShape,
                 modifier = Modifier
-                    .padding(start = 30.dp, end = 30.dp, bottom = 40.dp)
-                    .height(60.dp)
+                    .padding(
+                        start = Padding.Padding30,
+                        end = Padding.Padding30,
+                        bottom = Padding.Padding40
+                    )
+                    .height(Dimen.Dimen60)
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter),
             ) {
                 Text(
-                    text = "Get Started",
+                    text = stringResource(id = R.string.splash_button_title),
                     fontFamily = poppinsFamily,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
+                    fontSize = TextSize.Size16
                 )
             }
         }
