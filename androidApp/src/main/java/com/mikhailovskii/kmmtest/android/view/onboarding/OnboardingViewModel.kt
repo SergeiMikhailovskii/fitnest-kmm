@@ -21,7 +21,7 @@ class OnboardingViewModel : ViewModel() {
 
     internal fun updateScreenState(progress: Int) {
         when (progress) {
-            0 -> {
+            1 -> {
                 _stateLiveData.value = OnboardingState(
                     imageResId = R.drawable.ic_onboarding_first,
                     title = R.string.onboarding_first_title,
@@ -29,7 +29,7 @@ class OnboardingViewModel : ViewModel() {
                     progress = progress
                 )
             }
-            1 -> {
+            2 -> {
                 _stateLiveData.value = OnboardingState(
                     imageResId = R.drawable.ic_onboarding_second,
                     title = R.string.onboarding_second_title,
@@ -37,7 +37,7 @@ class OnboardingViewModel : ViewModel() {
                     progress = progress
                 )
             }
-            2 -> {
+            3 -> {
                 _stateLiveData.value = OnboardingState(
                     imageResId = R.drawable.ic_onboarding_third,
                     title = R.string.onboarding_third_title,
@@ -45,7 +45,7 @@ class OnboardingViewModel : ViewModel() {
                     progress = progress
                 )
             }
-            3 -> {
+            4 -> {
                 _stateLiveData.value = OnboardingState(
                     imageResId = R.drawable.ic_onboarding_forth,
                     title = R.string.onboarding_forth_title,
@@ -59,7 +59,7 @@ class OnboardingViewModel : ViewModel() {
 
     internal fun navigateToNextScreen() {
         val progress = _stateLiveData.value?.progress ?: 0
-        if (progress == 3) {
+        if (progress == 4) {
             viewModelScope.launch {
                 _routeSharedFlow.emit(Route.Unknown)
             }

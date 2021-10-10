@@ -52,7 +52,7 @@ fun FitnestApp() {
                 ) {
                     OnboardingScreen(
                         navController = navController,
-                        progress = it.arguments?.getInt("progress") ?: 0
+                        progress = it.arguments?.getInt("progress") ?: 1
                     )
                 }
             }

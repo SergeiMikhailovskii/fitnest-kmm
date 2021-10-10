@@ -1,5 +1,6 @@
 package com.mikhailovskii.kmmtest.android.view.ui_elements
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,7 +8,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.Composable
+import androidx.compose.material.ProgressIndicatorDefaults
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,13 +22,15 @@ import androidx.compose.ui.unit.dp
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.style.BrandColor
 import com.mikhailovskii.kmmtest.android.style.BrandGradient
+import kotlinx.coroutines.delay
 
 @Preview
 @Composable
-fun GradientButtonPreview() {
-    GradientButton(
+fun GradientButtonWithPreviewPreview() {
+    GradientButtonWithProgress(
         gradient = Brush.horizontalGradient(BrandGradient),
         size = 50.dp,
+        progress = 0.5F
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
@@ -36,14 +40,25 @@ fun GradientButtonPreview() {
 }
 
 @Composable
-fun GradientButton(
+fun GradientButtonWithProgress(
     gradient: Brush,
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
     size: Dp? = null,
+    previousProgress: Float = 0F,
+    progress: Float = 0F,
     onClick: () -> Unit = { },
     body: @Composable () -> Unit
 ) {
+    var localProgress by remember { mutableStateOf(previousProgress) }
+    val animatedProgress = animateFloatAsState(
+        targetValue = localProgress,
+        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
+    ).value
+    LaunchedEffect(key1 = null) {
+        delay(100)
+        localProgress = progress
+    }
     val buttonModifier = Modifier
         .width(IntrinsicSize.Min)
         .height(IntrinsicSize.Min)
@@ -62,7 +77,7 @@ fun GradientButton(
     ) {
         CircularProgressIndicator(
             modifier = Modifier.fillMaxSize(),
-            progress = 0.25F,
+            progress = animatedProgress,
             strokeWidth = 2.dp,
             color = BrandColor
         )

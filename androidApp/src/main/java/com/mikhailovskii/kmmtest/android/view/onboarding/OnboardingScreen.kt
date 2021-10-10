@@ -1,6 +1,5 @@
 package com.mikhailovskii.kmmtest.android.view.onboarding
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -21,9 +20,8 @@ import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.*
-import com.mikhailovskii.kmmtest.android.view.ui_elements.GradientButton
+import com.mikhailovskii.kmmtest.android.view.ui_elements.GradientButtonWithProgress
 import com.mikhailovskii.kmmtest.entity.OnboardingState
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.instance
@@ -44,9 +42,11 @@ fun OnboardingScreen(navController: NavController, progress: Int) = withDI {
     }
 
     Scaffold(floatingActionButton = {
-        GradientButton(
+        GradientButtonWithProgress(
             gradient = Brush.horizontalGradient(BrandGradient),
             size = 50.dp,
+            previousProgress = ((progress - 1) * 0.25F),
+            progress = progress * 0.25F,
             onClick = {
                 viewModel.navigateToNextScreen()
             }

@@ -39,7 +39,7 @@ fun SplashScreen(navController: NavController) {
             )
             OutlinedButton(
                 onClick = {
-                    navController.navigate(Route.Onboarding(0).screenName) {
+                    navController.navigate(Route.Onboarding(1).screenName) {
                         popUpTo(Route.Splash.screenName) {
                             inclusive = true
                         }
