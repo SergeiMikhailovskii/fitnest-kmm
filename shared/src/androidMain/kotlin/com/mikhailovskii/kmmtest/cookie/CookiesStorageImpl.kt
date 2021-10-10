@@ -14,7 +14,7 @@ actual class CookiesStorageImpl actual constructor(actual val di: DI) {
     actual fun addCookie(requestUrl: Url, cookie: Cookie) {
         println("Set cookie name=${cookie.name}, value=${cookie.value}")
         cookieMap[cookie.name] = cookie.value
-//        context.getSharedPreferences("kmm_preferences", Context.MODE_PRIVATE)
+        context.getSharedPreferences("kmm_preferences", Context.MODE_PRIVATE)
         println()
     }
 

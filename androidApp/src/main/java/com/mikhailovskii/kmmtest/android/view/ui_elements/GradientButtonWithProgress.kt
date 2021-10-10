@@ -76,6 +76,7 @@ fun GradientButtonWithProgress(
             .height(IntrinsicSize.Min)
     ) {
         CircularProgressIndicator(
+
             modifier = Modifier.fillMaxSize(),
             progress = animatedProgress,
             strokeWidth = 2.dp,

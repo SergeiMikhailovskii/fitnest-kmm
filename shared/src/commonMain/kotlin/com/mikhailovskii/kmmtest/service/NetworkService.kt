@@ -31,4 +31,8 @@ class NetworkService(val di: DI) {
         contentType(ContentType.Application.Json)
         body = data
     }
+
+    suspend fun fetchData(url: String): HttpResponse = httpClient.get(url) {
+        contentType(ContentType.Application.Json)
+    }
 }

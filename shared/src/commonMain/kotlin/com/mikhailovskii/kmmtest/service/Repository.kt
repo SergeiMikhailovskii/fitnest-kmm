@@ -13,4 +13,9 @@ class Repository(val di: DI) {
         val result = networkService.sendData(url, data).receive<String>()
     }
 
+    suspend fun generateToken() {
+        val url = "http://10.0.2.2:8080/auth/generate-token"
+        val result = networkService.fetchData(url).receive<String>()
+    }
+
 }
