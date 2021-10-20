@@ -3,10 +3,11 @@ package com.mikhailovskii.kmmtest.service
 import com.mikhailovskii.kmmtest.entity.LoginData
 import io.ktor.client.call.*
 import org.kodein.di.DI
+import org.kodein.di.instance
 
 class Repository(val di: DI) {
 
-    private val networkService = NetworkService(di)
+    private val networkService: NetworkService by di.instance()
 
     suspend fun loginUser(data: LoginData) {
         val url = "https://10.0.2.2:8080/auth/login"
