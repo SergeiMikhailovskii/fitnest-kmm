@@ -1,7 +1,11 @@
 package com.mikhailovskii.kmmtest.service
 
 import com.mikhailovskii.kmmtest.cookie.CookiesStorage
+import com.mikhailovskii.kmmtest.Either
+import com.mikhailovskii.kmmtest.Failure
 import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.features.*
 import io.ktor.client.features.cookies.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
@@ -32,7 +36,15 @@ class NetworkService(val di: DI) {
         body = data
     }
 
-    suspend fun fetchData(url: String): HttpResponse = httpClient.get(url) {
-        contentType(ContentType.Application.Json)
+    suspend fun fetchData(url: String): Either<Failure, String> {
+        try {
+            val response: HttpResponse = httpClient.get(url) {
+                contentType(ContentType.Application.Json)
+            }
+            val responseStr = response.receive<String>()
+            return Either.Right(responseStr)
+        } catch (e: ClientRequestException) {
+            return Either.Left(Failure.ServerError(e.response.status.value))
+        }
     }
 }

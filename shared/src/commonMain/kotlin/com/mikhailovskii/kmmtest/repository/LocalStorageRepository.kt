@@ -2,6 +2,6 @@ package com.mikhailovskii.kmmtest.repository
 
 expect class LocalStorageRepository() {
 
-    fun saveValue(key: String, value: Any?)
+    fun <T> saveValue(key: String, value: T?)
 
 }

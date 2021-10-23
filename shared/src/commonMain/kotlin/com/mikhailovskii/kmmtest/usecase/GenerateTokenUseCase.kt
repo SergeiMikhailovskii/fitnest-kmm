@@ -12,8 +12,7 @@ class GenerateTokenUseCase(val di: DI) : UseCase<Any>() {
     private val repository: Repository by di.instance()
 
     override suspend fun run(): Either<Failure, Any> {
-        val result = repository.generateToken()
-        return Either.Right(Any())
+        return repository.generateToken()
     }
 
 }
