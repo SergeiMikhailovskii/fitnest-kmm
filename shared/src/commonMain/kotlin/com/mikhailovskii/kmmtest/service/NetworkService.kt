@@ -2,8 +2,8 @@ package com.mikhailovskii.kmmtest.service
 
 import com.mikhailovskii.kmmtest.Either
 import com.mikhailovskii.kmmtest.Failure
-import com.mikhailovskii.kmmtest.config.Config
 import com.mikhailovskii.kmmtest.cookie.CookiesStorage
+import com.mikhailovskii.kmmtest.network.Endpoints
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.features.*
@@ -38,7 +38,7 @@ class NetworkService(val di: DI) {
     }
 
     suspend fun fetchData(path: String): Either<Failure, String> {
-        val url = "${Config.BASE_URL}${path}"
+        val url = "${Endpoints.BASE_URL}${path}"
         try {
             val response: HttpResponse = httpClient.get(url) {
                 contentType(ContentType.Application.Json)
