@@ -8,4 +8,10 @@ actual class LocalStorageRepository actual constructor(actual val di: DI) {
         println("Saved with IOS: key=$key, value=$value")
     }
 
+    actual inline fun <reified T> getValue(key: String, defaultValue: T?): T? {
+        // TODO: 23.10.21 implement
+        return null
+    }
+
+
 }
