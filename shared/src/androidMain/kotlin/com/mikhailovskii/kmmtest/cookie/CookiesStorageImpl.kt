@@ -10,7 +10,7 @@ actual class CookiesStorageImpl actual constructor(actual val di: DI) {
 
     private val localStorageRepository: LocalStorageRepository by di.instance()
 
-    actual fun addCookie(requestUrl: Url, cookie: Cookie) {
+    actual fun addCookie(cookie: Cookie) {
         println("Set cookie name=${cookie.name}, value=${cookie.value}")
         if (CookieType.values().any { it.value == cookie.name }) {
             localStorageRepository.saveValue(cookie.name, cookie.value)

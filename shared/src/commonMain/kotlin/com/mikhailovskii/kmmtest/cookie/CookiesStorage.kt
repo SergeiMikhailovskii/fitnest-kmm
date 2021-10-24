@@ -9,7 +9,7 @@ class CookiesStorage(val di: DI) : CookiesStorage {
     private val cookiesStorageImpl = CookiesStorageImpl(di)
 
     override suspend fun addCookie(requestUrl: Url, cookie: Cookie) {
-        cookiesStorageImpl.addCookie(requestUrl, cookie)
+        cookiesStorageImpl.addCookie(cookie)
     }
 
     override fun close() {
@@ -20,6 +20,6 @@ class CookiesStorage(val di: DI) : CookiesStorage {
 
 expect class CookiesStorageImpl(di: DI) {
     val di: DI
-    fun addCookie(requestUrl: Url, cookie: Cookie)
+    fun addCookie(cookie: Cookie)
     fun getCookies(): MutableList<Cookie>
 }
