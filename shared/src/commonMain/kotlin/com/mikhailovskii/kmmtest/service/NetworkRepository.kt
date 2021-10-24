@@ -8,7 +8,7 @@ import io.ktor.client.call.*
 import org.kodein.di.DI
 import org.kodein.di.instance
 
-class Repository(val di: DI) {
+class NetworkRepository(val di: DI) {
 
     private val networkService: NetworkService by di.instance()
 

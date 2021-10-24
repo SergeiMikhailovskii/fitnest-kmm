@@ -2,7 +2,7 @@ package com.mikhailovskii.kmmtest.di
 
 import com.mikhailovskii.kmmtest.repository.LocalStorageRepository
 import com.mikhailovskii.kmmtest.cookie.CookiesStorageImpl
-import com.mikhailovskii.kmmtest.service.Repository
+import com.mikhailovskii.kmmtest.service.NetworkRepository
 import com.mikhailovskii.kmmtest.service.NetworkService
 import com.mikhailovskii.kmmtest.usecase.LoginUseCase
 import com.mikhailovskii.kmmtest.usecase.GenerateTokenUseCase
@@ -20,8 +20,8 @@ val useCaseModule = DI.Module("use case module") {
 }
 
 val repositoryModule = DI.Module("Repository module") {
-    bind<Repository>() with singleton {
-        Repository(di)
+    bind<NetworkRepository>() with singleton {
+        NetworkRepository(di)
     }
     bind<LocalStorageRepository>() with singleton {
         LocalStorageRepository(di)
