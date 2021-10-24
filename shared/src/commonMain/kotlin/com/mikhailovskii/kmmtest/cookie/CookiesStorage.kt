@@ -1,5 +1,6 @@
 package com.mikhailovskii.kmmtest.cookie
 
+import com.fitnest.domain.cookie.CookieStorageImpl
 import io.ktor.client.features.cookies.CookiesStorage
 import io.ktor.http.*
 import org.kodein.di.DI
@@ -18,8 +19,8 @@ class CookiesStorage(val di: DI) : CookiesStorage {
     override suspend fun get(requestUrl: Url) = cookiesStorageImpl.getCookies()
 }
 
-expect class CookiesStorageImpl(di: DI) {
+expect class CookiesStorageImpl(di: DI) : CookieStorageImpl {
     val di: DI
-    fun addCookie(cookie: Cookie)
-    fun getCookies(): MutableList<Cookie>
+    override fun addCookie(cookie: Cookie)
+    override fun getCookies(): MutableList<Cookie>
 }
