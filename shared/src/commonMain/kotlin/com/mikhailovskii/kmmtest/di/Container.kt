@@ -1,6 +1,7 @@
 package com.mikhailovskii.kmmtest.di
 
 import com.mikhailovskii.kmmtest.repository.LocalStorageRepository
+import com.mikhailovskii.kmmtest.cookie.CookiesStorageImpl
 import com.mikhailovskii.kmmtest.service.Repository
 import com.mikhailovskii.kmmtest.service.NetworkService
 import com.mikhailovskii.kmmtest.usecase.LoginUseCase
@@ -30,5 +31,11 @@ val repositoryModule = DI.Module("Repository module") {
 val serviceModule = DI.Module("Service module") {
     bind<NetworkService>() with singleton {
         NetworkService(di)
+    }
+}
+
+val cookieModule = DI.Module("Cookie module") {
+    bind<com.fitnest.domain.cookie.CookieStorageImpl>() with singleton {
+        CookiesStorageImpl(di)
     }
 }
