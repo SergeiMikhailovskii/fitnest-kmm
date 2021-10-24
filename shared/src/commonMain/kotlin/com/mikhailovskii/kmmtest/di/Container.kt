@@ -2,7 +2,7 @@ package com.mikhailovskii.kmmtest.di
 
 import com.mikhailovskii.kmmtest.repository.LocalStorageRepository
 import com.mikhailovskii.kmmtest.cookie.CookiesStorageImpl
-import com.mikhailovskii.kmmtest.service.NetworkRepository
+import com.mikhailovskii.kmmtest.repository.NetworkRepository
 import com.mikhailovskii.kmmtest.service.NetworkService
 import com.mikhailovskii.kmmtest.usecase.LoginUseCase
 import com.mikhailovskii.kmmtest.usecase.GenerateTokenUseCase
