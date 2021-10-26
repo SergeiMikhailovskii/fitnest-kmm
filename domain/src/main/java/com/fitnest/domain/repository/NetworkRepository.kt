@@ -6,8 +6,8 @@ import com.fitnest.domain.functional.Failure
 
 interface NetworkRepository {
 
-    fun loginUser(data: LoginData)
+    suspend fun loginUser(data: LoginData)
 
-    fun generateToken(): Either<Failure, String>
+    suspend fun generateToken(): Either<Failure, String>
 
 }

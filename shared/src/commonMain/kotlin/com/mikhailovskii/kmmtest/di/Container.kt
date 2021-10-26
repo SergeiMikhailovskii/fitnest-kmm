@@ -20,7 +20,7 @@ val useCaseModule = DI.Module("use case module") {
 }
 
 val repositoryModule = DI.Module("Repository module") {
-    bind<NetworkRepository>() with singleton {
+    bind<com.fitnest.domain.repository.NetworkRepository>() with singleton {
         NetworkRepository(di)
     }
     bind<LocalStorageRepository>() with singleton {
