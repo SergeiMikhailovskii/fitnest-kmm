@@ -2,6 +2,7 @@ package com.mikhailovskii.kmmtest.service
 
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
+import com.fitnest.domain.service.NetworkService
 import com.mikhailovskii.kmmtest.cookie.CookiesStorage
 import com.mikhailovskii.kmmtest.network.Endpoints
 import io.ktor.client.*
@@ -16,7 +17,7 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import org.kodein.di.DI
 
-class NetworkService(val di: DI) {
+class NetworkService(val di: DI) : NetworkService {
 
     private val httpClient = HttpClient {
         install(Logging) {
@@ -32,21 +33,21 @@ class NetworkService(val di: DI) {
         }
     }
 
-    suspend fun <T : Any> sendData(url: String, data: T): HttpResponse = httpClient.post(url) {
+    override suspend fun <T : Any> sendData(url: String, data: T): HttpResponse = httpClient.post(url) {
         contentType(ContentType.Application.Json)
         body = data
     }
 
-    suspend fun fetchData(path: String): Either<Failure, String> {
+    override suspend fun fetchData(path: String): Either<Failure, String> {
         val url = "${Endpoints.BASE_URL}${path}"
-        try {
+        return try {
             val response: HttpResponse = httpClient.get(url) {
                 contentType(ContentType.Application.Json)
             }
             val responseStr = response.receive<String>()
-            return Either.Right(responseStr)
+            Either.Right(responseStr)
         } catch (e: ClientRequestException) {
-            return Either.Left(Failure.ServerError(e.response.status.value))
+            Either.Left(Failure.ServerError(e.response.status.value))
         }
     }
 }
