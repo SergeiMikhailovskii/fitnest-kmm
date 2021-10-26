@@ -29,7 +29,7 @@ val repositoryModule = DI.Module("Repository module") {
 }
 
 val serviceModule = DI.Module("Service module") {
-    bind<NetworkService>() with singleton {
+    bind<com.fitnest.domain.service.NetworkService>() with singleton {
         NetworkService(di)
     }
 }

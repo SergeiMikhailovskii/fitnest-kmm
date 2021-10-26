@@ -5,7 +5,7 @@ import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.entity.LoginData
 import com.fitnest.domain.repository.NetworkRepository
 import com.mikhailovskii.kmmtest.network.Endpoints
-import com.mikhailovskii.kmmtest.service.NetworkService
+import com.fitnest.domain.service.NetworkService
 import io.ktor.client.call.*
 import org.kodein.di.DI
 import org.kodein.di.instance
