@@ -2,7 +2,7 @@ package com.mikhailovskii.kmmtest.repository
 
 import com.mikhailovskii.kmmtest.Either
 import com.mikhailovskii.kmmtest.Failure
-import com.mikhailovskii.kmmtest.entity.LoginData
+import com.fitnest.domain.entity.LoginData
 import com.mikhailovskii.kmmtest.network.Endpoints
 import com.mikhailovskii.kmmtest.service.NetworkService
 import io.ktor.client.call.*
