@@ -1,7 +1,13 @@
 package com.mikhailovskii.kmmtest.repository
 
-expect class LocalStorageRepository() {
+import org.kodein.di.DI
 
-    fun saveValue(key: String, value: Any?)
+expect class LocalStorageRepository(di: DI) {
+
+    val di: DI
+
+    fun <T> saveValue(key: String, value: T?)
+
+    inline fun <reified T> getValue(key: String, defaultValue: T? = null): T?
 
 }

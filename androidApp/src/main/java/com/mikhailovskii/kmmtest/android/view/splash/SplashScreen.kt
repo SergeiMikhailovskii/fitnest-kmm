@@ -8,6 +8,7 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -18,10 +19,18 @@ import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.*
-import com.mikhailovskii.kmmtest.entity.OnboardingState
+import com.fitnest.domain.entity.OnboardingState
+import org.kodein.di.compose.instance
+import org.kodein.di.compose.withDI
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController) = withDI {
+    val viewModel: SplashViewModel by instance()
+
+    LaunchedEffect(key1 = null) {
+        viewModel.generateToken()
+    }
+
     Scaffold {
         Box(
             modifier = Modifier

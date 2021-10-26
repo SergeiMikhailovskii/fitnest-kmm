@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.entity
+package com.fitnest.domain.entity
 
 import kotlinx.serialization.Serializable
 

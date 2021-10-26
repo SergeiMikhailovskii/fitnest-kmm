@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    kotlin("plugin.serialization") version "1.5.30"
     id("com.android.library")
 }
 
@@ -49,11 +48,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-                implementation("io.ktor:ktor-client-core:1.6.3")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
-                implementation("io.ktor:ktor-client-serialization:1.6.3")
-                implementation("io.ktor:ktor-client-logging:1.6.3")
-                implementation("ch.qos.logback:logback-classic:1.2.6")
+                api(project(":domain"))
                 api("org.kodein.di:kodein-di:7.8.0")
                 api("org.kodein.di:kodein-di-framework-android-x:7.8.0")
                 api("org.kodein.di:kodein-di-framework-compose:7.6.0")

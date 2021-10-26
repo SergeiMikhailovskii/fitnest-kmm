@@ -15,13 +15,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.*
 import com.mikhailovskii.kmmtest.android.view.ui_elements.GradientButtonWithProgress
-import com.mikhailovskii.kmmtest.entity.OnboardingState
+import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.instance
