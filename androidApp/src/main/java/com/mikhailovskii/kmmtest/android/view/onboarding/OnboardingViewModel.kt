@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.base.Route
-import com.mikhailovskii.kmmtest.entity.OnboardingState
+import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch

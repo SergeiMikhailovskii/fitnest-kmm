@@ -19,8 +19,7 @@ import androidx.navigation.NavController
 import com.mikhailovskii.kmmtest.android.R
 import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.*
-import com.mikhailovskii.kmmtest.android.view.login.LoginViewModel
-import com.mikhailovskii.kmmtest.entity.OnboardingState
+import com.fitnest.domain.entity.OnboardingState
 import org.kodein.di.compose.instance
 import org.kodein.di.compose.withDI
 

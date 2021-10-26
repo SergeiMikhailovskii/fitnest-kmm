@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.entity
+package com.fitnest.domain.entity
 
 data class OnboardingState(
     val imageResId: Int,
