@@ -3,7 +3,7 @@ package com.mikhailovskii.kmmtest.android.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mikhailovskii.kmmtest.Failure
+import com.fitnest.domain.functional.Failure
 
 abstract class BaseViewModel : ViewModel() {
 

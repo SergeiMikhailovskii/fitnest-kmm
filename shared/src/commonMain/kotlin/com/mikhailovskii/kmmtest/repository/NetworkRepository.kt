@@ -1,7 +1,7 @@
 package com.mikhailovskii.kmmtest.repository
 
-import com.mikhailovskii.kmmtest.Either
-import com.mikhailovskii.kmmtest.Failure
+import com.fitnest.domain.functional.Either
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.entity.LoginData
 import com.mikhailovskii.kmmtest.network.Endpoints
 import com.mikhailovskii.kmmtest.service.NetworkService

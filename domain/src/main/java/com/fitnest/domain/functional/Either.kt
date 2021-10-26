@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest
+package com.fitnest.domain.functional
 
 sealed class Either<out L, out R> {
 

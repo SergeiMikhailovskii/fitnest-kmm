@@ -1,7 +1,7 @@
 package com.mikhailovskii.kmmtest.usecase
 
-import com.mikhailovskii.kmmtest.Either
-import com.mikhailovskii.kmmtest.Failure
+import com.fitnest.domain.functional.Either
+import com.fitnest.domain.functional.Failure
 import kotlinx.coroutines.*
 
 abstract class UseCaseParams<out Type, in Params> {

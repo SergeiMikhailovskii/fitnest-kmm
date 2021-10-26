@@ -1,7 +1,7 @@
 package com.mikhailovskii.kmmtest.service
 
-import com.mikhailovskii.kmmtest.Either
-import com.mikhailovskii.kmmtest.Failure
+import com.fitnest.domain.functional.Either
+import com.fitnest.domain.functional.Failure
 import com.mikhailovskii.kmmtest.cookie.CookiesStorage
 import com.mikhailovskii.kmmtest.network.Endpoints
 import io.ktor.client.*

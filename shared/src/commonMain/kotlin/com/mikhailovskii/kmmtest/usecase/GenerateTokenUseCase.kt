@@ -1,7 +1,7 @@
 package com.mikhailovskii.kmmtest.usecase
 
-import com.mikhailovskii.kmmtest.Either
-import com.mikhailovskii.kmmtest.Failure
+import com.fitnest.domain.functional.Either
+import com.fitnest.domain.functional.Failure
 import com.mikhailovskii.kmmtest.repository.NetworkRepository
 import org.kodein.di.DI
 import org.kodein.di.instance
