@@ -1,6 +1,7 @@
 package com.fitnest.domain.cookie
 
-import io.ktor.http.*
+import com.fitnest.domain.entity.base.Cookie
+
 
 interface CookieStorageImpl {
 
