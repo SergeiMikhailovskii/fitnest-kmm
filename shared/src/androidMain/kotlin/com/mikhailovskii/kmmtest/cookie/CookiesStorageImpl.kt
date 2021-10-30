@@ -1,13 +1,13 @@
 package com.mikhailovskii.kmmtest.cookie
 
+import com.fitnest.domain.cookie.Cookie
 import com.fitnest.domain.cookie.CookieStorageImpl
-import com.mikhailovskii.kmmtest.enum.CookieType
+import com.fitnest.domain.cookie.CookieType
 import com.mikhailovskii.kmmtest.repository.LocalStorageRepository
-import io.ktor.http.*
 import org.kodein.di.DI
 import org.kodein.di.instance
 
-actual class CookiesStorageImpl actual constructor(actual val di: DI) : CookieStorageImpl {
+actual class CookiesStorageImpl actual constructor(di: DI) : CookieStorageImpl {
 
     private val localStorageRepository: LocalStorageRepository by di.instance()
 

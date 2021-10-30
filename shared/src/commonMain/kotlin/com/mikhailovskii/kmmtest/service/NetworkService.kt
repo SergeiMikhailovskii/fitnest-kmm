@@ -1,5 +1,6 @@
 package com.mikhailovskii.kmmtest.service
 
+import com.fitnest.domain.entity.base.BaseResponse
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.service.NetworkService
@@ -15,6 +16,7 @@ import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import kotlinx.serialization.json.Json
 import org.kodein.di.DI
 
 class NetworkService(val di: DI) : NetworkService {
@@ -28,24 +30,34 @@ class NetworkService(val di: DI) : NetworkService {
             storage = CookiesStorage(di)
         }
         install(JsonFeature) {
-            val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+            val json = kotlinx.serialization.json.Json {
+                ignoreUnknownKeys = true
+                prettyPrint = true
+            }
             serializer = KotlinxSerializer(json)
         }
     }
 
-    override suspend fun <T : Any> sendData(url: String, data: T): HttpResponse = httpClient.post(url) {
-        contentType(ContentType.Application.Json)
-        body = data
+    override suspend fun <Request : Any, Response : Any> sendData(
+        url: String,
+        data: Request
+    ): Either<Failure, BaseResponse> {
+        val httpResponse: HttpResponse = httpClient.post(url) {
+            contentType(ContentType.Application.Json)
+            body = data
+        }
+        return Either.Right(httpResponse.receive())
     }
 
-    override suspend fun fetchData(path: String): Either<Failure, String> {
+
+    override suspend fun getData(path: String): Either<Failure, BaseResponse> {
         val url = "${Endpoints.BASE_URL}${path}"
         return try {
-            val response: HttpResponse = httpClient.get(url) {
+            val httpResponse: HttpResponse = httpClient.get(url) {
                 contentType(ContentType.Application.Json)
             }
-            val responseStr = response.receive<String>()
-            Either.Right(responseStr)
+            val response = httpResponse.receive<BaseResponse>()
+            Either.Right(response)
         } catch (e: ClientRequestException) {
             Either.Left(Failure.ServerError(e.response.status.value))
         }
