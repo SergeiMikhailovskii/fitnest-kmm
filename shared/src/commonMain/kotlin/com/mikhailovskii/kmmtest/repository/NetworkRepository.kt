@@ -15,10 +15,10 @@ class NetworkRepository(val di: DI) : NetworkRepository {
     private val networkService: NetworkService by di.instance()
 
     override suspend fun loginUser(data: LoginData) {
-        val url = "https://10.0.2.2:8080/auth/login"
-        val result = networkService.sendData(url, data).receive<String>()
+//        val url = "https://10.0.2.2:8080/auth/login"
+//        val result = networkService.sendData(url, data).receive<String>()
     }
 
-    override suspend fun generateToken() = networkService.fetchData(Endpoints.Main.name)
+    override suspend fun generateToken() = networkService.getData(Endpoints.Main.name)
 
 }
