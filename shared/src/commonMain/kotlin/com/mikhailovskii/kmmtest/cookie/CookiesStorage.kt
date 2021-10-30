@@ -1,6 +1,7 @@
 package com.mikhailovskii.kmmtest.cookie
 
 import com.fitnest.domain.cookie.CookieStorageImpl
+import com.fitnest.domain.entity.base.Cookie
 import io.ktor.client.features.cookies.CookiesStorage
 import io.ktor.http.*
 import org.kodein.di.DI
