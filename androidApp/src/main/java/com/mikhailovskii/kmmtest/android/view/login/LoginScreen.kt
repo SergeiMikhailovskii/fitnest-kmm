@@ -17,12 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mikhailovskii.kmmtest.android.view.dialog.LoginSuccessDialog
 import org.kodein.di.compose.instance
+import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.withDI
 
 @Preview(showSystemUi = true)
 @Composable
-fun LoginScreen() = withDI {
-    val viewModel: LoginViewModel by instance()
+fun LoginScreen() {
+    val viewModel: LoginViewModel by rememberInstance()
 
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }

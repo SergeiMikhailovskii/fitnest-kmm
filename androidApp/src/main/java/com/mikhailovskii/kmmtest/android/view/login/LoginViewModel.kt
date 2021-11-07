@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.mikhailovskii.kmmtest.android.base.BaseViewModel
 import com.fitnest.domain.entity.LoginData
 import com.mikhailovskii.kmmtest.state.LoginResultState
-import com.mikhailovskii.kmmtest.usecase.LoginUseCase
+import com.fitnest.domain.usecase.LoginUseCase
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase

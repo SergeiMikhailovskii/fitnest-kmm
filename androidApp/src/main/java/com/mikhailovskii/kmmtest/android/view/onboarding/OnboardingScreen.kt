@@ -24,11 +24,12 @@ import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.instance
+import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.withDI
 
 @Composable
-fun OnboardingScreen(navController: NavController, progress: Int) = withDI {
-    val viewModel: OnboardingViewModel by instance()
+fun OnboardingScreen(navController: NavController, progress: Int) {
+    val viewModel: OnboardingViewModel by rememberInstance()
     val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
 
     val progressMultiplier = 0.25F
