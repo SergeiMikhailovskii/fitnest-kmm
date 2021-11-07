@@ -11,8 +11,8 @@ class CookiesStorage(val di: DI) : CookiesStorage {
 
     private val cookiesStorageImpl: CookieStorageImpl by di.instance()
 
-    override suspend fun addCookie(requestUrl: Url, cookie: Cookie) {
-        val localCookie = com.fitnest.domain.cookie.Cookie(cookie.name, cookie.value)
+    override suspend fun addCookie(requestUrl: Url, cookie: io.ktor.http.Cookie) {
+        val localCookie = Cookie(cookie.name, cookie.value)
         cookiesStorageImpl.addCookie(localCookie)
     }
 
@@ -20,10 +20,12 @@ class CookiesStorage(val di: DI) : CookiesStorage {
     }
 
     override suspend fun get(requestUrl: Url) =
-        cookiesStorageImpl.getCookies().map { Cookie(name = it.name, value = it.value) }
+        cookiesStorageImpl.getCookies().map {
+            io.ktor.http.Cookie(name = it.name, value = it.value)
+        }
 }
 
 expect class CookiesStorageImpl(di: DI) : CookieStorageImpl {
-    override fun addCookie(cookie: com.fitnest.domain.cookie.Cookie)
-    override fun getCookies(): MutableList<com.fitnest.domain.cookie.Cookie>
+    override fun addCookie(cookie: Cookie)
+    override fun getCookies(): MutableList<Cookie>
 }
