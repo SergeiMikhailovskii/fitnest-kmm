@@ -92,6 +92,6 @@ fun OnboardingScreen(navController: NavController, progress: Int) {
 
 fun handleNavigation(route: Route, navController: NavController) {
     when (route) {
-        is Route.Onboarding -> navController.navigate(Route.Onboarding(route.progress).screenName)
+        is Route.OnboardingStep -> navController.navigate(Route.OnboardingStep(route.progress).screenName)
     }
 }

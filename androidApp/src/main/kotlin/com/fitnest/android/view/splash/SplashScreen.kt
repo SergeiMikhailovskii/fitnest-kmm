@@ -19,17 +19,20 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.base.Route
 import com.fitnest.android.style.*
-import com.fitnest.domain.entity.OnboardingState
-import org.kodein.di.compose.instance
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
-import org.kodein.di.compose.withDI
 
 @Composable
 fun SplashScreen(navController: NavController) {
     val viewModel: SplashViewModel by rememberInstance()
 
     LaunchedEffect(key1 = null) {
-        viewModel.generateToken()
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(route = it, navController = navController)
+            }
+        }
     }
 
     Scaffold {
@@ -45,9 +48,10 @@ fun SplashScreen(navController: NavController) {
             )
             OutlinedButton(
                 onClick = {
-                    navController.navigate(Route.Onboarding(OnboardingState.FIRST_SCREEN_PROGRESS).screenName) {
-                        popUpTo(Route.Splash.screenName) { inclusive = true }
-                    }
+//                    navController.navigate(Route.Onboarding(OnboardingState.FIRST_SCREEN_PROGRESS).screenName) {
+//                        popUpTo(Route.Splash.screenName) { inclusive = true }
+//                    }
+                    viewModel.generateToken()
                 },
                 shape = CircleShape,
                 modifier = Modifier
@@ -67,6 +71,14 @@ fun SplashScreen(navController: NavController) {
                     fontSize = TextSize.Size16
                 )
             }
+        }
+    }
+}
+
+fun handleNavigation(route: Route, navController: NavController) {
+    when (route) {
+        is Route.Onboarding -> navController.navigate(Route.Onboarding.screenName) {
+            popUpTo(Route.Splash.screenName) { inclusive = true }
         }
     }
 }

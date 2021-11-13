@@ -2,22 +2,19 @@ package com.fitnest.android.view.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.R
+import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class OnboardingViewModel : ViewModel() {
+class OnboardingViewModel : BaseViewModel() {
 
     private val _stateLiveData = MutableLiveData<OnboardingState>()
     internal val stateLiveData: LiveData<OnboardingState> = _stateLiveData
-
-    private val _routeSharedFlow = MutableSharedFlow<Route>()
-    internal val routeSharedFlow = _routeSharedFlow.asSharedFlow()
 
     internal fun updateScreenState(progress: Int) {
         when (progress) {
@@ -61,12 +58,10 @@ class OnboardingViewModel : ViewModel() {
         val progress = _stateLiveData.value?.progress ?: 0
         if (progress == OnboardingState.ONBOARDING_MAX_PROGRESS) {
             viewModelScope.launch {
-                _routeSharedFlow.emit(Route.Unknown)
+                handleRoute(Route.Unknown)
             }
         } else {
-            viewModelScope.launch {
-                _routeSharedFlow.emit(Route.Onboarding(progress + 1))
-            }
+            handleRoute(Route.OnboardingStep(progress + 1))
         }
     }
 

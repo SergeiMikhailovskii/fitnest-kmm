@@ -49,7 +49,6 @@ class NetworkService(val di: DI) : NetworkService {
         return Either.Right(httpResponse.receive())
     }
 
-
     override suspend fun getData(path: String): Either<Failure, BaseResponse> {
         val url = "${Endpoints.BASE_URL}${path}"
         return try {
