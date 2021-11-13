@@ -12,12 +12,6 @@ fun DependencyHandler.implementation(list: List<String>) {
     }
 }
 
-//fun KotlinDependencyHandler.implementation(list: List<String>) {
-//    list.forEach { dependency ->
-//        add("implementation", dependency)
-//    }
-//}
-
 fun DependencyHandler.androidTestImplementation(list: List<String>) {
     list.forEach { dependency ->
         add("androidTestImplementation", dependency)

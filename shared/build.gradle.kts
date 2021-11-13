@@ -48,7 +48,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":domain"))
-                implementation(Ktor.Common.dependencies)
+                implementation(KtorDependencies.Common.KTOR_CORE)
+                implementation(KtorDependencies.Common.KTOR_LOGGING)
+                implementation(KtorDependencies.Common.KTOR_SERIALIZATION)
+                implementation(KtorDependencies.Common.LOGBACK)
             }
         }
         val commonTest by getting {
@@ -59,7 +62,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:1.6.3")
+                implementation(KtorDependencies.Android.KTOR_ANDROID)
             }
         }
         val androidTest by getting {
@@ -70,7 +73,7 @@ kotlin {
         }
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:1.6.3")
+                implementation(KtorDependencies.IOS.KTOR_IOS)
             }
         }
         val iosTest by getting
