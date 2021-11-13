@@ -9,11 +9,11 @@ plugins {
 version = "1.0"
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 31
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
+        minSdk = 21
+        targetSdk = 31
     }
     configurations {
         create("androidTestApi")
@@ -43,17 +43,15 @@ kotlin {
         frameworkName = "shared"
         podfile = project.file("../iosApp/Podfile")
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-                implementation("io.ktor:ktor-client-core:1.6.3")
-                implementation("io.ktor:ktor-client-logging:1.6.3")
-                implementation("io.ktor:ktor-client-serialization:1.6.3")
-                implementation("ch.qos.logback:logback-classic:1.2.6")
                 api(project(":domain"))
-                api("org.kodein.di:kodein-di:7.8.0")
+                implementation(KtorDependencies.Common.KTOR_CORE)
+                implementation(KtorDependencies.Common.KTOR_LOGGING)
+                implementation(KtorDependencies.Common.KTOR_SERIALIZATION)
+                implementation(KtorDependencies.Common.LOGBACK)
             }
         }
         val commonTest by getting {
@@ -64,7 +62,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:1.6.3")
+                implementation(KtorDependencies.Android.KTOR_ANDROID)
             }
         }
         val androidTest by getting {
@@ -75,7 +73,7 @@ kotlin {
         }
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:1.6.3")
+                implementation(KtorDependencies.IOS.KTOR_IOS)
             }
         }
         val iosTest by getting

@@ -1,4 +1,4 @@
-package com.mikhailovskii.kmmtest.usecase
+package com.fitnest.domain.usecase
 
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure

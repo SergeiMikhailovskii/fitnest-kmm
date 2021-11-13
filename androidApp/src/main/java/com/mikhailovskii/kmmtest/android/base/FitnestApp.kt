@@ -8,7 +8,8 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
-import androidx.navigation.compose.navArgument
+import androidx.navigation.navArgument
+import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -20,7 +21,7 @@ import com.mikhailovskii.kmmtest.android.view.splash.SplashScreen
 @ExperimentalAnimationApi
 @Composable
 fun FitnestApp() {
-    val navController = rememberAnimatedNavController()
+    val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
 
     FitnestTheme {
         Scaffold {
@@ -38,16 +39,16 @@ fun FitnestApp() {
                     route = "onboarding/{progress}",
                     arguments = listOf(navArgument("progress") { type = NavType.IntType }),
                     enterTransition = { _, _ ->
-                        slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(700))
+                        slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
                     },
                     exitTransition = { _, _ ->
-                        slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(700))
+                        slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
                     },
                     popEnterTransition = { _, _ ->
-                        slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(700))
+                        slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
                     },
                     popExitTransition = { _, _ ->
-                        slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(700))
+                        slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
                     OnboardingScreen(

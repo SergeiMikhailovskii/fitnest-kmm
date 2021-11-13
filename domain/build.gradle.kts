@@ -11,7 +11,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
+                api(KotlinDependencies.SERIALIZATION)
+                api(KotlinDependencies.COROUTINES)
+                api(KodeinDependencies.Common.KODEIN_COMMON)
             }
         }
     }

@@ -1,7 +1,7 @@
 package com.mikhailovskii.kmmtest.android.view.splash
 
 import com.mikhailovskii.kmmtest.android.base.BaseViewModel
-import com.mikhailovskii.kmmtest.usecase.GenerateTokenUseCase
+import com.fitnest.domain.usecase.GenerateTokenUseCase
 
 class SplashViewModel(
     private val generateTokenUseCase: GenerateTokenUseCase

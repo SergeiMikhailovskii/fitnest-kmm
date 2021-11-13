@@ -21,11 +21,12 @@ import com.mikhailovskii.kmmtest.android.base.Route
 import com.mikhailovskii.kmmtest.android.style.*
 import com.fitnest.domain.entity.OnboardingState
 import org.kodein.di.compose.instance
+import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.withDI
 
 @Composable
-fun SplashScreen(navController: NavController) = withDI {
-    val viewModel: SplashViewModel by instance()
+fun SplashScreen(navController: NavController) {
+    val viewModel: SplashViewModel by rememberInstance()
 
     LaunchedEffect(key1 = null) {
         viewModel.generateToken()

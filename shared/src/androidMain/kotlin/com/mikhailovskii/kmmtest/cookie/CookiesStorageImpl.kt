@@ -1,8 +1,8 @@
 package com.mikhailovskii.kmmtest.cookie
 
-import com.fitnest.domain.cookie.Cookie
 import com.fitnest.domain.cookie.CookieStorageImpl
 import com.fitnest.domain.cookie.CookieType
+import com.fitnest.domain.entity.base.Cookie
 import com.mikhailovskii.kmmtest.repository.LocalStorageRepository
 import org.kodein.di.DI
 import org.kodein.di.instance

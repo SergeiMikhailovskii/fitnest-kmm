@@ -1,9 +1,9 @@
-package com.mikhailovskii.kmmtest.usecase
+package com.fitnest.domain.usecase
 
 import com.fitnest.domain.entity.LoginData
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
-import com.mikhailovskii.kmmtest.repository.NetworkRepository
+import com.fitnest.domain.repository.NetworkRepository
 import org.kodein.di.DI
 import org.kodein.di.instance
 
