@@ -13,7 +13,7 @@ dependencies {
 android {
     compileSdk = 31
     defaultConfig {
-        applicationId = "com.mikhailovskii.kmmtest.android"
+        applicationId = "com.fitnest.android"
         minSdk = 21
         targetSdk = 31
         versionCode = 1
