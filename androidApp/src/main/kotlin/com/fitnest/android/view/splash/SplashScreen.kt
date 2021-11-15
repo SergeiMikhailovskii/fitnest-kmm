@@ -7,8 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -27,12 +26,20 @@ import org.kodein.di.compose.rememberInstance
 fun SplashScreen(navController: NavController) {
     val viewModel: SplashViewModel by rememberInstance()
 
+    var progress: Boolean? by remember { mutableStateOf(null) }
+
     LaunchedEffect(key1 = null) {
         launch {
             viewModel.routeSharedFlow.collect {
                 handleNavigation(route = it, navController = navController)
             }
         }
+        launch {
+            viewModel.progressSharedFlow.collect {
+                progress = it
+            }
+        }
+        viewModel.generateToken()
     }
 
     Scaffold {
@@ -46,30 +53,27 @@ fun SplashScreen(navController: NavController) {
                 contentDescription = null,
                 modifier = Modifier.align(Alignment.Center)
             )
-            OutlinedButton(
-                onClick = {
-//                    navController.navigate(Route.Onboarding(OnboardingState.FIRST_SCREEN_PROGRESS).screenName) {
-//                        popUpTo(Route.Splash.screenName) { inclusive = true }
-//                    }
-                    viewModel.generateToken()
-                },
-                shape = CircleShape,
-                modifier = Modifier
-                    .padding(
-                        start = Padding.Padding30,
-                        end = Padding.Padding30,
-                        bottom = Padding.Padding40
+            if (progress == false) {
+                OutlinedButton(
+                    onClick = { viewModel.navigateNext() },
+                    shape = CircleShape,
+                    modifier = Modifier
+                        .padding(
+                            start = Padding.Padding30,
+                            end = Padding.Padding30,
+                            bottom = Padding.Padding40
+                        )
+                        .height(Dimen.Dimen60)
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter),
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.splash_button_title),
+                        fontFamily = poppinsFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = TextSize.Size16
                     )
-                    .height(Dimen.Dimen60)
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
-            ) {
-                Text(
-                    text = stringResource(id = R.string.splash_button_title),
-                    fontFamily = poppinsFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = TextSize.Size16
-                )
+                }
             }
         }
     }

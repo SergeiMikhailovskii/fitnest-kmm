@@ -5,22 +5,27 @@ import com.fitnest.android.base.Route
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.GenerateTokenUseCase
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 
 class SplashViewModel(
     private val generateTokenUseCase: GenerateTokenUseCase
 ) : BaseViewModel() {
 
+    private var redirectFlow: FlowType? = null
+
     internal fun generateToken() {
         generateTokenUseCase {
             it.either(::handleGenerateTokenFailure) {
-                when (it?.getFlow()) {
-                    FlowType.ONBOARDING -> redirectToOnboarding()
-                    else -> {
-                        // will be added later
-                    }
-                }
+                redirectFlow = it?.getFlow()
+                handleProgress(false)
+            }
+        }
+    }
+
+    internal fun navigateNext() {
+        when (redirectFlow) {
+            FlowType.ONBOARDING -> redirectToOnboarding()
+            else -> {
+                // will be added later
             }
         }
     }

@@ -17,6 +17,9 @@ abstract class BaseViewModel : ViewModel() {
     private val _routeSharedFlow = MutableSharedFlow<Route>()
     internal val routeSharedFlow = _routeSharedFlow.asSharedFlow()
 
+    private val _progressSharedFlow = MutableSharedFlow<Boolean>()
+    internal val progressSharedFlow = _progressSharedFlow.asSharedFlow()
+
     protected fun handleFailure(failure: Failure) {
         _failure.value = failure
     }
@@ -24,6 +27,12 @@ abstract class BaseViewModel : ViewModel() {
     protected fun handleRoute(route: Route) {
         viewModelScope.launch {
             _routeSharedFlow.emit(route)
+        }
+    }
+
+    protected fun handleProgress(progress: Boolean = false) {
+        viewModelScope.launch {
+            _progressSharedFlow.emit(progress)
         }
     }
 
