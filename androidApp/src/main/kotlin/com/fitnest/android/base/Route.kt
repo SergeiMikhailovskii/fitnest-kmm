@@ -4,7 +4,7 @@ sealed class Route(val screenName: String) {
     object Splash : Route("splash")
 
     object Onboarding : Route("onboarding")
-    data class OnboardingStep(val progress: Int) : Route("onboardingStep/${progress}")
+    data class OnboardingStep(val stepName: String) : Route("onboardingStep/$stepName")
 
     object Login : Route("login")
 

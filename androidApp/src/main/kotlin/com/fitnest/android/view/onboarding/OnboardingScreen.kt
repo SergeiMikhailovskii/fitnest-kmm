@@ -28,14 +28,12 @@ import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.withDI
 
 @Composable
-fun OnboardingScreen(navController: NavController, progress: Int) {
+fun OnboardingScreen(navController: NavController, stepName: String) {
     val viewModel: OnboardingViewModel by rememberInstance()
     val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
 
-    val progressMultiplier = 0.25F
-
     LaunchedEffect(key1 = null) {
-        viewModel.updateScreenState(progress)
+        viewModel.updateScreenState(stepName)
         launch {
             viewModel.routeSharedFlow.collect {
                 handleNavigation(route = it, navController = navController)
@@ -47,8 +45,8 @@ fun OnboardingScreen(navController: NavController, progress: Int) {
         GradientButtonWithProgress(
             gradient = Brush.horizontalGradient(BrandGradient),
             size = Dimen.Dimen50,
-            previousProgress = ((progress - 1) * progressMultiplier),
-            progress = progress * progressMultiplier,
+            previousProgress = screenState?.previousProgress ?: 0F,
+            progress = screenState?.progress ?: 0F,
             onClick = {
                 viewModel.navigateToNextScreen()
             }
@@ -92,6 +90,6 @@ fun OnboardingScreen(navController: NavController, progress: Int) {
 
 fun handleNavigation(route: Route, navController: NavController) {
     when (route) {
-        is Route.OnboardingStep -> navController.navigate(Route.OnboardingStep(route.progress).screenName)
+        is Route.OnboardingStep -> navController.navigate(route.screenName)
     }
 }

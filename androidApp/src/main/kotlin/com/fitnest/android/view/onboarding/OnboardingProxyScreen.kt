@@ -12,6 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
+import com.fitnest.android.base.Route
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Preview
@@ -25,6 +28,14 @@ fun OnboardingProxyScreen(navController: NavController) {
     val viewModel: OnboardingViewModel by rememberInstance()
 
     LaunchedEffect(null) {
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(
+                    route = it,
+                    navController = navController
+                )
+            }
+        }
         viewModel.getOnboardingStep()
     }
 
