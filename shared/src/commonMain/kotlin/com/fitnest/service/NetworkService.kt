@@ -38,13 +38,16 @@ class NetworkService(val di: DI) : NetworkService {
         }
     }
 
-    override suspend fun <Request : Any, Response : Any> sendData(
-        url: String,
-        data: Request
+    override suspend fun <Request> sendData(
+        path: String,
+        data: Request?
     ): Either<Failure, BaseResponse> {
+        val url = "${Endpoints.BASE_URL}${path}"
         val httpResponse: HttpResponse = httpClient.post(url) {
             contentType(ContentType.Application.Json)
-            body = data
+            if (data != null) {
+                body = data
+            }
         }
         return Either.Right(httpResponse.receive())
     }

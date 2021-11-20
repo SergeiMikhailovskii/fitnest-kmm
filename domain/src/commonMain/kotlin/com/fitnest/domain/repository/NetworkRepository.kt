@@ -13,4 +13,6 @@ interface NetworkRepository {
 
     suspend fun getOnboardingStep(): Either<Failure, String>
 
+    suspend fun submitOnboardingStep(): Either<Failure, Unit>
+
 }

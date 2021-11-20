@@ -19,3 +19,5 @@ abstract class UseCase<out Type> {
     }
 
 }
+
+abstract class UseCaseUnit : UseCase<Unit>()

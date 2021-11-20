@@ -1,6 +1,8 @@
 package com.fitnest.repository
 
 import com.fitnest.domain.entity.LoginData
+import com.fitnest.domain.functional.Either
+import com.fitnest.domain.functional.flatMap
 import com.fitnest.domain.repository.NetworkRepository
 import com.fitnest.domain.service.NetworkService
 import com.fitnest.network.Endpoints
@@ -24,5 +26,9 @@ class NetworkRepository(val di: DI) : NetworkRepository {
         .map {
             it?.data?.jsonObject?.get("step")?.jsonPrimitive?.content ?: ""
         }
+
+    override suspend fun submitOnboardingStep() =
+        networkService.sendData<Unit>(Endpoints.Onboarding.name)
+            .flatMap { Either.Right(Unit) }
 
 }

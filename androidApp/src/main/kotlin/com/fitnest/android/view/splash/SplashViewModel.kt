@@ -31,8 +31,9 @@ class SplashViewModel(
     }
 
     private fun handleGenerateTokenFailure(failure: Failure) {
+        handleProgress(false)
         if (failure is Failure.ServerError && failure.responseCode == 401) {
-            redirectToOnboarding()
+            redirectFlow = FlowType.ONBOARDING
         } else {
             handleFailure(failure)
         }

@@ -6,9 +6,9 @@ import com.fitnest.domain.functional.Failure
 
 interface NetworkService {
 
-    suspend fun <Request : Any, Response : Any> sendData(
-        url: String,
-        data: Request
+    suspend fun <Request> sendData(
+        path: String,
+        data: Request? = null
     ): Either<Failure, BaseResponse>
 
     suspend fun getData(path: String): Either<Failure, BaseResponse>

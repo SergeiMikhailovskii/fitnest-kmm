@@ -70,7 +70,7 @@ fun GradientButtonWithProgress(
                 this
             }
         }
-    print("Progress: $animatedProgress")
+    println("Progress: $animatedProgress")
     Box(
         modifier = Modifier
             .width(IntrinsicSize.Min)

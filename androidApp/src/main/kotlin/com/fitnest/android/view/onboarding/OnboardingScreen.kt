@@ -43,6 +43,7 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
 
     Scaffold(floatingActionButton = {
         screenState?.let {
+            println("Screen previousProgress=${screenState?.previousProgress}, progress=${screenState?.progress}")
             GradientButtonWithProgress(
                 gradient = Brush.horizontalGradient(BrandGradient),
                 size = Dimen.Dimen50,
@@ -91,7 +92,5 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
 }
 
 fun handleNavigation(route: Route, navController: NavController) {
-    when (route) {
-        is Route.OnboardingStep -> navController.navigate(route.screenName)
-    }
+    navController.navigate(route.screenName)
 }
