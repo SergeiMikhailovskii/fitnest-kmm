@@ -28,9 +28,9 @@ class OnboardingViewModel(
     }
 
     internal fun updateScreenState(stepName: String) {
-        when (stepName) {
-            "STEP_FIRST_ONBOARDING" -> {
-                _stateLiveData.value = OnboardingState(
+        _stateLiveData.value = when (stepName) {
+            STEP_FIRST_ONBOARDING -> {
+                OnboardingState(
                     imageResId = R.drawable.ic_onboarding_first,
                     title = R.string.onboarding_first_title,
                     description = R.string.onboarding_first_description,
@@ -38,8 +38,8 @@ class OnboardingViewModel(
                     previousProgress = OnboardingState.ZERO_SCREEN_PROGRESS
                 )
             }
-            "STEP_SECOND_ONBOARDING" -> {
-                _stateLiveData.value = OnboardingState(
+            STEP_SECOND_ONBOARDING -> {
+                OnboardingState(
                     imageResId = R.drawable.ic_onboarding_second,
                     title = R.string.onboarding_second_title,
                     description = R.string.onboarding_second_description,
@@ -47,8 +47,8 @@ class OnboardingViewModel(
                     previousProgress = OnboardingState.FIRST_SCREEN_PROGRESS
                 )
             }
-            "STEP_THIRD_ONBOARDING" -> {
-                _stateLiveData.value = OnboardingState(
+            STEP_THIRD_ONBOARDING -> {
+                OnboardingState(
                     imageResId = R.drawable.ic_onboarding_third,
                     title = R.string.onboarding_third_title,
                     description = R.string.onboarding_third_description,
@@ -56,8 +56,8 @@ class OnboardingViewModel(
                     previousProgress = OnboardingState.SECOND_SCREEN_PROGRESS
                 )
             }
-            "STEP_FORTH_ONBOARDING" -> {
-                _stateLiveData.value = OnboardingState(
+            STEP_FORTH_ONBOARDING -> {
+                OnboardingState(
                     imageResId = R.drawable.ic_onboarding_forth,
                     title = R.string.onboarding_forth_title,
                     description = R.string.onboarding_forth_description,
@@ -65,8 +65,8 @@ class OnboardingViewModel(
                     previousProgress = OnboardingState.THIRD_SCREEN_PROGRESS
                 )
             }
+            else -> null
         }
-        println("VM previousProgress=${_stateLiveData.value?.previousProgress}, progress=${_stateLiveData.value?.progress}")
 
     }
 
@@ -76,16 +76,19 @@ class OnboardingViewModel(
                 getOnboardingStepUseCase {
                     it.either(::handleFailure) {
                         it?.let {
-                            if (it == "STEP_AFTER_ONBOARDING") {
-                                handleRoute(Route.Onboarding)
-                            } else {
-                                handleRoute(Route.OnboardingStep(it))
-                            }
+                            handleRoute(Route.OnboardingStep(it))
                         }
                     }
                 }
             }
         }
+    }
+
+    companion object OnboardingSteps {
+        const val STEP_FIRST_ONBOARDING = "STEP_FIRST_ONBOARDING"
+        const val STEP_SECOND_ONBOARDING = "STEP_SECOND_ONBOARDING"
+        const val STEP_THIRD_ONBOARDING = "STEP_THIRD_ONBOARDING"
+        const val STEP_FORTH_ONBOARDING = "STEP_FORTH_ONBOARDING"
     }
 
 }
