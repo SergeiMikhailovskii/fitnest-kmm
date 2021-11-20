@@ -7,14 +7,25 @@ import com.fitnest.android.R
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.OnboardingState
+import com.fitnest.domain.usecase.GetOnboardingStep
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class OnboardingViewModel : BaseViewModel() {
+class OnboardingViewModel(
+    private val getOnboardingStepUseCase: GetOnboardingStep,
+) : BaseViewModel() {
 
     private val _stateLiveData = MutableLiveData<OnboardingState>()
     internal val stateLiveData: LiveData<OnboardingState> = _stateLiveData
+
+    internal fun getOnboardingStep() {
+        getOnboardingStepUseCase {
+            it.either(::handleFailure) {
+                println(it)
+            }
+        }
+    }
 
     internal fun updateScreenState(progress: Int) {
         when (progress) {

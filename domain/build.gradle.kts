@@ -12,6 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(KotlinDependencies.SERIALIZATION)
+                api(KotlinDependencies.SERIALIZATION_JSON)
                 api(KotlinDependencies.COROUTINES)
                 api(KodeinDependencies.Common.KODEIN_COMMON)
             }

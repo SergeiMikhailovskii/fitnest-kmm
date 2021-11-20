@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +23,10 @@ fun OnboardingProxyScreenPreview() {
 @Composable
 fun OnboardingProxyScreen(navController: NavController) {
     val viewModel: OnboardingViewModel by rememberInstance()
+
+    LaunchedEffect(null) {
+        viewModel.getOnboardingStep()
+    }
 
     Scaffold {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

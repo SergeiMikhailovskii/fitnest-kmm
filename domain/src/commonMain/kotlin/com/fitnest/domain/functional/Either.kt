@@ -12,4 +12,22 @@ sealed class Either<out L, out R> {
         }
     }
 
+    fun doOnSuccess(onSuccess: (R?) -> Unit): Either<L, R> {
+        if (this is Right) {
+            onSuccess(b)
+        }
+        return this
+    }
+
+    fun <To> map(map: (R?) -> To): Either<L, To> {
+        return if (this is Right) {
+            Right(map(b))
+        } else this as Left
+    }
 }
+
+fun <T, L, R> Either<L, R>.flatMap(fn: (R?) -> Either<L, T>): Either<L, T> =
+    when (this) {
+        is Either.Left -> Either.Left(a)
+        is Either.Right -> fn(b)
+    }

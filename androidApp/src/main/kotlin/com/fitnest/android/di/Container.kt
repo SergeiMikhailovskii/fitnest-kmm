@@ -21,6 +21,6 @@ val viewModelModule = DI.Module("view model module") {
         SplashViewModel(instance())
     }
     bind<OnboardingViewModel>() with multiton {
-        OnboardingViewModel()
+        OnboardingViewModel(instance())
     }
 }

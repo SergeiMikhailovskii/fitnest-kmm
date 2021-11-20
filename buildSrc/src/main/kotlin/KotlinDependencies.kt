@@ -7,6 +7,8 @@ object KotlinDependencies : Dependencies {
 
     const val SERIALIZATION =
         "org.jetbrains.kotlinx:kotlinx-serialization-core:${Versions.SERIALIZATION_VERSION}"
+    const val SERIALIZATION_JSON =
+        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.SERIALIZATION_VERSION}"
     const val COROUTINES =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.COROUTINES_VERSION}"
 
