@@ -59,7 +59,17 @@ class NetworkService(val di: DI) : NetworkService {
                 contentType(ContentType.Application.Json)
             }
             val response = httpResponse.receive<BaseResponse>()
-            Either.Right(response)
+
+            val errors = response.errors
+            if (errors != null) {
+                if (errors.size == 1) {
+                    Either.Left(errors[0])
+                } else {
+                    Either.Left(Failure.ValidationErrors(errors))
+                }
+            } else {
+                Either.Right(response)
+            }
         } catch (e: ClientRequestException) {
             Either.Left(Failure.ServerError(e.response.status.value))
         }

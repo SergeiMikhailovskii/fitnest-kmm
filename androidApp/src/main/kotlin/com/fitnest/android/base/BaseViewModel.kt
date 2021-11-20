@@ -22,6 +22,7 @@ abstract class BaseViewModel : ViewModel() {
 
     protected fun handleFailure(failure: Failure) {
         _failure.value = failure
+        println("Failure $failure")
     }
 
     protected fun handleRoute(route: Route) {
