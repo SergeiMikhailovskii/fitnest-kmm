@@ -42,19 +42,21 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
     }
 
     Scaffold(floatingActionButton = {
-        GradientButtonWithProgress(
-            gradient = Brush.horizontalGradient(BrandGradient),
-            size = Dimen.Dimen50,
-            previousProgress = screenState?.previousProgress ?: 0F,
-            progress = screenState?.progress ?: 0F,
-            onClick = {
-                viewModel.navigateToNextScreen()
+        screenState?.let {
+            GradientButtonWithProgress(
+                gradient = Brush.horizontalGradient(BrandGradient),
+                size = Dimen.Dimen50,
+                previousProgress = it.previousProgress,
+                progress = it.progress,
+                onClick = {
+                    viewModel.navigateToNextScreen()
+                }
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
+                    contentDescription = null
+                )
             }
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
-                contentDescription = null
-            )
         }
     }, floatingActionButtonPosition = FabPosition.End) {
         Column {

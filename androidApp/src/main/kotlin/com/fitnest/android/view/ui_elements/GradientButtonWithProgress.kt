@@ -70,13 +70,13 @@ fun GradientButtonWithProgress(
                 this
             }
         }
+    print("Progress: $animatedProgress")
     Box(
         modifier = Modifier
             .width(IntrinsicSize.Min)
             .height(IntrinsicSize.Min)
     ) {
         CircularProgressIndicator(
-
             modifier = Modifier.fillMaxSize(),
             progress = animatedProgress,
             strokeWidth = 2.dp,
