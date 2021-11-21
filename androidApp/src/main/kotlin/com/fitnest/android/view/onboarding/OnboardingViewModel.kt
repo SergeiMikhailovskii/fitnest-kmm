@@ -76,6 +76,7 @@ class OnboardingViewModel(
                 getOnboardingStepUseCase {
                     it.either(::handleFailure) {
                         it?.let {
+                            _stateLiveData.value = null
                             handleRoute(Route.OnboardingStep(it))
                         }
                     }
