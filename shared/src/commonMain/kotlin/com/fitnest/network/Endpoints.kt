@@ -7,6 +7,10 @@ object Endpoints {
         override val name = "main"
     }
 
+    object Onboarding : Group {
+        override val name = "onboarding"
+    }
+
     interface Group {
         val name: String
     }

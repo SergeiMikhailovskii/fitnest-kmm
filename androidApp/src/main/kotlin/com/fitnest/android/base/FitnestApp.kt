@@ -2,21 +2,21 @@ package com.fitnest.android.base
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.fitnest.android.style.FitnestTheme
+import com.fitnest.android.view.login.LoginScreen
+import com.fitnest.android.view.onboarding.OnboardingProxyScreen
+import com.fitnest.android.view.onboarding.OnboardingScreen
+import com.fitnest.android.view.splash.SplashScreen
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.fitnest.android.style.FitnestTheme
-import com.fitnest.android.view.login.LoginScreen
-import com.fitnest.android.view.onboarding.OnboardingScreen
-import com.fitnest.android.view.splash.SplashScreen
 
 @ExperimentalAnimationApi
 @Composable
@@ -35,9 +35,12 @@ fun FitnestApp() {
                 composable(route = Route.Login.screenName) {
                     LoginScreen()
                 }
+                composable(route = Route.Onboarding.screenName) {
+                    OnboardingProxyScreen(navController = navController)
+                }
                 composable(
-                    route = "onboarding/{progress}",
-                    arguments = listOf(navArgument("progress") { type = NavType.IntType }),
+                    route = "onboardingStep/{stepName}",
+                    arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
                     enterTransition = { _, _ ->
                         slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
                     },
@@ -53,7 +56,7 @@ fun FitnestApp() {
                 ) {
                     OnboardingScreen(
                         navController = navController,
-                        progress = it.arguments?.getInt("progress") ?: 1
+                        stepName = it.arguments?.getString("stepName") ?: ""
                     )
                 }
             }

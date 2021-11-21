@@ -2,7 +2,9 @@ package com.fitnest.android.base
 
 sealed class Route(val screenName: String) {
     object Splash : Route("splash")
-    data class Onboarding(val progress: Int) : Route("onboarding/${progress}")
+
+    object Onboarding : Route("onboarding")
+    data class OnboardingStep(val stepName: String) : Route("onboardingStep/$stepName")
 
     object Login : Route("login")
 

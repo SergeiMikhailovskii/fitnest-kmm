@@ -1,13 +1,14 @@
 package com.fitnest.android.view.onboarding
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.FabPosition
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-/**
- * This import should not be deleted because app will crash without it
- */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -23,40 +24,41 @@ import com.fitnest.android.view.ui_elements.GradientButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.instance
 import org.kodein.di.compose.rememberInstance
-import org.kodein.di.compose.withDI
 
 @Composable
-fun OnboardingScreen(navController: NavController, progress: Int) {
+fun OnboardingScreen(navController: NavController, stepName: String) {
     val viewModel: OnboardingViewModel by rememberInstance()
     val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
 
-    val progressMultiplier = 0.25F
-
     LaunchedEffect(key1 = null) {
-        viewModel.updateScreenState(progress)
+        viewModel.updateScreenState(stepName)
         launch {
             viewModel.routeSharedFlow.collect {
-                handleNavigation(route = it, navController = navController)
+                handleNavigation(
+                    route = it,
+                    navController = navController
+                )
             }
         }
     }
 
     Scaffold(floatingActionButton = {
-        GradientButtonWithProgress(
-            gradient = Brush.horizontalGradient(BrandGradient),
-            size = Dimen.Dimen50,
-            previousProgress = ((progress - 1) * progressMultiplier),
-            progress = progress * progressMultiplier,
-            onClick = {
-                viewModel.navigateToNextScreen()
+        screenState?.let {
+            GradientButtonWithProgress(
+                gradient = Brush.horizontalGradient(BrandGradient),
+                size = Dimen.Dimen50,
+                previousProgress = it.previousProgress,
+                progress = it.progress,
+                onClick = {
+                    viewModel.navigateToNextScreen()
+                }
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
+                    contentDescription = null
+                )
             }
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
-                contentDescription = null
-            )
         }
     }, floatingActionButtonPosition = FabPosition.End) {
         Column {
@@ -91,7 +93,6 @@ fun OnboardingScreen(navController: NavController, progress: Int) {
 }
 
 fun handleNavigation(route: Route, navController: NavController) {
-    when (route) {
-        is Route.Onboarding -> navController.navigate(Route.Onboarding(route.progress).screenName)
-    }
+    navController.popBackStack()
+    navController.navigate(route.screenName)
 }

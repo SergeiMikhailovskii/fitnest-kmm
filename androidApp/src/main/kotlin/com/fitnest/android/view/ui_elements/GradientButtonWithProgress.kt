@@ -51,10 +51,10 @@ fun GradientButtonWithProgress(
     body: @Composable () -> Unit
 ) {
     var localProgress by remember { mutableStateOf(previousProgress) }
-    val animatedProgress = animateFloatAsState(
+    val animatedProgress by animateFloatAsState(
         targetValue = localProgress,
         animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
-    ).value
+    )
     LaunchedEffect(key1 = null) {
         delay(100)
         localProgress = progress
@@ -76,7 +76,6 @@ fun GradientButtonWithProgress(
             .height(IntrinsicSize.Min)
     ) {
         CircularProgressIndicator(
-
             modifier = Modifier.fillMaxSize(),
             progress = animatedProgress,
             strokeWidth = 2.dp,

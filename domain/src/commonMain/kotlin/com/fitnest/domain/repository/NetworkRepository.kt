@@ -11,4 +11,8 @@ interface NetworkRepository {
 
     suspend fun generateToken(): Either<Failure, BaseResponse>
 
+    suspend fun getOnboardingStep(): Either<Failure, String>
+
+    suspend fun submitOnboardingStep(): Either<Failure, Unit>
+
 }
