@@ -81,7 +81,7 @@ fun SplashScreen(navController: NavController) {
 
 fun handleNavigation(route: Route, navController: NavController) {
     when (route) {
-        is Route.Onboarding -> navController.navigate(Route.Onboarding.screenName) {
+        is Route.Onboarding -> navController.navigate(route.screenName) {
             popUpTo(Route.Splash.screenName) { inclusive = true }
         }
     }

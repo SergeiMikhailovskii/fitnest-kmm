@@ -1,13 +1,14 @@
 package com.fitnest.android.view.onboarding
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.FabPosition
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-/**
- * This import should not be deleted because app will crash without it
- */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -23,9 +24,7 @@ import com.fitnest.android.view.ui_elements.GradientButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.instance
 import org.kodein.di.compose.rememberInstance
-import org.kodein.di.compose.withDI
 
 @Composable
 fun OnboardingScreen(navController: NavController, stepName: String) {
@@ -36,7 +35,10 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
         viewModel.updateScreenState(stepName)
         launch {
             viewModel.routeSharedFlow.collect {
-                handleNavigation(route = it, navController = navController)
+                handleNavigation(
+                    route = it,
+                    navController = navController
+                )
             }
         }
     }
@@ -91,5 +93,6 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
 }
 
 fun handleNavigation(route: Route, navController: NavController) {
+    navController.popBackStack()
     navController.navigate(route.screenName)
 }
