@@ -81,7 +81,9 @@ fun SplashScreen(navController: NavController) {
 
 fun handleNavigation(route: Route, navController: NavController) {
     when (route) {
-        is Route.Onboarding -> navController.navigate(route.screenName) {
+//         todo change back to route.screenName
+//        is Route.Onboarding -> navController.navigate(route.screenName) {
+        is Route.Onboarding -> navController.navigate(Route.RegistrationStep("asd").screenName) {
             popUpTo(Route.Splash.screenName) { inclusive = true }
         }
     }

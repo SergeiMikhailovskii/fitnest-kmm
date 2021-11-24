@@ -6,6 +6,7 @@ import com.fitnest.android.R
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.OnboardingState
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.GetOnboardingStep
 import com.fitnest.domain.usecase.SubmitOnboardingStep
 
@@ -19,7 +20,7 @@ class OnboardingViewModel(
 
     internal fun getOnboardingStep() {
         getOnboardingStepUseCase {
-            it.either(::handleFailure) {
+            it.either(::handleOnboardingFailure) {
                 it?.let {
                     handleRoute(Route.OnboardingStep(it))
                 }
@@ -82,6 +83,12 @@ class OnboardingViewModel(
                     }
                 }
             }
+        }
+    }
+
+    private fun handleOnboardingFailure(failure: Failure?) {
+        if (failure is Failure.ValidationError && failure.message == "onboarding.finished") {
+            handleRoute(Route.RegistrationStep("STEP_CREATE_ACCOUNT"))
         }
     }
 

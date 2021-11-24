@@ -12,6 +12,7 @@ import com.fitnest.android.style.FitnestTheme
 import com.fitnest.android.view.login.LoginScreen
 import com.fitnest.android.view.onboarding.OnboardingProxyScreen
 import com.fitnest.android.view.onboarding.OnboardingScreen
+import com.fitnest.android.view.registration.RegistrationScreen
 import com.fitnest.android.view.splash.SplashScreen
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -55,6 +56,27 @@ fun FitnestApp() {
                     },
                 ) {
                     OnboardingScreen(
+                        navController = navController,
+                        stepName = it.arguments?.getString("stepName") ?: ""
+                    )
+                }
+                composable(
+                    route = "registrationStep/{stepName}",
+                    arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
+                    enterTransition = { _, _ ->
+                        slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
+                    },
+                    exitTransition = { _, _ ->
+                        slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
+                    },
+                    popEnterTransition = { _, _ ->
+                        slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
+                    },
+                    popExitTransition = { _, _ ->
+                        slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
+                    },
+                ) {
+                    RegistrationScreen(
                         navController = navController,
                         stepName = it.arguments?.getString("stepName") ?: ""
                     )
