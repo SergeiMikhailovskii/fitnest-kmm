@@ -9,6 +9,7 @@ object Dimen {
 }
 
 object Padding {
+    val Padding5 = 5.dp
     val Padding15 = 15.dp
     val Padding30 = 30.dp
     val Padding40 = 40.dp
@@ -17,5 +18,6 @@ object Padding {
 object TextSize {
     val Size14 = 14.sp
     val Size16 = 16.sp
+    val Size20 = 20.sp
     val Size24 = 24.sp
 }
