@@ -1,5 +1,6 @@
 package com.fitnest.android.view.registration
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,9 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import com.fitnest.android.R
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
@@ -27,7 +30,8 @@ fun RegistrationScreen(navController: NavController, stepName: String) {
 
     Scaffold {
         ConstraintLayout(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = {
                         focusManager.clearFocus()
@@ -73,6 +77,12 @@ fun RegistrationScreen(navController: NavController, stepName: String) {
                     focusedIndicatorColor = BrandColor,
                     focusedLabelColor = BrandColor,
                 ),
+                leadingIcon = {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_user_login),
+                        contentDescription = null
+                    )
+                },
                 label = { Text("First Name", style = PoppinsNormalStyle14) },
                 shape = RoundedCornerShape(14.dp),
                 onValueChange = { },
