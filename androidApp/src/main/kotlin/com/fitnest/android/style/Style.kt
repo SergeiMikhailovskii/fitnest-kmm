@@ -2,6 +2,8 @@ package com.fitnest.android.style
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 val PoppinsStyle = TextStyle(
     fontFamily = poppinsFamily
@@ -41,6 +43,14 @@ val PoppinsBoldStyle24Black = PoppinsBoldStyle24.copy(
 
 val PoppinsNormalStyle = PoppinsStyle.copy(
     fontWeight = FontWeight.Normal
+)
+
+val PoppinsNormalStyle14 = PoppinsNormalStyle.copy(
+    fontSize = TextSize.Size14
+)
+
+val PoppinsNormalStyle14Gray2 = PoppinsNormalStyle14.copy(
+    color = GrayColor2
 )
 
 val PoppinsNormalStyle16 = PoppinsNormalStyle.copy(

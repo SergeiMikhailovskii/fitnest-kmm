@@ -16,6 +16,7 @@ object Padding {
 }
 
 object TextSize {
+    val Size12 = 12.sp
     val Size14 = 14.sp
     val Size16 = 16.sp
     val Size20 = 20.sp
