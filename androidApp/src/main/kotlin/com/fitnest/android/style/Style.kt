@@ -33,6 +33,10 @@ val PoppinsBoldStyle20Black = PoppinsBoldStyle20.copy(
     color = BlackColor
 )
 
+val PoppinsBoldStyle16 = PoppinsBoldStyle.copy(
+    fontSize = TextSize.Size16
+)
+
 val PoppinsBoldStyle24 = PoppinsBoldStyle.copy(
     fontSize = TextSize.Size24
 )
