@@ -1,4 +1,4 @@
-package com.fitnest.android.view.splash
+package com.fitnest.android.screen.splash
 
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route

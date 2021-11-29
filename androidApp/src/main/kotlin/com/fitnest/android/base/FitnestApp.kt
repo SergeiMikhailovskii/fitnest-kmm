@@ -9,11 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.fitnest.android.style.FitnestTheme
-import com.fitnest.android.view.login.LoginScreen
-import com.fitnest.android.view.onboarding.OnboardingProxyScreen
-import com.fitnest.android.view.onboarding.OnboardingScreen
-import com.fitnest.android.view.registration.CreateAccountRegistrationScreen
-import com.fitnest.android.view.splash.SplashScreen
+import com.fitnest.android.screen.login.LoginScreen
+import com.fitnest.android.screen.onboarding.OnboardingProxyScreen
+import com.fitnest.android.screen.onboarding.OnboardingScreen
+import com.fitnest.android.screen.registration.CreateAccountRegistrationScreen
+import com.fitnest.android.screen.splash.SplashScreen
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable

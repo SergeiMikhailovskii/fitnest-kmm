@@ -1,4 +1,4 @@
-package com.fitnest.android.view.splash
+package com.fitnest.android.screen.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.fitnest.android.view.login
+package com.fitnest.android.screen.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.fitnest.android.view.registration
+package com.fitnest.android.screen.registration
 
 data class CreateAccountRegistrationScreenData(
     var firstName: String = "",

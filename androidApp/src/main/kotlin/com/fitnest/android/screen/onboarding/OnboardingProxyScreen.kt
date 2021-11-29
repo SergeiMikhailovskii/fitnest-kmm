@@ -1,4 +1,4 @@
-package com.fitnest.android.view.onboarding
+package com.fitnest.android.screen.onboarding
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package com.fitnest.android.view.onboarding
+package com.fitnest.android.screen.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

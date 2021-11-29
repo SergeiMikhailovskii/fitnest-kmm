@@ -1,4 +1,4 @@
-package com.fitnest.android.view.login
+package com.fitnest.android.screen.login
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,9 +16,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fitnest.android.view.dialog.LoginSuccessDialog
-import org.kodein.di.compose.instance
 import org.kodein.di.compose.rememberInstance
-import org.kodein.di.compose.withDI
 
 @Preview(showSystemUi = true)
 @Composable

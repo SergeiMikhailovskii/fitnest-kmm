@@ -1,4 +1,4 @@
-package com.fitnest.android.view.registration
+package com.fitnest.android.screen.registration
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures

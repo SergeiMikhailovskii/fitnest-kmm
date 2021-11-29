@@ -1,4 +1,4 @@
-package com.fitnest.android.view.registration
+package com.fitnest.android.screen.registration
 
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
