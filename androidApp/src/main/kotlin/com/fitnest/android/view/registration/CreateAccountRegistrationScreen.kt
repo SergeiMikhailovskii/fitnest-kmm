@@ -10,7 +10,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -28,16 +30,15 @@ import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
+import org.kodein.di.compose.rememberInstance
 
 @Composable
-fun RegistrationScreen(navController: NavController, stepName: String) {
+fun CreateAccountRegistrationScreen(navController: NavController, stepName: String) {
     val focusManager = LocalFocusManager.current
 
-    var firstName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisibility by remember { mutableStateOf(false) }
+    val viewModel: CreateAccountRegistrationViewModel by rememberInstance()
+
+    val screenData by viewModel.screenDataFlow.collectAsState()
 
     Scaffold {
         ConstraintLayout(
@@ -79,7 +80,7 @@ fun RegistrationScreen(navController: NavController, stepName: String) {
                 style = PoppinsBoldStyle20Black
             )
             RegistrationOutlinedTextField(
-                value = firstName,
+                value = screenData.firstName ?: "",
                 constraintAsModifier = {
                     constrainAs(tfFirstName) {
                         top.linkTo(textBottomLabel.bottom, margin = Padding30)
@@ -94,12 +95,10 @@ fun RegistrationScreen(navController: NavController, stepName: String) {
                         contentDescription = null
                     )
                 },
-                onValueChange = {
-                    firstName = it
-                }
+                onValueChange = viewModel::updateFirstName
             )
             RegistrationOutlinedTextField(
-                value = lastName,
+                value = screenData.lastName,
                 constraintAsModifier = {
                     constrainAs(tfLastName) {
                         top.linkTo(tfFirstName.bottom, margin = Padding15)
@@ -114,10 +113,10 @@ fun RegistrationScreen(navController: NavController, stepName: String) {
                         contentDescription = null
                     )
                 },
-                onValueChange = { lastName = it }
+                onValueChange = viewModel::updateLastName
             )
             RegistrationOutlinedTextField(
-                value = email,
+                value = screenData.email,
                 constraintAsModifier = {
                     constrainAs(tfEmail) {
                         top.linkTo(tfLastName.bottom, margin = Padding15)
@@ -132,10 +131,10 @@ fun RegistrationScreen(navController: NavController, stepName: String) {
                         contentDescription = null
                     )
                 },
-                onValueChange = { email = it }
+                onValueChange = viewModel::updateEmail
             )
             RegistrationOutlinedTextField(
-                value = password,
+                value = screenData.password,
                 constraintAsModifier = {
                     constrainAs(tfPassword) {
                         top.linkTo(tfEmail.bottom, margin = Padding15)
@@ -150,18 +149,16 @@ fun RegistrationScreen(navController: NavController, stepName: String) {
                         contentDescription = null
                     )
                 },
-                onValueChange = { password = it },
+                onValueChange = viewModel::updatePassword,
                 trailingIcon = {
-                    IconButton(onClick = {
-                        passwordVisibility = !passwordVisibility
-                    }) {
+                    IconButton(onClick = { viewModel.changePasswordVisibility() }) {
                         val painter =
-                            if (passwordVisibility) painterResource(id = R.drawable.ic_password_hide)
-                            else painterResource(id = R.drawable.ic_password_show)
+                            if (screenData.passwordVisible) painterResource(id = R.drawable.ic_password_show)
+                            else painterResource(id = R.drawable.ic_password_hide)
                         Image(painter = painter, "")
                     }
                 },
-                visualTransformation = getPasswordVisualTransformation(passwordVisibility),
+                visualTransformation = getPasswordVisualTransformation(!screenData.passwordVisible),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             )
             Button(

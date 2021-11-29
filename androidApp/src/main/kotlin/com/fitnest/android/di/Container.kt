@@ -5,8 +5,8 @@ import com.fitnest.domain.di.useCaseModule
 import com.fitnest.android.extension.ViewModelFactory
 import com.fitnest.android.view.login.LoginViewModel
 import com.fitnest.android.view.onboarding.OnboardingViewModel
+import com.fitnest.android.view.registration.CreateAccountRegistrationViewModel
 import com.fitnest.android.view.splash.SplashViewModel
-import com.fitnest.domain.usecase.SubmitOnboardingStep
 import org.kodein.di.*
 
 val viewModelModule = DI.Module("view model module") {
@@ -23,5 +23,8 @@ val viewModelModule = DI.Module("view model module") {
     }
     bind<OnboardingViewModel>() with multiton {
         OnboardingViewModel(instance(), instance())
+    }
+    bind<CreateAccountRegistrationViewModel>() with multiton {
+        CreateAccountRegistrationViewModel()
     }
 }

@@ -12,7 +12,7 @@ import com.fitnest.android.style.FitnestTheme
 import com.fitnest.android.view.login.LoginScreen
 import com.fitnest.android.view.onboarding.OnboardingProxyScreen
 import com.fitnest.android.view.onboarding.OnboardingScreen
-import com.fitnest.android.view.registration.RegistrationScreen
+import com.fitnest.android.view.registration.CreateAccountRegistrationScreen
 import com.fitnest.android.view.splash.SplashScreen
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -76,7 +76,7 @@ fun FitnestApp() {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
-                    RegistrationScreen(
+                    CreateAccountRegistrationScreen(
                         navController = navController,
                         stepName = it.arguments?.getString("stepName") ?: ""
                     )
