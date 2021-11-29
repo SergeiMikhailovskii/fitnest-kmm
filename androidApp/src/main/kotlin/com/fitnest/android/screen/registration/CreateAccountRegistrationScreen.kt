@@ -2,10 +2,7 @@ package com.fitnest.android.screen.registration
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -57,7 +54,9 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 tfLastName,
                 tfEmail,
                 tfPassword,
-                btnNext
+                btnNext,
+                tvHaveAccount,
+                cvGoogle,
             ) = createRefs()
 
             Text(
@@ -80,7 +79,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 style = PoppinsBoldStyle20Black
             )
             RegistrationOutlinedTextField(
-                value = screenData.firstName ?: "",
+                value = screenData.firstName,
                 constraintAsModifier = {
                     constrainAs(tfFirstName) {
                         top.linkTo(textBottomLabel.bottom, margin = Padding30)
@@ -168,7 +167,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                     .constrainAs(btnNext) {
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom)
+                        bottom.linkTo(cvGoogle.top)
                     }
                     .padding(
                         start = Padding30,
@@ -183,8 +182,33 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                     style = PoppinsBoldStyle16
                 )
             }
-//            Checkbox(checked = true, onCheckedChange = { })
-//            Button(onClick = {}) {}
+            Card(
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(50.dp)
+                    .constrainAs(cvGoogle) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(tvHaveAccount.top)
+                    }
+            ) {
+                Image(painter = painterResource(id = R.drawable.ic_google), contentDescription = "")
+            }
+            Text(
+                "Already have an account? Login",
+                modifier = Modifier
+                    .constrainAs(tvHaveAccount) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .padding(
+                        start = Padding30,
+                        end = Padding30,
+                        bottom = Padding40
+                    )
+                    .height(Dimen.Dimen60),
+            )
         }
     }
 }
