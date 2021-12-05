@@ -2,6 +2,7 @@ package com.fitnest.android.screen.registration
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -22,7 +23,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.fitnest.android.R
@@ -196,12 +196,13 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         bottom.linkTo(tvHaveAccount.top)
                         end.linkTo(guidelineHalf, 15.dp)
                     },
-                backgroundColor = Color.White,
                 shape = RoundedCornerShape(14.dp),
                 border = BorderStroke(1.dp, GrayColor3),
             ) {
                 Box(
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier
+                        .background(Color.White)
+                        .size(20.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Image(
@@ -219,12 +220,13 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         start.linkTo(guidelineHalf, 15.dp)
                         bottom.linkTo(tvHaveAccount.top)
                     },
-                backgroundColor = Color.White,
                 shape = RoundedCornerShape(14.dp),
                 border = BorderStroke(1.dp, GrayColor3),
             ) {
                 Box(
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier
+                        .background(Color.White)
+                        .size(20.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Image(
