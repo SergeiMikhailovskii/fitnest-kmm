@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.registration
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -20,6 +22,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.fitnest.android.R
@@ -57,7 +60,10 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 btnNext,
                 tvHaveAccount,
                 cvGoogle,
+                cvFacebook,
             ) = createRefs()
+
+            val guidelineHalf = createGuidelineFromStart(.5F)
 
             Text(
                 text = "Hey there,",
@@ -187,12 +193,45 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                     .height(50.dp)
                     .width(50.dp)
                     .constrainAs(cvGoogle) {
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
                         bottom.linkTo(tvHaveAccount.top)
-                    }
+                        end.linkTo(guidelineHalf, 15.dp)
+                    },
+                backgroundColor = Color.White,
+                shape = RoundedCornerShape(14.dp),
+                border = BorderStroke(1.dp, GrayColor3),
             ) {
-                Image(painter = painterResource(id = R.drawable.ic_google), contentDescription = "")
+                Box(
+                    modifier = Modifier.size(20.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_google),
+                        contentDescription = "",
+                    )
+                }
+            }
+
+            Card(
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(50.dp)
+                    .constrainAs(cvFacebook) {
+                        start.linkTo(guidelineHalf, 15.dp)
+                        bottom.linkTo(tvHaveAccount.top)
+                    },
+                backgroundColor = Color.White,
+                shape = RoundedCornerShape(14.dp),
+                border = BorderStroke(1.dp, GrayColor3),
+            ) {
+                Box(
+                    modifier = Modifier.size(20.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_facebook),
+                        contentDescription = "",
+                    )
+                }
             }
             Text(
                 "Already have an account? Login",
