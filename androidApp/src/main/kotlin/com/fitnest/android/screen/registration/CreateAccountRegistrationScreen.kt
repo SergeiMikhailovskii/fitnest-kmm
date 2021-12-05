@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -19,6 +20,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -39,6 +42,24 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
     val viewModel: CreateAccountRegistrationViewModel by rememberInstance()
 
     val screenData by viewModel.screenDataFlow.collectAsState()
+
+    val loginAnnotatedText = buildAnnotatedString {
+        val str = "Already have an account? Login"
+        val startIndex = str.indexOf("Login")
+        val endIndex = startIndex + "Login".length
+        append(str)
+        addStyle(
+            style = SpanStyle(color = SecondaryColor1),
+            start = startIndex,
+            end = endIndex
+        )
+        addStringAnnotation(
+            tag = "LOGIN",
+            annotation = "",
+            start = startIndex,
+            end = endIndex
+        )
+    }
 
     Scaffold {
         ConstraintLayout(
@@ -235,8 +256,13 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                     )
                 }
             }
-            Text(
-                "Already have an account? Login",
+            ClickableText(
+                loginAnnotatedText,
+                onClick = {
+                    loginAnnotatedText.getStringAnnotations("LOGIN", it, it)
+                        .firstOrNull()?.let {
+                        }
+                },
                 modifier = Modifier
                     .constrainAs(tvHaveAccount) {
                         start.linkTo(parent.start)
