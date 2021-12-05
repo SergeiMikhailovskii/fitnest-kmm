@@ -214,7 +214,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                     .height(50.dp)
                     .width(50.dp)
                     .constrainAs(cvGoogle) {
-                        bottom.linkTo(tvHaveAccount.top)
+                        bottom.linkTo(tvHaveAccount.top, 30.dp)
                         end.linkTo(guidelineHalf, 15.dp)
                     },
                 shape = RoundedCornerShape(14.dp),
@@ -239,7 +239,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                     .width(50.dp)
                     .constrainAs(cvFacebook) {
                         start.linkTo(guidelineHalf, 15.dp)
-                        bottom.linkTo(tvHaveAccount.top)
+                        bottom.linkTo(tvHaveAccount.top, 30.dp)
                     },
                 shape = RoundedCornerShape(14.dp),
                 border = BorderStroke(1.dp, GrayColor3),
@@ -274,7 +274,6 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         end = Padding30,
                         bottom = Padding40
                     )
-                    .height(Dimen.Dimen60),
             )
         }
     }
