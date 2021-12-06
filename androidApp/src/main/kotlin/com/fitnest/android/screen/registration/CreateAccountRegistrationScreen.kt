@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
@@ -135,7 +136,9 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         contentDescription = null
                     )
                 },
-                onValueChange = viewModel::updateFirstName
+                onValueChange = viewModel::updateFirstName,
+                onFocusChanged = viewModel::updateFirstNameFocus,
+                isFocused = screenData.isFirstNameFocused
             )
             RegistrationOutlinedTextField(
                 value = screenData.lastName,
@@ -158,7 +161,9 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         contentDescription = null
                     )
                 },
-                onValueChange = viewModel::updateLastName
+                onValueChange = viewModel::updateLastName,
+                onFocusChanged = viewModel::updateLastNameFocus,
+                isFocused = screenData.isLastNameFocused
             )
             RegistrationOutlinedTextField(
                 value = screenData.email,
@@ -181,7 +186,9 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         contentDescription = null
                     )
                 },
-                onValueChange = viewModel::updateEmail
+                onValueChange = viewModel::updateEmail,
+                onFocusChanged = viewModel::updateEmailFocus,
+                isFocused = screenData.isEmailFocused
             )
             RegistrationOutlinedTextField(
                 value = screenData.password,
@@ -215,6 +222,8 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 },
                 visualTransformation = getPasswordVisualTransformation(!screenData.passwordVisible),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                onFocusChanged = viewModel::updatePasswordFocus,
+                isFocused = screenData.isPasswordFocused
             )
             Button(
                 onClick = { },
@@ -361,7 +370,9 @@ fun RegistrationOutlinedTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     onValueChange: (String) -> Unit,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onFocusChanged: ((Boolean) -> Unit)? = null,
+    isFocused: Boolean = false
 ) {
     OutlinedTextField(
         value = value,
@@ -371,10 +382,13 @@ fun RegistrationOutlinedTextField(
             .padding(
                 start = Padding30,
                 end = Padding30
-            ),
+            )
+            .onFocusChanged {
+                onFocusChanged?.invoke(it.isFocused)
+            },
         singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = BorderColor,
+            backgroundColor = if (isFocused) Color.White else BorderColor,
             unfocusedIndicatorColor = Color.Transparent,
             focusedIndicatorColor = BrandColor,
             focusedLabelColor = BrandColor,

@@ -38,6 +38,26 @@ class CreateAccountRegistrationViewModel : BaseViewModel() {
         updateScreenData()
     }
 
+    internal fun updateFirstNameFocus(isFocused: Boolean) {
+        screenData.isFirstNameFocused = isFocused
+        updateScreenData()
+    }
+
+    internal fun updateLastNameFocus(isFocused: Boolean) {
+        screenData.isLastNameFocused = isFocused
+        updateScreenData()
+    }
+
+    internal fun updateEmailFocus(isFocused: Boolean) {
+        screenData.isEmailFocused = isFocused
+        updateScreenData()
+    }
+
+    internal fun updatePasswordFocus(isFocused: Boolean) {
+        screenData.isPasswordFocused = isFocused
+        updateScreenData()
+    }
+
     private fun updateScreenData() {
         viewModelScope.launch {
             _screenDataFlow.emit(screenData.copy())

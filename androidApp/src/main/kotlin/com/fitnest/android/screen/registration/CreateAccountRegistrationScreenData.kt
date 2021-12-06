@@ -5,7 +5,13 @@ data class CreateAccountRegistrationScreenData(
     var lastName: String = "",
     var email: String = "",
     var password: String = "",
+
     var passwordVisible: Boolean = false,
+
+    var isFirstNameFocused: Boolean = false,
+    var isLastNameFocused: Boolean = false,
+    var isEmailFocused: Boolean = false,
+    var isPasswordFocused: Boolean = false
 ) {
 
     companion object {
