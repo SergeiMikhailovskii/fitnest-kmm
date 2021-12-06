@@ -3,9 +3,10 @@
     <string name="registration_create_account_login">Already have an account? Login</string>
     <string name="registration_create_account_login_span">Login</string>
     <string name="registration_create_account_title">Hey there,</string>
-    <string name="registration_create_account_subtitle">Hey there,</string>
+    <string name="registration_create_account_subtitle">Create an Account</string>
     <string name="registration_create_account_first_name_label">First Name</string>
     <string name="registration_create_account_last_name_label">Last Name</string>
     <string name="registration_create_account_email_label">Email</string>
     <string name="registration_create_account_password_label">Password</string>
+    <string name="registration_create_account_divider_label">Or</string>
 </resources>

@@ -25,7 +25,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
@@ -37,6 +36,7 @@ import com.fitnest.android.style.Dimen.Dimen20
 import com.fitnest.android.style.Dimen.Dimen50
 import com.fitnest.android.style.Padding.Padding0
 import com.fitnest.android.style.Padding.Padding15
+import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
 import org.kodein.di.compose.rememberInstance
@@ -89,6 +89,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 tvHaveAccount,
                 cvGoogle,
                 cvFacebook,
+                divider
             ) = createRefs()
 
             val guidelineHalf =
@@ -215,7 +216,6 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 visualTransformation = getPasswordVisualTransformation(!screenData.passwordVisible),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             )
-            DividerWithText()
             Button(
                 onClick = { },
                 shape = CircleShape,
@@ -223,7 +223,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                     .constrainAs(btnNext) {
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                        bottom.linkTo(cvGoogle.top)
+                        bottom.linkTo(divider.top)
                     }
                     .padding(
                         start = Padding30,
@@ -236,6 +236,25 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 Text(
                     text = stringResource(id = R.string.splash_button_title),
                     style = PoppinsBoldStyle16
+                )
+            }
+            DividerWithChild(
+                modifier = Modifier
+                    .constrainAs(divider) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(cvGoogle.top)
+                    }
+                    .padding(
+                        start = Padding30,
+                        end = Padding30,
+                        bottom = Padding20
+                    )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.registration_create_account_divider_label),
+                    modifier = Modifier.padding(horizontal = Padding15),
+                    style = PoppinsNormalStyle12Black
                 )
             }
             Card(
@@ -311,13 +330,25 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
     }
 }
 
-@Preview
 @Composable
-fun DividerWithText() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(modifier = Modifier.weight(1F).height(1.dp).background(Color.Red))
-        Text(text = "Or")
-        Box(modifier = Modifier.weight(1F).height(1.dp).background(Color.Red))
+fun DividerWithChild(modifier: Modifier, child: @Composable () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+    ) {
+        Box(
+            modifier = Modifier
+                .weight(1F)
+                .height(1.dp)
+                .background(GrayColor3)
+        )
+        child()
+        Box(
+            modifier = Modifier
+                .weight(1F)
+                .height(1.dp)
+                .background(GrayColor3)
+        )
     }
 }
 

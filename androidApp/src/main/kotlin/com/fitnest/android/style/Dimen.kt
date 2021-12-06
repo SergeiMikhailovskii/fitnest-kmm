@@ -14,7 +14,9 @@ object Dimen {
 object Padding {
     val Padding0 = 0.dp
     val Padding5 = 5.dp
+    val Padding10 = 10.dp
     val Padding15 = 15.dp
+    val Padding20 = 20.dp
     val Padding30 = 30.dp
     val Padding40 = 40.dp
 }
