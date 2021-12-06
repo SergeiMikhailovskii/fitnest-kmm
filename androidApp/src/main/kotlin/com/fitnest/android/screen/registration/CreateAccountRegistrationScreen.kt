@@ -25,11 +25,15 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.style.*
+import com.fitnest.android.style.Dimen.Dimen1
+import com.fitnest.android.style.Dimen.Dimen14
+import com.fitnest.android.style.Dimen.Dimen20
+import com.fitnest.android.style.Dimen.Dimen50
+import com.fitnest.android.style.Padding.Padding0
 import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
@@ -44,9 +48,10 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
     val screenData by viewModel.screenDataFlow.collectAsState()
 
     val loginAnnotatedText = buildAnnotatedString {
-        val str = "Already have an account? Login"
-        val startIndex = str.indexOf("Login")
-        val endIndex = startIndex + "Login".length
+        val str = stringResource(id = R.string.registration_create_account_login)
+        val loginSpan = stringResource(id = R.string.registration_create_account_login_span)
+        val startIndex = str.indexOf(loginSpan)
+        val endIndex = startIndex + loginSpan.length
         append(str)
         addStyle(
             style = SpanStyle(color = SecondaryColor1),
@@ -54,7 +59,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
             end = endIndex
         )
         addStringAnnotation(
-            tag = "LOGIN",
+            tag = CreateAccountRegistrationScreenUtils.LOGIN_SPAN_TAG,
             annotation = "",
             start = startIndex,
             end = endIndex
@@ -84,10 +89,11 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 cvFacebook,
             ) = createRefs()
 
-            val guidelineHalf = createGuidelineFromStart(.5F)
+            val guidelineHalf =
+                createGuidelineFromStart(CreateAccountRegistrationScreenUtils.GUIDELINE_CENTER_PERCENTAGE)
 
             Text(
-                text = "Hey there,",
+                text = stringResource(id = R.string.registration_create_account_title),
                 modifier = Modifier.constrainAs(textTopLabel) {
                     top.linkTo(parent.top, margin = Padding40)
                     start.linkTo(parent.start)
@@ -96,10 +102,10 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 style = PoppinsNormalStyle16Black
             )
             Text(
-                text = "Create an Account",
+                text = stringResource(id = R.string.registration_create_account_subtitle),
                 modifier = Modifier
                     .constrainAs(textBottomLabel) {
-                        top.linkTo(textTopLabel.bottom, margin = 0.dp)
+                        top.linkTo(textTopLabel.bottom, margin = Padding0)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
@@ -114,7 +120,12 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         end.linkTo(parent.end)
                     }
                 },
-                label = { Text("First Name", style = PoppinsNormalStyle14) },
+                label = {
+                    Text(
+                        stringResource(id = R.string.registration_create_account_first_name_label),
+                        style = PoppinsNormalStyle14
+                    )
+                },
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.ic_user_login),
@@ -132,7 +143,12 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         end.linkTo(parent.end)
                     }
                 },
-                label = { Text("Last Name", style = PoppinsNormalStyle14) },
+                label = {
+                    Text(
+                        stringResource(id = R.string.registration_create_account_last_name_label),
+                        style = PoppinsNormalStyle14
+                    )
+                },
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.ic_user_login),
@@ -150,7 +166,12 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         end.linkTo(parent.end)
                     }
                 },
-                label = { Text("Email", style = PoppinsNormalStyle14) },
+                label = {
+                    Text(
+                        stringResource(id = R.string.registration_create_account_email_label),
+                        style = PoppinsNormalStyle14
+                    )
+                },
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.ic_email),
@@ -168,7 +189,12 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                         end.linkTo(parent.end)
                     }
                 },
-                label = { Text("Password", style = PoppinsNormalStyle14) },
+                label = {
+                    Text(
+                        stringResource(id = R.string.registration_create_account_password_label),
+                        style = PoppinsNormalStyle14
+                    )
+                },
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.ic_lock),
@@ -177,11 +203,11 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 },
                 onValueChange = viewModel::updatePassword,
                 trailingIcon = {
-                    IconButton(onClick = { viewModel.changePasswordVisibility() }) {
+                    IconButton(onClick = viewModel::changePasswordVisibility) {
                         val painter =
                             if (screenData.passwordVisible) painterResource(id = R.drawable.ic_password_show)
                             else painterResource(id = R.drawable.ic_password_hide)
-                        Image(painter = painter, "")
+                        Image(painter = painter, null)
                     }
                 },
                 visualTransformation = getPasswordVisualTransformation(!screenData.passwordVisible),
@@ -211,57 +237,60 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
             }
             Card(
                 modifier = Modifier
-                    .height(50.dp)
-                    .width(50.dp)
+                    .height(Dimen50)
+                    .width(Dimen50)
                     .constrainAs(cvGoogle) {
-                        bottom.linkTo(tvHaveAccount.top, 30.dp)
-                        end.linkTo(guidelineHalf, 15.dp)
+                        bottom.linkTo(tvHaveAccount.top, Padding30)
+                        end.linkTo(guidelineHalf, Padding15)
                     },
-                shape = RoundedCornerShape(14.dp),
-                border = BorderStroke(1.dp, GrayColor3),
+                shape = RoundedCornerShape(Dimen14),
+                border = BorderStroke(Dimen1, GrayColor3),
             ) {
                 Box(
                     modifier = Modifier
                         .background(Color.White)
-                        .size(20.dp),
+                        .size(Dimen20),
                     contentAlignment = Alignment.Center,
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_google),
-                        contentDescription = "",
+                        contentDescription = null,
                     )
                 }
             }
 
             Card(
                 modifier = Modifier
-                    .height(50.dp)
-                    .width(50.dp)
+                    .height(Dimen50)
+                    .width(Dimen50)
                     .constrainAs(cvFacebook) {
-                        start.linkTo(guidelineHalf, 15.dp)
-                        bottom.linkTo(tvHaveAccount.top, 30.dp)
+                        start.linkTo(guidelineHalf, Padding15)
+                        bottom.linkTo(tvHaveAccount.top, Padding30)
                     },
-                shape = RoundedCornerShape(14.dp),
-                border = BorderStroke(1.dp, GrayColor3),
+                shape = RoundedCornerShape(Dimen14),
+                border = BorderStroke(Dimen1, GrayColor3),
             ) {
                 Box(
                     modifier = Modifier
                         .background(Color.White)
-                        .size(20.dp),
+                        .size(Dimen20),
                     contentAlignment = Alignment.Center,
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_facebook),
-                        contentDescription = "",
+                        contentDescription = null,
                     )
                 }
             }
             ClickableText(
                 loginAnnotatedText,
                 onClick = {
-                    loginAnnotatedText.getStringAnnotations("LOGIN", it, it)
-                        .firstOrNull()?.let {
-                        }
+                    loginAnnotatedText.getStringAnnotations(
+                        CreateAccountRegistrationScreenUtils.LOGIN_SPAN_TAG,
+                        it,
+                        it
+                    ).firstOrNull()?.let {
+                    }
                 },
                 modifier = Modifier
                     .constrainAs(tvHaveAccount) {
@@ -308,7 +337,7 @@ fun RegistrationOutlinedTextField(
         ),
         leadingIcon = leadingIcon,
         label = label,
-        shape = RoundedCornerShape(14.dp),
+        shape = RoundedCornerShape(Dimen14),
         onValueChange = onValueChange,
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
@@ -319,3 +348,8 @@ fun RegistrationOutlinedTextField(
 fun getPasswordVisualTransformation(passwordVisibility: Boolean) =
     if (passwordVisibility) PasswordVisualTransformation()
     else VisualTransformation.None
+
+object CreateAccountRegistrationScreenUtils {
+    const val LOGIN_SPAN_TAG = "LOGIN"
+    const val GUIDELINE_CENTER_PERCENTAGE = .5F
+}
