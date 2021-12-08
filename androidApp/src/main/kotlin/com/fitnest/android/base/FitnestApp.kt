@@ -10,7 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.fitnest.android.style.FitnestTheme
 import com.fitnest.android.screen.login.LoginScreen
-import com.fitnest.android.screen.onboarding.OnboardingProxyScreen
+import com.fitnest.android.screen.proxy.ProxyScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.registration.CreateAccountRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
@@ -37,7 +37,7 @@ fun FitnestApp() {
                     LoginScreen()
                 }
                 composable(route = Route.Onboarding.screenName) {
-                    OnboardingProxyScreen(navController = navController)
+                    ProxyScreen(navController = navController)
                 }
                 composable(
                     route = "onboardingStep/{stepName}",

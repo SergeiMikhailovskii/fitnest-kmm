@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.onboarding
+package com.fitnest.android.screen.proxy
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,18 +12,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
+import com.fitnest.android.screen.onboarding.OnboardingViewModel
+import com.fitnest.android.screen.onboarding.handleNavigation
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Preview
 @Composable
-fun OnboardingProxyScreenPreview() {
-    OnboardingProxyScreen(navController = rememberNavController(ComposeNavigator()))
+fun ProxyScreenPreview() {
+    ProxyScreen(navController = rememberNavController(ComposeNavigator()))
 }
 
 @Composable
-fun OnboardingProxyScreen(navController: NavController) {
+fun ProxyScreen(navController: NavController) {
     val viewModel: OnboardingViewModel by rememberInstance()
 
     LaunchedEffect(null) {
