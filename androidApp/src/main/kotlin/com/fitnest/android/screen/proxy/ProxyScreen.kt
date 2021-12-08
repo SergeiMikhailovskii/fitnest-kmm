@@ -14,6 +14,7 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.onboarding.handleNavigation
+import com.fitnest.domain.enum.FlowType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -21,12 +22,12 @@ import org.kodein.di.compose.rememberInstance
 @Preview
 @Composable
 fun ProxyScreenPreview() {
-    ProxyScreen(navController = rememberNavController(ComposeNavigator()))
+    ProxyScreen(navController = rememberNavController(ComposeNavigator()), flow = FlowType.UNKNOWN)
 }
 
 @Composable
-fun ProxyScreen(navController: NavController) {
-    val viewModel: OnboardingViewModel by rememberInstance()
+fun ProxyScreen(navController: NavController, flow: FlowType) {
+    val viewModel: ProxyViewModel by rememberInstance()
 
     LaunchedEffect(null) {
         launch {
@@ -37,7 +38,7 @@ fun ProxyScreen(navController: NavController) {
                 )
             }
         }
-        viewModel.getOnboardingStep()
+        viewModel.showNextScreen(flow)
     }
 
     Scaffold {

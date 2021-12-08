@@ -24,6 +24,7 @@ class SplashViewModel(
     internal fun navigateNext() {
         when (redirectFlow) {
             FlowType.ONBOARDING -> redirectToOnboarding()
+            FlowType.REGISTRATION -> redirectToRegistration()
             else -> {
                 // will be added later
             }
@@ -40,6 +41,10 @@ class SplashViewModel(
     }
 
     private fun redirectToOnboarding() {
-        handleRoute(Route.Onboarding)
+        handleRoute(Route.Proxy(FlowType.ONBOARDING.name))
+    }
+
+    private fun redirectToRegistration() {
+        handleRoute(Route.Proxy(FlowType.REGISTRATION.name))
     }
 }

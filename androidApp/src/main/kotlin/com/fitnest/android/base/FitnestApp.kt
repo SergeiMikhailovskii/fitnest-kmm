@@ -8,12 +8,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.fitnest.android.style.FitnestTheme
 import com.fitnest.android.screen.login.LoginScreen
-import com.fitnest.android.screen.proxy.ProxyScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
+import com.fitnest.android.screen.proxy.ProxyScreen
 import com.fitnest.android.screen.registration.CreateAccountRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
+import com.fitnest.android.style.FitnestTheme
+import com.fitnest.domain.enum.FlowType
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -36,8 +37,16 @@ fun FitnestApp() {
                 composable(route = Route.Login.screenName) {
                     LoginScreen()
                 }
-                composable(route = Route.Onboarding.screenName) {
-                    ProxyScreen(navController = navController)
+                composable(
+                    route = "proxy/{flow}",
+                    arguments = listOf(navArgument("flow") {
+                        type = NavType.EnumType(FlowType::class.java)
+                    }),
+                ) {
+                    ProxyScreen(
+                        navController = navController,
+                        flow = it.arguments?.get("flow") as FlowType
+                    )
                 }
                 composable(
                     route = "onboardingStep/{stepName}",
