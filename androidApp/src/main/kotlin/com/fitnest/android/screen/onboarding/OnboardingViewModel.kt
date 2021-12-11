@@ -6,6 +6,7 @@ import com.fitnest.android.R
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.OnboardingState
+import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.GetOnboardingStep
 import com.fitnest.domain.usecase.SubmitOnboardingStep
@@ -17,16 +18,6 @@ class OnboardingViewModel(
 
     private val _stateLiveData = MutableLiveData<OnboardingState>()
     internal val stateLiveData: LiveData<OnboardingState> = _stateLiveData
-
-    internal fun getOnboardingStep() {
-        getOnboardingStepUseCase {
-            it.either(::handleOnboardingFailure) {
-                it?.let {
-                    handleRoute(Route.OnboardingStep(it))
-                }
-            }
-        }
-    }
 
     internal fun updateScreenState(stepName: String) {
         _stateLiveData.value = when (stepName) {
@@ -75,7 +66,7 @@ class OnboardingViewModel(
         submitOnboardingStepUseCase {
             it.either(::handleFailure) {
                 getOnboardingStepUseCase {
-                    it.either(::handleFailure) {
+                    it.either(::handleOnboardingFailure) {
                         it?.let {
                             _stateLiveData.value = null
                             handleRoute(Route.OnboardingStep(it))
@@ -88,7 +79,7 @@ class OnboardingViewModel(
 
     private fun handleOnboardingFailure(failure: Failure?) {
         if (failure is Failure.ValidationError && failure.message == "onboarding.finished") {
-            handleRoute(Route.RegistrationStep("STEP_CREATE_ACCOUNT"))
+            handleRoute(Route.Proxy(FlowType.REGISTRATION.name))
         }
     }
 

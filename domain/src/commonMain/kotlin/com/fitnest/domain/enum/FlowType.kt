@@ -5,8 +5,8 @@ enum class FlowType {
 
     companion object {
         fun fromName(name: String?) = when {
-            name?.contains("onboarding") == true -> ONBOARDING
-            name?.contains("registration") == true -> REGISTRATION
+            name?.contains("onboarding", true) == true -> ONBOARDING
+            name?.contains("registration", true) == true -> REGISTRATION
             else -> UNKNOWN
         }
     }

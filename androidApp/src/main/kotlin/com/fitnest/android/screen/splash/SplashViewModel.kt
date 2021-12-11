@@ -16,7 +16,7 @@ class SplashViewModel(
         generateTokenUseCase {
             it.either(::handleGenerateTokenFailure) {
                 redirectFlow = it?.getFlow()
-                handleProgress(false)
+                handleProgress()
             }
         }
     }
@@ -32,7 +32,7 @@ class SplashViewModel(
     }
 
     private fun handleGenerateTokenFailure(failure: Failure) {
-        handleProgress(false)
+        handleProgress()
         if (failure is Failure.ServerError && failure.responseCode == 401) {
             redirectFlow = FlowType.ONBOARDING
         } else {
