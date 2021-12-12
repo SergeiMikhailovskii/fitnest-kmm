@@ -13,7 +13,6 @@ import com.fitnest.di.repositoryModule
 import com.fitnest.di.serviceModule
 import org.kodein.di.*
 
-
 @ExperimentalAnimationApi
 class MainActivity : ComponentActivity(), DIAware {
 

@@ -2,6 +2,7 @@ package com.fitnest.android.screen.registration
 
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
+import com.fitnest.domain.entity.RegistrationStepModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -12,6 +13,14 @@ class CreateAccountRegistrationViewModel : BaseViewModel() {
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
+
+    internal fun setInitialScreenData(stepData: RegistrationStepModel.CreateAccountStepModel) {
+        screenData.firstName = stepData.firstName
+        screenData.lastName = stepData.lastName
+        screenData.email = stepData.email
+        screenData.password = stepData.password
+        updateScreenData()
+    }
 
     internal fun updateFirstName(name: String) {
         screenData.firstName = name

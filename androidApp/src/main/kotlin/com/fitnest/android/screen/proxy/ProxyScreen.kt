@@ -17,6 +17,9 @@ import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.enum.FlowType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.kodein.di.compose.rememberInstance
 
 @Preview
@@ -50,5 +53,9 @@ fun ProxyScreen(navController: NavController, flow: FlowType) {
 
 fun handleNavigation(route: Route, navController: NavController) {
     navController.popBackStack()
+
+//    if (route is Route.RegistrationStep) {
+//        navController.currentBackStackEntry?.arguments?.putString("data", route.data)
+//    }
     navController.navigate(route.screenName)
 }

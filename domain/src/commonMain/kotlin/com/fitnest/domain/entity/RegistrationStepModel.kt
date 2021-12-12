@@ -4,6 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class RegistrationStepModel {
+
+    @Serializable
     data class CreateAccountStepModel(
         val firstName: String? = null,
         val lastName: String? = null,

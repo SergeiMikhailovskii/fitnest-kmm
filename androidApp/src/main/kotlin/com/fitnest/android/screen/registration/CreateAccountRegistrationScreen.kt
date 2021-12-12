@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -40,15 +41,23 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
+import com.fitnest.domain.entity.RegistrationStepModel
 import org.kodein.di.compose.rememberInstance
 
 @Composable
-fun CreateAccountRegistrationScreen(navController: NavController, stepName: String) {
+fun CreateAccountRegistrationScreen(
+    navController: NavController,
+    stepData: RegistrationStepModel.CreateAccountStepModel,
+) {
     val focusManager = LocalFocusManager.current
 
     val viewModel: CreateAccountRegistrationViewModel by rememberInstance()
 
     val screenData by viewModel.screenDataFlow.collectAsState()
+
+    LaunchedEffect(key1 = null) {
+        viewModel.setInitialScreenData(stepData)
+    }
 
     val loginAnnotatedText = buildAnnotatedString {
         val str = stringResource(id = R.string.registration_create_account_login)
@@ -116,7 +125,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 style = PoppinsBoldStyle20Black
             )
             RegistrationOutlinedTextField(
-                value = screenData.firstName,
+                value = screenData.firstName ?: "",
                 constraintAsModifier = {
                     constrainAs(tfFirstName) {
                         top.linkTo(textBottomLabel.bottom, margin = Padding30)
@@ -141,7 +150,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 isFocused = screenData.isFirstNameFocused
             )
             RegistrationOutlinedTextField(
-                value = screenData.lastName,
+                value = screenData.lastName ?: "",
                 constraintAsModifier = {
                     constrainAs(tfLastName) {
                         top.linkTo(tfFirstName.bottom, margin = Padding15)
@@ -166,7 +175,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 isFocused = screenData.isLastNameFocused
             )
             RegistrationOutlinedTextField(
-                value = screenData.email,
+                value = screenData.email ?: "",
                 constraintAsModifier = {
                     constrainAs(tfEmail) {
                         top.linkTo(tfLastName.bottom, margin = Padding15)
@@ -191,7 +200,7 @@ fun CreateAccountRegistrationScreen(navController: NavController, stepName: Stri
                 isFocused = screenData.isEmailFocused
             )
             RegistrationOutlinedTextField(
-                value = screenData.password,
+                value = screenData.password ?: "",
                 constraintAsModifier = {
                     constrainAs(tfPassword) {
                         top.linkTo(tfEmail.bottom, margin = Padding15)

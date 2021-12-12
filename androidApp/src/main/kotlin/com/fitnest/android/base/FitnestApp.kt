@@ -14,16 +14,20 @@ import com.fitnest.android.screen.proxy.ProxyScreen
 import com.fitnest.android.screen.registration.CreateAccountRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
+import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.enum.FlowType
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 @ExperimentalAnimationApi
 @Composable
 fun FitnestApp() {
     val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
+    val json = Json { ignoreUnknownKeys = true }
 
     FitnestTheme {
         Scaffold {
@@ -70,8 +74,18 @@ fun FitnestApp() {
                     )
                 }
                 composable(
-                    route = "registrationStep/{stepName}",
-                    arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
+                    route = "registrationStep/{stepName}/{data}",
+                    arguments = listOf(
+                        navArgument("stepName") { type = NavType.StringType },
+                        navArgument("data") {
+                            type = NavType.StringType
+                            nullable = true
+                        },
+                        navArgument("jsonSchema") {
+                            type = NavType.StringType
+                            nullable = true
+                        },
+                    ),
                     enterTransition = { _, _ ->
                         slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
                     },
@@ -86,10 +100,15 @@ fun FitnestApp() {
                     },
                 ) {
                     val stepName = it.arguments?.getString("stepName") ?: ""
+                    val fieldsString = it.arguments?.getString("data") ?: ""
                     if (stepName == "STEP_CREATE_ACCOUNT") {
+                        val fields =
+                            json.decodeFromString<RegistrationStepModel.CreateAccountStepModel>(
+                                fieldsString
+                            )
                         CreateAccountRegistrationScreen(
                             navController = navController,
-                            stepName = stepName
+                            stepData = fields
                         )
                     }
                 }
