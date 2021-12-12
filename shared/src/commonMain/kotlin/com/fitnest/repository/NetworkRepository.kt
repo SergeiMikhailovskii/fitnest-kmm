@@ -5,17 +5,15 @@ import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.flatMap
 import com.fitnest.domain.repository.NetworkRepository
 import com.fitnest.domain.service.NetworkService
+import com.fitnest.mapper.RegistrationResponseMapper
 import com.fitnest.network.Endpoints
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import org.kodein.di.DI
-import org.kodein.di.instance
 
-@ExperimentalSerializationApi
-class NetworkRepository(val di: DI) : NetworkRepository {
-
-    private val networkService: NetworkService by di.instance()
+class NetworkRepository(
+    private val networkService: NetworkService,
+    private val registrationResponseMapper: RegistrationResponseMapper
+) : NetworkRepository {
 
     override suspend fun loginUser(data: LoginData) {
     }
@@ -25,6 +23,12 @@ class NetworkRepository(val di: DI) : NetworkRepository {
     override suspend fun getOnboardingStep() = networkService.getData(Endpoints.Onboarding.name)
         .map {
             it?.data?.jsonObject?.get("step")?.jsonPrimitive?.content ?: ""
+        }
+
+    override suspend fun getRegistrationStepData() =
+        networkService.getData(Endpoints.Registration.name).map {
+            val data = it?.data?.jsonObject
+            registrationResponseMapper.map(data)
         }
 
     override suspend fun submitOnboardingStep() =

@@ -1,5 +1,6 @@
 package com.fitnest.domain.functional
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 sealed class Failure {

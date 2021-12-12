@@ -1,7 +1,7 @@
 package com.fitnest.network
 
 object Endpoints {
-    val BASE_URL = "https://fitnestappgo.herokuapp.com/"
+    const val BASE_URL = "https://fitnestappgo.herokuapp.com/"
 
     object Main : Group {
         override val name = "main"
@@ -9,6 +9,10 @@ object Endpoints {
 
     object Onboarding : Group {
         override val name = "onboarding"
+    }
+
+    object Registration : Group {
+        override val name = "registration"
     }
 
     interface Group {

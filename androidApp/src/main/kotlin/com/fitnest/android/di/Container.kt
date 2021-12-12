@@ -29,6 +29,6 @@ val viewModelModule = DI.Module("view model module") {
         CreateAccountRegistrationViewModel()
     }
     bind<ProxyViewModel>() with multiton {
-        ProxyViewModel(instance())
+        ProxyViewModel(instance(), instance())
     }
 }

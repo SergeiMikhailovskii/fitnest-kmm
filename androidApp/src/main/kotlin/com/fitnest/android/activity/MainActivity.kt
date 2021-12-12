@@ -5,11 +5,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import com.fitnest.android.di.viewModelModule
 import com.fitnest.android.base.FitnestApp
+import com.fitnest.android.di.viewModelModule
+import com.fitnest.di.cookieModule
+import com.fitnest.di.mapperModule
 import com.fitnest.di.repositoryModule
 import com.fitnest.di.serviceModule
-import com.fitnest.di.cookieModule
 import org.kodein.di.*
 
 
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity(), DIAware {
         import(repositoryModule)
         import(serviceModule)
         import(cookieModule)
+        import(mapperModule)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

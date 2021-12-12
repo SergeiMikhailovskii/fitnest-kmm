@@ -85,10 +85,13 @@ fun FitnestApp() {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
-                    CreateAccountRegistrationScreen(
-                        navController = navController,
-                        stepName = it.arguments?.getString("stepName") ?: ""
-                    )
+                    val stepName = it.arguments?.getString("stepName") ?: ""
+                    if (stepName == "STEP_CREATE_ACCOUNT") {
+                        CreateAccountRegistrationScreen(
+                            navController = navController,
+                            stepName = stepName
+                        )
+                    }
                 }
             }
         }
