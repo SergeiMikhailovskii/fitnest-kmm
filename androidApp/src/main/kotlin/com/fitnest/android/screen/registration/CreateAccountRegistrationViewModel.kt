@@ -7,18 +7,22 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CreateAccountRegistrationViewModel : BaseViewModel() {
+class CreateAccountRegistrationViewModel(
+    private val registrationScreenState: RegistrationScreenState
+) : BaseViewModel() {
 
     private val screenData = CreateAccountRegistrationScreenData.init()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
 
-    internal fun setInitialScreenData(stepData: RegistrationStepModel.CreateAccountStepModel) {
-        screenData.firstName = stepData.firstName
-        screenData.lastName = stepData.lastName
-        screenData.email = stepData.email
-        screenData.password = stepData.password
+    internal fun initializeStartData() {
+        val fields = registrationScreenState.fields
+        val validationSchema = registrationScreenState.validationSchema
+        if (fields is RegistrationStepModel.CreateAccountStepModel) {
+            setInitialScreenData(fields)
+        }
+        screenData.validationSchema = validationSchema
         updateScreenData()
     }
 
@@ -64,6 +68,14 @@ class CreateAccountRegistrationViewModel : BaseViewModel() {
 
     internal fun updatePasswordFocus(isFocused: Boolean) {
         screenData.isPasswordFocused = isFocused
+        updateScreenData()
+    }
+
+    private fun setInitialScreenData(stepData: RegistrationStepModel.CreateAccountStepModel) {
+        screenData.firstName = stepData.firstName
+        screenData.lastName = stepData.lastName
+        screenData.email = stepData.email
+        screenData.password = stepData.password
         updateScreenData()
     }
 

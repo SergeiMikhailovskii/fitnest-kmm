@@ -53,9 +53,5 @@ fun ProxyScreen(navController: NavController, flow: FlowType) {
 
 fun handleNavigation(route: Route, navController: NavController) {
     navController.popBackStack()
-
-//    if (route is Route.RegistrationStep) {
-//        navController.currentBackStackEntry?.arguments?.putString("data", route.data)
-//    }
     navController.navigate(route.screenName)
 }

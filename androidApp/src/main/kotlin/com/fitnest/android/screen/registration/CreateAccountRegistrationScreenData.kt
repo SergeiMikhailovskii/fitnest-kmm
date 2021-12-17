@@ -1,5 +1,7 @@
 package com.fitnest.android.screen.registration
 
+import com.fitnest.domain.entity.validator.Validator
+
 data class CreateAccountRegistrationScreenData(
     var firstName: String? = "",
     var lastName: String? = "",
@@ -11,7 +13,9 @@ data class CreateAccountRegistrationScreenData(
     var isFirstNameFocused: Boolean = false,
     var isLastNameFocused: Boolean = false,
     var isEmailFocused: Boolean = false,
-    var isPasswordFocused: Boolean = false
+    var isPasswordFocused: Boolean = false,
+
+    var validationSchema: Map<String, List<Validator?>>? = null
 ) {
 
     companion object {

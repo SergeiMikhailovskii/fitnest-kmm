@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import com.fitnest.android.base.FitnestApp
+import com.fitnest.android.di.stateModule
 import com.fitnest.android.di.viewModelModule
 import com.fitnest.di.cookieModule
 import com.fitnest.di.mapperModule
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity(), DIAware {
     override val di by DI.lazy {
         bind<Context>() with instance(this@MainActivity)
         import(viewModelModule)
+        import(stateModule)
         import(repositoryModule)
         import(serviceModule)
         import(cookieModule)

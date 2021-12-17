@@ -41,13 +41,11 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
-import com.fitnest.domain.entity.RegistrationStepModel
 import org.kodein.di.compose.rememberInstance
 
 @Composable
 fun CreateAccountRegistrationScreen(
     navController: NavController,
-    stepData: RegistrationStepModel.CreateAccountStepModel,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -56,7 +54,7 @@ fun CreateAccountRegistrationScreen(
     val screenData by viewModel.screenDataFlow.collectAsState()
 
     LaunchedEffect(key1 = null) {
-        viewModel.setInitialScreenData(stepData)
+        viewModel.initializeStartData()
     }
 
     val loginAnnotatedText = buildAnnotatedString {

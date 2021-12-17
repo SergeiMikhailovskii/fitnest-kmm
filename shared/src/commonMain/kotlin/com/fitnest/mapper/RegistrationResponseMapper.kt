@@ -13,10 +13,9 @@ class RegistrationResponseMapper : ResponseMapper<JsonObject, GetRegistrationRes
     override fun map(source: JsonObject?): GetRegistrationResponseData {
         val step = source?.get("step")?.jsonPrimitive?.content
         val fields = source?.get("fields")?.jsonObject
-//        val validationSchema = source?.get("validation_schema")?.jsonObject
-        mapValidationSchema(source?.get("validation_schema")?.jsonObject)
+        val validationSchema = mapValidationSchema(source?.get("validation_schema")?.jsonObject)
         val stepData = mapStepData(fields, step)
-        return GetRegistrationResponseData(step = step, fields = stepData)
+        return GetRegistrationResponseData(step = step, fields = stepData, validationSchema = validationSchema)
     }
 
     private fun mapStepData(fields: JsonObject?, step: String?): RegistrationStepModel? {

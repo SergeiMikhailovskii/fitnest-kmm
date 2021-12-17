@@ -9,9 +9,8 @@ sealed class Route(val screenName: String) {
     object Login : Route("login")
 
     data class RegistrationStep(
-        val stepName: String,
-        val data: String? = null,
-    ) : Route("registrationStep/$stepName/$data")
+        val stepName: String
+    ) : Route("registrationStep/$stepName")
 
     // for not implemented routes
     object Unknown : Route("unknown")
