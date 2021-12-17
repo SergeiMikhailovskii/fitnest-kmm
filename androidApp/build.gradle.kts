@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":data"))
     implementation(AndroidDependencies.dependencies)
     implementation(ComposeDependencies.dependencies)
     implementation(KodeinDependencies.Android.dependencies)
