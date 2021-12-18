@@ -16,9 +16,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.base.Route
+import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.android.style.*
 import com.fitnest.android.view.ui_elements.GradientButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
@@ -28,7 +31,12 @@ import org.kodein.di.compose.rememberInstance
 
 @Composable
 fun OnboardingScreen(navController: NavController, stepName: String) {
-    val viewModel: OnboardingViewModel by rememberInstance()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = OnboardingViewModel::class.java
+    )
     val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
 
     LaunchedEffect(key1 = null) {

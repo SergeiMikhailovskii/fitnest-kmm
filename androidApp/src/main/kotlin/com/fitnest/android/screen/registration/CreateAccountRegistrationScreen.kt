@@ -29,6 +29,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.style.*
@@ -47,9 +49,13 @@ import org.kodein.di.compose.rememberInstance
 fun CreateAccountRegistrationScreen(
     navController: NavController,
 ) {
-    val focusManager = LocalFocusManager.current
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = CreateAccountRegistrationViewModel::class.java
+    )
 
-    val viewModel: CreateAccountRegistrationViewModel by rememberInstance()
+    val focusManager = LocalFocusManager.current
 
     val screenData by viewModel.screenDataFlow.collectAsState()
 

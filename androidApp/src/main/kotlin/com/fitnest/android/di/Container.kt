@@ -15,7 +15,7 @@ val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
 
     bind<ViewModelProvider.Factory>() with singleton {
-        ViewModelFactory(instance())
+        ViewModelFactory(di)
     }
     bind<LoginViewModel>() with multiton {
         LoginViewModel(instance())

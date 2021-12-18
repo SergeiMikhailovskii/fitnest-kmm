@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.base.Route
@@ -24,7 +26,12 @@ import org.kodein.di.compose.rememberInstance
 
 @Composable
 fun SplashScreen(navController: NavController) {
-    val viewModel: SplashViewModel by rememberInstance()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = SplashViewModel::class.java
+    )
 
     var progress: Boolean? by remember { mutableStateOf(null) }
 
