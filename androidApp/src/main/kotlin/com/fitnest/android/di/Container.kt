@@ -9,10 +9,12 @@ import com.fitnest.android.screen.registration.CreateAccountRegistrationViewMode
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
+import com.fitnest.domain.di.validatorModule
 import org.kodein.di.*
 
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
+    import(validatorModule)
 
     bind<ViewModelProvider.Factory>() with singleton {
         ViewModelFactory(di)
@@ -27,7 +29,7 @@ val viewModelModule = DI.Module("view model module") {
         OnboardingViewModel(instance(), instance())
     }
     bind<CreateAccountRegistrationViewModel>() with multiton {
-        CreateAccountRegistrationViewModel(instance())
+        CreateAccountRegistrationViewModel(instance(), instance())
     }
     bind<ProxyViewModel>() with multiton {
         ProxyViewModel(instance(), instance(), instance())

@@ -5,6 +5,7 @@ import com.fitnest.mapper.RegistrationResponseMapper
 import com.fitnest.repository.LocalStorageRepository
 import com.fitnest.repository.NetworkRepository
 import com.fitnest.service.NetworkService
+import kotlinx.serialization.json.Json
 import org.kodein.di.*
 
 val repositoryModule = DI.Module("Repository module") {
@@ -30,6 +31,15 @@ val cookieModule = DI.Module("Cookie module") {
 
 val mapperModule = DI.Module("Mapper module") {
     bind<RegistrationResponseMapper>() with factory {
-        RegistrationResponseMapper()
+        RegistrationResponseMapper(instance())
+    }
+}
+
+val serializationModule = DI.Module("Serialization module") {
+    bind<Json>() with singleton {
+        Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+        }
     }
 }

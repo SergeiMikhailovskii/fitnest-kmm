@@ -6,4 +6,6 @@ import kotlinx.serialization.Serializable
 sealed class Validator {
     val type: String? = null
     val error: String? = null
+
+    abstract fun validate(field: Any?): Boolean
 }

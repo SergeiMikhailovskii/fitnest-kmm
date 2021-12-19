@@ -8,40 +8,38 @@ import com.fitnest.domain.entity.validator.RequiredValidator
 import com.fitnest.domain.entity.validator.Validator
 import kotlinx.serialization.json.*
 
-class RegistrationResponseMapper : ResponseMapper<JsonObject, GetRegistrationResponseData> {
+class RegistrationResponseMapper(
+    private val json: Json
+) : ResponseMapper<JsonObject, GetRegistrationResponseData> {
 
     override fun map(source: JsonObject?): GetRegistrationResponseData {
         val step = source?.get("step")?.jsonPrimitive?.content
         val fields = source?.get("fields")?.jsonObject
         val validationSchema = mapValidationSchema(source?.get("validation_schema")?.jsonObject)
         val stepData = mapStepData(fields, step)
-        return GetRegistrationResponseData(step = step, fields = stepData, validationSchema = validationSchema)
+        return GetRegistrationResponseData(
+            step = step,
+            fields = stepData,
+            validationSchema = validationSchema
+        )
     }
 
     private fun mapStepData(fields: JsonObject?, step: String?): RegistrationStepModel? {
+        if (fields == null) return null
         return when (step) {
             "STEP_CREATE_ACCOUNT" -> {
-                val firstName = fields?.get("first_name")?.jsonPrimitive?.content
-                val lastName = fields?.get("last_name")?.jsonPrimitive?.content
-                val password = fields?.get("password")?.jsonPrimitive?.content
-                val email = fields?.get("email")?.jsonPrimitive?.content
-                return RegistrationStepModel.CreateAccountStepModel(
-                    firstName = firstName,
-                    lastName = lastName,
-                    email = email,
-                    password = password
-                )
+                return json.decodeFromJsonElement<RegistrationStepModel.CreateAccountStepModel>(fields)
             }
             else -> null
         }
     }
 
-    private fun mapValidationSchema(map: JsonObject?): Map<String, List<Validator?>> {
-        val mappedValidationSchema = mutableMapOf<String, List<Validator?>>()
+    private fun mapValidationSchema(map: JsonObject?): Map<String, List<Validator>> {
+        val mappedValidationSchema = mutableMapOf<String, List<Validator>>()
         val entries = map?.entries
         entries?.forEach {
             val validators = it.value
-            val mappedValidators = mutableListOf<Validator?>()
+            val mappedValidators = mutableListOf<Validator>()
             if (validators is JsonArray) {
                 validators.forEach {
                     mappedValidators.add(mapValidator(it as JsonObject))
@@ -52,11 +50,7 @@ class RegistrationResponseMapper : ResponseMapper<JsonObject, GetRegistrationRes
         return mappedValidationSchema
     }
 
-    private fun mapValidator(validator: JsonObject): Validator? {
-        val json = Json {
-            ignoreUnknownKeys = true
-            isLenient = true
-        }
+    private fun mapValidator(validator: JsonObject): Validator {
         return when (validator["type"]?.jsonPrimitive?.content) {
             "required" -> {
                 json.decodeFromJsonElement<RequiredValidator>(validator)
@@ -68,7 +62,7 @@ class RegistrationResponseMapper : ResponseMapper<JsonObject, GetRegistrationRes
                 json.decodeFromJsonElement<MinLengthValidator>(validator)
             }
             else -> {
-                null
+                throw RuntimeException("unknown validator")
             }
         }
     }

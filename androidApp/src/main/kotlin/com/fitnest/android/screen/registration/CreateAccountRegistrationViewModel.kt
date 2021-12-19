@@ -3,12 +3,14 @@ package com.fitnest.android.screen.registration
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.domain.entity.RegistrationStepModel
+import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CreateAccountRegistrationViewModel(
-    private val registrationScreenState: RegistrationScreenState
+    private val registrationScreenState: RegistrationScreenState,
+    private val createAccountRegistrationValidator: CreateAccountRegistrationValidator,
 ) : BaseViewModel() {
 
     private val screenData = CreateAccountRegistrationScreenData.init()
@@ -19,6 +21,23 @@ class CreateAccountRegistrationViewModel(
     internal fun initializeStartData() {
         val fields = registrationScreenState.fields
         val validationSchema = registrationScreenState.validationSchema
+        validationSchema?.let {
+            createAccountRegistrationValidator.initialize(
+                jsonSchema = it,
+                onFirstNameErrorChanged = {
+
+                },
+                onLastNameErrorChanged = {
+
+                },
+                onEmailErrorChanged = {
+
+                },
+                onPasswordErrorChanged = {
+
+                }
+            )
+        }
         if (fields is RegistrationStepModel.CreateAccountStepModel) {
             setInitialScreenData(fields)
         }

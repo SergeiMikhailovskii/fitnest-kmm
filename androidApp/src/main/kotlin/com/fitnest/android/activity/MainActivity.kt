@@ -8,10 +8,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.di.stateModule
 import com.fitnest.android.di.viewModelModule
-import com.fitnest.di.cookieModule
-import com.fitnest.di.mapperModule
-import com.fitnest.di.repositoryModule
-import com.fitnest.di.serviceModule
+import com.fitnest.di.*
 import org.kodein.di.*
 
 @ExperimentalAnimationApi
@@ -27,6 +24,7 @@ class MainActivity : ComponentActivity(), DIAware {
         import(serviceModule)
         import(cookieModule)
         import(mapperModule)
+        import(serializationModule)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
