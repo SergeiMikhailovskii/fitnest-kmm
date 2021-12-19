@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 
 class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
-    private val createAccountRegistrationValidator: CreateAccountRegistrationValidator,
+    private val validator: CreateAccountRegistrationValidator,
+    private val viewMapper: CreateAccountRegistrationViewMapper
 ) : BaseViewModel() {
 
     private val screenData = CreateAccountRegistrationScreenData.init()
@@ -23,7 +24,7 @@ class CreateAccountRegistrationViewModel(
         val fields = registrationScreenState.fields
         val validationSchema = registrationScreenState.validationSchema
         validationSchema?.let {
-            createAccountRegistrationValidator.initialize(
+            validator.initialize(
                 jsonSchema = it,
                 onFirstNameErrorChanged = {
 
@@ -89,6 +90,11 @@ class CreateAccountRegistrationViewModel(
     internal fun updatePasswordFocus(isFocused: Boolean) {
         screenData.isPasswordFocused = isFocused
         updateScreenData()
+    }
+
+    internal fun submitRegistration() {
+        val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
+        validator.validate(requestData)
     }
 
     private fun setInitialScreenData(stepData: RegistrationStepModel.CreateAccountStepModel) {

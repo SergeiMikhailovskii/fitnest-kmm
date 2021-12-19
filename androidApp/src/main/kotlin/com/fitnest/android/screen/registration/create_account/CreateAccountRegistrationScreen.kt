@@ -239,7 +239,7 @@ fun CreateAccountRegistrationScreen(
                 isFocused = screenData.isPasswordFocused
             )
             Button(
-                onClick = { },
+                onClick = viewModel::submitRegistration,
                 shape = CircleShape,
                 modifier = Modifier
                     .constrainAs(btnNext) {
