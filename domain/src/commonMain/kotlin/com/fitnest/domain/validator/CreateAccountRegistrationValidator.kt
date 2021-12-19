@@ -1,5 +1,6 @@
 package com.fitnest.domain.validator
 
+import com.fitnest.domain.entity.request.CreateAccountStepRequest
 import com.fitnest.domain.entity.validator.Validator
 
 class CreateAccountRegistrationValidator {
@@ -29,9 +30,12 @@ class CreateAccountRegistrationValidator {
         this.lastNameValidators = jsonSchema["last_name"]
         this.emailValidators = jsonSchema["email"]
         this.passwordValidators = jsonSchema["password"]
-
-        println()
     }
 
+    fun validate(model: CreateAccountStepRequest) {
+        val firstName = model.firstName
+        val failedFirstNameValidator = firstNameValidators?.firstOrNull { !it.validate(firstName) }
+        println()
+    }
 
 }
