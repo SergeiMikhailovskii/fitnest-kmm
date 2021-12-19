@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration
+package com.fitnest.android.screen.registration.create_account
 
 import com.fitnest.domain.entity.validator.Validator
 

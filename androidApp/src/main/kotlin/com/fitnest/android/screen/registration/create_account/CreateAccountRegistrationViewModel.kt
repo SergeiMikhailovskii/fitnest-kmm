@@ -1,7 +1,8 @@
-package com.fitnest.android.screen.registration
+package com.fitnest.android.screen.registration.create_account
 
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
+import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow

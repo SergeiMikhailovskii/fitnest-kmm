@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration
+package com.fitnest.android.screen.registration.create_account
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

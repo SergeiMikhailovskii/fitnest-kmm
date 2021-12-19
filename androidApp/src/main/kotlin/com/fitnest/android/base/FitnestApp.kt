@@ -11,7 +11,7 @@ import androidx.navigation.navArgument
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.proxy.ProxyScreen
-import com.fitnest.android.screen.registration.CreateAccountRegistrationScreen
+import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
 import com.fitnest.domain.enum.FlowType
