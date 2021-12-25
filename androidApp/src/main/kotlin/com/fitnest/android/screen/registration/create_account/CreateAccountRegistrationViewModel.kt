@@ -49,21 +49,25 @@ class CreateAccountRegistrationViewModel(
 
     internal fun updateFirstName(name: String) {
         screenData.firstName = name
+        screenData.exception.firstNameError = null
         updateScreenData()
     }
 
     internal fun updateLastName(lastName: String) {
         screenData.lastName = lastName
+        screenData.exception.lastNameError = null
         updateScreenData()
     }
 
     internal fun updateEmail(email: String) {
         screenData.email = email
+        screenData.exception.emailError = null
         updateScreenData()
     }
 
     internal fun updatePassword(password: String) {
         screenData.password = password
+        screenData.exception.passwordError = null
         updateScreenData()
     }
 
