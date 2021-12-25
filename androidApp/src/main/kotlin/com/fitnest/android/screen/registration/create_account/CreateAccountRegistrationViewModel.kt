@@ -1,13 +1,12 @@
 package com.fitnest.android.screen.registration.create_account
 
-import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.update
 
 class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
@@ -111,9 +110,7 @@ class CreateAccountRegistrationViewModel(
     }
 
     private fun updateScreenData() {
-        viewModelScope.launch {
-            _screenDataFlow.emit(screenData.copy())
-        }
+        _screenDataFlow.update { screenData.copy() }
     }
 
 }
