@@ -70,3 +70,7 @@ val PoppinsNormalStyle16 = PoppinsNormalStyle.copy(
 val PoppinsNormalStyle16Black = PoppinsNormalStyle16.copy(
     color = BlackColor
 )
+
+val ErrorStyle = PoppinsNormalStyle12.copy(
+    color = ErrorColor
+)

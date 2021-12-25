@@ -1,6 +1,5 @@
 package com.fitnest.domain.functional
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 sealed class Failure {
@@ -15,5 +14,5 @@ sealed class Failure {
     @Serializable
     data class ValidationErrors(
         val fields: List<ValidationError>
-    ): Failure()
+    ) : Failure()
 }

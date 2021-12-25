@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.extension.stringResourceByIdentifier
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Dimen.Dimen1
 import com.fitnest.android.style.Dimen.Dimen14
@@ -151,7 +152,8 @@ fun CreateAccountRegistrationScreen(
                 },
                 onValueChange = viewModel::updateFirstName,
                 onFocusChanged = viewModel::updateFirstNameFocus,
-                isFocused = screenData.isFirstNameFocused
+                isFocused = screenData.isFirstNameFocused,
+                error = screenData.exception.firstNameError
             )
             RegistrationOutlinedTextField(
                 value = screenData.lastName ?: "",
@@ -176,7 +178,8 @@ fun CreateAccountRegistrationScreen(
                 },
                 onValueChange = viewModel::updateLastName,
                 onFocusChanged = viewModel::updateLastNameFocus,
-                isFocused = screenData.isLastNameFocused
+                isFocused = screenData.isLastNameFocused,
+                error = screenData.exception.lastNameError
             )
             RegistrationOutlinedTextField(
                 value = screenData.email ?: "",
@@ -201,7 +204,8 @@ fun CreateAccountRegistrationScreen(
                 },
                 onValueChange = viewModel::updateEmail,
                 onFocusChanged = viewModel::updateEmailFocus,
-                isFocused = screenData.isEmailFocused
+                isFocused = screenData.isEmailFocused,
+                error = screenData.exception.emailError
             )
             RegistrationOutlinedTextField(
                 value = screenData.password ?: "",
@@ -236,7 +240,8 @@ fun CreateAccountRegistrationScreen(
                 visualTransformation = getPasswordVisualTransformation(!screenData.passwordVisible),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 onFocusChanged = viewModel::updatePasswordFocus,
-                isFocused = screenData.isPasswordFocused
+                isFocused = screenData.isPasswordFocused,
+                error = screenData.exception.passwordError
             )
             Button(
                 onClick = viewModel::submitRegistration,
@@ -385,10 +390,10 @@ fun RegistrationOutlinedTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onFocusChanged: ((Boolean) -> Unit)? = null,
-    isFocused: Boolean = false
+    isFocused: Boolean = false,
+    error: String? = null,
 ) {
-    OutlinedTextField(
-        value = value,
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .constraintAsModifier()
@@ -399,21 +404,37 @@ fun RegistrationOutlinedTextField(
             .onFocusChanged {
                 onFocusChanged?.invoke(it.isFocused)
             },
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = if (isFocused) Color.White else BorderColor,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = BrandColor,
-            focusedLabelColor = BrandColor,
-        ),
-        leadingIcon = leadingIcon,
-        label = label,
-        shape = RoundedCornerShape(Dimen14),
-        onValueChange = onValueChange,
-        visualTransformation = visualTransformation,
-        trailingIcon = trailingIcon,
-        keyboardOptions = keyboardOptions,
-    )
+    ) {
+        val backgroundColor = when {
+            isFocused -> Color.White
+            else -> BorderColor
+        }
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = value,
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = backgroundColor,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = BrandColor,
+                focusedLabelColor = BrandColor,
+            ),
+            leadingIcon = leadingIcon,
+            label = label,
+            shape = RoundedCornerShape(Dimen14),
+            onValueChange = onValueChange,
+            visualTransformation = visualTransformation,
+            isError = error != null,
+            trailingIcon = trailingIcon,
+            keyboardOptions = keyboardOptions,
+        )
+        if (error != null) {
+            Box(Modifier.height(4.dp))
+            Text(stringResourceByIdentifier(error), style = ErrorStyle)
+        }
+    }
+
 }
 
 fun getPasswordVisualTransformation(passwordVisibility: Boolean) =

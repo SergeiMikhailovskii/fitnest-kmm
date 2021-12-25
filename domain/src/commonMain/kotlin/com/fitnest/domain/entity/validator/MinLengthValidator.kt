@@ -5,15 +5,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 class MinLengthValidator(private val validation: Int) : Validator() {
 
-    override fun validate(field: Any?) = when (field) {
+    override fun isValid(field: Any?) = when (field) {
         is String -> {
             field.length < validation
         }
         null -> {
-            throw RuntimeException("MinLengthValidator cannot validate nullable field")
+            throw RuntimeException("MinLengthValidator cannot isValid nullable field")
         }
         else -> {
-            throw RuntimeException("MinLengthValidator cannot validate ${field::class.simpleName}")
+            throw RuntimeException("MinLengthValidator cannot isValid ${field::class.simpleName}")
         }
     }
 }

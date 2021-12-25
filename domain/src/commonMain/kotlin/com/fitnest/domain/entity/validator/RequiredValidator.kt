@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class RequiredValidator : Validator() {
-    override fun validate(field: Any?) = when (field) {
+    override fun isValid(field: Any?) = when (field) {
         null -> {
             false
         }
@@ -12,7 +12,7 @@ class RequiredValidator : Validator() {
             field.isNotBlank()
         }
         else -> {
-            throw RuntimeException("MinLengthValidator cannot validate ${field::class.simpleName}")
+            throw RuntimeException("MinLengthValidator cannot isValid ${field::class.simpleName}")
         }
     }
 }

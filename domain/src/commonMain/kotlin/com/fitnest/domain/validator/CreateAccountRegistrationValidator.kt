@@ -34,8 +34,24 @@ class CreateAccountRegistrationValidator {
 
     fun validate(model: CreateAccountStepRequest) {
         val firstName = model.firstName
-        val failedFirstNameValidator = firstNameValidators?.firstOrNull { !it.validate(firstName) }
-        println()
+        firstNameValidators?.firstOrNull { !it.isValid(firstName) }?.error?.let {
+            onFirstNameErrorChanged?.invoke(it)
+        }
+
+        val lastName = model.lastName
+        lastNameValidators?.firstOrNull { !it.isValid(lastName) }?.error?.let {
+            onLastNameErrorChanged?.invoke(it)
+        }
+
+        val email = model.email
+        emailValidators?.firstOrNull { !it.isValid(email) }?.error?.let {
+            onEmailErrorChanged?.invoke(it)
+        }
+
+        val password = model.password
+        passwordValidators?.firstOrNull { !it.isValid(password) }?.error?.let {
+            onPasswordErrorChanged?.invoke(it)
+        }
     }
 
 }

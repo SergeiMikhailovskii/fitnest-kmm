@@ -7,5 +7,5 @@ sealed class Validator {
     val type: String? = null
     val error: String? = null
 
-    abstract fun validate(field: Any?): Boolean
+    abstract fun isValid(field: Any?): Boolean
 }

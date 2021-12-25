@@ -27,16 +27,16 @@ class CreateAccountRegistrationViewModel(
             validator.initialize(
                 jsonSchema = it,
                 onFirstNameErrorChanged = {
-
+                    screenData.exception.firstNameError = it
                 },
                 onLastNameErrorChanged = {
-
+                    screenData.exception.lastNameError = it
                 },
                 onEmailErrorChanged = {
-
+                    screenData.exception.emailError = it
                 },
                 onPasswordErrorChanged = {
-
+                    screenData.exception.passwordError = it
                 }
             )
         }
@@ -95,6 +95,7 @@ class CreateAccountRegistrationViewModel(
     internal fun submitRegistration() {
         val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
         validator.validate(requestData)
+        updateScreenData()
     }
 
     private fun setInitialScreenData(stepData: RegistrationStepModel.CreateAccountStepModel) {
