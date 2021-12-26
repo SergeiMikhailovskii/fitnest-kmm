@@ -5,6 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 class MinLengthValidator(private val validation: Int) : Validator() {
 
+    override val error: String
+        get() = "${super.field}.${super.error}"
+
     override fun isValid(field: Any?) = when (field) {
         is String -> {
             field.length < validation

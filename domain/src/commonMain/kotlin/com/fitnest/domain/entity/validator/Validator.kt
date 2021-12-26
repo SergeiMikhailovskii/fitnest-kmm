@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Validator {
     val type: String? = null
-    val error: String? = null
+    open val error: String? = null
+    var field: String? = null
 
     abstract fun isValid(field: Any?): Boolean
 }

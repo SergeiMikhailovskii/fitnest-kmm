@@ -3,7 +3,7 @@ package com.fitnest.domain.validator
 import com.fitnest.domain.entity.request.CreateAccountStepRequest
 import com.fitnest.domain.entity.validator.Validator
 
-class CreateAccountRegistrationValidator {
+class CreateAccountRegistrationValidator : BaseValidator() {
     private var onFirstNameErrorChanged: ((String) -> Unit)? = null
     private var onLastNameErrorChanged: ((String) -> Unit)? = null
     private var onEmailErrorChanged: ((String) -> Unit)? = null
@@ -26,10 +26,11 @@ class CreateAccountRegistrationValidator {
         this.onEmailErrorChanged = onEmailErrorChanged
         this.onPasswordErrorChanged = onPasswordErrorChanged
 
-        this.firstNameValidators = jsonSchema["first_name"]
-        this.lastNameValidators = jsonSchema["last_name"]
-        this.emailValidators = jsonSchema["email"]
-        this.passwordValidators = jsonSchema["password"]
+        this.firstNameValidators =
+            mapValidationRulesWithField("first_name", jsonSchema["first_name"])
+        this.lastNameValidators = mapValidationRulesWithField("last_name", jsonSchema["last_name"])
+        this.emailValidators = mapValidationRulesWithField("email", jsonSchema["email"])
+        this.passwordValidators = mapValidationRulesWithField("password", jsonSchema["password"])
     }
 
     fun validate(model: CreateAccountStepRequest) {
