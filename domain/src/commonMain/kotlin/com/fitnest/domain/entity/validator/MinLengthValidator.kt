@@ -10,7 +10,7 @@ class MinLengthValidator(private val validation: Int) : Validator() {
 
     override fun isValid(field: Any?) = when (field) {
         is String -> {
-            field.length < validation
+            field.length >= validation
         }
         null -> {
             throw RuntimeException("MinLengthValidator cannot isValid nullable field")
