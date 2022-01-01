@@ -33,7 +33,7 @@ val viewModelModule = DI.Module("view model module") {
     bind<CreateAccountRegistrationViewModel>() with multiton {
         CreateAccountRegistrationViewModel(instance(), instance(), instance())
     }
-    bind<ProxyViewModel>() with multiton {
+    bind<ProxyViewModel>() with factory {
         ProxyViewModel(instance(), instance(), instance())
     }
 }
