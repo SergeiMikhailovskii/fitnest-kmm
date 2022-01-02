@@ -10,8 +10,8 @@ data class CreateAccountStepRequest(
 ) : BaseRequest {
 
     override fun toMap() = mapOf(
-        "firstName" to firstName,
-        "lastName" to lastName,
+        "first_name" to firstName,
+        "last_name" to lastName,
         "email" to email,
         "password" to password,
     )

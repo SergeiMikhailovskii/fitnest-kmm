@@ -1,7 +1,9 @@
 package com.fitnest.repository
 
 import com.fitnest.domain.entity.LoginData
+import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.functional.Either
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.functional.flatMap
 import com.fitnest.domain.repository.NetworkRepository
 import com.fitnest.domain.service.NetworkService
@@ -30,6 +32,10 @@ class NetworkRepository(
             val data = it?.data?.jsonObject
             registrationResponseMapper.map(data)
         }
+
+    override suspend fun submitRegistrationStep(request: BaseRequest): Either<Failure, Unit> =
+        networkService.sendData(Endpoints.Registration.name, data = request.toMap())
+            .flatMap { Either.Right(Unit) }
 
     override suspend fun submitOnboardingStep() =
         networkService.sendData<Unit>(Endpoints.Onboarding.name)

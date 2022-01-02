@@ -18,7 +18,7 @@ class ProxyViewModel(
             FlowType.ONBOARDING -> {
                 getOnboardingStepUseCase {
                     it.either(::handleFailure) {
-                        handleRoute(Route.OnboardingStep(it ?: ""))
+                        handleRoute(Route.OnboardingStep(stepName = it ?: ""))
                     }
                 }
             }

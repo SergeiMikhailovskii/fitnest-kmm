@@ -21,17 +21,17 @@ val viewModelModule = DI.Module("view model module") {
     bind<ViewModelProvider.Factory>() with singleton {
         ViewModelFactory(di)
     }
-    bind<LoginViewModel>() with multiton {
+    bind<LoginViewModel>() with factory {
         LoginViewModel(instance())
     }
-    bind<SplashViewModel>() with multiton {
+    bind<SplashViewModel>() with factory {
         SplashViewModel(instance())
     }
     bind<OnboardingViewModel>() with factory {
         OnboardingViewModel(instance(), instance())
     }
-    bind<CreateAccountRegistrationViewModel>() with multiton {
-        CreateAccountRegistrationViewModel(instance(), instance(), instance())
+    bind<CreateAccountRegistrationViewModel>() with factory {
+        CreateAccountRegistrationViewModel(instance(), instance(), instance(), instance())
     }
     bind<ProxyViewModel>() with factory {
         ProxyViewModel(instance(), instance(), instance())
@@ -45,7 +45,7 @@ val stateModule = DI.Module("state module") {
 }
 
 val viewMapperModule = DI.Module("view mapper module") {
-    bind<CreateAccountRegistrationViewMapper>() with multiton {
+    bind<CreateAccountRegistrationViewMapper>() with factory {
         CreateAccountRegistrationViewMapper()
     }
 }

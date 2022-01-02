@@ -33,26 +33,35 @@ class CreateAccountRegistrationValidator : BaseValidator() {
         this.passwordValidators = mapValidationRulesWithField("password", jsonSchema["password"])
     }
 
-    fun validate(model: CreateAccountStepRequest) {
+    fun validate(model: CreateAccountStepRequest): Boolean {
         val firstName = model.firstName
-        firstNameValidators?.firstOrNull { !it.isValid(firstName) }?.error?.let {
+        val firstNameFailedValidator = firstNameValidators?.firstOrNull { !it.isValid(firstName) }
+        firstNameFailedValidator?.error?.let {
             onFirstNameErrorChanged?.invoke(it)
         }
 
         val lastName = model.lastName
-        lastNameValidators?.firstOrNull { !it.isValid(lastName) }?.error?.let {
+        val lastNameFailedValidator = lastNameValidators?.firstOrNull { !it.isValid(lastName) }
+        lastNameFailedValidator?.error?.let {
             onLastNameErrorChanged?.invoke(it)
         }
 
         val email = model.email
-        emailValidators?.firstOrNull { !it.isValid(email) }?.error?.let {
+        val emailFailedValidator = emailValidators?.firstOrNull { !it.isValid(email) }
+        emailFailedValidator?.error?.let {
             onEmailErrorChanged?.invoke(it)
         }
 
         val password = model.password
-        passwordValidators?.firstOrNull { !it.isValid(password) }?.error?.let {
+        val passwordFailedValidator = passwordValidators?.firstOrNull { !it.isValid(password) }
+        passwordFailedValidator?.error?.let {
             onPasswordErrorChanged?.invoke(it)
         }
+
+        return firstNameFailedValidator == null
+                && lastNameFailedValidator == null
+                && emailFailedValidator == null
+                && passwordFailedValidator == null
     }
 
 }
