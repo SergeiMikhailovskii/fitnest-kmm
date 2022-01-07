@@ -205,7 +205,8 @@ fun CreateAccountRegistrationScreen(
                 onValueChange = viewModel::updateEmail,
                 onFocusChanged = viewModel::updateEmailFocus,
                 isFocused = screenData.isEmailFocused,
-                error = screenData.exception.emailError
+                error = screenData.exception.emailError,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
             RegistrationOutlinedTextField(
                 value = screenData.password ?: "",
