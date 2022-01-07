@@ -2,10 +2,7 @@ package com.fitnest.mapper
 
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationStepModel
-import com.fitnest.domain.entity.validator.MinLengthValidator
-import com.fitnest.domain.entity.validator.RegExpValidator
-import com.fitnest.domain.entity.validator.RequiredValidator
-import com.fitnest.domain.entity.validator.Validator
+import com.fitnest.domain.entity.validator.*
 import kotlinx.serialization.json.*
 
 class RegistrationResponseMapper(
@@ -28,7 +25,9 @@ class RegistrationResponseMapper(
         if (fields == null) return null
         return when (step) {
             "STEP_CREATE_ACCOUNT" -> {
-                return json.decodeFromJsonElement<RegistrationStepModel.CreateAccountStepModel>(fields)
+                return json.decodeFromJsonElement<RegistrationStepModel.CreateAccountStepModel>(
+                    fields
+                )
             }
             else -> null
         }
@@ -60,6 +59,18 @@ class RegistrationResponseMapper(
             }
             "minLength" -> {
                 json.decodeFromJsonElement<MinLengthValidator>(validator)
+            }
+            "minAge" -> {
+                json.decodeFromJsonElement<MinAgeValidator>(validator)
+            }
+            "maxAge" -> {
+                json.decodeFromJsonElement<MaxAgeValidator>(validator)
+            }
+            "minValue" -> {
+                json.decodeFromJsonElement<MinValueValidator>(validator)
+            }
+            "maxValue" -> {
+                json.decodeFromJsonElement<MaxValueValidator>(validator)
             }
             else -> {
                 throw RuntimeException("unknown validator")

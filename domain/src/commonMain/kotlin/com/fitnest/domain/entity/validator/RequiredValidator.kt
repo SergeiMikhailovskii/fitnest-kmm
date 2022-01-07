@@ -12,7 +12,7 @@ class RequiredValidator : Validator() {
             field.isNotBlank()
         }
         else -> {
-            throw RuntimeException("MinLengthValidator cannot isValid ${field::class.simpleName}")
+            throw RuntimeException("MinLengthValidator cannot validate ${field::class.simpleName}")
         }
     }
 }

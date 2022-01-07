@@ -23,8 +23,8 @@ val useCaseModule = DI.Module("use case module") {
     bind<SubmitOnboardingStep>() with factory {
         SubmitOnboardingStep(instance())
     }
-    bind<SubmitRegistrationStep>() with factory {
-        SubmitRegistrationStep(instance())
+    bind<SubmitRegistrationStepAndGetNext>() with factory {
+        SubmitRegistrationStepAndGetNext(instance())
     }
 }
 

@@ -13,10 +13,10 @@ class RegExpValidator(private val validation: String) : Validator() {
             Regex(validation).matches(field)
         }
         null -> {
-            throw RuntimeException("RegExpValidator cannot isValid nullable field")
+            throw RuntimeException("RegExpValidator cannot validate nullable field")
         }
         else -> {
-            throw RuntimeException("RegExpValidator cannot isValid ${field::class.simpleName}")
+            throw RuntimeException("RegExpValidator cannot validate ${field::class.simpleName}")
         }
     }
 }

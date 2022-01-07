@@ -13,10 +13,10 @@ class MinLengthValidator(private val validation: Int) : Validator() {
             field.length >= validation
         }
         null -> {
-            throw RuntimeException("MinLengthValidator cannot isValid nullable field")
+            throw RuntimeException("MinLengthValidator cannot validate nullable field")
         }
         else -> {
-            throw RuntimeException("MinLengthValidator cannot isValid ${field::class.simpleName}")
+            throw RuntimeException("MinLengthValidator cannot validate ${field::class.simpleName}")
         }
     }
 }
