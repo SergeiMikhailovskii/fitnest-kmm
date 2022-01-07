@@ -1,25 +1,35 @@
 package com.fitnest.domain.di
 
-import com.fitnest.domain.usecase.GenerateTokenUseCase
-import com.fitnest.domain.usecase.GetOnboardingStep
-import com.fitnest.domain.usecase.LoginUseCase
-import com.fitnest.domain.usecase.SubmitOnboardingStep
+import com.fitnest.domain.usecase.*
+import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import org.kodein.di.DI
 import org.kodein.di.bind
+import org.kodein.di.factory
 import org.kodein.di.instance
-import org.kodein.di.singleton
 
 val useCaseModule = DI.Module("use case module") {
-    bind<LoginUseCase>() with singleton {
+    bind<LoginUseCase>() with factory {
         LoginUseCase(di)
     }
-    bind<GenerateTokenUseCase>() with singleton {
+    bind<GenerateTokenUseCase>() with factory {
         GenerateTokenUseCase(instance())
     }
-    bind<GetOnboardingStep>() with singleton {
+    bind<GetOnboardingStep>() with factory {
         GetOnboardingStep(instance())
     }
-    bind<SubmitOnboardingStep>() with singleton {
+    bind<GetRegistrationStepData>() with factory {
+        GetRegistrationStepData(instance())
+    }
+    bind<SubmitOnboardingStep>() with factory {
         SubmitOnboardingStep(instance())
+    }
+    bind<SubmitRegistrationStep>() with factory {
+        SubmitRegistrationStep(instance())
+    }
+}
+
+val validatorModule = DI.Module("validator module") {
+    bind<CreateAccountRegistrationValidator>() with factory {
+        CreateAccountRegistrationValidator()
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error.required">Required field</string>
+    <string name="first_name.error.invalid">Invalid first name</string>
+    <string name="last_name.error.invalid">Invalid last name</string>
+    <string name="email.error.invalid">Invalid email</string>
+    <string name="password.error.invalid">Password should contain digits, capital and small letters, underscore</string>
+    <string name="password.error.minLength">Password too short</string>
+</resources>

@@ -14,5 +14,5 @@ sealed class Failure {
     @Serializable
     data class ValidationErrors(
         val fields: List<ValidationError>
-    ): Failure()
+    ) : Failure()
 }

@@ -2,7 +2,10 @@ package com.fitnest.domain.usecase
 
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 abstract class UseCaseParams<out Type, in Params> {
 
@@ -16,3 +19,5 @@ abstract class UseCaseParams<out Type, in Params> {
     }
 
 }
+
+abstract class UseCaseParamsUnit<in Params> : UseCaseParams<Unit, Params>()

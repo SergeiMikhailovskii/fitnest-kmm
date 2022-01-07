@@ -9,5 +9,5 @@ pluginManagement {
 
 rootProject.name = "KMMTest"
 include(":androidApp")
-include(":shared")
+include(":data")
 include(":domain")

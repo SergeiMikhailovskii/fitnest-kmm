@@ -8,11 +8,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.fitnest.android.screen.login.LoginScreen
+import com.fitnest.android.screen.onboarding.OnboardingScreen
+import com.fitnest.android.screen.proxy.ProxyScreen
+import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreen
+import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
-import com.fitnest.android.view.login.LoginScreen
-import com.fitnest.android.view.onboarding.OnboardingProxyScreen
-import com.fitnest.android.view.onboarding.OnboardingScreen
-import com.fitnest.android.view.splash.SplashScreen
+import com.fitnest.domain.enum.FlowType
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -35,8 +37,16 @@ fun FitnestApp() {
                 composable(route = Route.Login.screenName) {
                     LoginScreen()
                 }
-                composable(route = Route.Onboarding.screenName) {
-                    OnboardingProxyScreen(navController = navController)
+                composable(
+                    route = "proxy/{flow}",
+                    arguments = listOf(navArgument("flow") {
+                        type = NavType.EnumType(FlowType::class.java)
+                    }),
+                ) {
+                    ProxyScreen(
+                        navController = navController,
+                        flow = it.arguments?.get("flow") as FlowType
+                    )
                 }
                 composable(
                     route = "onboardingStep/{stepName}",
@@ -58,6 +68,29 @@ fun FitnestApp() {
                         navController = navController,
                         stepName = it.arguments?.getString("stepName") ?: ""
                     )
+                }
+                composable(
+                    route = "registrationStep/{stepName}",
+                    arguments = listOf(
+                        navArgument("stepName") { type = NavType.StringType },
+                    ),
+                    enterTransition = { _, _ ->
+                        slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
+                    },
+                    exitTransition = { _, _ ->
+                        slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
+                    },
+                    popEnterTransition = { _, _ ->
+                        slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
+                    },
+                    popExitTransition = { _, _ ->
+                        slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
+                    },
+                ) {
+                    val stepName = it.arguments?.getString("stepName") ?: ""
+                    if (stepName == "STEP_CREATE_ACCOUNT") {
+                        CreateAccountRegistrationScreen(navController = navController)
+                    }
                 }
             }
         }

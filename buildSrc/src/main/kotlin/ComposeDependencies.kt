@@ -34,8 +34,10 @@ object ComposeDependencies : Dependencies {
         "com.google.android.material:compose-theme-adapter:${Versions.COMPOSE_THEME_ADAPTER_VERSION}"
     private const val COMPOSE_MATERIAL_ICONS =
         "androidx.compose.material:material-icons-extended:${Versions.COMPOSE_VERSION}"
-    private const val COMPOSE_ACCOMPANIST =
+    private const val COMPOSE_ACCOMPANIST_NAVIGATION =
         "com.google.accompanist:accompanist-navigation-animation:${Versions.COMPOSE_ACCOMPANIST}"
+    private const val COMPOSE_ACCOMPANIST_INSETS =
+        "com.google.accompanist:accompanist-insets:${Versions.COMPOSE_ACCOMPANIST}"
 
     override val dependencies = mutableListOf(
         CONSTRAINT_COMPOSE,
@@ -51,7 +53,8 @@ object ComposeDependencies : Dependencies {
         COMPOSE_ACTIVITY,
         COMPOSE_THEME_ADAPTER,
         COMPOSE_MATERIAL_ICONS,
-        COMPOSE_ACCOMPANIST,
+        COMPOSE_ACCOMPANIST_NAVIGATION,
+        COMPOSE_ACCOMPANIST_INSETS,
     )
 
 }
