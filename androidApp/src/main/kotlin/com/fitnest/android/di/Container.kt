@@ -6,6 +6,7 @@ import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
+import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.android.screen.splash.SplashViewModel
@@ -16,7 +17,6 @@ import org.kodein.di.*
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
     import(validatorModule)
-    import(viewMapperModule)
 
     bind<ViewModelProvider.Factory>() with singleton {
         ViewModelFactory(di)
@@ -30,22 +30,32 @@ val viewModelModule = DI.Module("view model module") {
     bind<OnboardingViewModel>() with factory {
         OnboardingViewModel(instance(), instance())
     }
-    bind<CreateAccountRegistrationViewModel>() with factory {
-        CreateAccountRegistrationViewModel(instance(), instance(), instance(), instance())
-    }
     bind<ProxyViewModel>() with factory {
         ProxyViewModel(instance(), instance(), instance())
     }
 }
 
-val stateModule = DI.Module("state module") {
+val registrationModule = DI.Module("registration module") {
+    import(createAccountRegistrationScreenModule)
+    import(completeAccountRegistrationScreenModule)
+
     bind<RegistrationScreenState>() with singleton {
         RegistrationScreenState()
     }
 }
 
-val viewMapperModule = DI.Module("view mapper module") {
+val createAccountRegistrationScreenModule = DI.Module("create account registration screen module") {
+    bind<CreateAccountRegistrationViewModel>() with factory {
+        CreateAccountRegistrationViewModel(instance(), instance(), instance(), instance())
+    }
     bind<CreateAccountRegistrationViewMapper>() with factory {
         CreateAccountRegistrationViewMapper()
     }
 }
+
+val completeAccountRegistrationScreenModule =
+    DI.Module("complete account registration screen module") {
+        bind<CompleteAccountRegistrationViewMapper>() with singleton {
+            CompleteAccountRegistrationViewMapper(instance())
+        }
+    }

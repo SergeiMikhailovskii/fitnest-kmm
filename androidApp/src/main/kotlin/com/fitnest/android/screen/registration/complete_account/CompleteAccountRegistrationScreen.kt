@@ -32,6 +32,7 @@ import com.fitnest.android.R
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
 import com.fitnest.android.style.Padding.Padding30
+import org.kodein.di.compose.rememberInstance
 
 @ExperimentalMaterialApi
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
@@ -106,14 +107,13 @@ fun CompleteAccountRegistrationScreen(
 @ExperimentalMaterialApi
 @Composable
 fun SexDropdown(modifier: Modifier) {
+    val viewMapper by rememberInstance<CompleteAccountRegistrationViewMapper>()
+
     var expanded by remember { mutableStateOf(false) }
     val sexList by remember { mutableStateOf(listOf("Male", "Female")) }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
 
-    val icon = if (expanded)
-        Icons.Filled.ArrowDropUp
-    else
-        Icons.Filled.ArrowDropDown
+    val icon = if (expanded) Icons.Filled.ArrowDropUp else Icons.Filled.ArrowDropDown
 
     ExposedDropdownMenuBox(
         modifier = modifier
@@ -161,7 +161,10 @@ fun SexDropdown(modifier: Modifier) {
         ) {
             sexList.forEach {
                 DropdownMenuItem(
-                    onClick = { expanded = false },
+                    onClick = {
+                        val sex = viewMapper.mapSexStringToEnumField(it)
+                        expanded = false
+                    },
                 ) {
                     Text(it, style = PoppinsNormalStyle12Gray2)
                 }
