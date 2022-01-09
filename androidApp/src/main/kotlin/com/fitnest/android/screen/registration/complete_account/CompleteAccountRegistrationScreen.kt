@@ -4,12 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -24,15 +29,11 @@ import androidx.compose.ui.unit.toSize
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.fitnest.android.R
-import com.fitnest.android.style.BorderColor
+import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
-import com.fitnest.android.style.Padding.Padding14
-import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
-import com.fitnest.android.style.PoppinsBoldStyle20Black
-import com.fitnest.android.style.PoppinsNormalStyle12Gray1
-import com.fitnest.android.style.PoppinsNormalStyle12Gray2
 
+@ExperimentalMaterialApi
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
 @Composable
 fun CompleteAccountRegistrationScreenPreview(
@@ -40,6 +41,7 @@ fun CompleteAccountRegistrationScreenPreview(
     CompleteAccountRegistrationScreen(NavController(LocalContext.current))
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun CompleteAccountRegistrationScreen(
     navController: NavController,
@@ -101,51 +103,67 @@ fun CompleteAccountRegistrationScreen(
 
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun SexDropdown(modifier: Modifier) {
     var expanded by remember { mutableStateOf(false) }
-    var rowSize by remember { mutableStateOf(Size.Zero) }
     val sexList by remember { mutableStateOf(listOf("Male", "Female")) }
-    Box(
+    var textFieldSize by remember { mutableStateOf(Size.Zero) }
+
+    val icon = if (expanded)
+        Icons.Filled.ArrowDropUp
+    else
+        Icons.Filled.ArrowDropDown
+
+    ExposedDropdownMenuBox(
         modifier = modifier
-            .clickable(onClick = { expanded = true })
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(Padding14))
-            .background(color = BorderColor)
-            .onGloballyPositioned { layoutCoordinates ->
-                rowSize = layoutCoordinates.size.toSize()
-            }
+            .clickable(onClick = { expanded = true }),
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded }
     ) {
-        Row(
-            modifier = Modifier.padding(Padding15)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_complete_registration_sex),
-                contentDescription = null
-            )
-            Text(
-                "Choose Gender",
-                style = PoppinsNormalStyle12Gray2,
-                modifier = Modifier
-                    .padding(start = Padding10)
-            )
-        }
-        DropdownMenu(
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .onGloballyPositioned { coordinates ->
+                    textFieldSize = coordinates.size.toSize()
+                },
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = BorderColor,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = BrandColor,
+                focusedLabelColor = BrandColor,
+            ),
+            leadingIcon = {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_complete_registration_sex),
+                    contentDescription = null
+                )
+            },
+            trailingIcon = { Icon(icon, null) },
+            shape = RoundedCornerShape(Dimen.Dimen14),
+            label = {
+                Text(
+                    "Choose Gender",
+                    style = PoppinsNormalStyle14
+                )
+            },
+            readOnly = true
+        )
+
+        ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier
                 .background(Color.White)
-                .width(with(LocalDensity.current) { rowSize.width.toDp() }),
+                .width(with(LocalDensity.current) { textFieldSize.width.toDp() })
         ) {
             sexList.forEach {
                 DropdownMenuItem(
                     onClick = { expanded = false },
                 ) {
                     Text(it, style = PoppinsNormalStyle12Gray2)
-                }
-
-                if (sexList.last() != it) {
-                    Divider()
                 }
             }
         }
