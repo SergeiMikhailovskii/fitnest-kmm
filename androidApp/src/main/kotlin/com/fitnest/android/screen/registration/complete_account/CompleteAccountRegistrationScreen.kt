@@ -6,18 +6,21 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.toSize
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.fitnest.android.R
@@ -42,7 +45,6 @@ fun CompleteAccountRegistrationScreen(
     navController: NavController,
 ) {
     val focusManager = LocalFocusManager.current
-    var expanded by remember { mutableStateOf(false) }
 
     ConstraintLayout(
         modifier = Modifier
@@ -54,7 +56,6 @@ fun CompleteAccountRegistrationScreen(
             },
     ) {
         val (imageTop, textStepTitle, textStepDescription, sexDropdown) = createRefs()
-        val sexList = listOf("Male", "Female")
 
         Image(
             painter = painterResource(
@@ -87,41 +88,66 @@ fun CompleteAccountRegistrationScreen(
                 end.linkTo(parent.end)
             }
         )
-        Box(
+        SexDropdown(
             modifier = Modifier
+                .padding(start = Padding30, end = Padding30)
                 .constrainAs(sexDropdown) {
                     top.linkTo(textStepDescription.bottom, Padding30)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
-                .fillMaxWidth()
-                .padding(start = Padding30, end = Padding30)
-                .clip(RoundedCornerShape(Padding14))
-                .background(color = BorderColor)
-        ) {
-            Row {
-                Text(
-                    "Choose Gender",
-                    style = PoppinsNormalStyle12Gray2,
-                    modifier = Modifier
-                        .clickable(
-                            onClick = { expanded = true }
-                        )
-                        .fillMaxWidth()
-                        .padding(Padding15)
-                )
+        )
+    }
+
+}
+
+@Composable
+fun SexDropdown(modifier: Modifier) {
+    var expanded by remember { mutableStateOf(false) }
+    var rowSize by remember { mutableStateOf(Size.Zero) }
+    val sexList by remember { mutableStateOf(listOf("Male", "Female")) }
+    Box(
+        modifier = modifier
+            .clickable(onClick = { expanded = true })
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(Padding14))
+            .background(color = BorderColor)
+            .onGloballyPositioned { layoutCoordinates ->
+                rowSize = layoutCoordinates.size.toSize()
             }
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-            ) {
-                sexList.forEach {
-                    DropdownMenuItem(onClick = { expanded = false }) {
-                        Text(it)
-                    }
+    ) {
+        Row(
+            modifier = Modifier.padding(Padding15)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_complete_registration_sex),
+                contentDescription = null
+            )
+            Text(
+                "Choose Gender",
+                style = PoppinsNormalStyle12Gray2,
+                modifier = Modifier
+                    .padding(start = Padding10)
+            )
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .background(Color.White)
+                .width(with(LocalDensity.current) { rowSize.width.toDp() }),
+        ) {
+            sexList.forEach {
+                DropdownMenuItem(
+                    onClick = { expanded = false },
+                ) {
+                    Text(it, style = PoppinsNormalStyle12Gray2)
+                }
+
+                if (sexList.last() != it) {
+                    Divider()
                 }
             }
         }
     }
-
 }
