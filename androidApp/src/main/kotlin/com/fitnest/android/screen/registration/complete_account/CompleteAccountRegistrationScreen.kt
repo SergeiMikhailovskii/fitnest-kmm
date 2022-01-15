@@ -7,7 +7,6 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,23 +14,25 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.toSize
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.extension.enum.fromLocalizedName
+import com.fitnest.android.extension.enum.localizedNameId
+import com.fitnest.android.extension.enum.localizedNames
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
 import com.fitnest.android.style.Padding.Padding30
+import com.fitnest.domain.enum.SexType
 import org.kodein.di.compose.rememberInstance
 
 @ExperimentalMaterialApi
@@ -47,7 +48,18 @@ fun CompleteAccountRegistrationScreenPreview(
 fun CompleteAccountRegistrationScreen(
     navController: NavController,
 ) {
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = CompleteAccountRegistrationViewModel::class.java,
+    )
+
     val focusManager = LocalFocusManager.current
+
+    val screenData by viewModel.screenDataFlow.collectAsState()
+
+    val context = LocalContext.current
 
     ConstraintLayout(
         modifier = Modifier
@@ -98,7 +110,11 @@ fun CompleteAccountRegistrationScreen(
                     top.linkTo(textStepDescription.bottom, Padding30)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }
+                },
+            onItemClicked = {
+                viewModel.saveSex(SexType.fromLocalizedName(it, context))
+            },
+            value = screenData.sex?.localizedNameId?.let(context::getString) ?: ""
         )
     }
 
@@ -106,12 +122,10 @@ fun CompleteAccountRegistrationScreen(
 
 @ExperimentalMaterialApi
 @Composable
-fun SexDropdown(modifier: Modifier) {
-    val viewMapper by rememberInstance<CompleteAccountRegistrationViewMapper>()
-
+fun SexDropdown(modifier: Modifier, onItemClicked: (String) -> Unit, value: String) {
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
-    val sexList by remember { mutableStateOf(listOf("Male", "Female")) }
-    var textFieldSize by remember { mutableStateOf(Size.Zero) }
+    val sexList by remember { mutableStateOf(SexType.localizedNames(context)) }
 
     val icon = if (expanded) Icons.Filled.ArrowDropUp else Icons.Filled.ArrowDropDown
 
@@ -122,13 +136,9 @@ fun SexDropdown(modifier: Modifier) {
         onExpandedChange = { expanded = !expanded }
     ) {
         OutlinedTextField(
-            value = "",
+            value = value,
             onValueChange = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .onGloballyPositioned { coordinates ->
-                    textFieldSize = coordinates.size.toSize()
-                },
+            modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = BorderColor,
                 unfocusedIndicatorColor = Color.Transparent,
@@ -152,17 +162,17 @@ fun SexDropdown(modifier: Modifier) {
             readOnly = true
         )
 
-        ExposedDropdownMenu(
+        DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier
                 .background(Color.White)
-                .width(with(LocalDensity.current) { textFieldSize.width.toDp() })
+                .exposedDropdownSize()
         ) {
             sexList.forEach {
                 DropdownMenuItem(
                     onClick = {
-                        val sex = viewMapper.mapSexStringToEnumField(it)
+                        onItemClicked(it)
                         expanded = false
                     },
                 ) {

@@ -14,8 +14,4 @@ class CompleteAccountRegistrationViewMapper(
     override fun mapScreenDataToStepRequestModel(data: CompleteAccountRegistrationScreenData): BaseRequest {
         TODO("Not yet implemented")
     }
-
-    fun mapSexStringToEnumField(sex: String) =
-        if (sex == context.getString(R.string.registration_complete_account_sex_male)) SexType.MALE
-        else SexType.FEMALE
 }

@@ -6,7 +6,9 @@ import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
+import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreenData
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
+import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.android.screen.splash.SplashViewModel
@@ -55,7 +57,13 @@ val createAccountRegistrationScreenModule = DI.Module("create account registrati
 
 val completeAccountRegistrationScreenModule =
     DI.Module("complete account registration screen module") {
+        bind<CompleteAccountRegistrationViewModel>() with factory {
+            CompleteAccountRegistrationViewModel(instance())
+        }
         bind<CompleteAccountRegistrationViewMapper>() with singleton {
             CompleteAccountRegistrationViewMapper(instance())
+        }
+        bind<CompleteAccountRegistrationScreenData>() with factory {
+            CompleteAccountRegistrationScreenData.init()
         }
     }
