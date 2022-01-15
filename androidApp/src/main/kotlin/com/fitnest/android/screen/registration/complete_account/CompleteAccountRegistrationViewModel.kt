@@ -5,6 +5,7 @@ import com.fitnest.domain.enum.SexType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import java.util.*
 
 class CompleteAccountRegistrationViewModel(
     private val screenData: CompleteAccountRegistrationScreenData
@@ -20,6 +21,11 @@ class CompleteAccountRegistrationViewModel(
 
     internal fun updateSexFocus(isFocused: Boolean) {
         screenData.isSexFocused = isFocused
+        updateScreen()
+    }
+
+    internal fun saveBirthDate(date: Date) {
+        screenData.dateOfBirth = date
         updateScreen()
     }
 

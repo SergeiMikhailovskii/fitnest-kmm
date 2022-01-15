@@ -1,8 +1,11 @@
 package com.fitnest.android.screen.registration.complete_account
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,9 +33,12 @@ import com.fitnest.android.extension.enum.localizedNameId
 import com.fitnest.android.extension.enum.localizedNames
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
+import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
+import com.google.android.material.datepicker.MaterialDatePicker
 import org.kodein.di.compose.rememberInstance
+import java.util.*
 
 @ExperimentalMaterialApi
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
@@ -69,7 +75,7 @@ fun CompleteAccountRegistrationScreen(
                 })
             },
     ) {
-        val (imageTop, textStepTitle, textStepDescription, sexDropdown) = createRefs()
+        val (imageTop, textStepTitle, textStepDescription, sexDropdown, inputWeight) = createRefs()
 
         Image(
             painter = painterResource(
@@ -117,8 +123,19 @@ fun CompleteAccountRegistrationScreen(
             isFocused = screenData.isSexFocused,
             onFocusChanged = viewModel::updateSexFocus
         )
+        DateOfBirthTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = Padding30, end = Padding30)
+                .constrainAs(inputWeight) {
+                    top.linkTo(sexDropdown.bottom, Padding15)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }, value = screenData.formattedDateOfBirth() ?: ""
+        ) {
+            showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate)
+        }
     }
-
 }
 
 @ExperimentalMaterialApi
@@ -194,4 +211,54 @@ fun SexDropdown(
             }
         }
     }
+}
+
+@Composable
+fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit) {
+    val interactionSource = remember {
+        MutableInteractionSource()
+    }
+
+    if (interactionSource.collectIsPressedAsState().value) {
+        onClick()
+    }
+
+    OutlinedTextField(
+        value = value,
+        onValueChange = {},
+        modifier = modifier,
+        interactionSource = interactionSource,
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = BorderColor,
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = BrandColor,
+            focusedLabelColor = BrandColor,
+        ),
+        leadingIcon = {
+            Image(
+                painter = painterResource(id = R.drawable.ic_complete_registration_calendar),
+                contentDescription = null
+            )
+        },
+        shape = RoundedCornerShape(Dimen.Dimen14),
+        label = {
+            Text(
+                "Date of Birth",
+                style = PoppinsNormalStyle14
+            )
+        },
+        readOnly = true,
+    )
+
+}
+
+private fun showDatePicker(activity: AppCompatActivity, onDatePicked: (Date) -> Unit) {
+    MaterialDatePicker.Builder.datePicker()
+        .setTitleText("Date of birth")
+        .build().apply {
+            addOnPositiveButtonClickListener {
+                onDatePicked(Date(it))
+            }
+            show(activity.supportFragmentManager, toString())
+        }
 }

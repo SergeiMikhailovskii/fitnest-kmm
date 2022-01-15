@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import com.fitnest.android.base.FitnestApp
@@ -14,7 +15,7 @@ import org.kodein.di.*
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
-class MainActivity : ComponentActivity(), DIAware {
+class MainActivity : AppCompatActivity(), DIAware {
 
     override val diContext: DIContext<*> = diContext(this)
 
