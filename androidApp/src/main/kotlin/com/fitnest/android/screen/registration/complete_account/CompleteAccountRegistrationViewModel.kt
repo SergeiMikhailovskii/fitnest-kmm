@@ -18,6 +18,11 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
+    internal fun updateSexFocus(isFocused: Boolean) {
+        screenData.isSexFocused = isFocused
+        updateScreen()
+    }
+
     private fun updateScreen() {
         _screenDataFlow.update { screenData.copy() }
     }

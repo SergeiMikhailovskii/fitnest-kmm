@@ -2,7 +2,6 @@ package com.fitnest.android.screen.registration.complete_account
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -114,7 +113,9 @@ fun CompleteAccountRegistrationScreen(
             onItemClicked = {
                 viewModel.saveSex(SexType.fromLocalizedName(it, context))
             },
-            value = screenData.sex?.localizedNameId?.let(context::getString) ?: ""
+            value = screenData.sex?.localizedNameId?.let(context::getString) ?: "",
+            isFocused = screenData.isSexFocused,
+            onFocusChanged = viewModel::updateSexFocus
         )
     }
 
@@ -122,7 +123,13 @@ fun CompleteAccountRegistrationScreen(
 
 @ExperimentalMaterialApi
 @Composable
-fun SexDropdown(modifier: Modifier, onItemClicked: (String) -> Unit, value: String) {
+fun SexDropdown(
+    modifier: Modifier,
+    onItemClicked: (String) -> Unit,
+    value: String,
+    isFocused: Boolean,
+    onFocusChanged: (Boolean) -> Unit
+) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     val sexList by remember { mutableStateOf(SexType.localizedNames(context)) }
@@ -130,17 +137,19 @@ fun SexDropdown(modifier: Modifier, onItemClicked: (String) -> Unit, value: Stri
     val icon = if (expanded) Icons.Filled.ArrowDropUp else Icons.Filled.ArrowDropDown
 
     ExposedDropdownMenuBox(
-        modifier = modifier
-            .clickable(onClick = { expanded = true }),
+        modifier = modifier,
         expanded = expanded,
-        onExpandedChange = { expanded = !expanded }
+        onExpandedChange = {
+            onFocusChanged(!expanded)
+            expanded = !expanded
+        }
     ) {
         OutlinedTextField(
             value = value,
             onValueChange = {},
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = BorderColor,
+                backgroundColor = if (isFocused) Color.White else BorderColor,
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = BrandColor,
                 focusedLabelColor = BrandColor,
@@ -164,7 +173,10 @@ fun SexDropdown(modifier: Modifier, onItemClicked: (String) -> Unit, value: Stri
 
         DropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false },
+            onDismissRequest = {
+                onFocusChanged(false)
+                expanded = false
+            },
             modifier = Modifier
                 .background(Color.White)
                 .exposedDropdownSize()
@@ -173,6 +185,7 @@ fun SexDropdown(modifier: Modifier, onItemClicked: (String) -> Unit, value: Stri
                 DropdownMenuItem(
                     onClick = {
                         onItemClicked(it)
+                        onFocusChanged(false)
                         expanded = false
                     },
                 ) {
