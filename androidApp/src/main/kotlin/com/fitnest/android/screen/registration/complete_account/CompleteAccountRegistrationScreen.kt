@@ -41,6 +41,7 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import java.util.*
 
@@ -70,96 +71,110 @@ fun CompleteAccountRegistrationScreen(
 
     val context = LocalContext.current
 
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxSize()
-            .pointerInput(Unit) {
-                detectTapGestures(onTap = {
-                    focusManager.clearFocus()
-                })
-            },
-    ) {
-        val (
-            imageTop,
-            textStepTitle,
-            textStepDescription,
-            sexDropdown,
-            inputBirthDate,
-            inputWeight,
-            optionWeight,
-        ) = createRefs()
+    val coroutineScope = rememberCoroutineScope()
 
-        Image(
-            painter = painterResource(
-                id = R.drawable.ic_registration_complete_account
-            ),
-            contentDescription = null,
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        ModalBottomSheetValue.Hidden
+    )
+
+    ModalBottomSheetLayout(
+        sheetShape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
+        sheetContent = {
+            Box(Modifier.height(400.dp))
+        }, sheetState = modalBottomSheetState
+    ) {
+        ConstraintLayout(
             modifier = Modifier
-                .constrainAs(imageTop) {
-                    top.linkTo(parent.top)
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        focusManager.clearFocus()
+                    })
+                },
+        ) {
+            val (
+                imageTop,
+                textStepTitle,
+                textStepDescription,
+                sexDropdown,
+                inputBirthDate,
+                inputWeight,
+                optionWeight,
+            ) = createRefs()
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_registration_complete_account
+                ),
+                contentDescription = null,
+                modifier = Modifier
+                    .constrainAs(imageTop) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }
+                    .fillMaxWidth()
+            )
+            Text(
+                "Let’s complete your profile",
+                style = PoppinsBoldStyle20Black,
+                modifier = Modifier.constrainAs(textStepTitle) {
+                    top.linkTo(imageTop.bottom, Padding30)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
-                .fillMaxWidth()
-        )
-        Text(
-            "Let’s complete your profile",
-            style = PoppinsBoldStyle20Black,
-            modifier = Modifier.constrainAs(textStepTitle) {
-                top.linkTo(imageTop.bottom, Padding30)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        )
-        Text(
-            "It will help us to know more about you!",
-            style = PoppinsNormalStyle12Gray1,
-            modifier = Modifier.constrainAs(textStepDescription) {
-                top.linkTo(textStepTitle.bottom, Padding10)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        )
-        SexDropdown(
-            modifier = Modifier
-                .padding(start = Padding30, end = Padding30)
-                .constrainAs(sexDropdown) {
-                    top.linkTo(textStepDescription.bottom, Padding30)
+            )
+            Text(
+                "It will help us to know more about you!",
+                style = PoppinsNormalStyle12Gray1,
+                modifier = Modifier.constrainAs(textStepDescription) {
+                    top.linkTo(textStepTitle.bottom, Padding10)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
+                }
+            )
+            SexDropdown(
+                modifier = Modifier
+                    .padding(start = Padding30, end = Padding30)
+                    .constrainAs(sexDropdown) {
+                        top.linkTo(textStepDescription.bottom, Padding30)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                onItemClicked = {
+                    viewModel.saveSex(SexType.fromLocalizedName(it, context))
                 },
-            onItemClicked = {
-                viewModel.saveSex(SexType.fromLocalizedName(it, context))
-            },
-            value = screenData.sex?.localizedNameId?.let(context::getString) ?: "",
-            isFocused = screenData.isSexFocused,
-            onFocusChanged = viewModel::updateSexFocus
-        )
-        DateOfBirthTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = Padding30, end = Padding30)
-                .constrainAs(inputBirthDate) {
-                    top.linkTo(sexDropdown.bottom, Padding15)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }, value = screenData.formattedDateOfBirth() ?: ""
-        ) {
-            showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate)
-        }
-        AnthropometryTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = Padding30, end = Padding30)
-                .constrainAs(inputWeight) {
-                    top.linkTo(inputBirthDate.bottom, Padding15)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                },
-            leadingIcon = R.drawable.ic_complete_registration_weight,
-            label = "Your Weight",
-            optionLabel = "KG"
-        ) {
+                value = screenData.sex?.localizedNameId?.let(context::getString) ?: "",
+                isFocused = screenData.isSexFocused,
+                onFocusChanged = viewModel::updateSexFocus
+            )
+            DateOfBirthTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = Padding30, end = Padding30)
+                    .constrainAs(inputBirthDate) {
+                        top.linkTo(sexDropdown.bottom, Padding15)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }, value = screenData.formattedDateOfBirth() ?: ""
+            ) {
+                showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate)
+            }
+            AnthropometryTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = Padding30, end = Padding30)
+                    .constrainAs(inputWeight) {
+                        top.linkTo(inputBirthDate.bottom, Padding15)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                leadingIcon = R.drawable.ic_complete_registration_weight,
+                label = "Your Weight",
+                optionLabel = "KG"
+            ) {
+                coroutineScope.launch { modalBottomSheetState.show() }
+            }
         }
     }
 }
