@@ -40,6 +40,7 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import java.util.*
 
@@ -155,7 +156,8 @@ fun CompleteAccountRegistrationScreen(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
-        )
+        ) {
+        }
     }
 }
 
@@ -274,7 +276,14 @@ fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit)
 }
 
 @Composable
-fun AnthropometryTextField(modifier: Modifier) {
+fun AnthropometryTextField(modifier: Modifier, onTextFieldClick: () -> Unit) {
+    val interactionSource = remember {
+        MutableInteractionSource()
+    }
+
+    if (interactionSource.collectIsPressedAsState().value) {
+        onTextFieldClick()
+    }
     var height by remember { mutableStateOf(0) }
     Row(modifier = modifier) {
         OutlinedTextField(
@@ -285,6 +294,7 @@ fun AnthropometryTextField(modifier: Modifier) {
                 .padding(end = 15.dp),
             value = "",
             onValueChange = {},
+            interactionSource = interactionSource,
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = BorderColor,
                 unfocusedIndicatorColor = Color.Transparent,
