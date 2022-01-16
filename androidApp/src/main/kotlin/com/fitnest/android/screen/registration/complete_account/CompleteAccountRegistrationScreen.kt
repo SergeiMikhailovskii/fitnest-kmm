@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.registration.complete_account
 
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,7 +41,6 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import java.util.*
 
@@ -155,7 +155,10 @@ fun CompleteAccountRegistrationScreen(
                     top.linkTo(inputBirthDate.bottom, Padding15)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }
+                },
+            leadingIcon = R.drawable.ic_complete_registration_weight,
+            label = "Your Weight",
+            optionLabel = "KG"
         ) {
         }
     }
@@ -276,7 +279,13 @@ fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit)
 }
 
 @Composable
-fun AnthropometryTextField(modifier: Modifier, onTextFieldClick: () -> Unit) {
+fun AnthropometryTextField(
+    modifier: Modifier,
+    @DrawableRes leadingIcon: Int,
+    label: String,
+    optionLabel: String,
+    onTextFieldClick: () -> Unit
+) {
     val interactionSource = remember {
         MutableInteractionSource()
     }
@@ -303,14 +312,14 @@ fun AnthropometryTextField(modifier: Modifier, onTextFieldClick: () -> Unit) {
             ),
             leadingIcon = {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_complete_registration_weight),
+                    painter = painterResource(id = leadingIcon),
                     contentDescription = null
                 )
             },
             shape = RoundedCornerShape(Dimen.Dimen14),
             label = {
                 Text(
-                    "Your Weight",
+                    label,
                     style = PoppinsNormalStyle14
                 )
             },
@@ -324,7 +333,7 @@ fun AnthropometryTextField(modifier: Modifier, onTextFieldClick: () -> Unit) {
                 .clip(RoundedCornerShape(14.dp))
                 .background(Brush.horizontalGradient(SecondaryGradient))
         ) {
-            Text("KG", modifier = Modifier.align(Alignment.Center), color = Color.White)
+            Text(optionLabel, modifier = Modifier.align(Alignment.Center), color = Color.White)
         }
 
     }
