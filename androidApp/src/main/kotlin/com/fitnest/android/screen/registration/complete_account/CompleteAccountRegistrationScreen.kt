@@ -6,23 +6,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -75,7 +78,15 @@ fun CompleteAccountRegistrationScreen(
                 })
             },
     ) {
-        val (imageTop, textStepTitle, textStepDescription, sexDropdown, inputWeight) = createRefs()
+        val (
+            imageTop,
+            textStepTitle,
+            textStepDescription,
+            sexDropdown,
+            inputBirthDate,
+            inputWeight,
+            optionWeight,
+        ) = createRefs()
 
         Image(
             painter = painterResource(
@@ -127,7 +138,7 @@ fun CompleteAccountRegistrationScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = Padding30, end = Padding30)
-                .constrainAs(inputWeight) {
+                .constrainAs(inputBirthDate) {
                     top.linkTo(sexDropdown.bottom, Padding15)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
@@ -135,6 +146,16 @@ fun CompleteAccountRegistrationScreen(
         ) {
             showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate)
         }
+        AnthropometryTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = Padding30, end = Padding30)
+                .constrainAs(inputWeight) {
+                    top.linkTo(inputBirthDate.bottom, Padding15)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+        )
     }
 }
 
@@ -252,10 +273,59 @@ fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit)
 
 }
 
+@Composable
+fun AnthropometryTextField(modifier: Modifier) {
+    var height by remember { mutableStateOf(0) }
+    Row(modifier = modifier) {
+        OutlinedTextField(
+            modifier = Modifier
+                .onGloballyPositioned {
+                    height = it.size.height
+                }
+                .padding(end = 15.dp),
+            value = "",
+            onValueChange = {},
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = BorderColor,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = BrandColor,
+                focusedLabelColor = BrandColor,
+            ),
+            leadingIcon = {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_complete_registration_weight),
+                    contentDescription = null
+                )
+            },
+            shape = RoundedCornerShape(Dimen.Dimen14),
+            label = {
+                Text(
+                    "Your Weight",
+                    style = PoppinsNormalStyle14
+                )
+            },
+            readOnly = true,
+        )
+        Box(
+            modifier = Modifier
+                .width(height.dp)
+                .aspectRatio(1F)
+                .align(Alignment.Bottom)
+                .clip(RoundedCornerShape(14.dp))
+                .background(Brush.horizontalGradient(SecondaryGradient))
+        ) {
+            Text("KG", modifier = Modifier.align(Alignment.Center), color = Color.White)
+        }
+
+    }
+
+}
+
 private fun showDatePicker(activity: AppCompatActivity, onDatePicked: (Date) -> Unit) {
     MaterialDatePicker.Builder.datePicker()
         .setTitleText("Date of birth")
-        .build().apply {
+        .build()
+        .apply {
             addOnPositiveButtonClickListener {
                 onDatePicked(Date(it))
             }
