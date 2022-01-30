@@ -79,47 +79,55 @@ fun CompleteAccountRegistrationScreen(
         ModalBottomSheetValue.Hidden
     )
 
+    var modalBottomSheetType by remember {
+        mutableStateOf<CompleteAccountRegistrationScreenBottomSheetType?>(null)
+    }
+
     ModalBottomSheetLayout(
         sheetShape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
         sheetContent = {
-            Column(modifier = Modifier.background(color = Color.White)) {
-                var picker: NumberPicker? = null
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 20.dp, end = 20.dp, top = 20.dp)
-                ) {
-                    Text("Cancel", modifier = Modifier.pointerInput(Unit) {
-                        detectTapGestures(onTap = {
-                            coroutineScope.launch {
-                                modalBottomSheetState.hide()
-                            }
-                        })
-                    })
-                    Box(modifier = Modifier.weight(1F))
-                    Text("Save",
-                        color = BrandColor,
-                        modifier = Modifier.pointerInput(Unit) {
+            if (modalBottomSheetType == CompleteAccountRegistrationScreenBottomSheetType.WEIGHT) {
+                Column(modifier = Modifier.background(color = Color.White)) {
+                    var picker: NumberPicker? = null
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                    ) {
+                        Text("Cancel", modifier = Modifier.pointerInput(Unit) {
                             detectTapGestures(onTap = {
                                 coroutineScope.launch {
-                                    viewModel.saveWeight(picker?.value ?: 0)
                                     modalBottomSheetState.hide()
                                 }
                             })
                         })
-                }
-                AndroidView(
-                    modifier = Modifier.fillMaxWidth(),
-                    factory = {
-                        picker = NumberPicker(context).apply {
-                            minValue = 0
-                            maxValue = 200
-                            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-                            wrapSelectorWheel = false
-                        }
-                        picker!!
-                    })
+                        Box(modifier = Modifier.weight(1F))
+                        Text("Save",
+                            color = BrandColor,
+                            modifier = Modifier.pointerInput(Unit) {
+                                detectTapGestures(onTap = {
+                                    coroutineScope.launch {
+                                        viewModel.saveWeight(picker?.value ?: 0)
+                                        modalBottomSheetState.hide()
+                                    }
+                                })
+                            })
+                    }
+                    AndroidView(
+                        modifier = Modifier.fillMaxWidth(),
+                        factory = {
+                            picker = NumberPicker(context).apply {
+                                minValue = 0
+                                maxValue = 200
+                                descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                                wrapSelectorWheel = false
+                            }
+                            picker!!
+                        })
 
+                }
+            } else {
+                Box(Modifier.height(1.dp))
             }
         }, sheetState = modalBottomSheetState
     ) {
@@ -140,6 +148,8 @@ fun CompleteAccountRegistrationScreen(
                 inputBirthDate,
                 inputWeight,
                 optionWeight,
+                inputHeight,
+                optionHeight,
             ) = createRefs()
 
             Image(
@@ -214,7 +224,27 @@ fun CompleteAccountRegistrationScreen(
                 label = "Your Weight",
                 optionLabel = "KG"
             ) {
+                modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
                 coroutineScope.launch { modalBottomSheetState.show() }
+            }
+            AnthropometryTextField(
+                value = screenData.weight?.toString() ?: "",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = Padding30, end = Padding30)
+                    .constrainAs(inputHeight) {
+                        top.linkTo(inputWeight.bottom, Padding15)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                leadingIcon = R.drawable.ic_complete_registration_weight,
+                label = "Your Height",
+                optionLabel = "CM"
+            ) {
+                coroutineScope.launch {
+                    modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
+                    modalBottomSheetState.show()
+                }
             }
         }
     }
