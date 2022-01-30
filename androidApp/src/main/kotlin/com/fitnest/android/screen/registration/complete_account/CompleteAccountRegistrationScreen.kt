@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.registration.complete_account
 
+import android.widget.NumberPicker
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -80,7 +82,45 @@ fun CompleteAccountRegistrationScreen(
     ModalBottomSheetLayout(
         sheetShape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
         sheetContent = {
-            Box(Modifier.height(400.dp))
+            Column(modifier = Modifier.background(color = Color.White)) {
+                var picker: NumberPicker? = null
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                ) {
+                    Text("Cancel", modifier = Modifier.pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            coroutineScope.launch {
+                                modalBottomSheetState.hide()
+                            }
+                        })
+                    })
+                    Box(modifier = Modifier.weight(1F))
+                    Text("Save",
+                        color = BrandColor,
+                        modifier = Modifier.pointerInput(Unit) {
+                            detectTapGestures(onTap = {
+                                coroutineScope.launch {
+                                    viewModel.saveWeight(picker?.value ?: 0)
+                                    modalBottomSheetState.hide()
+                                }
+                            })
+                        })
+                }
+                AndroidView(
+                    modifier = Modifier.fillMaxWidth(),
+                    factory = {
+                        picker = NumberPicker(context).apply {
+                            minValue = 0
+                            maxValue = 200
+                            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                            wrapSelectorWheel = false
+                        }
+                        picker!!
+                    })
+
+            }
         }, sheetState = modalBottomSheetState
     ) {
         ConstraintLayout(
@@ -161,6 +201,7 @@ fun CompleteAccountRegistrationScreen(
                 showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate)
             }
             AnthropometryTextField(
+                value = screenData.weight?.toString() ?: "",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -295,6 +336,7 @@ fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit)
 
 @Composable
 fun AnthropometryTextField(
+    value: String,
     modifier: Modifier,
     @DrawableRes leadingIcon: Int,
     label: String,
@@ -316,7 +358,7 @@ fun AnthropometryTextField(
                     height = it.size.height
                 }
                 .padding(end = 15.dp),
-            value = "",
+            value = value,
             onValueChange = {},
             interactionSource = interactionSource,
             colors = TextFieldDefaults.textFieldColors(

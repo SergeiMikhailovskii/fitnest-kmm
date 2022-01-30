@@ -29,6 +29,11 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
+    internal fun saveWeight(weight: Int) {
+        screenData.weight = weight
+        updateScreen()
+    }
+
     private fun updateScreen() {
         _screenDataFlow.update { screenData.copy() }
     }
