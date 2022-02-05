@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.registration.complete_account
 
+import android.content.Context
 import android.widget.NumberPicker
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -95,21 +96,25 @@ fun CompleteAccountRegistrationScreen(
                                 .fillMaxWidth()
                                 .padding(start = 20.dp, end = 20.dp, top = 20.dp)
                         ) {
-                            Text("Cancel", modifier = Modifier.pointerInput(Unit) {
-                                detectTapGestures(onTap = {
-                                    coroutineScope.launch {
-                                        modalBottomSheetState.hide()
-                                    }
+                            Text(
+                                context.getString(R.string.registration_complete_account_cancel),
+                                modifier = Modifier.pointerInput(Unit) {
+                                    detectTapGestures(onTap = {
+                                        coroutineScope.launch {
+                                            modalBottomSheetState.hide()
+                                            picker = null
+                                        }
+                                    })
                                 })
-                            })
                             Box(modifier = Modifier.weight(1F))
-                            Text("Save",
+                            Text(context.getString(R.string.registration_complete_account_save),
                                 color = BrandColor,
                                 modifier = Modifier.pointerInput(Unit) {
                                     detectTapGestures(onTap = {
                                         coroutineScope.launch {
                                             viewModel.saveWeight(picker?.value ?: 0)
                                             modalBottomSheetState.hide()
+                                            picker = null
                                         }
                                     })
                                 })
@@ -136,15 +141,18 @@ fun CompleteAccountRegistrationScreen(
                                 .fillMaxWidth()
                                 .padding(start = 20.dp, end = 20.dp, top = 20.dp)
                         ) {
-                            Text("Cancel", modifier = Modifier.pointerInput(Unit) {
-                                detectTapGestures(onTap = {
-                                    coroutineScope.launch {
-                                        modalBottomSheetState.hide()
-                                    }
+                            Text(
+                                context.getString(R.string.registration_complete_account_cancel),
+                                modifier = Modifier.pointerInput(Unit) {
+                                    detectTapGestures(onTap = {
+                                        coroutineScope.launch {
+                                            modalBottomSheetState.hide()
+                                            picker = null
+                                        }
+                                    })
                                 })
-                            })
                             Box(modifier = Modifier.weight(1F))
-                            Text("Save",
+                            Text(context.getString(R.string.registration_complete_account_save),
                                 color = BrandColor,
                                 modifier = Modifier.pointerInput(Unit) {
                                     detectTapGestures(onTap = {
@@ -191,9 +199,7 @@ fun CompleteAccountRegistrationScreen(
                 sexDropdown,
                 inputBirthDate,
                 inputWeight,
-                optionWeight,
                 inputHeight,
-                optionHeight,
             ) = createRefs()
 
             Image(
@@ -210,7 +216,7 @@ fun CompleteAccountRegistrationScreen(
                     .fillMaxWidth()
             )
             Text(
-                "Let’s complete your profile",
+                context.getString(R.string.registration_complete_account_title),
                 style = PoppinsBoldStyle20Black,
                 modifier = Modifier.constrainAs(textStepTitle) {
                     top.linkTo(imageTop.bottom, Padding30)
@@ -219,7 +225,7 @@ fun CompleteAccountRegistrationScreen(
                 }
             )
             Text(
-                "It will help us to know more about you!",
+                context.getString(R.string.registration_complete_account_screen_description),
                 style = PoppinsNormalStyle12Gray1,
                 modifier = Modifier.constrainAs(textStepDescription) {
                     top.linkTo(textStepTitle.bottom, Padding10)
@@ -250,9 +256,10 @@ fun CompleteAccountRegistrationScreen(
                         top.linkTo(sexDropdown.bottom, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    }, value = screenData.formattedDateOfBirth() ?: ""
+                    },
+                value = screenData.formattedDateOfBirth() ?: ""
             ) {
-                showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate)
+                showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
             }
             AnthropometryTextField(
                 value = screenData.weight?.toString() ?: "",
@@ -265,8 +272,8 @@ fun CompleteAccountRegistrationScreen(
                         end.linkTo(parent.end)
                     },
                 leadingIcon = R.drawable.ic_complete_registration_weight,
-                label = "Your Weight",
-                optionLabel = "KG"
+                label = context.getString(R.string.registration_complete_account_weight_hint),
+                optionLabel = context.getString(R.string.registration_complete_account_weight_kg)
             ) {
                 modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
                 coroutineScope.launch { modalBottomSheetState.show() }
@@ -282,8 +289,8 @@ fun CompleteAccountRegistrationScreen(
                         end.linkTo(parent.end)
                     },
                 leadingIcon = R.drawable.ic_complete_registration_weight,
-                label = "Your Height",
-                optionLabel = "CM"
+                label = context.getString(R.string.registration_complete_account_height_hint),
+                optionLabel = context.getString(R.string.registration_complete_account_height_cm)
             ) {
                 coroutineScope.launch {
                     modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
@@ -337,7 +344,7 @@ fun SexDropdown(
             shape = RoundedCornerShape(Dimen.Dimen14),
             label = {
                 Text(
-                    "Choose Gender",
+                    context.getString(R.string.registration_complete_account_choose_gender),
                     style = PoppinsNormalStyle14
                 )
             },
@@ -399,7 +406,7 @@ fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit)
         shape = RoundedCornerShape(Dimen.Dimen14),
         label = {
             Text(
-                "Date of Birth",
+                LocalContext.current.getString(R.string.registration_complete_account_date_of_birth),
                 style = PoppinsNormalStyle14
             )
         },
@@ -471,9 +478,13 @@ fun AnthropometryTextField(
 
 }
 
-private fun showDatePicker(activity: AppCompatActivity, onDatePicked: (Date) -> Unit) {
+private fun showDatePicker(
+    activity: AppCompatActivity,
+    onDatePicked: (Date) -> Unit,
+    context: Context
+) {
     MaterialDatePicker.Builder.datePicker()
-        .setTitleText("Date of birth")
+        .setTitleText(context.getString(R.string.registration_complete_account_date_of_birth))
         .build()
         .apply {
             addOnPositiveButtonClickListener {
