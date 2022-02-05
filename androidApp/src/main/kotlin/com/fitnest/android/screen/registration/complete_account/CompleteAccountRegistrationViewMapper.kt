@@ -1,17 +1,28 @@
 package com.fitnest.android.screen.registration.complete_account
 
 import android.content.Context
-import com.fitnest.android.R
 import com.fitnest.android.base.BaseViewMapper
+import com.fitnest.android.extension.format
 import com.fitnest.domain.entity.base.BaseRequest
-import com.fitnest.domain.enum.SexType
+import com.fitnest.domain.entity.request.CompleteAccountStepRequest
 
 class CompleteAccountRegistrationViewMapper(
     private val context: Context
-) :
-    BaseViewMapper<CompleteAccountRegistrationScreenData, BaseRequest> {
+) : BaseViewMapper<CompleteAccountRegistrationScreenData, BaseRequest> {
 
-    override fun mapScreenDataToStepRequestModel(data: CompleteAccountRegistrationScreenData): BaseRequest {
-        TODO("Not yet implemented")
+    override fun mapScreenDataToStepRequestModel(
+        data: CompleteAccountRegistrationScreenData
+    ): BaseRequest {
+        val sex = data.sex?.name
+        val weight = data.weight
+        val height = data.height
+        val dateOfBirth = data.dateOfBirth?.format("dd/MM/yyyy")
+
+        return CompleteAccountStepRequest(
+            sex = sex,
+            dateOfBirth = dateOfBirth,
+            weight = weight,
+            height = height
+        )
     }
 }

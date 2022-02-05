@@ -55,8 +55,7 @@ import java.util.*
 @ExperimentalMaterialApi
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
 @Composable
-fun CompleteAccountRegistrationScreenPreview(
-) {
+fun CompleteAccountRegistrationScreenPreview() {
     CompleteAccountRegistrationScreen(NavController(LocalContext.current))
 }
 

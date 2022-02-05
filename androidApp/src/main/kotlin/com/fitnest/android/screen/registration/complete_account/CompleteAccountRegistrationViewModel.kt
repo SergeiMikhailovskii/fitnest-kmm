@@ -3,6 +3,7 @@ package com.fitnest.android.screen.registration.complete_account
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.enum.SexType
+import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -11,6 +12,7 @@ import java.util.*
 class CompleteAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val screenData: CompleteAccountRegistrationScreenData,
+    private val validator: CreateAccountRegistrationValidator,
 ) : BaseViewModel() {
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
@@ -42,7 +44,6 @@ class CompleteAccountRegistrationViewModel(
     }
 
     internal fun submitRegistration() {
-
     }
 
     private fun updateScreen() {

@@ -1,18 +1,13 @@
 package com.fitnest.domain.entity.request
 
 import com.fitnest.domain.entity.base.BaseRequest
+import kotlinx.serialization.SerialName
 
 data class CreateAccountStepRequest(
+    @SerialName("first_name")
     val firstName: String?,
+    @SerialName("last_name")
     val lastName: String?,
     val email: String?,
     val password: String?
-) : BaseRequest {
-
-    override fun toMap() = mapOf(
-        "first_name" to firstName,
-        "last_name" to lastName,
-        "email" to email,
-        "password" to password,
-    )
-}
+) : BaseRequest
