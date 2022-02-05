@@ -34,6 +34,11 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
+    internal fun saveHeight(height: Int) {
+        screenData.height = height
+        updateScreen()
+    }
+
     private fun updateScreen() {
         _screenDataFlow.update { screenData.copy() }
     }

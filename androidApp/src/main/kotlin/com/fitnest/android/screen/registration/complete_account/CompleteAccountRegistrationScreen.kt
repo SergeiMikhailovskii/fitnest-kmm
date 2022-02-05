@@ -86,48 +86,92 @@ fun CompleteAccountRegistrationScreen(
     ModalBottomSheetLayout(
         sheetShape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
         sheetContent = {
-            if (modalBottomSheetType == CompleteAccountRegistrationScreenBottomSheetType.WEIGHT) {
-                Column(modifier = Modifier.background(color = Color.White)) {
-                    var picker: NumberPicker? = null
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp, top = 20.dp)
-                    ) {
-                        Text("Cancel", modifier = Modifier.pointerInput(Unit) {
-                            detectTapGestures(onTap = {
-                                coroutineScope.launch {
-                                    modalBottomSheetState.hide()
-                                }
-                            })
-                        })
-                        Box(modifier = Modifier.weight(1F))
-                        Text("Save",
-                            color = BrandColor,
-                            modifier = Modifier.pointerInput(Unit) {
+            when (modalBottomSheetType) {
+                CompleteAccountRegistrationScreenBottomSheetType.WEIGHT -> {
+                    Column(modifier = Modifier.background(color = Color.White)) {
+                        var picker: NumberPicker? = null
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                        ) {
+                            Text("Cancel", modifier = Modifier.pointerInput(Unit) {
                                 detectTapGestures(onTap = {
                                     coroutineScope.launch {
-                                        viewModel.saveWeight(picker?.value ?: 0)
                                         modalBottomSheetState.hide()
                                     }
                                 })
                             })
-                    }
-                    AndroidView(
-                        modifier = Modifier.fillMaxWidth(),
-                        factory = {
-                            picker = NumberPicker(context).apply {
-                                minValue = 0
-                                maxValue = 200
-                                descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-                                wrapSelectorWheel = false
+                            Box(modifier = Modifier.weight(1F))
+                            Text("Save",
+                                color = BrandColor,
+                                modifier = Modifier.pointerInput(Unit) {
+                                    detectTapGestures(onTap = {
+                                        coroutineScope.launch {
+                                            viewModel.saveWeight(picker?.value ?: 0)
+                                            modalBottomSheetState.hide()
+                                        }
+                                    })
+                                })
+                        }
+                        AndroidView(
+                            modifier = Modifier.fillMaxWidth(),
+                            factory = {
+                                picker = NumberPicker(context).apply {
+                                    minValue = 0
+                                    maxValue = 200
+                                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                                    wrapSelectorWheel = false
+                                }
+                                picker!!
                             }
-                            picker!!
-                        })
-
+                        )
+                    }
                 }
-            } else {
-                Box(Modifier.height(1.dp))
+                CompleteAccountRegistrationScreenBottomSheetType.HEIGHT -> {
+                    Column(modifier = Modifier.background(color = Color.White)) {
+                        var picker: NumberPicker? = null
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                        ) {
+                            Text("Cancel", modifier = Modifier.pointerInput(Unit) {
+                                detectTapGestures(onTap = {
+                                    coroutineScope.launch {
+                                        modalBottomSheetState.hide()
+                                    }
+                                })
+                            })
+                            Box(modifier = Modifier.weight(1F))
+                            Text("Save",
+                                color = BrandColor,
+                                modifier = Modifier.pointerInput(Unit) {
+                                    detectTapGestures(onTap = {
+                                        coroutineScope.launch {
+                                            viewModel.saveHeight(picker?.value ?: 0)
+                                            modalBottomSheetState.hide()
+                                        }
+                                    })
+                                })
+                        }
+                        AndroidView(
+                            modifier = Modifier.fillMaxWidth(),
+                            factory = {
+                                picker = NumberPicker(context).apply {
+                                    minValue = 0
+                                    maxValue = 220
+                                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                                    wrapSelectorWheel = false
+                                }
+                                picker!!
+                            })
+
+                    }
+                }
+                else -> {
+                    Box(Modifier.height(1.dp))
+                }
             }
         }, sheetState = modalBottomSheetState
     ) {
@@ -228,7 +272,7 @@ fun CompleteAccountRegistrationScreen(
                 coroutineScope.launch { modalBottomSheetState.show() }
             }
             AnthropometryTextField(
-                value = screenData.weight?.toString() ?: "",
+                value = screenData.height?.toString() ?: "",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)

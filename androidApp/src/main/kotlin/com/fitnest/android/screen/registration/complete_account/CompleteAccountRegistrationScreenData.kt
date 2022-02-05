@@ -9,9 +9,10 @@ data class CompleteAccountRegistrationScreenData(
     var dateOfBirth: Date? = null,
     var isSexFocused: Boolean = false,
     var weight: Int? = null,
+    var height: Int? = null,
 ) {
     internal fun copy() =
-        CompleteAccountRegistrationScreenData(sex, dateOfBirth, isSexFocused, weight)
+        CompleteAccountRegistrationScreenData(sex, dateOfBirth, isSexFocused, weight, height)
 
     internal fun formattedDateOfBirth() =
         dateOfBirth?.let { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it) }
