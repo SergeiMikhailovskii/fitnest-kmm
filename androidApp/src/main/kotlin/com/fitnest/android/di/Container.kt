@@ -58,7 +58,7 @@ val createAccountRegistrationScreenModule = DI.Module("create account registrati
 val completeAccountRegistrationScreenModule =
     DI.Module("complete account registration screen module") {
         bind<CompleteAccountRegistrationViewModel>() with factory {
-            CompleteAccountRegistrationViewModel(instance())
+            CompleteAccountRegistrationViewModel(instance(), instance())
         }
         bind<CompleteAccountRegistrationViewMapper>() with singleton {
             CompleteAccountRegistrationViewMapper(instance())

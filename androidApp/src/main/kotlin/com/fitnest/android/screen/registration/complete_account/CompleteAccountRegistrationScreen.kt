@@ -19,7 +19,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -43,6 +42,7 @@ import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
 import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
+import com.fitnest.android.view.ui_elements.ViewWithError
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.CoroutineScope
@@ -165,22 +165,23 @@ fun CompleteAccountRegistrationScreen(
                     end.linkTo(parent.end)
                 }
             )
-            SexDropdown(
-                modifier = Modifier
-                    .padding(start = Padding30, end = Padding30)
-                    .constrainAs(sexDropdown) {
-                        top.linkTo(textStepDescription.bottom, Padding30)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
+            ViewWithError(modifier = Modifier
+                .padding(start = Padding30, end = Padding30)
+                .constrainAs(sexDropdown) {
+                    top.linkTo(textStepDescription.bottom, Padding30)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }) {
+                SexDropdown(
+                    onItemClicked = {
+                        viewModel.saveSex(SexType.fromLocalizedName(it, context))
                     },
-                onItemClicked = {
-                    viewModel.saveSex(SexType.fromLocalizedName(it, context))
-                },
-                value = screenData.sex?.localizedNameId?.let(context::getString) ?: "",
-                isFocused = screenData.isSexFocused,
-                onFocusChanged = viewModel::updateSexFocus
-            )
-            DateOfBirthTextField(
+                    value = screenData.sex?.localizedNameId?.let(context::getString) ?: "",
+                    isFocused = screenData.isSexFocused,
+                    onFocusChanged = viewModel::updateSexFocus
+                )
+            }
+            ViewWithError(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -188,13 +189,16 @@ fun CompleteAccountRegistrationScreen(
                         top.linkTo(sexDropdown.bottom, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    },
-                value = screenData.formattedDateOfBirth() ?: ""
+                    }
             ) {
-                showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
+                DateOfBirthTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = screenData.formattedDateOfBirth() ?: ""
+                ) {
+                    showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
+                }
             }
-            AnthropometryTextField(
-                value = screenData.weight?.toString() ?: "",
+            ViewWithError(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -202,16 +206,19 @@ fun CompleteAccountRegistrationScreen(
                         top.linkTo(inputBirthDate.bottom, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    },
-                leadingIcon = R.drawable.ic_complete_registration_weight,
-                label = context.getString(R.string.registration_complete_account_weight_hint),
-                optionLabel = context.getString(R.string.registration_complete_account_weight_kg)
+                    }
             ) {
-                modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
-                coroutineScope.launch { modalBottomSheetState.show() }
+                AnthropometryTextField(
+                    value = screenData.weight?.toString() ?: "",
+                    leadingIcon = R.drawable.ic_complete_registration_weight,
+                    label = context.getString(R.string.registration_complete_account_weight_hint),
+                    optionLabel = context.getString(R.string.registration_complete_account_weight_kg)
+                ) {
+                    modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
+                    coroutineScope.launch { modalBottomSheetState.show() }
+                }
             }
-            AnthropometryTextField(
-                value = screenData.height?.toString() ?: "",
+            ViewWithError(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -219,14 +226,19 @@ fun CompleteAccountRegistrationScreen(
                         top.linkTo(inputWeight.bottom, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    },
-                leadingIcon = R.drawable.ic_complete_registration_weight,
-                label = context.getString(R.string.registration_complete_account_height_hint),
-                optionLabel = context.getString(R.string.registration_complete_account_height_cm)
+                    }
             ) {
-                coroutineScope.launch {
-                    modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
-                    modalBottomSheetState.show()
+                AnthropometryTextField(
+                    value = screenData.height?.toString() ?: "",
+                    leadingIcon = R.drawable.ic_complete_registration_weight,
+                    label = context.getString(R.string.registration_complete_account_height_hint),
+                    optionLabel = context.getString(R.string.registration_complete_account_height_cm)
+                ) {
+                    coroutineScope.launch {
+                        modalBottomSheetType =
+                            CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
+                        modalBottomSheetState.show()
+                    }
                 }
             }
         }
@@ -236,7 +248,7 @@ fun CompleteAccountRegistrationScreen(
 @ExperimentalMaterialApi
 @Composable
 fun SexDropdown(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onItemClicked: (String) -> Unit,
     value: String,
     isFocused: Boolean,
@@ -309,7 +321,11 @@ fun SexDropdown(
 }
 
 @Composable
-fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit) {
+fun DateOfBirthTextField(
+    modifier: Modifier = Modifier,
+    value: String,
+    onClick: () -> Unit
+) {
     val interactionSource = remember {
         MutableInteractionSource()
     }
@@ -350,7 +366,7 @@ fun DateOfBirthTextField(modifier: Modifier, value: String, onClick: () -> Unit)
 @Composable
 fun AnthropometryTextField(
     value: String,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     @DrawableRes leadingIcon: Int,
     label: String,
     optionLabel: String,
