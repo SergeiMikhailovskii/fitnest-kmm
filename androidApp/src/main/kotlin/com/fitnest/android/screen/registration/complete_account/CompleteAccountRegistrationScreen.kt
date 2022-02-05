@@ -44,6 +44,7 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import java.util.*
@@ -89,93 +90,22 @@ fun CompleteAccountRegistrationScreen(
         sheetContent = {
             when (modalBottomSheetType) {
                 CompleteAccountRegistrationScreenBottomSheetType.WEIGHT -> {
-                    Column(modifier = Modifier.background(color = Color.White)) {
-                        var picker: NumberPicker? = null
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, top = 20.dp)
-                        ) {
-                            Text(
-                                context.getString(R.string.registration_complete_account_cancel),
-                                modifier = Modifier.pointerInput(Unit) {
-                                    detectTapGestures(onTap = {
-                                        coroutineScope.launch {
-                                            modalBottomSheetState.hide()
-                                            picker = null
-                                        }
-                                    })
-                                })
-                            Box(modifier = Modifier.weight(1F))
-                            Text(context.getString(R.string.registration_complete_account_save),
-                                color = BrandColor,
-                                modifier = Modifier.pointerInput(Unit) {
-                                    detectTapGestures(onTap = {
-                                        coroutineScope.launch {
-                                            viewModel.saveWeight(picker?.value ?: 0)
-                                            modalBottomSheetState.hide()
-                                            picker = null
-                                        }
-                                    })
-                                })
-                        }
-                        AndroidView(
-                            modifier = Modifier.fillMaxWidth(),
-                            factory = {
-                                picker = NumberPicker(context).apply {
-                                    minValue = 0
-                                    maxValue = 200
-                                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-                                    wrapSelectorWheel = false
-                                }
-                                picker!!
-                            }
-                        )
-                    }
+                    AnthropometryBottomSheet(
+                        coroutineScope = coroutineScope,
+                        modalBottomSheetState = modalBottomSheetState,
+                        minValue = 0,
+                        maxValue = 200,
+                        onSubmit = viewModel::saveWeight
+                    )
                 }
                 CompleteAccountRegistrationScreenBottomSheetType.HEIGHT -> {
-                    Column(modifier = Modifier.background(color = Color.White)) {
-                        var picker: NumberPicker? = null
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, top = 20.dp)
-                        ) {
-                            Text(
-                                context.getString(R.string.registration_complete_account_cancel),
-                                modifier = Modifier.pointerInput(Unit) {
-                                    detectTapGestures(onTap = {
-                                        coroutineScope.launch {
-                                            modalBottomSheetState.hide()
-                                            picker = null
-                                        }
-                                    })
-                                })
-                            Box(modifier = Modifier.weight(1F))
-                            Text(context.getString(R.string.registration_complete_account_save),
-                                color = BrandColor,
-                                modifier = Modifier.pointerInput(Unit) {
-                                    detectTapGestures(onTap = {
-                                        coroutineScope.launch {
-                                            viewModel.saveHeight(picker?.value ?: 0)
-                                            modalBottomSheetState.hide()
-                                        }
-                                    })
-                                })
-                        }
-                        AndroidView(
-                            modifier = Modifier.fillMaxWidth(),
-                            factory = {
-                                picker = NumberPicker(context).apply {
-                                    minValue = 0
-                                    maxValue = 220
-                                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-                                    wrapSelectorWheel = false
-                                }
-                                picker!!
-                            })
-
-                    }
+                    AnthropometryBottomSheet(
+                        coroutineScope = coroutineScope,
+                        modalBottomSheetState = modalBottomSheetState,
+                        minValue = 0,
+                        maxValue = 220,
+                        onSubmit = viewModel::saveHeight
+                    )
                 }
                 else -> {
                     Box(Modifier.height(1.dp))
@@ -475,7 +405,6 @@ fun AnthropometryTextField(
         }
 
     }
-
 }
 
 private fun showDatePicker(
@@ -492,4 +421,60 @@ private fun showDatePicker(
             }
             show(activity.supportFragmentManager, toString())
         }
+}
+
+@ExperimentalMaterialApi
+@Composable
+private fun AnthropometryBottomSheet(
+    coroutineScope: CoroutineScope,
+    modalBottomSheetState: ModalBottomSheetState,
+    minValue: Int,
+    maxValue: Int,
+    onSubmit: (Int) -> Unit,
+) {
+    val context = LocalContext.current
+
+    Column(modifier = Modifier.background(color = Color.White)) {
+        var picker: NumberPicker? = null
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+        ) {
+            Text(
+                context.getString(R.string.registration_complete_account_cancel),
+                modifier = Modifier.pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        coroutineScope.launch {
+                            modalBottomSheetState.hide()
+                            picker = null
+                        }
+                    })
+                })
+            Box(modifier = Modifier.weight(1F))
+            Text(context.getString(R.string.registration_complete_account_save),
+                color = BrandColor,
+                modifier = Modifier.pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        coroutineScope.launch {
+                            onSubmit(picker?.value ?: 0)
+                            modalBottomSheetState.hide()
+                            picker = null
+                        }
+                    })
+                })
+        }
+        AndroidView(
+            modifier = Modifier.fillMaxWidth(),
+            factory = {
+                picker = NumberPicker(context).apply {
+                    this.minValue = minValue
+                    this.maxValue = maxValue
+                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                    wrapSelectorWheel = false
+                }
+                picker!!
+            }
+        )
+    }
 }
