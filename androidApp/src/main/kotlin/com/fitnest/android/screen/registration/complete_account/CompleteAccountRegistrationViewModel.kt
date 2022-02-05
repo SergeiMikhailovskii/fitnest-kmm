@@ -41,6 +41,10 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
+    internal fun submitRegistration() {
+
+    }
+
     private fun updateScreen() {
         _screenDataFlow.update { screenData.copy() }
     }

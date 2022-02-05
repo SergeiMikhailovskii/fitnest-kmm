@@ -10,6 +10,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,6 +27,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -131,6 +133,7 @@ fun CompleteAccountRegistrationScreen(
                 inputBirthDate,
                 inputWeight,
                 inputHeight,
+                btnNext,
             ) = createRefs()
 
             Image(
@@ -141,6 +144,7 @@ fun CompleteAccountRegistrationScreen(
                 modifier = Modifier
                     .constrainAs(imageTop) {
                         top.linkTo(parent.top)
+                        bottom.linkTo(textStepTitle.top, Padding30)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     }
@@ -151,7 +155,7 @@ fun CompleteAccountRegistrationScreen(
                 context.getString(R.string.registration_complete_account_title),
                 style = PoppinsBoldStyle20Black,
                 modifier = Modifier.constrainAs(textStepTitle) {
-                    top.linkTo(imageTop.bottom, Padding30)
+                    bottom.linkTo(textStepDescription.top, Padding10)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
@@ -160,18 +164,19 @@ fun CompleteAccountRegistrationScreen(
                 context.getString(R.string.registration_complete_account_screen_description),
                 style = PoppinsNormalStyle12Gray1,
                 modifier = Modifier.constrainAs(textStepDescription) {
-                    top.linkTo(textStepTitle.bottom, Padding10)
+                    bottom.linkTo(sexDropdown.top, Padding30)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
             )
-            ViewWithError(modifier = Modifier
-                .padding(start = Padding30, end = Padding30)
-                .constrainAs(sexDropdown) {
-                    top.linkTo(textStepDescription.bottom, Padding30)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }) {
+            ViewWithError(
+                modifier = Modifier
+                    .padding(start = Padding30, end = Padding30)
+                    .constrainAs(sexDropdown) {
+                        bottom.linkTo(inputBirthDate.top, Padding15)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }) {
                 SexDropdown(
                     onItemClicked = {
                         viewModel.saveSex(SexType.fromLocalizedName(it, context))
@@ -186,7 +191,7 @@ fun CompleteAccountRegistrationScreen(
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
                     .constrainAs(inputBirthDate) {
-                        top.linkTo(sexDropdown.bottom, Padding15)
+                        bottom.linkTo(inputWeight.top, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     }
@@ -203,7 +208,7 @@ fun CompleteAccountRegistrationScreen(
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
                     .constrainAs(inputWeight) {
-                        top.linkTo(inputBirthDate.bottom, Padding15)
+                        bottom.linkTo(inputHeight.top, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     }
@@ -223,7 +228,7 @@ fun CompleteAccountRegistrationScreen(
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
                     .constrainAs(inputHeight) {
-                        top.linkTo(inputWeight.bottom, Padding15)
+                        bottom.linkTo(btnNext.top, Padding30)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     }
@@ -240,6 +245,28 @@ fun CompleteAccountRegistrationScreen(
                         modalBottomSheetState.show()
                     }
                 }
+            }
+            Button(
+                onClick = viewModel::submitRegistration,
+                shape = CircleShape,
+                modifier = Modifier
+                    .constrainAs(btnNext) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .padding(
+                        start = Padding30,
+                        end = Padding30,
+                        bottom = Padding.Padding40
+                    )
+                    .height(Dimen.Dimen60)
+                    .fillMaxWidth(),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.registration_create_account_next_button_label),
+                    style = PoppinsBoldStyle16
+                )
             }
         }
     }
