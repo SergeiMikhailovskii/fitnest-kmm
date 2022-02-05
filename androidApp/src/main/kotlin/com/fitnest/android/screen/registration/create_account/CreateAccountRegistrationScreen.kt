@@ -270,7 +270,7 @@ fun CreateAccountRegistrationScreen(
                     .fillMaxWidth(),
             ) {
                 Text(
-                    text = stringResource(id = R.string.splash_button_title),
+                    text = stringResource(id = R.string.registration_create_account_next_button_label),
                     style = PoppinsBoldStyle16
                 )
             }

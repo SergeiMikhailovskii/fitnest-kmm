@@ -9,6 +9,7 @@
     <string name="registration_create_account_email_label">Email</string>
     <string name="registration_create_account_password_label">Password</string>
     <string name="registration_create_account_divider_label">Or</string>
+    <string name="registration_create_account_next_button_label">Register</string>
 
     <string name="registration_complete_account_sex_male">Male</string>
     <string name="registration_complete_account_sex_female">Female</string>
