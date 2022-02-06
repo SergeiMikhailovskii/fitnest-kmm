@@ -7,13 +7,12 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.proxy.ProxyScreen
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreen
+import com.fitnest.android.screen.registration.ui.CompleteAccountRegistrationScreen
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme

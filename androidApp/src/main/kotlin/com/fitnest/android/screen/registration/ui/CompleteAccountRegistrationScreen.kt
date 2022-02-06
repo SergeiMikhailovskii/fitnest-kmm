@@ -1,30 +1,18 @@
-package com.fitnest.android.screen.registration.complete_account
+package com.fitnest.android.screen.registration.ui
 
 import android.content.Context
-import android.widget.NumberPicker
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -32,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.ViewModelProvider
@@ -41,7 +28,8 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
-import com.fitnest.android.extension.enum.localizedNames
+import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreenBottomSheetType
+import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.create_account.handleNavigation
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
@@ -50,7 +38,6 @@ import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.view.ui_elements.ViewWithError
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -288,185 +275,6 @@ fun CompleteAccountRegistrationScreen(
     }
 }
 
-@ExperimentalMaterialApi
-@Composable
-fun SexDropdown(
-    modifier: Modifier = Modifier,
-    onItemClicked: (String) -> Unit,
-    value: String,
-    isFocused: Boolean,
-    onFocusChanged: (Boolean) -> Unit
-) {
-    val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-    val sexList by remember { mutableStateOf(SexType.localizedNames(context)) }
-
-    val icon = if (expanded) Icons.Filled.ArrowDropUp else Icons.Filled.ArrowDropDown
-
-    ExposedDropdownMenuBox(
-        modifier = modifier,
-        expanded = expanded,
-        onExpandedChange = {
-            onFocusChanged(!expanded)
-            expanded = !expanded
-        }
-    ) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = {},
-            modifier = Modifier.fillMaxWidth(),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = if (isFocused) Color.White else BorderColor,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = BrandColor,
-                focusedLabelColor = BrandColor,
-            ),
-            leadingIcon = {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_complete_registration_sex),
-                    contentDescription = null
-                )
-            },
-            trailingIcon = { Icon(icon, null) },
-            shape = RoundedCornerShape(Dimen.Dimen14),
-            label = {
-                Text(
-                    context.getString(R.string.registration_complete_account_choose_gender),
-                    style = PoppinsNormalStyle14
-                )
-            },
-            readOnly = true
-        )
-
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = {
-                onFocusChanged(false)
-                expanded = false
-            },
-            modifier = Modifier
-                .background(Color.White)
-                .exposedDropdownSize()
-        ) {
-            sexList.forEach {
-                DropdownMenuItem(
-                    onClick = {
-                        onItemClicked(it)
-                        onFocusChanged(false)
-                        expanded = false
-                    },
-                ) {
-                    Text(it, style = PoppinsNormalStyle12Gray2)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun DateOfBirthTextField(
-    modifier: Modifier = Modifier,
-    value: String,
-    onClick: () -> Unit
-) {
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
-
-    if (interactionSource.collectIsPressedAsState().value) {
-        onClick()
-    }
-
-    OutlinedTextField(
-        value = value,
-        onValueChange = {},
-        modifier = modifier,
-        interactionSource = interactionSource,
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = BorderColor,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = BrandColor,
-            focusedLabelColor = BrandColor,
-        ),
-        leadingIcon = {
-            Image(
-                painter = painterResource(id = R.drawable.ic_complete_registration_calendar),
-                contentDescription = null
-            )
-        },
-        shape = RoundedCornerShape(Dimen.Dimen14),
-        label = {
-            Text(
-                LocalContext.current.getString(R.string.registration_complete_account_date_of_birth),
-                style = PoppinsNormalStyle14
-            )
-        },
-        readOnly = true,
-    )
-
-}
-
-@Composable
-fun AnthropometryTextField(
-    value: String,
-    modifier: Modifier = Modifier,
-    @DrawableRes leadingIcon: Int,
-    label: String,
-    optionLabel: String,
-    onTextFieldClick: () -> Unit
-) {
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
-
-    if (interactionSource.collectIsPressedAsState().value) {
-        onTextFieldClick()
-    }
-    var height by remember { mutableStateOf(0) }
-    Row(modifier = modifier) {
-        OutlinedTextField(
-            modifier = Modifier
-                .onGloballyPositioned {
-                    height = it.size.height
-                }
-                .padding(end = 15.dp),
-            value = value,
-            onValueChange = {},
-            interactionSource = interactionSource,
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = BorderColor,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = BrandColor,
-                focusedLabelColor = BrandColor,
-            ),
-            leadingIcon = {
-                Image(
-                    painter = painterResource(id = leadingIcon),
-                    contentDescription = null
-                )
-            },
-            shape = RoundedCornerShape(Dimen.Dimen14),
-            label = {
-                Text(
-                    label,
-                    style = PoppinsNormalStyle14
-                )
-            },
-            readOnly = true,
-        )
-        Box(
-            modifier = Modifier
-                .width(height.dp)
-                .aspectRatio(1F)
-                .align(Alignment.Bottom)
-                .clip(RoundedCornerShape(14.dp))
-                .background(Brush.horizontalGradient(SecondaryGradient))
-        ) {
-            Text(optionLabel, modifier = Modifier.align(Alignment.Center), color = Color.White)
-        }
-
-    }
-}
 
 private fun showDatePicker(
     activity: AppCompatActivity,
@@ -482,60 +290,4 @@ private fun showDatePicker(
             }
             show(activity.supportFragmentManager, toString())
         }
-}
-
-@ExperimentalMaterialApi
-@Composable
-private fun AnthropometryBottomSheet(
-    coroutineScope: CoroutineScope,
-    modalBottomSheetState: ModalBottomSheetState,
-    minValue: Int,
-    maxValue: Int,
-    onSubmit: (Int) -> Unit,
-) {
-    val context = LocalContext.current
-
-    Column(modifier = Modifier.background(color = Color.White)) {
-        var picker: NumberPicker? = null
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp, top = 20.dp)
-        ) {
-            Text(
-                context.getString(R.string.registration_complete_account_cancel),
-                modifier = Modifier.pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        coroutineScope.launch {
-                            modalBottomSheetState.hide()
-                            picker = null
-                        }
-                    })
-                })
-            Box(modifier = Modifier.weight(1F))
-            Text(context.getString(R.string.registration_complete_account_save),
-                color = BrandColor,
-                modifier = Modifier.pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        coroutineScope.launch {
-                            onSubmit(picker?.value ?: 0)
-                            modalBottomSheetState.hide()
-                            picker = null
-                        }
-                    })
-                })
-        }
-        AndroidView(
-            modifier = Modifier.fillMaxWidth(),
-            factory = {
-                picker = NumberPicker(context).apply {
-                    this.minValue = minValue
-                    this.maxValue = maxValue
-                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-                    wrapSelectorWheel = false
-                }
-                picker!!
-            }
-        )
-    }
 }
