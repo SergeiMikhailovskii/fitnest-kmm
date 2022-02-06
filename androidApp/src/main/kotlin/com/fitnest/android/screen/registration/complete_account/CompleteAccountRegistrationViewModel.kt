@@ -44,6 +44,7 @@ class CompleteAccountRegistrationViewModel(
 
 
     internal fun saveSex(sex: SexType) {
+        screenData.exception.genderError = null
         screenData.sex = sex
         updateScreen()
     }
@@ -54,16 +55,19 @@ class CompleteAccountRegistrationViewModel(
     }
 
     internal fun saveBirthDate(date: Date) {
+        screenData.exception.birthDateError = null
         screenData.dateOfBirth = date
         updateScreen()
     }
 
     internal fun saveWeight(weight: Int) {
+        screenData.exception.weightError = null
         screenData.weight = weight
         updateScreen()
     }
 
     internal fun saveHeight(height: Int) {
+        screenData.exception.heightError = null
         screenData.height = height
         updateScreen()
     }
