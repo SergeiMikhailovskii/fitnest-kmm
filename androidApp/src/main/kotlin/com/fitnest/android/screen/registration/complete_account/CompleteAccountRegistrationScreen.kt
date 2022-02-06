@@ -16,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -278,9 +279,10 @@ fun CompleteAccountRegistrationScreen(
                     .fillMaxWidth(),
             ) {
                 Text(
-                    text = stringResource(id = R.string.registration_create_account_next_button_label),
+                    text = stringResource(id = R.string.registration_complete_account_next_button_label),
                     style = PoppinsBoldStyle16
                 )
+                Icon(imageVector = Icons.Filled.ChevronRight, contentDescription = null)
             }
         }
     }

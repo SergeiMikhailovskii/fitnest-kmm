@@ -23,4 +23,5 @@
     <string name="registration_complete_account_height_cm">CM</string>
     <string name="registration_complete_account_choose_gender">Choose Gender</string>
     <string name="registration_complete_account_date_of_birth">Date of Birth</string>
+    <string name="registration_complete_account_next_button_label">Next</string>
 </resources>
