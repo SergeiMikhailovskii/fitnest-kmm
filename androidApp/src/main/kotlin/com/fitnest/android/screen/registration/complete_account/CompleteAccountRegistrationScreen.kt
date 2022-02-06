@@ -40,6 +40,7 @@ import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
 import com.fitnest.android.extension.enum.localizedNames
+import com.fitnest.android.screen.registration.create_account.handleNavigation
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
 import com.fitnest.android.style.Padding.Padding15
@@ -48,6 +49,7 @@ import com.fitnest.android.view.ui_elements.ViewWithError
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import java.util.*
@@ -85,6 +87,15 @@ fun CompleteAccountRegistrationScreen(
 
     var modalBottomSheetType by remember {
         mutableStateOf<CompleteAccountRegistrationScreenBottomSheetType?>(null)
+    }
+
+    LaunchedEffect(null) {
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(it, navController)
+            }
+        }
+        viewModel.initializeStartData()
     }
 
     ModalBottomSheetLayout(
@@ -169,6 +180,7 @@ fun CompleteAccountRegistrationScreen(
                 }
             )
             ViewWithError(
+                error = screenData.exception.genderError,
                 modifier = Modifier
                     .padding(start = Padding30, end = Padding30)
                     .constrainAs(sexDropdown) {
@@ -186,6 +198,7 @@ fun CompleteAccountRegistrationScreen(
                 )
             }
             ViewWithError(
+                error = screenData.exception.birthDateError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -203,6 +216,7 @@ fun CompleteAccountRegistrationScreen(
                 }
             }
             ViewWithError(
+                error = screenData.exception.weightError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -223,6 +237,7 @@ fun CompleteAccountRegistrationScreen(
                 }
             }
             ViewWithError(
+                error = screenData.exception.heightError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)

@@ -3,7 +3,7 @@ package com.fitnest.android.screen.registration.complete_account
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.enum.SexType
-import com.fitnest.domain.validator.CreateAccountRegistrationValidator
+import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -11,12 +11,37 @@ import java.util.*
 
 class CompleteAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
+    private val viewMapper: CompleteAccountRegistrationViewMapper,
     private val screenData: CompleteAccountRegistrationScreenData,
-    private val validator: CreateAccountRegistrationValidator,
+    private val validator: CompleteAccountRegistrationValidator,
 ) : BaseViewModel() {
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
+
+    internal fun initializeStartData() {
+        val validationSchema = registrationScreenState.validationSchema
+        validationSchema?.let {
+            validator.initialize(
+                jsonSchema = it,
+                onGenderErrorChanged = {
+                    screenData.exception.genderError = it
+                },
+                onBirthDateErrorChanged = {
+                    screenData.exception.birthDateError = it
+                },
+                onHeightErrorChanged = {
+                    screenData.exception.heightError = it
+                },
+                onWeightErrorChanged = {
+                    screenData.exception.weightError = it
+                }
+            )
+        }
+        screenData.validationSchema = validationSchema
+        updateScreen()
+    }
+
 
     internal fun saveSex(sex: SexType) {
         screenData.sex = sex
@@ -44,6 +69,9 @@ class CompleteAccountRegistrationViewModel(
     }
 
     internal fun submitRegistration() {
+        val request = viewMapper.mapScreenDataToStepRequestModel(screenData)
+        validator.validate(request)
+        updateScreen()
     }
 
     private fun updateScreen() {

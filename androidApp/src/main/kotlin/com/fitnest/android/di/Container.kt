@@ -13,12 +13,12 @@ import com.fitnest.android.screen.registration.create_account.CreateAccountRegis
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
-import com.fitnest.domain.di.validatorModule
+import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
+import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import org.kodein.di.*
 
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
-    import(validatorModule)
 
     bind<ViewModelProvider.Factory>() with singleton {
         ViewModelFactory(di)
@@ -53,17 +53,23 @@ val createAccountRegistrationScreenModule = DI.Module("create account registrati
     bind<CreateAccountRegistrationViewMapper>() with factory {
         CreateAccountRegistrationViewMapper()
     }
+    bind<CreateAccountRegistrationValidator>() with factory {
+        CreateAccountRegistrationValidator()
+    }
 }
 
 val completeAccountRegistrationScreenModule =
     DI.Module("complete account registration screen module") {
         bind<CompleteAccountRegistrationViewModel>() with factory {
-            CompleteAccountRegistrationViewModel(instance(), instance())
+            CompleteAccountRegistrationViewModel(instance(), instance(), instance(), instance())
         }
         bind<CompleteAccountRegistrationViewMapper>() with singleton {
             CompleteAccountRegistrationViewMapper(instance())
         }
         bind<CompleteAccountRegistrationScreenData>() with factory {
             CompleteAccountRegistrationScreenData.init()
+        }
+        bind<CompleteAccountRegistrationValidator>() with factory {
+            CompleteAccountRegistrationValidator()
         }
     }
