@@ -249,7 +249,7 @@ fun CompleteAccountRegistrationScreen(
             ) {
                 AnthropometryTextField(
                     value = screenData.height?.toString() ?: "",
-                    leadingIcon = R.drawable.ic_complete_registration_weight,
+                    leadingIcon = R.drawable.ic_complete_registration_height,
                     label = context.getString(R.string.registration_complete_account_height_hint),
                     optionLabel = context.getString(R.string.registration_complete_account_height_cm)
                 ) {
