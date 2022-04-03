@@ -26,6 +26,7 @@ fun AnthropometryBottomSheet(
     modalBottomSheetState: ModalBottomSheetState,
     minValue: Int,
     maxValue: Int,
+    initialValue: Int = 0,
     onSubmit: (Int) -> Unit,
 ) {
     val context = LocalContext.current
@@ -66,6 +67,7 @@ fun AnthropometryBottomSheet(
                 picker = NumberPicker(context).apply {
                     this.minValue = minValue
                     this.maxValue = maxValue
+                    this.value = initialValue
                     descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                     wrapSelectorWheel = false
                 }

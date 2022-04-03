@@ -5,6 +5,7 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun stringResourceByIdentifier(identifier: String): String {
+    println(identifier)
     val context = LocalContext.current
     return context.getString(
         context.resources.getIdentifier(

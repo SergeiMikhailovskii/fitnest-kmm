@@ -97,6 +97,7 @@ fun CompleteAccountRegistrationScreen(
                         modalBottomSheetState = modalBottomSheetState,
                         minValue = 0,
                         maxValue = 200,
+                        initialValue = 70,
                         onSubmit = viewModel::saveWeight
                     )
                 }
@@ -106,6 +107,7 @@ fun CompleteAccountRegistrationScreen(
                         modalBottomSheetState = modalBottomSheetState,
                         minValue = 0,
                         maxValue = 220,
+                        initialValue = 188,
                         onSubmit = viewModel::saveHeight
                     )
                 }

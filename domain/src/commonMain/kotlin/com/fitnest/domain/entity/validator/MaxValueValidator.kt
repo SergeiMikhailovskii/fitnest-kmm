@@ -4,8 +4,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class MaxValueValidator(private val validation: Int) : Validator() {
-    override fun isValid(field: Any?): Boolean {
-        // TODO: 7.01.22 Add validation logic
-        return true
+    override fun isValid(field: Any?) = when (field) {
+        null -> {
+            false
+        }
+        is Int -> {
+            field < validation
+        }
+        else -> {
+            throw RuntimeException("MaxValueValidator cannot validate ${field::class.simpleName}")
+        }
     }
 }

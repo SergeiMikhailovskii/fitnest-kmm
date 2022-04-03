@@ -1,13 +1,12 @@
 package com.fitnest.android.screen.registration.complete_account
 
-import android.content.Context
 import com.fitnest.android.base.BaseViewMapper
 import com.fitnest.android.extension.format
 import com.fitnest.domain.entity.request.CompleteAccountStepRequest
+import kotlinx.datetime.LocalDate
 
-class CompleteAccountRegistrationViewMapper(
-    private val context: Context
-) : BaseViewMapper<CompleteAccountRegistrationScreenData, CompleteAccountStepRequest> {
+class CompleteAccountRegistrationViewMapper :
+    BaseViewMapper<CompleteAccountRegistrationScreenData, CompleteAccountStepRequest> {
 
     override fun mapScreenDataToStepRequestModel(
         data: CompleteAccountRegistrationScreenData
@@ -15,7 +14,8 @@ class CompleteAccountRegistrationViewMapper(
         val sex = data.sex?.name
         val weight = data.weight
         val height = data.height
-        val dateOfBirth = data.dateOfBirth?.format("dd/MM/yyyy")
+        val dateOfBirth = if (data.dateOfBirth == null) null
+        else LocalDate.parse(data.dateOfBirth?.format("yyyy-MM-dd") ?: "")
 
         return CompleteAccountStepRequest(
             sex = sex,

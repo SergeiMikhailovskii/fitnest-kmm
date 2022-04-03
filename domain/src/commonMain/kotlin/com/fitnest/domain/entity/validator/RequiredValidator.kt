@@ -11,8 +11,6 @@ class RequiredValidator : Validator() {
         is String -> {
             field.isNotBlank()
         }
-        else -> {
-            throw RuntimeException("MinLengthValidator cannot validate ${field::class.simpleName}")
-        }
+        else -> true
     }
 }

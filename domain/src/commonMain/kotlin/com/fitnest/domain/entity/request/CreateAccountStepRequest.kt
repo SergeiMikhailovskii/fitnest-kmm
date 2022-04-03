@@ -2,7 +2,9 @@ package com.fitnest.domain.entity.request
 
 import com.fitnest.domain.entity.base.BaseRequest
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CreateAccountStepRequest(
     @SerialName("first_name")
     val firstName: String?,

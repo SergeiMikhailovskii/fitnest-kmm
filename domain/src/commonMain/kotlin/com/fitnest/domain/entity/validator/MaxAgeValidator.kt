@@ -1,11 +1,18 @@
 package com.fitnest.domain.entity.validator
 
+import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 
 @Serializable
 class MaxAgeValidator(private val validation: Int) : Validator() {
-    override fun isValid(field: Any?): Boolean {
-        // TODO: 7.01.22 Add validation logic
-        return true
+    override fun isValid(field: Any?) = when (field) {
+        null -> {
+            false
+        }
+        is LocalDate -> {
+            val years = field.yearsUntil(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date)
+            years <= validation
+        }
+        else -> false
     }
 }
