@@ -6,9 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 class MinAgeValidator(private val validation: Int) : Validator() {
     override fun isValid(field: Any?) = when (field) {
-        null -> {
-            false
-        }
         is LocalDate -> {
             val years = field.yearsUntil(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date)
             years >= validation
