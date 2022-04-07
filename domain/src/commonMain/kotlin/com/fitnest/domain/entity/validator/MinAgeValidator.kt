@@ -1,9 +1,11 @@
 package com.fitnest.domain.entity.validator
 
 import kotlinx.datetime.*
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("minAge")
 class MinAgeValidator(private val validation: Int) : Validator() {
     override fun isValid(field: Any?) = when (field) {
         is LocalDate -> {

@@ -1,8 +1,10 @@
 package com.fitnest.domain.entity.validator
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("regExp")
 class RegExpValidator(private val validation: String) : Validator() {
 
     override val error: String

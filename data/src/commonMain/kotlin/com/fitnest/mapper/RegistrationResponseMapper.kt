@@ -41,7 +41,7 @@ class RegistrationResponseMapper(
             val mappedValidators = mutableListOf<Validator>()
             if (validators is JsonArray) {
                 validators.forEach {
-                    mappedValidators.add(mapValidator(it as JsonObject))
+                    mappedValidators.add(json.decodeFromJsonElement(it))
                 }
             }
             mappedValidationSchema[it.key] = mappedValidators
@@ -49,32 +49,4 @@ class RegistrationResponseMapper(
         return mappedValidationSchema
     }
 
-    private fun mapValidator(validator: JsonObject): Validator {
-        return when (validator["type"]?.jsonPrimitive?.content) {
-            "required" -> {
-                json.decodeFromJsonElement<RequiredValidator>(validator)
-            }
-            "regExp" -> {
-                json.decodeFromJsonElement<RegExpValidator>(validator)
-            }
-            "minLength" -> {
-                json.decodeFromJsonElement<MinLengthValidator>(validator)
-            }
-            "minAge" -> {
-                json.decodeFromJsonElement<MinAgeValidator>(validator)
-            }
-            "maxAge" -> {
-                json.decodeFromJsonElement<MaxAgeValidator>(validator)
-            }
-            "minValue" -> {
-                json.decodeFromJsonElement<MinValueValidator>(validator)
-            }
-            "maxValue" -> {
-                json.decodeFromJsonElement<MaxValueValidator>(validator)
-            }
-            else -> {
-                throw RuntimeException("unknown validator")
-            }
-        }
-    }
 }

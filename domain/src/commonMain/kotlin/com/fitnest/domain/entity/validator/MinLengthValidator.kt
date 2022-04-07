@@ -1,8 +1,10 @@
 package com.fitnest.domain.entity.validator
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("minLength")
 class MinLengthValidator(private val validation: Int) : Validator() {
 
     override val error: String
