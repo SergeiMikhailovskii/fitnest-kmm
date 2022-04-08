@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.base.Route
 import com.fitnest.android.extension.stringResourceByIdentifier
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Dimen.Dimen1
@@ -44,6 +45,9 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
+import com.fitnest.android.view.ui_elements.ViewWithError
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Composable
@@ -61,6 +65,11 @@ fun CreateAccountRegistrationScreen(
     val screenData by viewModel.screenDataFlow.collectAsState()
 
     LaunchedEffect(key1 = null) {
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(it, navController)
+            }
+        }
         viewModel.initializeStartData()
     }
 
@@ -262,7 +271,7 @@ fun CreateAccountRegistrationScreen(
                     .fillMaxWidth(),
             ) {
                 Text(
-                    text = stringResource(id = R.string.splash_button_title),
+                    text = stringResource(id = R.string.registration_create_account_next_button_label),
                     style = PoppinsBoldStyle16
                 )
             }
@@ -441,6 +450,11 @@ fun RegistrationOutlinedTextField(
 fun getPasswordVisualTransformation(passwordVisibility: Boolean) =
     if (passwordVisibility) PasswordVisualTransformation()
     else VisualTransformation.None
+
+fun handleNavigation(route: Route, navController: NavController) {
+    navController.popBackStack()
+    navController.navigate(route.screenName)
+}
 
 object CreateAccountRegistrationScreenUtils {
     const val LOGIN_SPAN_TAG = "LOGIN"

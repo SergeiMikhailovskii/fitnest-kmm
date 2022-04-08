@@ -43,13 +43,17 @@ class NetworkService(val di: DI) : NetworkService {
         data: Request?
     ): Either<Failure, BaseResponse> {
         val url = "${Endpoints.BASE_URL}${path}"
-        val httpResponse: HttpResponse = httpClient.post(url) {
-            contentType(ContentType.Application.Json)
-            if (data != null) {
-                body = data
+        return try {
+            val httpResponse: HttpResponse = httpClient.post(url) {
+                contentType(ContentType.Application.Json)
+                if (data != null) {
+                    body = data
+                }
             }
+            Either.Right(httpResponse.receive())
+        } catch (e: ClientRequestException) {
+            Either.Left(Failure.ServerError(e.response.status.value))
         }
-        return Either.Right(httpResponse.receive())
     }
 
     override suspend fun getData(path: String): Either<Failure, BaseResponse> {

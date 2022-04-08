@@ -26,7 +26,7 @@ sealed class Either<out L, out R> {
     }
 }
 
-fun <T, L, R> Either<L, R>.flatMap(fn: (R?) -> Either<L, T>): Either<L, T> =
+suspend fun <T, L, R> Either<L, R>.flatMap(fn: suspend (R?) -> Either<L, T>): Either<L, T> =
     when (this) {
         is Either.Left -> Either.Left(a)
         is Either.Right -> fn(b)

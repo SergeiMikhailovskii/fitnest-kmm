@@ -1,9 +1,10 @@
 package com.fitnest.android.screen.registration.create_account
 
 import com.fitnest.android.base.BaseViewModel
+import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
-import com.fitnest.domain.usecase.SubmitRegistrationStep
+import com.fitnest.domain.usecase.SubmitRegistrationStepAndGetNext
 import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,7 @@ class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val validator: CreateAccountRegistrationValidator,
     private val viewMapper: CreateAccountRegistrationViewMapper,
-    private val submitRegistrationStepUseCase: SubmitRegistrationStep
+    private val submitRegistrationStepAndGetNext: SubmitRegistrationStepAndGetNext
 ) : BaseViewModel() {
 
     private val screenData = CreateAccountRegistrationScreenData.init()
@@ -104,9 +105,11 @@ class CreateAccountRegistrationViewModel(
             return
         }
 
-        submitRegistrationStepUseCase(requestData) {
+        submitRegistrationStepAndGetNext(requestData) {
             it.either(::handleFailure) {
-                println()
+                registrationScreenState.fields = it?.fields
+                registrationScreenState.validationSchema = it?.validationSchema
+                it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
             }
         }
     }

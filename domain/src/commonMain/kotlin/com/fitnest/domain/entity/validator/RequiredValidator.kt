@@ -1,8 +1,10 @@
 package com.fitnest.domain.entity.validator
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("required")
 class RequiredValidator : Validator() {
     override fun isValid(field: Any?) = when (field) {
         null -> {
@@ -11,8 +13,6 @@ class RequiredValidator : Validator() {
         is String -> {
             field.isNotBlank()
         }
-        else -> {
-            throw RuntimeException("MinLengthValidator cannot isValid ${field::class.simpleName}")
-        }
+        else -> true
     }
 }

@@ -1,8 +1,10 @@
 package com.fitnest.domain.entity.validator
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("regExp")
 class RegExpValidator(private val validation: String) : Validator() {
 
     override val error: String
@@ -13,10 +15,10 @@ class RegExpValidator(private val validation: String) : Validator() {
             Regex(validation).matches(field)
         }
         null -> {
-            throw RuntimeException("RegExpValidator cannot isValid nullable field")
+            throw RuntimeException("RegExpValidator cannot validate nullable field")
         }
         else -> {
-            throw RuntimeException("RegExpValidator cannot isValid ${field::class.simpleName}")
+            throw RuntimeException("RegExpValidator cannot validate ${field::class.simpleName}")
         }
     }
 }

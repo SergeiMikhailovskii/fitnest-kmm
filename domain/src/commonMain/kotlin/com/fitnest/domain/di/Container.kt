@@ -1,7 +1,6 @@
 package com.fitnest.domain.di
 
 import com.fitnest.domain.usecase.*
-import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.factory
@@ -23,13 +22,7 @@ val useCaseModule = DI.Module("use case module") {
     bind<SubmitOnboardingStep>() with factory {
         SubmitOnboardingStep(instance())
     }
-    bind<SubmitRegistrationStep>() with factory {
-        SubmitRegistrationStep(instance())
-    }
-}
-
-val validatorModule = DI.Module("validator module") {
-    bind<CreateAccountRegistrationValidator>() with factory {
-        CreateAccountRegistrationValidator()
+    bind<SubmitRegistrationStepAndGetNext>() with factory {
+        SubmitRegistrationStepAndGetNext(instance())
     }
 }

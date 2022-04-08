@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -11,7 +12,9 @@ import androidx.navigation.navArgument
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.proxy.ProxyScreen
+import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreen
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreen
+import com.fitnest.android.screen.registration.goal.GoalRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
 import com.fitnest.domain.enum.FlowType
@@ -20,6 +23,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
 fun FitnestApp() {
@@ -87,9 +91,16 @@ fun FitnestApp() {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
-                    val stepName = it.arguments?.getString("stepName") ?: ""
-                    if (stepName == "STEP_CREATE_ACCOUNT") {
-                        CreateAccountRegistrationScreen(navController = navController)
+                    when (it.arguments?.getString("stepName") ?: "") {
+                        "STEP_CREATE_ACCOUNT" -> {
+                            CreateAccountRegistrationScreen(navController = navController)
+                        }
+                        "STEP_COMPLETE_ACCOUNT" -> {
+                            CompleteAccountRegistrationScreen(navController = navController)
+                        }
+                        "STEP_GOAL" -> {
+                            GoalRegistrationScreen(navController = navController)
+                        }
                     }
                 }
             }

@@ -34,7 +34,7 @@ class NetworkRepository(
         }
 
     override suspend fun submitRegistrationStep(request: BaseRequest): Either<Failure, Unit> =
-        networkService.sendData(Endpoints.Registration.name, data = request.toMap())
+        networkService.sendData(Endpoints.Registration.name, data = request)
             .flatMap { Either.Right(Unit) }
 
     override suspend fun submitOnboardingStep() =

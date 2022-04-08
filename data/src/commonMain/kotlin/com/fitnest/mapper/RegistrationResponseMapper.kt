@@ -2,10 +2,7 @@ package com.fitnest.mapper
 
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationStepModel
-import com.fitnest.domain.entity.validator.MinLengthValidator
-import com.fitnest.domain.entity.validator.RegExpValidator
-import com.fitnest.domain.entity.validator.RequiredValidator
-import com.fitnest.domain.entity.validator.Validator
+import com.fitnest.domain.entity.validator.*
 import kotlinx.serialization.json.*
 
 class RegistrationResponseMapper(
@@ -28,7 +25,9 @@ class RegistrationResponseMapper(
         if (fields == null) return null
         return when (step) {
             "STEP_CREATE_ACCOUNT" -> {
-                return json.decodeFromJsonElement<RegistrationStepModel.CreateAccountStepModel>(fields)
+                return json.decodeFromJsonElement<RegistrationStepModel.CreateAccountStepModel>(
+                    fields
+                )
             }
             else -> null
         }
@@ -42,7 +41,7 @@ class RegistrationResponseMapper(
             val mappedValidators = mutableListOf<Validator>()
             if (validators is JsonArray) {
                 validators.forEach {
-                    mappedValidators.add(mapValidator(it as JsonObject))
+                    mappedValidators.add(json.decodeFromJsonElement(it))
                 }
             }
             mappedValidationSchema[it.key] = mappedValidators
@@ -50,20 +49,4 @@ class RegistrationResponseMapper(
         return mappedValidationSchema
     }
 
-    private fun mapValidator(validator: JsonObject): Validator {
-        return when (validator["type"]?.jsonPrimitive?.content) {
-            "required" -> {
-                json.decodeFromJsonElement<RequiredValidator>(validator)
-            }
-            "regExp" -> {
-                json.decodeFromJsonElement<RegExpValidator>(validator)
-            }
-            "minLength" -> {
-                json.decodeFromJsonElement<MinLengthValidator>(validator)
-            }
-            else -> {
-                throw RuntimeException("unknown validator")
-            }
-        }
-    }
 }
