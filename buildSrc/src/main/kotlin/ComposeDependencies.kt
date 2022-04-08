@@ -28,6 +28,8 @@ object ComposeDependencies : Dependencies {
         "androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}"
     private const val COMPOSE_COMPILER =
         "androidx.compose.compiler:compiler:${Versions.COMPOSE_VERSION}"
+    private const val COMPOSE_UTIL =
+        "androidx.compose.ui:ui-util:${Versions.COMPOSE_VERSION}"
     private const val COMPOSE_ACTIVITY =
         "androidx.activity:activity-compose:${Versions.COMPOSE_ACTIVITY_VERSION}"
     private const val COMPOSE_THEME_ADAPTER =
@@ -57,6 +59,7 @@ object ComposeDependencies : Dependencies {
         COMPOSE_ACTIVITY,
         COMPOSE_THEME_ADAPTER,
         COMPOSE_MATERIAL_ICONS,
+        COMPOSE_UTIL,
         COMPOSE_ACCOMPANIST_NAVIGATION,
         COMPOSE_ACCOMPANIST_INSETS,
         COMPOSE_ACCOMPANIST_PAGER,

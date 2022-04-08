@@ -1,9 +1,11 @@
 package com.fitnest.android.screen.registration.goal
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -11,13 +13,19 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.lerp
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.style.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import com.google.accompanist.pager.rememberPagerState
 
 @ExperimentalPagerApi
 @Composable
@@ -26,6 +34,10 @@ fun GoalRegistrationScreen(navController: NavController) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val pageCount = 3
+        val startIndex = Int.MAX_VALUE / 2
+        val pagerState = rememberPagerState(initialPage = startIndex)
+
         Text(
             "What is your goal?",
             modifier = Modifier.padding(top = Padding.Padding40),
@@ -37,11 +49,15 @@ fun GoalRegistrationScreen(navController: NavController) {
             style = PoppinsNormalStyle12Gray1
         )
         HorizontalPager(
-            count = 3,
+            state = pagerState,
+            contentPadding = PaddingValues(horizontal = 50.dp),
+            itemSpacing = 20.dp,
+            count = Int.MAX_VALUE,
             modifier = Modifier
                 .padding(top = Padding.Padding50, bottom = Padding.Padding70)
                 .weight(1F)
-        ) { page ->
+        ) { index ->
+            val page = (index - startIndex).floorMod(pageCount)
             val image = when (page) {
                 0 -> {
                     R.drawable.ic_registration_goal_improve_shape
@@ -53,10 +69,35 @@ fun GoalRegistrationScreen(navController: NavController) {
                     R.drawable.ic_registration_goal_lose_fat
                 }
             }
-            Image(
-                painter = painterResource(id = image),
-                contentDescription = null
-            )
+            Card(
+                modifier = Modifier.graphicsLayer {
+                    val pageOffset = calculateCurrentOffsetForPage(index)
+                    lerp(
+                        start = 0.85f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    ).also { scale ->
+                        scaleX = scale
+                        scaleY = scale
+                    }
+                    alpha = lerp(
+                        start = 0.5f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    )
+                }
+            ) {
+                Column(
+                    modifier = Modifier
+                        .background(Color.Blue)
+                        .fillMaxSize()
+                ) {
+                    Image(
+                        painter = painterResource(id = image),
+                        contentDescription = null
+                    )
+                }
+            }
         }
         Button(
             onClick = {},
@@ -77,4 +118,9 @@ fun GoalRegistrationScreen(navController: NavController) {
             Icon(imageVector = Icons.Filled.ChevronRight, contentDescription = null)
         }
     }
+}
+
+private fun Int.floorMod(other: Int): Int = when (other) {
+    0 -> this
+    else -> this - floorDiv(other) * other
 }
