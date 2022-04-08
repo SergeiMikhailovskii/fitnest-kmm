@@ -1,9 +1,7 @@
 package com.fitnest.android.screen.registration.goal
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
@@ -11,9 +9,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.style.*
@@ -23,54 +22,46 @@ import com.google.accompanist.pager.HorizontalPager
 @ExperimentalPagerApi
 @Composable
 fun GoalRegistrationScreen(navController: NavController) {
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (
-            textStepTitle,
-            textStepDescription,
-            viewPagerGoal,
-            btnNext,
-        ) = createRefs()
-
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             "What is your goal?",
-            modifier = Modifier
-                .constrainAs(textStepTitle) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top, margin = Padding.Padding40)
-                },
+            modifier = Modifier.padding(top = Padding.Padding40),
             style = PoppinsBoldStyle20Black
         )
         Text(
             "It will help us to choose a best program for you",
-            modifier = Modifier
-                .constrainAs(textStepDescription) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(textStepTitle.bottom, margin = Padding.Padding5)
-                },
+            modifier = Modifier.padding(top = Padding.Padding5),
             style = PoppinsNormalStyle12Gray1
         )
         HorizontalPager(
             count = 3,
             modifier = Modifier
-                .constrainAs(viewPagerGoal) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(textStepDescription.bottom, margin = Padding.Padding50)
-                }
+                .padding(top = Padding.Padding50, bottom = Padding.Padding70)
+                .weight(1F)
         ) { page ->
-            Text(page.toString(), modifier = Modifier.fillMaxWidth())
+            val image = when (page) {
+                0 -> {
+                    R.drawable.ic_registration_goal_improve_shape
+                }
+                1 -> {
+                    R.drawable.ic_registration_goal_lean_tone
+                }
+                else -> {
+                    R.drawable.ic_registration_goal_lose_fat
+                }
+            }
+            Image(
+                painter = painterResource(id = image),
+                contentDescription = null
+            )
         }
         Button(
             onClick = {},
             shape = CircleShape,
             modifier = Modifier
-                .constrainAs(btnNext) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
                 .padding(
                     start = Padding.Padding30,
                     end = Padding.Padding30,

@@ -21,6 +21,7 @@ object Padding {
     val Padding30 = 30.dp
     val Padding40 = 40.dp
     val Padding50 = 50.dp
+    val Padding70 = 70.dp
 }
 
 object TextSize {
