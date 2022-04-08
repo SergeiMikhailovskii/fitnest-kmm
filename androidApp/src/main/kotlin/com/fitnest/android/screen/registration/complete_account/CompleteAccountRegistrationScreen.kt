@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration.ui
+package com.fitnest.android.screen.registration.complete_account
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -28,9 +28,11 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreenBottomSheetType
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.create_account.handleNavigation
+import com.fitnest.android.screen.registration.ui.AnthropometryBottomSheet
+import com.fitnest.android.screen.registration.ui.AnthropometryTextField
+import com.fitnest.android.screen.registration.ui.DateOfBirthTextField
+import com.fitnest.android.screen.registration.ui.SexDropdown
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Padding.Padding10
 import com.fitnest.android.style.Padding.Padding15

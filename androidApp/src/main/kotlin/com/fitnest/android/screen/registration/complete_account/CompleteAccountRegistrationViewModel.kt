@@ -1,6 +1,7 @@
 package com.fitnest.android.screen.registration.complete_account
 
 import com.fitnest.android.base.BaseViewModel
+import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.enum.SexType
 import com.fitnest.domain.usecase.SubmitRegistrationStepAndGetNext
@@ -82,7 +83,9 @@ class CompleteAccountRegistrationViewModel(
         }
         submitRegistrationStepAndGetNext(request) {
             it.either(::handleFailure) {
-
+                registrationScreenState.fields = it?.fields
+                registrationScreenState.validationSchema = it?.validationSchema
+                it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
             }
         }
     }
