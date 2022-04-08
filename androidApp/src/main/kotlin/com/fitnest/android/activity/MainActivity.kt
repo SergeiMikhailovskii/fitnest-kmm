@@ -2,7 +2,6 @@ package com.fitnest.android.activity
 
 import android.content.Context
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -11,10 +10,12 @@ import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.di.registrationModule
 import com.fitnest.android.di.viewModelModule
 import com.fitnest.di.*
+import com.google.accompanist.pager.ExperimentalPagerApi
 import org.kodein.di.*
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
+@ExperimentalPagerApi
 class MainActivity : AppCompatActivity(), DIAware {
 
     override val diContext: DIContext<*> = diContext(this)

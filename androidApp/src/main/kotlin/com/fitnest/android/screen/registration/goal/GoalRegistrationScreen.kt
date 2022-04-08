@@ -17,13 +17,17 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.style.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 
+@ExperimentalPagerApi
 @Composable
 fun GoalRegistrationScreen(navController: NavController) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (
             textStepTitle,
             textStepDescription,
+            viewPagerGoal,
             btnNext,
         ) = createRefs()
 
@@ -47,6 +51,17 @@ fun GoalRegistrationScreen(navController: NavController) {
                 },
             style = PoppinsNormalStyle12Gray1
         )
+        HorizontalPager(
+            count = 3,
+            modifier = Modifier
+                .constrainAs(viewPagerGoal) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(textStepDescription.bottom, margin = Padding.Padding50)
+                }
+        ) { page ->
+            Text(page.toString(), modifier = Modifier.fillMaxWidth())
+        }
         Button(
             onClick = {},
             shape = CircleShape,
