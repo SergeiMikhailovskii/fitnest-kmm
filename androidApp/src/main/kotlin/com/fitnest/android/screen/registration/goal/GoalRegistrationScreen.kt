@@ -26,6 +26,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
+import kotlin.math.absoluteValue
 
 @ExperimentalPagerApi
 @Composable
@@ -35,8 +36,6 @@ fun GoalRegistrationScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val pageCount = 3
-        val startIndex = Int.MAX_VALUE / 2
-        val pagerState = rememberPagerState(initialPage = startIndex)
 
         Text(
             "What is your goal?",
@@ -49,16 +48,13 @@ fun GoalRegistrationScreen(navController: NavController) {
             style = PoppinsNormalStyle12Gray1
         )
         HorizontalPager(
-            state = pagerState,
             contentPadding = PaddingValues(horizontal = 50.dp),
-            itemSpacing = 20.dp,
-            count = Int.MAX_VALUE,
+            count = pageCount,
             modifier = Modifier
                 .padding(top = Padding.Padding50, bottom = Padding.Padding70)
                 .weight(1F)
         ) { index ->
-            val page = (index - startIndex).floorMod(pageCount)
-            val image = when (page) {
+            val image = when (index) {
                 0 -> {
                     R.drawable.ic_registration_goal_improve_shape
                 }
@@ -71,7 +67,7 @@ fun GoalRegistrationScreen(navController: NavController) {
             }
             Card(
                 modifier = Modifier.graphicsLayer {
-                    val pageOffset = calculateCurrentOffsetForPage(index)
+                    val pageOffset = calculateCurrentOffsetForPage(index).absoluteValue
                     lerp(
                         start = 0.85f,
                         stop = 1f,
