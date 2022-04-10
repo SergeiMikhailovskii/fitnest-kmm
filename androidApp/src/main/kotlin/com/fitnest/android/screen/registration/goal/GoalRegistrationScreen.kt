@@ -45,12 +45,12 @@ fun GoalRegistrationScreen(navController: NavController) {
         val pageCount = 3
 
         Text(
-            "What is your goal?",
+            context.getString(R.string.registration_goal_title),
             modifier = Modifier.padding(top = Padding.Padding40),
             style = PoppinsBoldStyle20Black
         )
         Text(
-            "It will help us to choose a best program for you",
+            context.getString(R.string.registration_goal_description),
             modifier = Modifier.padding(top = Padding.Padding5),
             style = PoppinsNormalStyle12Gray1
         )
