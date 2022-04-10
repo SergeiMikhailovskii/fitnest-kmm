@@ -15,4 +15,9 @@ sealed class RegistrationStepModel {
         val email: String? = null,
         val password: String? = null
     ) : RegistrationStepModel()
+
+    @Serializable
+    data class WelcomeBackStepModel(
+        val name: String? = null
+    ) : RegistrationStepModel()
 }

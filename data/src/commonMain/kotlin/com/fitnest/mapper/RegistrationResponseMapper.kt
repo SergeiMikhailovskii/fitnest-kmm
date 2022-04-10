@@ -34,6 +34,9 @@ class RegistrationResponseMapper(
                     fields
                 )
             }
+            "STEP_WELCOME_BACK" -> {
+                return json.decodeFromJsonElement<RegistrationStepModel.WelcomeBackStepModel>(fields)
+            }
             else -> null
         }
     }
