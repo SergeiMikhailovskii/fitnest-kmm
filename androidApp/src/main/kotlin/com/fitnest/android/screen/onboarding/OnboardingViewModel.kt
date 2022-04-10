@@ -79,7 +79,7 @@ class OnboardingViewModel(
 
     private fun handleOnboardingFailure(failure: Failure?) {
         if (failure is Failure.ValidationError && failure.message == "onboarding.finished") {
-            handleRoute(Route.Proxy(FlowType.REGISTRATION.name))
+            handleRoute(Route.Proxy)
         }
     }
 

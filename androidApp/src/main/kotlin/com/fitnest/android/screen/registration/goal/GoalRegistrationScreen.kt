@@ -27,12 +27,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.screen.registration.create_account.handleNavigation
 import com.fitnest.android.style.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import kotlin.math.absoluteValue
 
@@ -55,6 +57,11 @@ fun GoalRegistrationScreen(navController: NavController) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
             val goalType = viewMapper.mapGoalIndexToGoalType(page)
             viewModel.setGoal(goalType)
+        }
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(it, navController)
+            }
         }
     }
 

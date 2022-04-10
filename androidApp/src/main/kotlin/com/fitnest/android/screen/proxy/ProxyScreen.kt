@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
 import com.fitnest.android.base.Route
-import com.fitnest.domain.enum.FlowType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -23,11 +22,11 @@ import org.kodein.di.compose.rememberInstance
 @Preview
 @Composable
 fun ProxyScreenPreview() {
-    ProxyScreen(navController = rememberNavController(ComposeNavigator()), flow = FlowType.UNKNOWN)
+    ProxyScreen(navController = rememberNavController(ComposeNavigator()))
 }
 
 @Composable
-fun ProxyScreen(navController: NavController, flow: FlowType) {
+fun ProxyScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
 
     val viewModel = viewModel(
@@ -44,7 +43,7 @@ fun ProxyScreen(navController: NavController, flow: FlowType) {
                 )
             }
         }
-        viewModel.showNextScreen(flow)
+        viewModel.getNextFlow()
     }
 
     Scaffold {

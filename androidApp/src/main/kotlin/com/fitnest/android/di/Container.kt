@@ -35,7 +35,7 @@ val viewModelModule = DI.Module("view model module") {
         OnboardingViewModel(instance(), instance())
     }
     bind<ProxyViewModel>() with factory {
-        ProxyViewModel(instance(), instance(), instance())
+        ProxyViewModel(instance(), instance(), instance(), instance())
     }
 }
 

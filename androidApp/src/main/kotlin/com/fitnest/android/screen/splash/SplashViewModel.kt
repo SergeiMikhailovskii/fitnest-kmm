@@ -22,13 +22,7 @@ class SplashViewModel(
     }
 
     internal fun navigateNext() {
-        when (redirectFlow) {
-            FlowType.ONBOARDING -> redirectToOnboarding()
-            FlowType.REGISTRATION -> redirectToRegistration()
-            else -> {
-                // will be added later
-            }
-        }
+        handleRoute(Route.Proxy)
     }
 
     private fun handleGenerateTokenFailure(failure: Failure) {
@@ -38,13 +32,5 @@ class SplashViewModel(
         } else {
             handleFailure(failure)
         }
-    }
-
-    private fun redirectToOnboarding() {
-        handleRoute(Route.Proxy(FlowType.ONBOARDING.name))
-    }
-
-    private fun redirectToRegistration() {
-        handleRoute(Route.Proxy(FlowType.REGISTRATION.name))
     }
 }
