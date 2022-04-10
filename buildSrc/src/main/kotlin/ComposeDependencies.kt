@@ -28,6 +28,8 @@ object ComposeDependencies : Dependencies {
         "androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}"
     private const val COMPOSE_COMPILER =
         "androidx.compose.compiler:compiler:${Versions.COMPOSE_VERSION}"
+    private const val COMPOSE_UTIL =
+        "androidx.compose.ui:ui-util:${Versions.COMPOSE_VERSION}"
     private const val COMPOSE_ACTIVITY =
         "androidx.activity:activity-compose:${Versions.COMPOSE_ACTIVITY_VERSION}"
     private const val COMPOSE_THEME_ADAPTER =
@@ -38,6 +40,10 @@ object ComposeDependencies : Dependencies {
         "com.google.accompanist:accompanist-navigation-animation:${Versions.COMPOSE_ACCOMPANIST}"
     private const val COMPOSE_ACCOMPANIST_INSETS =
         "com.google.accompanist:accompanist-insets:${Versions.COMPOSE_ACCOMPANIST}"
+    private const val COMPOSE_ACCOMPANIST_PAGER =
+        "com.google.accompanist:accompanist-pager:${Versions.COMPOSE_ACCOMPANIST}"
+    private const val COMPOSE_ACCOMPANIST_PAGER_INDICATORS =
+        "com.google.accompanist:accompanist-pager-indicators:${Versions.COMPOSE_ACCOMPANIST}"
 
     override val dependencies = mutableListOf(
         CONSTRAINT_COMPOSE,
@@ -53,8 +59,11 @@ object ComposeDependencies : Dependencies {
         COMPOSE_ACTIVITY,
         COMPOSE_THEME_ADAPTER,
         COMPOSE_MATERIAL_ICONS,
+        COMPOSE_UTIL,
         COMPOSE_ACCOMPANIST_NAVIGATION,
         COMPOSE_ACCOMPANIST_INSETS,
+        COMPOSE_ACCOMPANIST_PAGER,
+        COMPOSE_ACCOMPANIST_PAGER_INDICATORS,
     )
 
 }

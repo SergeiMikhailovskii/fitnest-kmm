@@ -43,6 +43,7 @@ val serializationModule = DI.Module("Serialization module") {
     bind<Json>() with singleton {
         val module = SerializersModule {
             polymorphic(Validator::class) {
+                subclass(EnumValidator::class)
                 subclass(MaxAgeValidator::class)
                 subclass(MaxValueValidator::class)
                 subclass(MinAgeValidator::class)
