@@ -51,8 +51,6 @@ fun GoalRegistrationScreen(navController: NavController) {
 
     val pagerState = rememberPagerState()
 
-    val context = LocalContext.current
-
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
             val goalType = viewMapper.mapGoalIndexToGoalType(page)
@@ -72,12 +70,12 @@ fun GoalRegistrationScreen(navController: NavController) {
         val pageCount = 3
 
         Text(
-            context.getString(R.string.registration_goal_title),
+            stringResource(id = R.string.registration_goal_title),
             modifier = Modifier.padding(top = Padding.Padding40),
             style = PoppinsBoldStyle20Black
         )
         Text(
-            context.getString(R.string.registration_goal_description),
+            stringResource(id = R.string.registration_goal_description),
             modifier = Modifier.padding(top = Padding.Padding5),
             style = PoppinsNormalStyle12Gray1
         )
@@ -124,7 +122,7 @@ fun GoalRegistrationScreen(navController: NavController) {
                         )
                         Spacer(modifier = Modifier.weight(1F))
                         Text(
-                            context.getString(pagerItemModel.title),
+                            stringResource(id = pagerItemModel.title),
                             style = PoppinsSemiBoldStyle14White,
                             textAlign = TextAlign.Center
                         )
@@ -136,7 +134,7 @@ fun GoalRegistrationScreen(navController: NavController) {
                                 .background(WhiteColor)
                         )
                         Text(
-                            context.getString(pagerItemModel.description),
+                            stringResource(id = pagerItemModel.description),
                             modifier = Modifier.padding(
                                 top = Padding.Padding20,
                                 start = Padding.Padding30,

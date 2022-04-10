@@ -13,6 +13,7 @@ import com.fitnest.android.screen.registration.create_account.CreateAccountRegis
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewMapper
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewModel
+import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationViewModel
 import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
@@ -43,6 +44,7 @@ val registrationModule = DI.Module("registration module") {
     import(createAccountRegistrationScreenModule)
     import(completeAccountRegistrationScreenModule)
     import(goalRegistrationScreenModule)
+    import(welcomeBackRegistrationScreenModule)
 
     bind<RegistrationScreenState>() with singleton {
         RegistrationScreenState()
@@ -89,5 +91,11 @@ val goalRegistrationScreenModule = DI.Module("goal registration screen module") 
     }
     bind<GoalRegistrationViewModel>() with factory {
         GoalRegistrationViewModel(instance(), instance())
+    }
+}
+
+val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
+    bind<WelcomeBackRegistrationViewModel>() with factory {
+        WelcomeBackRegistrationViewModel(instance(), instance())
     }
 }

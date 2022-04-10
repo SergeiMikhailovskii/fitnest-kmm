@@ -34,4 +34,8 @@
     <string name="registration_goal_improve_lose_fat_title">Lose a Fat</string>
     <string name="registration_goal_improve_lose_fat_description">I have over 20 lbs to lose. I want to drop all this fat and gain muscle mass</string>
     <string name="registration_goal_next_button_label">Confirm</string>
+
+    <string name="registration_welcome_back_title">Welcome, %1$s</string>
+    <string name="registration_welcome_back_description">You are all set now, let’s reach your goals together with us</string>
+    <string name="registration_welcome_back_next_button_label">Go To Home</string>
 </resources>
