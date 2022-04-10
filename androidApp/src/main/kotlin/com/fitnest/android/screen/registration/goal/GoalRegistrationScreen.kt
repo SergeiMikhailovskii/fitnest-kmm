@@ -12,6 +12,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -21,12 +23,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.util.lerp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.style.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.flow.collect
 import org.kodein.di.compose.rememberInstance
 import kotlin.math.absoluteValue
 
@@ -35,8 +41,22 @@ import kotlin.math.absoluteValue
 @Composable
 fun GoalRegistrationScreen(navController: NavController) {
     val viewMapper: GoalRegistrationViewMapper by rememberInstance()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = GoalRegistrationViewModel::class.java
+    )
+
+    val pagerState = rememberPagerState()
 
     val context = LocalContext.current
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            val goalType = viewMapper.mapGoalIndexToGoalType(page)
+            viewModel.setGoal(goalType)
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -60,7 +80,8 @@ fun GoalRegistrationScreen(navController: NavController) {
                 count = pageCount,
                 modifier = Modifier
                     .padding(top = Padding.Padding50, bottom = Padding.Padding70)
-                    .weight(1F)
+                    .weight(1F),
+                state = pagerState
             ) { index ->
                 val pagerItemModel = viewMapper.mapGoalIndexToUIModel(index)
 
@@ -123,7 +144,7 @@ fun GoalRegistrationScreen(navController: NavController) {
             }
         }
         Button(
-            onClick = {},
+            onClick = viewModel::submitRegistration,
             shape = CircleShape,
             modifier = Modifier
                 .padding(
