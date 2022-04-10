@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -18,7 +16,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.screen.registration.create_account.handleNavigation
 import com.fitnest.android.style.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Composable
@@ -30,6 +31,14 @@ fun WelcomeBackRegistrationScreen(navController: NavController) {
     )
 
     val screenData by viewModel.screenDataFlow.collectAsState()
+
+    LaunchedEffect(null) {
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(it, navController)
+            }
+        }
+    }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
