@@ -16,6 +16,7 @@ import com.fitnest.android.screen.proxy.ProxyScreen
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreen
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreen
 import com.fitnest.android.screen.registration.goal.GoalRegistrationScreen
+import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
@@ -97,6 +98,9 @@ fun FitnestApp() {
                         }
                         "STEP_GOAL" -> {
                             GoalRegistrationScreen(navController = navController)
+                        }
+                        "STEP_WELCOME_BACK" -> {
+                            WelcomeBackRegistrationScreen(navController = navController)
                         }
                     }
                 }

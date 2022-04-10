@@ -2,7 +2,7 @@ package com.fitnest.mapper
 
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationStepModel
-import com.fitnest.domain.entity.validator.*
+import com.fitnest.domain.entity.validator.Validator
 import kotlinx.serialization.json.*
 
 class RegistrationResponseMapper(
@@ -12,8 +12,13 @@ class RegistrationResponseMapper(
     override fun map(source: JsonObject?): GetRegistrationResponseData {
         val step = source?.get("step")?.jsonPrimitive?.content
         val fields = source?.get("fields")?.jsonObject
-        val validationSchema = mapValidationSchema(source?.get("validation_schema")?.jsonObject)
+
         val stepData = mapStepData(fields, step)
+
+        val jsonSchemaElement = source?.get("validation_schema")
+        val validationSchema = if (jsonSchemaElement is JsonNull) null
+        else mapValidationSchema(jsonSchemaElement?.jsonObject)
+
         return GetRegistrationResponseData(
             step = step,
             fields = stepData,
