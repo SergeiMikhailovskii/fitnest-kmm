@@ -31,4 +31,5 @@
     <string name="registration_goal_improve_lean_tone_description">I’m “skinny fat”. look thin but have no shape. I want to add learn muscle in the right way</string>
     <string name="registration_goal_improve_lose_fat_title">Lose a Fat</string>
     <string name="registration_goal_improve_lose_fat_description">I have over 20 lbs to lose. I want to drop all this fat and gain muscle mass</string>
+    <string name="registration_goal_next_button_label">Confirm</string>
 </resources>

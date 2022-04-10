@@ -9,10 +9,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -138,10 +135,9 @@ fun GoalRegistrationScreen(navController: NavController) {
                 .fillMaxWidth(),
         ) {
             Text(
-                text = stringResource(id = R.string.registration_complete_account_next_button_label),
+                text = stringResource(id = R.string.registration_goal_next_button_label),
                 style = PoppinsBoldStyle16
             )
-            Icon(imageVector = Icons.Filled.ChevronRight, contentDescription = null)
         }
     }
 }
