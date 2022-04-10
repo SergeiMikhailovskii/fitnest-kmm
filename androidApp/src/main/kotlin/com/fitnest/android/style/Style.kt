@@ -23,6 +23,10 @@ val PoppinsBoldStyle = PoppinsStyle.copy(
     fontWeight = FontWeight.Bold
 )
 
+val PoppinsSemiBoldStyle = PoppinsStyle.copy(
+    fontWeight = FontWeight.SemiBold
+)
+
 val PoppinsBoldStyle20 = PoppinsBoldStyle.copy(
     fontSize = TextSize.Size20
 )
@@ -43,6 +47,14 @@ val PoppinsBoldStyle24Black = PoppinsBoldStyle24.copy(
     color = BlackColor
 )
 
+val PoppinsSemiBoldStyle14 = PoppinsSemiBoldStyle.copy(
+    fontSize = TextSize.Size24
+)
+
+val PoppinsSemiBoldStyle14White = PoppinsSemiBoldStyle14.copy(
+    color = WhiteColor
+)
+
 val PoppinsNormalStyle = PoppinsStyle.copy(
     fontWeight = FontWeight.Normal
 )
@@ -61,6 +73,10 @@ val PoppinsNormalStyle12Gray1 = PoppinsNormalStyle12.copy(
 
 val PoppinsNormalStyle12Gray2 = PoppinsNormalStyle12.copy(
     color = GrayColor2
+)
+
+val PoppinsNormalStyle12White = PoppinsNormalStyle12.copy(
+    color = WhiteColor
 )
 
 val PoppinsNormalStyle14 = PoppinsNormalStyle.copy(

@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -16,11 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.util.lerp
 import androidx.navigation.NavController
 import com.fitnest.android.R
@@ -28,12 +30,17 @@ import com.fitnest.android.style.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import org.kodein.di.compose.rememberInstance
 import kotlin.math.absoluteValue
 
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
 fun GoalRegistrationScreen(navController: NavController) {
+    val viewMapper: GoalRegistrationViewMapper by rememberInstance()
+
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -52,24 +59,16 @@ fun GoalRegistrationScreen(navController: NavController) {
         )
         CompositionLocalProvider(LocalOverScrollConfiguration provides null) {
             HorizontalPager(
-                contentPadding = PaddingValues(horizontal = 50.dp),
+                contentPadding = PaddingValues(horizontal = Padding.Padding50),
                 count = pageCount,
                 modifier = Modifier
                     .padding(top = Padding.Padding50, bottom = Padding.Padding70)
                     .weight(1F)
             ) { index ->
-                val image = when (index) {
-                    0 -> {
-                        R.drawable.ic_registration_goal_improve_shape
-                    }
-                    1 -> {
-                        R.drawable.ic_registration_goal_lean_tone
-                    }
-                    else -> {
-                        R.drawable.ic_registration_goal_lose_fat
-                    }
-                }
+                val pagerItemModel = viewMapper.mapGoalIndexToUIModel(index)
+
                 Card(
+                    shape = RoundedCornerShape(Dimen.Dimen22),
                     modifier = Modifier.graphicsLayer {
                         val pageOffset = calculateCurrentOffsetForPage(index).absoluteValue
                         lerp(
@@ -89,12 +88,38 @@ fun GoalRegistrationScreen(navController: NavController) {
                 ) {
                     Column(
                         modifier = Modifier
-                            .background(Color.Blue)
-                            .fillMaxSize()
+                            .background(brush = Brush.horizontalGradient(BrandGradient))
+                            .padding(top = Padding.Padding40)
+                            .fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
-                            painter = painterResource(id = image),
+                            painter = painterResource(id = pagerItemModel.image),
                             contentDescription = null
+                        )
+                        Spacer(modifier = Modifier.weight(1F))
+                        Text(
+                            context.getString(pagerItemModel.title),
+                            style = PoppinsSemiBoldStyle14White,
+                            textAlign = TextAlign.Center
+                        )
+                        Box(
+                            modifier = Modifier
+                                .padding(top = Padding.Padding3)
+                                .width(Dimen.Dimen50)
+                                .height(Dimen.Dimen1)
+                                .background(WhiteColor)
+                        )
+                        Text(
+                            context.getString(pagerItemModel.description),
+                            modifier = Modifier.padding(
+                                top = Padding.Padding20,
+                                start = Padding.Padding30,
+                                end = Padding.Padding30,
+                                bottom = Padding.Padding30
+                            ),
+                            style = PoppinsNormalStyle12White,
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
