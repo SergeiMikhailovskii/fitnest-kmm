@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="private_area_home_tab_name">Home</string>
+    <string name="private_area_tracker_tab_name">Tracker</string>
+    <string name="private_area_photo_tab_name">Photo</string>
+    <string name="private_area_settings_tab_name">Settings</string>
+</resources>

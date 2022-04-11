@@ -5,13 +5,25 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
+import com.fitnest.android.enum.BottomNavigationType
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
+import com.fitnest.android.screen.private_area.home.HomeScreen
+import com.fitnest.android.screen.private_area.photo.PhotoScreen
+import com.fitnest.android.screen.private_area.settings.SettingsScreen
+import com.fitnest.android.screen.private_area.tracker.TrackerScreen
 import com.fitnest.android.screen.proxy.ProxyScreen
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreen
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreen
@@ -32,23 +44,64 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @Composable
 fun FitnestApp() {
     val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
+    val bottomNavigationItems = listOf(
+        BottomNavigationType.HOME,
+        BottomNavigationType.TRACKER,
+        BottomNavigationType.PHOTO,
+        BottomNavigationType.SETTINGS
+    )
+
+    val bottomBarState = rememberSaveable { (mutableStateOf(false)) }
 
     FitnestTheme {
-        Scaffold {
+        Scaffold(
+            bottomBar = {
+                if (bottomBarState.value) {
+                    BottomNavigation(backgroundColor = Color.Cyan) {
+                        val navBackStackEntry by navController.currentBackStackEntryAsState()
+                        val currentRoute = navBackStackEntry?.destination?.route
+
+                        bottomNavigationItems.forEach {
+                            BottomNavigationItem(
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(id = it.icon),
+                                        contentDescription = stringResource(id = it.title)
+                                    )
+                                },
+                                selected = currentRoute == it.route.screenName,
+                                onClick = {
+                                    navController.navigate(it.route.screenName) {
+                                        navController.graph.startDestinationRoute?.let {
+                                            popUpTo(it) {
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
+                                        }
+                                    }
+                                },
+                            )
+                        }
+                    }
+                }
+            }
+        ) {
             AnimatedNavHost(
                 navController = navController,
                 startDestination = Route.Splash.screenName
             ) {
                 composable(route = Route.Splash.screenName) {
                     SplashScreen(navController = navController)
+                    bottomBarState.value = false
                 }
                 composable(route = Route.Login.screenName) {
                     LoginScreen()
+                    bottomBarState.value = false
                 }
                 composable(route = Route.Proxy.screenName) {
-                    ProxyScreen(
-                        navController = navController
-                    )
+                    ProxyScreen(navController = navController)
+                    bottomBarState.value = false
                 }
                 composable(
                     route = "onboardingStep/{stepName}",
@@ -66,6 +119,7 @@ fun FitnestApp() {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
+                    bottomBarState.value = false
                     OnboardingScreen(
                         navController = navController,
                         stepName = it.arguments?.getString("stepName") ?: ""
@@ -89,6 +143,7 @@ fun FitnestApp() {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
+                    bottomBarState.value = false
                     when (it.arguments?.getString("stepName") ?: "") {
                         "STEP_CREATE_ACCOUNT" -> {
                             CreateAccountRegistrationScreen(navController = navController)
@@ -103,6 +158,22 @@ fun FitnestApp() {
                             WelcomeBackRegistrationScreen(navController = navController)
                         }
                     }
+                }
+                composable(route = Route.PrivateAreaHome.screenName) {
+                    bottomBarState.value = true
+                    HomeScreen()
+                }
+                composable(route = Route.PrivateAreaSettings.screenName) {
+                    bottomBarState.value = true
+                    SettingsScreen()
+                }
+                composable(route = Route.PrivateAreaPhoto.screenName) {
+                    bottomBarState.value = true
+                    PhotoScreen()
+                }
+                composable(route = Route.PrivateAreaTracker.screenName) {
+                    bottomBarState.value = true
+                    TrackerScreen()
                 }
             }
         }
