@@ -5,6 +5,8 @@ import androidx.compose.ui.unit.sp
 
 object Dimen {
     val Dimen1 = 1.dp
+    val Dimen2 = 2.dp
+    val Dimen4 = 4.dp
     val Dimen14 = 14.dp
     val Dimen20 = 20.dp
     val Dimen22 = 22.dp
@@ -29,6 +31,7 @@ object Padding {
 }
 
 object TextSize {
+    val Size9 = 9.sp
     val Size12 = 12.sp
     val Size14 = 14.sp
     val Size16 = 16.sp
