@@ -7,9 +7,11 @@ object Dimen {
     val Dimen1 = 1.dp
     val Dimen2 = 2.dp
     val Dimen4 = 4.dp
+    val Dimen8 = 8.dp
     val Dimen14 = 14.dp
     val Dimen20 = 20.dp
     val Dimen22 = 22.dp
+    val Dimen40 = 40.dp
     val Dimen50 = 50.dp
     val Dimen60 = 60.dp
 }
@@ -22,6 +24,7 @@ object Padding {
     val Padding14 = 14.dp
     val Padding15 = 15.dp
     val Padding20 = 20.dp
+    val Padding26 = 26.dp
     val Padding30 = 30.dp
     val Padding40 = 40.dp
     val Padding44 = 44.dp
