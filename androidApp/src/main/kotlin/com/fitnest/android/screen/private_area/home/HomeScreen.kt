@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
@@ -78,16 +76,23 @@ fun HomeScreen() {
                         Button(
                             modifier = Modifier
                                 .padding(top = Padding.Padding15)
-                                .wrapContentSize(),
+                                .wrapContentHeight()
+                                .wrapContentWidth(),
                             onClick = { },
+                            contentPadding = PaddingValues(),
                             shape = CircleShape,
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                         ) {
                             Box(
                                 modifier = Modifier
                                     .background(brush = Brush.horizontalGradient(SecondaryGradient))
                             ) {
-                                Text("View More")
+                                Text(
+                                    "View More",
+                                    modifier = Modifier.padding(
+                                        horizontal = Padding.Padding20,
+                                        vertical = Padding.Padding10
+                                    )
+                                )
                             }
                         }
                     }
