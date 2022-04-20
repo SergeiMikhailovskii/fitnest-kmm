@@ -20,6 +20,7 @@ object Padding {
     val Padding0 = 0.dp
     val Padding3 = 3.dp
     val Padding5 = 5.dp
+    val Padding7 = 7.dp
     val Padding10 = 10.dp
     val Padding14 = 14.dp
     val Padding15 = 15.dp

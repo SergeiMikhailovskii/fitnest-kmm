@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.private_area.home
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,7 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.DrawStyle
+import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
@@ -66,7 +74,8 @@ fun HomeScreen() {
                     contentScale = ContentScale.FillBounds
                 )
                 Row(
-                    modifier = Modifier.padding(horizontal = Padding.Padding20)
+                    modifier = Modifier.padding(horizontal = Padding.Padding20),
+                    verticalAlignment = Alignment.Top
                 ) {
                     Column(
                         modifier = Modifier.padding(vertical = Padding.Padding26)
@@ -96,8 +105,34 @@ fun HomeScreen() {
                             }
                         }
                     }
+                    PieChart(
+                        modifier = Modifier.padding(
+                            top = Padding.Padding26,
+                            bottom = Padding.Padding26,
+                            start = Padding.Padding7
+                        ),
+                        progress = 50.0
+                    )
                 }
             }
         }
+    }
+}
+
+@Composable
+fun PieChart(modifier: Modifier, progress: Double) {
+    Canvas(modifier = Modifier.then(modifier)) {
+        drawCircle(
+            color = Color.White,
+            radius = 130F,
+            center = Offset(150F, 150F)
+        )
+        drawArc(
+            brush = Brush.horizontalGradient(SecondaryGradient),
+            startAngle = -90F,
+            sweepAngle = (360 * progress / 100).toFloat(),
+            useCenter = true,
+            size = Size(300F, 300F),
+        )
     }
 }
