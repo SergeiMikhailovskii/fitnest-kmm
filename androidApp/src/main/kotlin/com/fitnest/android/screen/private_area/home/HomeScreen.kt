@@ -18,12 +18,12 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.DrawStyle
-import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
+import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.style.*
 
 @Composable
@@ -111,7 +111,7 @@ fun HomeScreen() {
                             bottom = Padding.Padding26,
                             start = Padding.Padding7
                         ),
-                        progress = 50.0
+                        progress = 70.0
                     )
                 }
             }
@@ -121,18 +121,31 @@ fun HomeScreen() {
 
 @Composable
 fun PieChart(modifier: Modifier, progress: Double) {
-    Canvas(modifier = Modifier.then(modifier)) {
-        drawCircle(
-            color = Color.White,
-            radius = 130F,
-            center = Offset(150F, 150F)
-        )
-        drawArc(
-            brush = Brush.horizontalGradient(SecondaryGradient),
-            startAngle = -90F,
-            sweepAngle = (360 * progress / 100).toFloat(),
-            useCenter = true,
-            size = Size(300F, 300F),
+    Box(
+        modifier = modifier
+            .width(300.pxToDp())
+            .height(300.pxToDp()),
+    ) {
+        Canvas(modifier = Modifier) {
+            drawCircle(
+                color = Color.White,
+                radius = 150F,
+                center = Offset(150F, 150F)
+            )
+            drawArc(
+                brush = Brush.horizontalGradient(SecondaryGradient),
+                startAngle = -90F,
+                sweepAngle = (360 * progress / 100).toFloat(),
+                useCenter = false,
+                size = Size(300F, 300F),
+                style = Stroke(width = 20F, cap = StrokeCap.Round)
+            )
+        }
+        Text(
+            text = "${progress.toInt()} %",
+            modifier = Modifier.align(Alignment.Center),
+            fontSize = TextSize.Size18,
+            color = BrandColor
         )
     }
 }
