@@ -1,8 +1,6 @@
 package com.fitnest.android.screen.private_area.home
 
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,28 +21,33 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
+import com.fitnest.android.extension.textBrush
 import com.fitnest.android.style.*
 
 @Composable
 fun HomeScreen() {
     Scaffold {
         Column(
-            modifier = Modifier.padding(
-                top = Padding.Padding20,
-                start = Padding.Padding30,
-                end = Padding.Padding30
-            )
+            modifier = Modifier
+                .padding(horizontal = Padding.Padding30)
+                .verticalScroll(rememberScrollState())
         ) {
             HeaderBlock()
             BMIBlock()
             TodayTargetBlock()
+            ActivityStatusBlock()
         }
     }
 }
 
 @Composable
 fun HeaderBlock() {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        modifier = Modifier.padding(
+            top = Padding.Padding20,
+        ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Column {
             Text(text = "Welcome Back,", style = PoppinsNormalStyle12Gray2)
             Text(
@@ -167,6 +170,53 @@ fun TodayTargetBlock() {
                         )
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun ActivityStatusBlock() {
+    Column(
+        modifier = Modifier.padding(
+            top = Padding.Padding30
+        )
+    ) {
+        Text("Activity Status", style = PoppinsBoldStyle16Black)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Padding.Padding15)
+                .background(
+                    brush = Brush.horizontalGradient(BrandGradient),
+                    shape = RoundedCornerShape(Dimen.Dimen16),
+                    alpha = 0.2F
+                )
+        ) {
+            Column(
+                modifier = Modifier.padding(
+                    top = Padding.Padding20,
+                    bottom = Padding.Padding30
+                )
+            ) {
+                Text(
+                    "Heart Rate",
+                    modifier = Modifier.padding(start = Padding.Padding20),
+                    style = PoppinsMediumStyle12Black
+                )
+                Text(
+                    "78 BPM",
+                    modifier = Modifier
+                        .padding(start = Padding.Padding20, top = Padding.Padding5)
+                        .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
+                    style = PoppinsSemiBoldStyle14
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_heart_rate_graph),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.FillBounds
+                )
             }
         }
     }
