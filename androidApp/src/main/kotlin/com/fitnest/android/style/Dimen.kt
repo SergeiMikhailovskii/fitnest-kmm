@@ -9,6 +9,7 @@ object Dimen {
     val Dimen4 = 4.dp
     val Dimen8 = 8.dp
     val Dimen14 = 14.dp
+    val Dimen16 = 16.dp
     val Dimen20 = 20.dp
     val Dimen22 = 22.dp
     val Dimen40 = 40.dp
@@ -41,5 +42,6 @@ object TextSize {
     val Size16 = 16.sp
     val Size18 = 18.sp
     val Size20 = 20.sp
+    val Size21 = 21.sp
     val Size24 = 24.sp
 }

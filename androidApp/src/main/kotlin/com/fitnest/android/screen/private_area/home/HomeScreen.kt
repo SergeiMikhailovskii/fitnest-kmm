@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
@@ -36,82 +35,136 @@ fun HomeScreen() {
                 end = Padding.Padding30
             )
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+            HeaderBlock()
+            BMIBlock()
+            TodayTargetBlock()
+        }
+    }
+}
+
+@Composable
+fun HeaderBlock() {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Column {
+            Text(text = "Welcome Back,", style = PoppinsNormalStyle12Gray2)
+            Text(
+                text = "Stefani Wong",
+                modifier = Modifier.padding(top = Padding.Padding5),
+                style = PoppinsBoldStyle20Black
+            )
+        }
+        Spacer(modifier = Modifier.weight(1F))
+        Box(
+            modifier = Modifier
+                .width(Dimen.Dimen40)
+                .height(Dimen.Dimen40)
+                .clip(RoundedCornerShape(Dimen.Dimen8))
+                .background(BorderColor),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_private_area_notification),
+                contentDescription = null
+            )
+        }
+    }
+}
+
+@Composable
+fun BMIBlock() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = Padding.Padding30)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_private_area_bmi_background),
+            contentDescription = null,
+            modifier = Modifier.matchParentSize(),
+            contentScale = ContentScale.FillBounds
+        )
+        Row(
+            modifier = Modifier.padding(horizontal = Padding.Padding20),
+            verticalAlignment = Alignment.Top
+        ) {
+            Column(
+                modifier = Modifier.padding(vertical = Padding.Padding26)
             ) {
-                Column {
-                    Text(text = "Welcome Back,", style = PoppinsNormalStyle12Gray2)
-                    Text(
-                        text = "Stefani Wong",
-                        modifier = Modifier.padding(top = Padding.Padding5),
-                        style = PoppinsBoldStyle20Black
-                    )
-                }
-                Spacer(modifier = Modifier.weight(1F))
-                Box(
+                Text("BMI (Body Mass Index)", style = PoppinsMediumStyle14White)
+                Text("You have a normal weight", style = PoppinsNormalStyle12White)
+                Button(
                     modifier = Modifier
-                        .width(Dimen.Dimen40)
-                        .height(Dimen.Dimen40)
-                        .clip(RoundedCornerShape(Dimen.Dimen8))
-                        .background(BorderColor),
-                    contentAlignment = Alignment.Center
+                        .padding(top = Padding.Padding15)
+                        .wrapContentHeight()
+                        .wrapContentWidth(),
+                    onClick = { },
+                    contentPadding = PaddingValues(),
+                    shape = CircleShape,
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_private_area_notification),
-                        contentDescription = null
-                    )
+                    Box(
+                        modifier = Modifier
+                            .background(brush = Brush.horizontalGradient(SecondaryGradient))
+                    ) {
+                        Text(
+                            "View More",
+                            modifier = Modifier.padding(
+                                horizontal = Padding.Padding20,
+                                vertical = Padding.Padding10
+                            )
+                        )
+                    }
                 }
             }
-            Box(
+            PieChart(
+                modifier = Modifier.padding(
+                    top = Padding.Padding26,
+                    bottom = Padding.Padding26,
+                    start = Padding.Padding7
+                ),
+                progress = 70.0
+            )
+        }
+    }
+}
+
+@Composable
+fun TodayTargetBlock() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = Padding.Padding30)
+            .background(
+                brush = Brush.horizontalGradient(BrandGradient),
+                shape = RoundedCornerShape(Dimen.Dimen16),
+                alpha = 0.2F
+            )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(
+                horizontal = Padding.Padding20,
+                vertical = Padding.Padding15
+            )
+        ) {
+            Text("Today Target", style = PoppinsMediumStyle14Black)
+            Spacer(modifier = Modifier.weight(1F))
+            Button(
+                onClick = {},
+                shape = CircleShape,
+                contentPadding = PaddingValues(),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = Padding.Padding30)
+                    .wrapContentHeight()
+                    .wrapContentWidth(),
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_private_area_bmi_background),
-                    contentDescription = null,
-                    modifier = Modifier.matchParentSize(),
-                    contentScale = ContentScale.FillBounds
-                )
-                Row(
-                    modifier = Modifier.padding(horizontal = Padding.Padding20),
-                    verticalAlignment = Alignment.Top
+                Box(
+                    modifier = Modifier.background(brush = Brush.horizontalGradient(BrandGradient))
                 ) {
-                    Column(
-                        modifier = Modifier.padding(vertical = Padding.Padding26)
-                    ) {
-                        Text("BMI (Body Mass Index)", style = PoppinsMediumStyle14White)
-                        Text("You have a normal weight", style = PoppinsNormalStyle12White)
-                        Button(
-                            modifier = Modifier
-                                .padding(top = Padding.Padding15)
-                                .wrapContentHeight()
-                                .wrapContentWidth(),
-                            onClick = { },
-                            contentPadding = PaddingValues(),
-                            shape = CircleShape,
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .background(brush = Brush.horizontalGradient(SecondaryGradient))
-                            ) {
-                                Text(
-                                    "View More",
-                                    modifier = Modifier.padding(
-                                        horizontal = Padding.Padding20,
-                                        vertical = Padding.Padding10
-                                    )
-                                )
-                            }
-                        }
-                    }
-                    PieChart(
+                    Text(
+                        "Check",
                         modifier = Modifier.padding(
-                            top = Padding.Padding26,
-                            bottom = Padding.Padding26,
-                            start = Padding.Padding7
-                        ),
-                        progress = 70.0
+                            horizontal = Padding.Padding20,
+                            vertical = Padding.Padding10
+                        )
                     )
                 }
             }
