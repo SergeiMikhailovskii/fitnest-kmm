@@ -1,5 +1,9 @@
 package com.fitnest.android.screen.private_area.home
 
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Rect
+import android.graphics.RectF
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -7,17 +11,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
@@ -177,6 +180,8 @@ fun TodayTargetBlock() {
 
 @Composable
 fun ActivityStatusBlock() {
+    var chartWidth by remember { mutableStateOf(0) }
+
     Column(
         modifier = Modifier.padding(
             top = Padding.Padding30
@@ -193,30 +198,47 @@ fun ActivityStatusBlock() {
                     alpha = 0.2F
                 )
         ) {
-            Column(
-                modifier = Modifier.padding(
-                    top = Padding.Padding20,
-                    bottom = Padding.Padding30
-                )
-            ) {
-                Text(
-                    "Heart Rate",
-                    modifier = Modifier.padding(start = Padding.Padding20),
-                    style = PoppinsMediumStyle12Black
-                )
-                Text(
-                    "78 BPM",
-                    modifier = Modifier
-                        .padding(start = Padding.Padding20, top = Padding.Padding5)
-                        .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
-                    style = PoppinsSemiBoldStyle14
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_heart_rate_graph),
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxWidth(),
-                    contentScale = ContentScale.FillBounds
-                )
+            Box {
+                Column(
+                    modifier = Modifier.padding(
+                        top = Padding.Padding20,
+                        bottom = Padding.Padding30
+                    )
+                ) {
+                    Text(
+                        "Heart Rate",
+                        modifier = Modifier.padding(start = Padding.Padding20),
+                        style = PoppinsMediumStyle12Black
+                    )
+                    Text(
+                        "78 BPM",
+                        modifier = Modifier
+                            .padding(start = Padding.Padding20, top = Padding.Padding5)
+                            .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
+                        style = PoppinsSemiBoldStyle14
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_heart_rate_graph),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .onSizeChanged {
+                                chartWidth = it.width
+                            },
+                        contentScale = ContentScale.FillBounds
+                    )
+                }
+
+                Box(
+                    modifier = Modifier.padding(
+                        start = (chartWidth * 0.63)
+                            .toInt()
+                            .pxToDp(),
+                        top = Padding.Padding40
+                    )
+                ) {
+                    DrawTooltip()
+                }
             }
         }
     }
@@ -249,6 +271,77 @@ fun PieChart(modifier: Modifier, progress: Double) {
             modifier = Modifier.align(Alignment.Center),
             fontSize = TextSize.Size18,
             color = BrandColor
+        )
+    }
+}
+
+@Composable
+fun DrawTooltip() {
+    Canvas(modifier = Modifier) {
+        val nativeCanvas = this.drawContext.canvas.nativeCanvas
+
+        val textPaint = Paint().apply {
+            textSize = TextSize.Size10.toPx()
+            color = android.graphics.Color.WHITE
+        }
+        val textToDraw = "3 mins ago"
+        val textBounds = Rect()
+
+        textPaint.getTextBounds(textToDraw, 0, textToDraw.length, textBounds)
+
+        val tooltipWidth = textBounds.width().toFloat() + Dimen.Dimen20.toPx()
+        val tooltipHeight = textBounds.height().toFloat() + Dimen.Dimen10.toPx()
+
+        val rect = RectF(
+            0F,
+            0F,
+            tooltipWidth,
+            tooltipHeight
+        )
+        val path = Path()
+        path.addRoundRect(
+            rect,
+            floatArrayOf(50F, 50F, 50F, 50F, 50F, 50F, 50F, 50F),
+            Path.Direction.CW
+        )
+        path.apply {
+            fillType = Path.FillType.EVEN_ODD
+            moveTo(
+                tooltipWidth / 2 - Dimen.Dimen5.toPx(),
+                tooltipHeight
+            )
+            lineTo(
+                tooltipWidth / 2,
+                tooltipHeight + Dimen.Dimen5.toPx()
+            )
+            lineTo(
+                tooltipWidth / 2 + Dimen.Dimen5.toPx(),
+                tooltipHeight
+            )
+            close()
+        }
+
+        nativeCanvas.translate(-(tooltipWidth / 2), 0F)
+
+        nativeCanvas.drawPath(path, Paint().apply {
+            shader = LinearGradientShader(
+                Offset(
+                    0F,
+                    0F
+                ),
+                Offset(
+                    tooltipWidth,
+                    0F
+                ),
+                colors = SecondaryGradient
+            )
+        })
+
+        nativeCanvas.drawText(
+            textToDraw,
+            Dimen.Dimen10.toPx(),
+            textBounds.height() + Dimen.Dimen5.toPx(),
+            textPaint
         )
     }
 }
