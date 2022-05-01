@@ -229,15 +229,30 @@ fun ActivityStatusBlock() {
                     )
                 }
 
-                Box(
-                    modifier = Modifier.padding(
-                        start = (chartWidth * 0.63)
-                            .toInt()
-                            .pxToDp(),
-                        top = Padding.Padding40
-                    )
-                ) {
-                    DrawTooltip()
+                Column {
+                    Box(
+                        modifier = Modifier.padding(
+                            start = (chartWidth * 0.62)
+                                .toInt()
+                                .pxToDp(),
+                            top = Padding.Padding50
+                        )
+                    ) {
+                        Column {
+                            DrawTooltip()
+                        }
+                    }
+
+                    Box(
+                        modifier = Modifier.padding(
+                            start = (chartWidth * 0.62)
+                                .toInt()
+                                .pxToDp(),
+                            top = Padding.Padding35
+                        )
+                    ) {
+                        DrawActivityRing()
+                    }
                 }
             }
         }
@@ -342,6 +357,20 @@ fun DrawTooltip() {
             Dimen.Dimen10.toPx(),
             textBounds.height() + Dimen.Dimen5.toPx(),
             textPaint
+        )
+    }
+}
+
+@Composable
+fun DrawActivityRing() {
+    Canvas(modifier = Modifier) {
+        drawCircle(
+            brush = Brush.horizontalGradient(SecondaryGradient),
+            radius = Dimen.Dimen4.toPx(),
+        )
+        drawCircle(
+            color = Color.White,
+            radius = Dimen.Dimen2.toPx(),
         )
     }
 }
