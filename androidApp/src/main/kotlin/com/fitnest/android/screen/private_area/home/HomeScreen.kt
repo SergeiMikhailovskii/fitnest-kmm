@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
@@ -33,12 +35,14 @@ fun HomeScreen() {
         Column(
             modifier = Modifier
                 .padding(horizontal = Padding.Padding30)
+                .padding(bottom = Padding.Padding30)
                 .verticalScroll(rememberScrollState())
         ) {
             HeaderBlock()
             BMIBlock()
             TodayTargetBlock()
             ActivityStatusBlock()
+            Box(modifier = Modifier.height(100.dp))
         }
     }
 }
@@ -180,81 +184,24 @@ fun TodayTargetBlock() {
 
 @Composable
 fun ActivityStatusBlock() {
-    var chartWidth by remember { mutableStateOf(0) }
-
     Column(
         modifier = Modifier.padding(
             top = Padding.Padding30
         )
     ) {
         Text("Activity Status", style = PoppinsBoldStyle16Black)
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Padding.Padding15)
-                .background(
-                    brush = Brush.horizontalGradient(BrandGradient),
-                    shape = RoundedCornerShape(Dimen.Dimen16),
-                    alpha = 0.2F
-                )
+        HeartRate()
+        Row(
+            modifier = Modifier.padding(top = Padding.Padding16)
         ) {
-            Box {
-                Column(
-                    modifier = Modifier.padding(
-                        top = Padding.Padding20,
-                        bottom = Padding.Padding30
-                    )
-                ) {
-                    Text(
-                        "Heart Rate",
-                        modifier = Modifier.padding(start = Padding.Padding20),
-                        style = PoppinsMediumStyle12Black
-                    )
-                    Text(
-                        "78 BPM",
-                        modifier = Modifier
-                            .padding(start = Padding.Padding20, top = Padding.Padding5)
-                            .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
-                        style = PoppinsSemiBoldStyle14
-                    )
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_heart_rate_graph),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .onSizeChanged {
-                                chartWidth = it.width
-                            },
-                        contentScale = ContentScale.FillBounds
-                    )
-                }
-
-                Column {
-                    Box(
-                        modifier = Modifier.padding(
-                            start = (chartWidth * 0.62)
-                                .toInt()
-                                .pxToDp(),
-                            top = Padding.Padding50
-                        )
-                    ) {
-                        Column {
-                            DrawTooltip()
-                        }
-                    }
-
-                    Box(
-                        modifier = Modifier.padding(
-                            start = (chartWidth * 0.62)
-                                .toInt()
-                                .pxToDp(),
-                            top = Padding.Padding35
-                        )
-                    ) {
-                        DrawActivityRing()
-                    }
-                }
-            }
+            Box(
+                modifier = Modifier
+                    .height(100.dp)
+                    .weight(1F)
+                    .padding(end = Padding.Padding8)
+                    .background(Color.Red)
+            )
+            SleepBlock(modifier = Modifier.weight(1F))
         }
     }
 }
@@ -372,5 +319,119 @@ fun DrawActivityRing() {
             color = Color.White,
             radius = Dimen.Dimen2.toPx(),
         )
+    }
+}
+
+@Composable
+fun HeartRate() {
+    var chartWidth by remember { mutableStateOf(0) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = Padding.Padding15)
+            .background(
+                brush = Brush.horizontalGradient(BrandGradient),
+                shape = RoundedCornerShape(Dimen.Dimen16),
+                alpha = 0.2F
+            )
+    ) {
+        Box {
+            Column(
+                modifier = Modifier.padding(
+                    top = Padding.Padding20,
+                    bottom = Padding.Padding30
+                )
+            ) {
+                Text(
+                    "Heart Rate",
+                    modifier = Modifier.padding(start = Padding.Padding20),
+                    style = PoppinsMediumStyle12Black
+                )
+                Text(
+                    "78 BPM",
+                    modifier = Modifier
+                        .padding(start = Padding.Padding20, top = Padding.Padding5)
+                        .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
+                    style = PoppinsSemiBoldStyle14
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_private_area_heart_rate_graph),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onSizeChanged {
+                            chartWidth = it.width
+                        },
+                    contentScale = ContentScale.FillBounds
+                )
+            }
+
+            Column {
+                Box(
+                    modifier = Modifier.padding(
+                        start = (chartWidth * 0.62)
+                            .toInt()
+                            .pxToDp(),
+                        top = Padding.Padding50
+                    )
+                ) {
+                    Column {
+                        DrawTooltip()
+                    }
+                }
+
+                Box(
+                    modifier = Modifier.padding(
+                        start = (chartWidth * 0.62)
+                            .toInt()
+                            .pxToDp(),
+                        top = Padding.Padding35
+                    )
+                ) {
+                    DrawActivityRing()
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SleepBlock(modifier: Modifier) {
+    Box(
+        modifier = modifier
+            .padding(start = Padding.Padding8)
+            .shadow(elevation = Dimen.Dimen40)
+            .clip(RoundedCornerShape(size = Dimen.Dimen20))
+            .background(Color.White)
+    ) {
+        Column {
+            Text(
+                "Sleep",
+                modifier = Modifier.padding(
+                    start = Padding.Padding20,
+                    top = Padding.Padding20
+                ),
+                style = PoppinsMediumStyle12Black
+            )
+            Text(
+                "8h 20m",
+                modifier = Modifier
+                    .padding(
+                        start = Padding.Padding20,
+                        top = Padding.Padding20
+                    )
+                    .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
+                style = PoppinsMediumStyle12Black
+            )
+            Image(
+                painter = painterResource(id = R.drawable.ic_private_area_sleep_graph),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(horizontal = Padding.Padding20, vertical = Padding.Padding5)
+                    .fillMaxWidth(),
+                contentScale = ContentScale.FillBounds
+            )
+        }
     }
 }
