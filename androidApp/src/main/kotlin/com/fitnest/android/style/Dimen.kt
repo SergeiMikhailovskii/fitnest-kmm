@@ -24,8 +24,10 @@ object Padding {
     val Padding0 = 0.dp
     val Padding3 = 3.dp
     val Padding5 = 5.dp
+    val Padding6 = 6.dp
     val Padding7 = 7.dp
     val Padding8 = 8.dp
+    val Padding9 = 9.dp
     val Padding10 = 10.dp
     val Padding14 = 14.dp
     val Padding15 = 15.dp
@@ -43,6 +45,7 @@ object Padding {
 }
 
 object TextSize {
+    val Size8 = 8.sp
     val Size9 = 9.sp
     val Size10 = 10.sp
     val Size12 = 12.sp

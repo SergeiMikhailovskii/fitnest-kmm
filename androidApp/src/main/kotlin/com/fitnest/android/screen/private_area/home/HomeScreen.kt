@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -23,6 +25,10 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
@@ -191,9 +197,7 @@ fun ActivityStatusBlock() {
     ) {
         Text("Activity Status", style = PoppinsBoldStyle16Black)
         HeartRate()
-        Row(
-            modifier = Modifier.padding(top = Padding.Padding16)
-        ) {
+        Row(modifier = Modifier.padding(top = Padding.Padding16)) {
             Box(
                 modifier = Modifier
                     .height(100.dp)
@@ -201,7 +205,14 @@ fun ActivityStatusBlock() {
                     .padding(end = Padding.Padding8)
                     .background(Color.Red)
             )
-            SleepBlock(modifier = Modifier.weight(1F))
+            Column(
+                modifier = Modifier
+                    .weight(1F)
+                    .padding(start = Padding.Padding8)
+            ) {
+                SleepBlock()
+                CaloriesBlock()
+            }
         }
     }
 }
@@ -397,10 +408,9 @@ fun HeartRate() {
 }
 
 @Composable
-fun SleepBlock(modifier: Modifier) {
+fun SleepBlock() {
     Box(
-        modifier = modifier
-            .padding(start = Padding.Padding8)
+        modifier = Modifier
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
             .background(Color.White)
@@ -415,14 +425,14 @@ fun SleepBlock(modifier: Modifier) {
                 style = PoppinsMediumStyle12Black
             )
             Text(
-                "8h 20m",
+                buildSleepDurationAnnotatedString(),
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding20,
-                        top = Padding.Padding20
+                        top = Padding.Padding5
                     )
                     .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
-                style = PoppinsMediumStyle12Black
+                style = PoppinsMediumStyle12
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_private_area_sleep_graph),
@@ -433,5 +443,88 @@ fun SleepBlock(modifier: Modifier) {
                 contentScale = ContentScale.FillBounds
             )
         }
+    }
+}
+
+@Composable
+fun CaloriesBlock() {
+    Box(
+        modifier = Modifier
+            .padding(top = Padding.Padding15)
+            .fillMaxWidth()
+            .shadow(elevation = Dimen.Dimen40)
+            .clip(RoundedCornerShape(size = Dimen.Dimen20))
+            .background(Color.White)
+            .aspectRatio(1F)
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                "Calories",
+                modifier = Modifier
+                    .padding(
+                        start = Padding.Padding20,
+                        top = Padding.Padding20
+                    )
+                    .fillMaxWidth(),
+                style = PoppinsMediumStyle12Black
+            )
+            Text(
+                "760 kCal",
+                modifier = Modifier
+                    .padding(
+                        start = Padding.Padding20,
+                        top = Padding.Padding5
+                    )
+                    .textBrush(brush = Brush.horizontalGradient(BrandGradient))
+                    .fillMaxWidth(),
+                style = PoppinsMediumStyle14
+            )
+            Box(
+                modifier = Modifier
+                    .padding(bottom = Padding.Padding10)
+                    .width(IntrinsicSize.Min)
+                    .height(IntrinsicSize.Min)
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .rotate(180F),
+                    progress = 0.77F,
+                    color = BrandColor,
+                )
+                Box(
+                    modifier = Modifier
+                        .padding(all = Padding.Padding9)
+                        .background(
+                            brush = Brush.horizontalGradient(BrandGradient),
+                            shape = CircleShape
+                        )
+                        .aspectRatio(1F),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        "230kCal left",
+                        modifier = Modifier.padding(all = Padding.Padding6),
+                        textAlign = TextAlign.Center,
+                        style = PoppinsMediumStyle8White
+                    )
+                }
+            }
+        }
+    }
+}
+
+fun buildSleepDurationAnnotatedString() = buildAnnotatedString {
+    withStyle(SpanStyle(fontSize = TextSize.Size14)) {
+        append("8")
+    }
+    withStyle(SpanStyle(fontSize = TextSize.Size10)) {
+        append("h")
+    }
+    withStyle(SpanStyle(fontSize = TextSize.Size14)) {
+        append(" 20")
+    }
+    withStyle(SpanStyle(fontSize = TextSize.Size10)) {
+        append("m")
     }
 }
