@@ -520,10 +520,62 @@ fun WaterIntakeBlock(modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxHeight()
+            .shadow(elevation = Dimen.Dimen40)
+            .clip(RoundedCornerShape(size = Dimen.Dimen20))
+            .background(Color.White)
             .padding(end = Padding.Padding8)
-            .background(Color.Red)
     ) {
-        Text("Hello")
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(
+                    start = Padding.Padding20,
+                    top = Padding.Padding20,
+                    bottom = Padding.Padding20
+                )
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(Dimen.Dimen20)
+                    .clip(RoundedCornerShape(size = Dimen.Dimen30))
+                    .background(BorderColor),
+                verticalArrangement = Arrangement.Bottom
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(0.5F)
+                        .background(BorderColor)
+                )
+                Box(
+                    modifier = Modifier
+                        .weight(0.5F)
+                        .background(brush = Brush.verticalGradient(BrandGradient))
+                        .fillMaxWidth()
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(start = Padding.Padding10)
+            ) {
+                Text("Water Intake", style = PoppinsMediumStyle12Black)
+                Text(
+                    "4 Liters",
+                    modifier = Modifier
+                        .textBrush(brush = Brush.horizontalGradient(BrandGradient))
+                        .padding(top = Padding.Padding5),
+                    style = PoppinsMediumStyle14
+                )
+                Text(
+                    "Real time updates",
+                    modifier = Modifier.padding(top = Padding.Padding10),
+                    style = PoppinsMediumStyle10Gray1
+                )
+            }
+        }
+
     }
 }
 
