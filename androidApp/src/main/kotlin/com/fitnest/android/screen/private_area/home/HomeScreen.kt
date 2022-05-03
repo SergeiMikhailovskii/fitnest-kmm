@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
+import com.fitnest.android.screen.private_area.home.data.WaterIntakeUIModel
 import com.fitnest.android.style.*
 
 @Preview
@@ -517,6 +518,18 @@ fun CaloriesBlock() {
 
 @Composable
 fun WaterIntakeBlock(modifier: Modifier) {
+    val waterConsumingList by remember {
+        mutableStateOf(
+            listOf(
+                WaterIntakeUIModel(time = "6am - 8am", value = "600ml"),
+                WaterIntakeUIModel(time = "9am - 11am", value = "500ml"),
+                WaterIntakeUIModel(time = "11am - 2pm", value = "1000ml"),
+                WaterIntakeUIModel(time = "2pm - 4pm", value = "700ml"),
+                WaterIntakeUIModel(time = "4pm - now", value = "900ml")
+            )
+        )
+    }
+
     Box(
         modifier = modifier
             .fillMaxHeight()
@@ -573,6 +586,18 @@ fun WaterIntakeBlock(modifier: Modifier) {
                     modifier = Modifier.padding(top = Padding.Padding10),
                     style = PoppinsMediumStyle10Gray1
                 )
+                Box(Modifier.height(Dimen.Dimen10))
+                waterConsumingList.forEach {
+                    Text(it.time, style = PoppinsNormalStyle8Gray2)
+                    Text(
+                        it.value,
+                        style = PoppinsMediumStyle8,
+                        modifier = Modifier
+                            .textBrush(brush = Brush.horizontalGradient(SecondaryGradient))
+                            .padding(top = Padding.Padding3)
+                    )
+                    Box(Modifier.height(Dimen.Dimen10))
+                }
             }
         }
 

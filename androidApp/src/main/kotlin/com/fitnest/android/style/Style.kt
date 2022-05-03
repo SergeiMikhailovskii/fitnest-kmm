@@ -95,6 +95,14 @@ val PoppinsNormalStyle = PoppinsStyle.copy(
     fontWeight = FontWeight.Normal
 )
 
+val PoppinsNormalStyle8 = PoppinsNormalStyle.copy(
+    fontSize = TextSize.Size8
+)
+
+val PoppinsNormalStyle8Gray2 = PoppinsNormalStyle8.copy(
+    color = GrayColor2
+)
+
 val PoppinsNormalStyle12 = PoppinsNormalStyle.copy(
     fontSize = TextSize.Size12
 )
