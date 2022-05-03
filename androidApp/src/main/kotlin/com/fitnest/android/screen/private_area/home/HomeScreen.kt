@@ -29,12 +29,14 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.style.*
 
+@Preview
 @Composable
 fun HomeScreen() {
     Scaffold {
@@ -48,7 +50,7 @@ fun HomeScreen() {
             BMIBlock()
             TodayTargetBlock()
             ActivityStatusBlock()
-            Box(modifier = Modifier.height(100.dp))
+            Box(modifier = Modifier.height(200.dp))
         }
     }
 }
@@ -197,14 +199,12 @@ fun ActivityStatusBlock() {
     ) {
         Text("Activity Status", style = PoppinsBoldStyle16Black)
         HeartRate()
-        Row(modifier = Modifier.padding(top = Padding.Padding16)) {
-            Box(
-                modifier = Modifier
-                    .height(100.dp)
-                    .weight(1F)
-                    .padding(end = Padding.Padding8)
-                    .background(Color.Red)
-            )
+        Row(
+            modifier = Modifier
+                .padding(top = Padding.Padding16)
+                .height(IntrinsicSize.Min)
+        ) {
+            WaterIntakeBlock(Modifier.weight(1F))
             Column(
                 modifier = Modifier
                     .weight(1F)
@@ -414,6 +414,7 @@ fun SleepBlock() {
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
             .background(Color.White)
+            .aspectRatio(1F)
     ) {
         Column {
             Text(
@@ -511,6 +512,18 @@ fun CaloriesBlock() {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun WaterIntakeBlock(modifier: Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxHeight()
+            .padding(end = Padding.Padding8)
+            .background(Color.Red)
+    ) {
+        Text("Hello")
     }
 }
 
