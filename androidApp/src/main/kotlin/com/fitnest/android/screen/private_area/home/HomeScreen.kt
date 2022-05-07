@@ -8,10 +8,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
+import com.fitnest.android.screen.private_area.home.data.LatestWorkoutUIModel
 import com.fitnest.android.screen.private_area.home.data.WaterIntakeUIModel
 import com.fitnest.android.style.*
 
@@ -51,6 +49,7 @@ fun HomeScreen() {
             BMIBlock()
             TodayTargetBlock()
             ActivityStatusBlock()
+            LatestWorkoutBlock()
             Box(modifier = Modifier.height(200.dp))
         }
     }
@@ -601,6 +600,99 @@ fun WaterIntakeBlock(modifier: Modifier) {
             }
         }
 
+    }
+}
+
+@Composable
+fun LatestWorkoutBlock() {
+    val latestWorkoutList = mutableListOf(
+        LatestWorkoutUIModel(
+            icon = R.drawable.ic_private_area_workout,
+            name = "Fullbody Workout",
+            calories = 180,
+            minutes = 20
+        ),
+        LatestWorkoutUIModel(
+            icon = R.drawable.ic_private_area_workout,
+            name = "Lowerbody Workout",
+            calories = 200,
+            minutes = 30
+        ),
+        LatestWorkoutUIModel(
+            icon = R.drawable.ic_private_area_workout,
+            name = "Ab Workout",
+            calories = 180,
+            minutes = 20
+        ),
+    )
+
+    Column(modifier = Modifier.padding(top = Padding.Padding30)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Latest Workout", style = PoppinsSemiBoldStyle16Black)
+            Spacer(modifier = Modifier.weight(1F))
+            Text("See more", style = PoppinsMediumStyle12Gray2)
+        }
+        latestWorkoutList.forEach {
+            LatestWorkoutItem(
+                modifier = Modifier
+                    .padding(bottom = Padding.Padding15)
+                    .shadow(Dimen.Dimen40)
+                    .background(
+                        color = WhiteColor,
+                        shape = RoundedCornerShape(size = Dimen.Dimen16)
+                    ),
+                model = it
+            )
+        }
+    }
+}
+
+@Composable
+fun LatestWorkoutItem(modifier: Modifier, model: LatestWorkoutUIModel) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
+        Image(
+            painter = painterResource(id = model.icon),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(start = Padding.Padding15)
+                .width(Dimen.Dimen50)
+                .height(Dimen.Dimen50)
+                .clip(CircleShape)
+        )
+        Column(
+            modifier = Modifier
+                .padding(
+                    top = Padding.Padding10,
+                    bottom = Padding.Padding15,
+                    start = Padding.Padding10,
+                    end = Padding.Padding10
+                )
+                .weight(1F)
+        ) {
+            Text(model.name, style = PoppinsMediumStyle12Black)
+            Text(
+                "${model.calories} Calories Burn | ${model.minutes} minutes",
+                style = PoppinsNormalStyle10Gray2,
+                modifier = Modifier.padding(top = Padding.Padding5)
+            )
+            LinearProgressIndicator(
+                progress = 0.5F,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Padding.Padding15),
+                color = SecondaryColor,
+                backgroundColor = BorderColor
+            )
+        }
+        Image(
+            painter = painterResource(id = R.drawable.ic_private_area_workout_btn),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(end = Padding.Padding15)
+                .width(Dimen.Dimen24)
+                .height(Dimen.Dimen24)
+                .clip(CircleShape)
+        )
     }
 }
 
