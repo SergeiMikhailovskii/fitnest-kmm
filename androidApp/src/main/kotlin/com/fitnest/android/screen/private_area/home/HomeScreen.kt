@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
+import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.screen.private_area.home.data.LatestWorkoutUIModel
 import com.fitnest.android.screen.private_area.home.data.WaterIntakeUIModel
 import com.fitnest.android.style.*
@@ -38,6 +39,49 @@ import com.fitnest.android.style.*
 @Preview
 @Composable
 fun HomeScreen() {
+    val screenData by remember {
+        mutableStateOf(
+            HomeScreenData(
+                userName = "Stefani Wong",
+                bmiResultText = "You have a normal weight",
+                bmiProgress = 70.0,
+                lastHeartRateValue = 78,
+                lastHeartRateTime = 3,
+                kcalValue = 760,
+                kcalLeftValue = 230,
+                kcalProgress = 0.77F,
+                waterIntakeList = listOf(
+                    WaterIntakeUIModel(time = "6am - 8am", value = "600ml"),
+                    WaterIntakeUIModel(time = "9am - 11am", value = "500ml"),
+                    WaterIntakeUIModel(time = "11am - 2pm", value = "1000ml"),
+                    WaterIntakeUIModel(time = "2pm - 4pm", value = "700ml"),
+                    WaterIntakeUIModel(time = "4pm - now", value = "900ml")
+                ),
+                waterIntakeValue = 4,
+                latestWorkoutList = mutableListOf(
+                    LatestWorkoutUIModel(
+                        icon = R.drawable.ic_private_area_workout,
+                        name = "Fullbody Workout",
+                        calories = 180,
+                        minutes = 20
+                    ),
+                    LatestWorkoutUIModel(
+                        icon = R.drawable.ic_private_area_workout,
+                        name = "Lowerbody Workout",
+                        calories = 200,
+                        minutes = 30
+                    ),
+                    LatestWorkoutUIModel(
+                        icon = R.drawable.ic_private_area_workout,
+                        name = "Ab Workout",
+                        calories = 180,
+                        minutes = 20
+                    ),
+                )
+            )
+        )
+    }
+
     Scaffold {
         Column(
             modifier = Modifier
@@ -45,18 +89,18 @@ fun HomeScreen() {
                 .padding(bottom = Padding.Padding30)
                 .verticalScroll(rememberScrollState())
         ) {
-            HeaderBlock()
-            BMIBlock()
+            HeaderBlock(screenData)
+            BMIBlock(screenData)
             TodayTargetBlock()
-            ActivityStatusBlock()
-            LatestWorkoutBlock()
+            ActivityStatusBlock(screenData)
+            LatestWorkoutBlock(screenData)
             Box(modifier = Modifier.height(200.dp))
         }
     }
 }
 
 @Composable
-fun HeaderBlock() {
+fun HeaderBlock(screenData: HomeScreenData) {
     Row(
         modifier = Modifier.padding(
             top = Padding.Padding20,
@@ -66,7 +110,7 @@ fun HeaderBlock() {
         Column {
             Text(text = "Welcome Back,", style = PoppinsNormalStyle12Gray2)
             Text(
-                text = "Stefani Wong",
+                text = screenData.userName,
                 modifier = Modifier.padding(top = Padding.Padding5),
                 style = PoppinsBoldStyle20Black
             )
@@ -89,7 +133,7 @@ fun HeaderBlock() {
 }
 
 @Composable
-fun BMIBlock() {
+fun BMIBlock(screenData: HomeScreenData) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,7 +153,7 @@ fun BMIBlock() {
                 modifier = Modifier.padding(vertical = Padding.Padding26)
             ) {
                 Text("BMI (Body Mass Index)", style = PoppinsMediumStyle14White)
-                Text("You have a normal weight", style = PoppinsNormalStyle12White)
+                Text(screenData.bmiResultText, style = PoppinsNormalStyle12White)
                 Button(
                     modifier = Modifier
                         .padding(top = Padding.Padding15)
@@ -139,7 +183,7 @@ fun BMIBlock() {
                     bottom = Padding.Padding26,
                     start = Padding.Padding7
                 ),
-                progress = 70.0
+                progress = screenData.bmiProgress
             )
         }
     }
@@ -191,27 +235,27 @@ fun TodayTargetBlock() {
 }
 
 @Composable
-fun ActivityStatusBlock() {
+fun ActivityStatusBlock(screenData: HomeScreenData) {
     Column(
         modifier = Modifier.padding(
             top = Padding.Padding30
         )
     ) {
         Text("Activity Status", style = PoppinsBoldStyle16Black)
-        HeartRate()
+        HeartRate(screenData)
         Row(
             modifier = Modifier
                 .padding(top = Padding.Padding16)
                 .height(IntrinsicSize.Min)
         ) {
-            WaterIntakeBlock(Modifier.weight(1F))
+            WaterIntakeBlock(modifier = Modifier.weight(1F), screenData = screenData)
             Column(
                 modifier = Modifier
                     .weight(1F)
                     .padding(start = Padding.Padding8)
             ) {
                 SleepBlock()
-                CaloriesBlock()
+                CaloriesBlock(screenData)
             }
         }
     }
@@ -249,7 +293,7 @@ fun PieChart(modifier: Modifier, progress: Double) {
 }
 
 @Composable
-fun DrawTooltip() {
+fun DrawTooltip(screenData: HomeScreenData) {
     Canvas(modifier = Modifier) {
         val nativeCanvas = this.drawContext.canvas.nativeCanvas
 
@@ -257,7 +301,7 @@ fun DrawTooltip() {
             textSize = TextSize.Size10.toPx()
             color = android.graphics.Color.WHITE
         }
-        val textToDraw = "3 mins ago"
+        val textToDraw = "${screenData.lastHeartRateTime} mins ago"
         val textBounds = Rect()
 
         textPaint.getTextBounds(textToDraw, 0, textToDraw.length, textBounds)
@@ -334,7 +378,7 @@ fun DrawActivityRing() {
 }
 
 @Composable
-fun HeartRate() {
+fun HeartRate(screenData: HomeScreenData) {
     var chartWidth by remember { mutableStateOf(0) }
 
     Box(
@@ -360,7 +404,7 @@ fun HeartRate() {
                     style = PoppinsMediumStyle12Black
                 )
                 Text(
-                    "78 BPM",
+                    "${screenData.lastHeartRateValue} BPM",
                     modifier = Modifier
                         .padding(start = Padding.Padding20, top = Padding.Padding5)
                         .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
@@ -388,7 +432,7 @@ fun HeartRate() {
                     )
                 ) {
                     Column {
-                        DrawTooltip()
+                        DrawTooltip(screenData)
                     }
                 }
 
@@ -448,7 +492,7 @@ fun SleepBlock() {
 }
 
 @Composable
-fun CaloriesBlock() {
+fun CaloriesBlock(screenData: HomeScreenData) {
     Box(
         modifier = Modifier
             .padding(top = Padding.Padding15)
@@ -470,7 +514,7 @@ fun CaloriesBlock() {
                 style = PoppinsMediumStyle12Black
             )
             Text(
-                "760 kCal",
+                "${screenData.kcalValue} kCal",
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding20,
@@ -490,7 +534,7 @@ fun CaloriesBlock() {
                     modifier = Modifier
                         .fillMaxSize()
                         .rotate(180F),
-                    progress = 0.77F,
+                    progress = screenData.kcalProgress,
                     color = BrandColor,
                 )
                 Box(
@@ -504,7 +548,7 @@ fun CaloriesBlock() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        "230kCal left",
+                        "${screenData.kcalLeftValue} kCal left",
                         modifier = Modifier.padding(all = Padding.Padding6),
                         textAlign = TextAlign.Center,
                         style = PoppinsMediumStyle8White
@@ -516,19 +560,7 @@ fun CaloriesBlock() {
 }
 
 @Composable
-fun WaterIntakeBlock(modifier: Modifier) {
-    val waterConsumingList by remember {
-        mutableStateOf(
-            listOf(
-                WaterIntakeUIModel(time = "6am - 8am", value = "600ml"),
-                WaterIntakeUIModel(time = "9am - 11am", value = "500ml"),
-                WaterIntakeUIModel(time = "11am - 2pm", value = "1000ml"),
-                WaterIntakeUIModel(time = "2pm - 4pm", value = "700ml"),
-                WaterIntakeUIModel(time = "4pm - now", value = "900ml")
-            )
-        )
-    }
-
+fun WaterIntakeBlock(modifier: Modifier, screenData: HomeScreenData) {
     Box(
         modifier = modifier
             .fillMaxHeight()
@@ -574,7 +606,7 @@ fun WaterIntakeBlock(modifier: Modifier) {
             ) {
                 Text("Water Intake", style = PoppinsMediumStyle12Black)
                 Text(
-                    "4 Liters",
+                    "${screenData.waterIntakeValue} Liters",
                     modifier = Modifier
                         .textBrush(brush = Brush.horizontalGradient(BrandGradient))
                         .padding(top = Padding.Padding5),
@@ -586,7 +618,7 @@ fun WaterIntakeBlock(modifier: Modifier) {
                     style = PoppinsMediumStyle10Gray1
                 )
                 Box(Modifier.height(Dimen.Dimen10))
-                waterConsumingList.forEach {
+                screenData.waterIntakeList.forEach {
                     Text(it.time, style = PoppinsNormalStyle8Gray2)
                     Text(
                         it.value,
@@ -604,35 +636,14 @@ fun WaterIntakeBlock(modifier: Modifier) {
 }
 
 @Composable
-fun LatestWorkoutBlock() {
-    val latestWorkoutList = mutableListOf(
-        LatestWorkoutUIModel(
-            icon = R.drawable.ic_private_area_workout,
-            name = "Fullbody Workout",
-            calories = 180,
-            minutes = 20
-        ),
-        LatestWorkoutUIModel(
-            icon = R.drawable.ic_private_area_workout,
-            name = "Lowerbody Workout",
-            calories = 200,
-            minutes = 30
-        ),
-        LatestWorkoutUIModel(
-            icon = R.drawable.ic_private_area_workout,
-            name = "Ab Workout",
-            calories = 180,
-            minutes = 20
-        ),
-    )
-
+fun LatestWorkoutBlock(screenData: HomeScreenData) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("Latest Workout", style = PoppinsSemiBoldStyle16Black)
             Spacer(modifier = Modifier.weight(1F))
             Text("See more", style = PoppinsMediumStyle12Gray2)
         }
-        latestWorkoutList.forEach {
+        screenData.latestWorkoutList.forEach {
             LatestWorkoutItem(
                 modifier = Modifier
                     .padding(bottom = Padding.Padding15)
