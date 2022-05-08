@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -33,6 +34,7 @@ import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.screen.private_area.home.data.LatestWorkoutUIModel
+import com.fitnest.android.screen.private_area.home.data.SleepDurationUIModel
 import com.fitnest.android.screen.private_area.home.data.WaterIntakeUIModel
 import com.fitnest.android.style.*
 
@@ -77,6 +79,10 @@ fun HomeScreen() {
                         calories = 180,
                         minutes = 20
                     ),
+                ),
+                sleepDuration = SleepDurationUIModel(
+                    hours = 8,
+                    minutes = 20
                 )
             )
         )
@@ -108,7 +114,10 @@ fun HeaderBlock(screenData: HomeScreenData) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column {
-            Text(text = "Welcome Back,", style = PoppinsNormalStyle12Gray2)
+            Text(
+                text = stringResource(id = R.string.private_area_dashboard_header_welcome_back),
+                style = PoppinsNormalStyle12Gray2
+            )
             Text(
                 text = screenData.userName,
                 modifier = Modifier.padding(top = Padding.Padding5),
@@ -152,7 +161,10 @@ fun BMIBlock(screenData: HomeScreenData) {
             Column(
                 modifier = Modifier.padding(vertical = Padding.Padding26)
             ) {
-                Text("BMI (Body Mass Index)", style = PoppinsMediumStyle14White)
+                Text(
+                    stringResource(id = R.string.private_area_dashboard_bmi_title),
+                    style = PoppinsMediumStyle14White
+                )
                 Text(screenData.bmiResultText, style = PoppinsNormalStyle12White)
                 Button(
                     modifier = Modifier
@@ -168,7 +180,7 @@ fun BMIBlock(screenData: HomeScreenData) {
                             .background(brush = Brush.horizontalGradient(SecondaryGradient))
                     ) {
                         Text(
-                            "View More",
+                            stringResource(id = R.string.private_area_dashboard_bmi_view_more),
                             modifier = Modifier.padding(
                                 horizontal = Padding.Padding20,
                                 vertical = Padding.Padding10
@@ -208,7 +220,10 @@ fun TodayTargetBlock() {
                 vertical = Padding.Padding15
             )
         ) {
-            Text("Today Target", style = PoppinsMediumStyle14Black)
+            Text(
+                stringResource(id = R.string.private_area_dashboard_today_target_title),
+                style = PoppinsMediumStyle14Black
+            )
             Spacer(modifier = Modifier.weight(1F))
             Button(
                 onClick = {},
@@ -222,7 +237,7 @@ fun TodayTargetBlock() {
                     modifier = Modifier.background(brush = Brush.horizontalGradient(BrandGradient))
                 ) {
                     Text(
-                        "Check",
+                        stringResource(id = R.string.private_area_dashboard_today_target_check),
                         modifier = Modifier.padding(
                             horizontal = Padding.Padding20,
                             vertical = Padding.Padding10
@@ -236,12 +251,11 @@ fun TodayTargetBlock() {
 
 @Composable
 fun ActivityStatusBlock(screenData: HomeScreenData) {
-    Column(
-        modifier = Modifier.padding(
-            top = Padding.Padding30
+    Column(modifier = Modifier.padding(top = Padding.Padding30)) {
+        Text(
+            stringResource(id = R.string.private_area_dashboard_activity_status_title),
+            style = PoppinsBoldStyle16Black
         )
-    ) {
-        Text("Activity Status", style = PoppinsBoldStyle16Black)
         HeartRate(screenData)
         Row(
             modifier = Modifier
@@ -254,7 +268,7 @@ fun ActivityStatusBlock(screenData: HomeScreenData) {
                     .weight(1F)
                     .padding(start = Padding.Padding8)
             ) {
-                SleepBlock()
+                SleepBlock(screenData)
                 CaloriesBlock(screenData)
             }
         }
@@ -284,7 +298,10 @@ fun PieChart(modifier: Modifier, progress: Double) {
             )
         }
         Text(
-            text = "${progress.toInt()} %",
+            text = stringResource(
+                id = R.string.private_area_dashboard_bmi_progress_percent,
+                progress.toInt()
+            ),
             modifier = Modifier.align(Alignment.Center),
             fontSize = TextSize.Size18,
             color = BrandColor
@@ -294,6 +311,10 @@ fun PieChart(modifier: Modifier, progress: Double) {
 
 @Composable
 fun DrawTooltip(screenData: HomeScreenData) {
+    val textToDraw = stringResource(
+        id = R.string.private_area_dashboard_tooltip_minutes_left,
+        screenData.lastHeartRateTime
+    )
     Canvas(modifier = Modifier) {
         val nativeCanvas = this.drawContext.canvas.nativeCanvas
 
@@ -301,7 +322,6 @@ fun DrawTooltip(screenData: HomeScreenData) {
             textSize = TextSize.Size10.toPx()
             color = android.graphics.Color.WHITE
         }
-        val textToDraw = "${screenData.lastHeartRateTime} mins ago"
         val textBounds = Rect()
 
         textPaint.getTextBounds(textToDraw, 0, textToDraw.length, textBounds)
@@ -399,12 +419,15 @@ fun HeartRate(screenData: HomeScreenData) {
                 )
             ) {
                 Text(
-                    "Heart Rate",
+                    stringResource(id = R.string.private_area_dashboard_heart_rate_title),
                     modifier = Modifier.padding(start = Padding.Padding20),
                     style = PoppinsMediumStyle12Black
                 )
                 Text(
-                    "${screenData.lastHeartRateValue} BPM",
+                    stringResource(
+                        id = R.string.private_area_dashboard_heart_rate_bpm,
+                        screenData.lastHeartRateValue
+                    ),
                     modifier = Modifier
                         .padding(start = Padding.Padding20, top = Padding.Padding5)
                         .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
@@ -452,7 +475,7 @@ fun HeartRate(screenData: HomeScreenData) {
 }
 
 @Composable
-fun SleepBlock() {
+fun SleepBlock(screenData: HomeScreenData) {
     Box(
         modifier = Modifier
             .shadow(elevation = Dimen.Dimen40)
@@ -462,7 +485,7 @@ fun SleepBlock() {
     ) {
         Column {
             Text(
-                "Sleep",
+                stringResource(id = R.string.private_area_dashboard_sleep_title),
                 modifier = Modifier.padding(
                     start = Padding.Padding20,
                     top = Padding.Padding20
@@ -470,7 +493,7 @@ fun SleepBlock() {
                 style = PoppinsMediumStyle12Black
             )
             Text(
-                buildSleepDurationAnnotatedString(),
+                buildSleepDurationAnnotatedString(screenData),
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding20,
@@ -504,7 +527,7 @@ fun CaloriesBlock(screenData: HomeScreenData) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                "Calories",
+                stringResource(id = R.string.private_area_dashboard_calories_title),
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding20,
@@ -514,7 +537,10 @@ fun CaloriesBlock(screenData: HomeScreenData) {
                 style = PoppinsMediumStyle12Black
             )
             Text(
-                "${screenData.kcalValue} kCal",
+                stringResource(
+                    id = R.string.private_area_dashboard_calories_value,
+                    screenData.kcalValue
+                ),
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding20,
@@ -548,7 +574,10 @@ fun CaloriesBlock(screenData: HomeScreenData) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        "${screenData.kcalLeftValue} kCal left",
+                        stringResource(
+                            id = R.string.private_area_dashboard_calories_left_value,
+                            screenData.kcalLeftValue
+                        ),
                         modifier = Modifier.padding(all = Padding.Padding6),
                         textAlign = TextAlign.Center,
                         style = PoppinsMediumStyle8White
@@ -604,16 +633,22 @@ fun WaterIntakeBlock(modifier: Modifier, screenData: HomeScreenData) {
                     .fillMaxHeight()
                     .padding(start = Padding.Padding10)
             ) {
-                Text("Water Intake", style = PoppinsMediumStyle12Black)
                 Text(
-                    "${screenData.waterIntakeValue} Liters",
+                    stringResource(id = R.string.private_area_dashboard_water_intake_title),
+                    style = PoppinsMediumStyle12Black
+                )
+                Text(
+                    stringResource(
+                        id = R.string.private_area_dashboard_water_intake_liters,
+                        screenData.waterIntakeValue
+                    ),
                     modifier = Modifier
                         .textBrush(brush = Brush.horizontalGradient(BrandGradient))
                         .padding(top = Padding.Padding5),
                     style = PoppinsMediumStyle14
                 )
                 Text(
-                    "Real time updates",
+                    stringResource(id = R.string.private_area_dashboard_water_intake_realtime_updates),
                     modifier = Modifier.padding(top = Padding.Padding10),
                     style = PoppinsMediumStyle10Gray1
                 )
@@ -639,9 +674,15 @@ fun WaterIntakeBlock(modifier: Modifier, screenData: HomeScreenData) {
 fun LatestWorkoutBlock(screenData: HomeScreenData) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Latest Workout", style = PoppinsSemiBoldStyle16Black)
+            Text(
+                stringResource(id = R.string.private_area_dashboard_latest_workout_title),
+                style = PoppinsSemiBoldStyle16Black
+            )
             Spacer(modifier = Modifier.weight(1F))
-            Text("See more", style = PoppinsMediumStyle12Gray2)
+            Text(
+                stringResource(id = R.string.private_area_dashboard_latest_workout_see_more),
+                style = PoppinsMediumStyle12Gray2
+            )
         }
         screenData.latestWorkoutList.forEach {
             LatestWorkoutItem(
@@ -682,7 +723,11 @@ fun LatestWorkoutItem(modifier: Modifier, model: LatestWorkoutUIModel) {
         ) {
             Text(model.name, style = PoppinsMediumStyle12Black)
             Text(
-                "${model.calories} Calories Burn | ${model.minutes} minutes",
+                stringResource(
+                    id = R.string.private_area_dashboard_latest_workout_calories_burn,
+                    model.calories,
+                    model.minutes
+                ),
                 style = PoppinsNormalStyle10Gray2,
                 modifier = Modifier.padding(top = Padding.Padding5)
             )
@@ -707,17 +752,18 @@ fun LatestWorkoutItem(modifier: Modifier, model: LatestWorkoutUIModel) {
     }
 }
 
-fun buildSleepDurationAnnotatedString() = buildAnnotatedString {
+@Composable
+fun buildSleepDurationAnnotatedString(screenData: HomeScreenData) = buildAnnotatedString {
     withStyle(SpanStyle(fontSize = TextSize.Size14)) {
-        append("8")
+        append(screenData.sleepDuration.hours.toString())
     }
     withStyle(SpanStyle(fontSize = TextSize.Size10)) {
-        append("h")
+        append(stringResource(id = R.string.private_area_dashboard_sleep_hours))
     }
     withStyle(SpanStyle(fontSize = TextSize.Size14)) {
-        append(" 20")
+        append(" ${screenData.sleepDuration.minutes}")
     }
     withStyle(SpanStyle(fontSize = TextSize.Size10)) {
-        append("m")
+        append(stringResource(id = R.string.private_area_dashboard_sleep_minutes))
     }
 }

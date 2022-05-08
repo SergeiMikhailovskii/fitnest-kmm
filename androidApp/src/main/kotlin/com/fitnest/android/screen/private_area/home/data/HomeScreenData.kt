@@ -11,5 +11,6 @@ data class HomeScreenData(
     val kcalProgress: Float,
     val waterIntakeList: List<WaterIntakeUIModel>,
     val waterIntakeValue: Int,
-    val latestWorkoutList: List<LatestWorkoutUIModel>
+    val latestWorkoutList: List<LatestWorkoutUIModel>,
+    val sleepDuration: SleepDurationUIModel
 )
