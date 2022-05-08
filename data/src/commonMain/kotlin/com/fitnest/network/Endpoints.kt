@@ -3,8 +3,8 @@ package com.fitnest.network
 object Endpoints {
     const val BASE_URL = "https://fitnestappgo.herokuapp.com/"
 
-    object Main : Group {
-        override val name = "main"
+    object Flow : Group {
+        override val name = "flow"
     }
 
     object Onboarding : Group {

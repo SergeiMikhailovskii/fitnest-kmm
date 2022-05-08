@@ -20,7 +20,7 @@ class NetworkRepository(
     override suspend fun loginUser(data: LoginData) {
     }
 
-    override suspend fun generateToken() = networkService.getData(Endpoints.Main.name)
+    override suspend fun generateToken() = networkService.getData(Endpoints.Flow.name)
 
     override suspend fun getOnboardingStep() = networkService.getData(Endpoints.Onboarding.name)
         .map {
