@@ -11,12 +11,48 @@ val PoppinsMediumStyle = PoppinsStyle.copy(
     fontWeight = FontWeight.Medium
 )
 
+val PoppinsMediumStyle8 = PoppinsMediumStyle.copy(
+    fontSize = TextSize.Size8
+)
+
+val PoppinsMediumStyle8White = PoppinsMediumStyle8.copy(
+    color = WhiteColor
+)
+
+val PoppinsMediumStyle10 = PoppinsMediumStyle.copy(
+    fontSize = TextSize.Size10
+)
+
+val PoppinsMediumStyle10Gray1 = PoppinsMediumStyle10.copy(
+    color = GrayColor1
+)
+
+val PoppinsMediumStyle12 = PoppinsMediumStyle.copy(
+    fontSize = TextSize.Size12
+)
+
+val PoppinsMediumStyle12Black = PoppinsMediumStyle12.copy(
+    color = BlackColor
+)
+
+val PoppinsMediumStyle12Gray2 = PoppinsMediumStyle12.copy(
+    color = GrayColor2
+)
+
 val PoppinsMediumStyle14 = PoppinsMediumStyle.copy(
     fontSize = TextSize.Size14
 )
 
+val PoppinsMediumStyle14White = PoppinsMediumStyle14.copy(
+    color = WhiteColor
+)
+
 val PoppinsMediumStyle14Gray1 = PoppinsMediumStyle14.copy(
     color = GrayColor1
+)
+
+val PoppinsMediumStyle14Black = PoppinsMediumStyle14.copy(
+    color = BlackColor
 )
 
 val PoppinsBoldStyle = PoppinsStyle.copy(
@@ -39,6 +75,10 @@ val PoppinsBoldStyle16 = PoppinsBoldStyle.copy(
     fontSize = TextSize.Size16
 )
 
+val PoppinsBoldStyle16Black = PoppinsBoldStyle16.copy(
+    color = BlackColor
+)
+
 val PoppinsBoldStyle24 = PoppinsBoldStyle.copy(
     fontSize = TextSize.Size24
 )
@@ -48,15 +88,39 @@ val PoppinsBoldStyle24Black = PoppinsBoldStyle24.copy(
 )
 
 val PoppinsSemiBoldStyle14 = PoppinsSemiBoldStyle.copy(
-    fontSize = TextSize.Size24
+    fontSize = TextSize.Size14
 )
 
 val PoppinsSemiBoldStyle14White = PoppinsSemiBoldStyle14.copy(
     color = WhiteColor
 )
 
+val PoppinsSemiBoldStyle16 = PoppinsSemiBoldStyle.copy(
+    fontSize = TextSize.Size16
+)
+
+val PoppinsSemiBoldStyle16Black = PoppinsSemiBoldStyle16.copy(
+    color = BlackColor
+)
+
 val PoppinsNormalStyle = PoppinsStyle.copy(
     fontWeight = FontWeight.Normal
+)
+
+val PoppinsNormalStyle8 = PoppinsNormalStyle.copy(
+    fontSize = TextSize.Size8
+)
+
+val PoppinsNormalStyle8Gray2 = PoppinsNormalStyle8.copy(
+    color = GrayColor2
+)
+
+val PoppinsNormalStyle10 = PoppinsNormalStyle.copy(
+    fontSize = TextSize.Size10
+)
+
+val PoppinsNormalStyle10Gray2 = PoppinsNormalStyle10.copy(
+    color = GrayColor2
 )
 
 val PoppinsNormalStyle12 = PoppinsNormalStyle.copy(

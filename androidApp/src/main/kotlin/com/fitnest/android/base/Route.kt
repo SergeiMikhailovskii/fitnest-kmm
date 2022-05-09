@@ -12,6 +12,12 @@ sealed class Route(val screenName: String) {
         val stepName: String
     ) : Route("registrationStep/$stepName")
 
+    abstract class PrivateAreaRoute(screenName: String) : Route(screenName)
+    object PrivateAreaHome : PrivateAreaRoute("privateAreaHome")
+    object PrivateAreaTracker : PrivateAreaRoute("privateAreaTracker")
+    object PrivateAreaPhoto : PrivateAreaRoute("privateAreaPhoto")
+    object PrivateAreaSettings : PrivateAreaRoute("privateAreaSettings")
+
     // for not implemented routes
     object Unknown : Route("unknown")
 }

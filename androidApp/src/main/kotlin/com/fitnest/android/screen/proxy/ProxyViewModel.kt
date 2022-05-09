@@ -41,6 +41,9 @@ class ProxyViewModel(
                     }
                 }
             }
+            FlowType.MAIN -> {
+                handleRoute(Route.PrivateAreaHome)
+            }
             else -> {
             }
         }

@@ -21,7 +21,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.base.Route
-import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.android.style.*
 import com.fitnest.android.view.ui_elements.GradientButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
