@@ -56,6 +56,9 @@ fun GoalRegistrationScreen(navController: NavController) {
             val goalType = viewMapper.mapGoalIndexToGoalType(page)
             viewModel.setGoal(goalType)
         }
+    }
+
+    LaunchedEffect(null) {
         launch {
             viewModel.routeSharedFlow.collect {
                 handleNavigation(it, navController)
