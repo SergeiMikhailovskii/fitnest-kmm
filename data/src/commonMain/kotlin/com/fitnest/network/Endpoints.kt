@@ -15,6 +15,12 @@ object Endpoints {
         override val name = "registration"
     }
 
+    object PrivateArea : Group {
+        override val name = "private-area/"
+
+        const val DASHBOARD = "DASHBOARD"
+    }
+
     interface Group {
         val name: String
     }

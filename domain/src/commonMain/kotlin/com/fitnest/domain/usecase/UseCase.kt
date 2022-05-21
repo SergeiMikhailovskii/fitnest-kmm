@@ -21,3 +21,11 @@ abstract class UseCase<out Type> {
 }
 
 abstract class UseCaseUnit : UseCase<Unit>()
+
+abstract class UseCaseResult<Type> {
+
+    abstract suspend fun run(): Result<Type>
+
+    suspend operator fun invoke() = run()
+
+}

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fitnest.android.extension.ViewModelFactory
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
+import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreenData
@@ -97,5 +98,15 @@ val goalRegistrationScreenModule = DI.Module("goal registration screen module") 
 val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
     bind<WelcomeBackRegistrationViewModel>() with factory {
         WelcomeBackRegistrationViewModel(instance(), instance())
+    }
+}
+
+val privateAreaModule = DI.Module("private area module") {
+    import(dashboardPrivateAreaModule)
+}
+
+val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
+    bind<HomeViewModel>() with factory {
+        HomeViewModel(instance())
     }
 }

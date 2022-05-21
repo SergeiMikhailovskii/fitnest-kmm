@@ -5,8 +5,8 @@ import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.usecase.GenerateTokenUseCase
-import com.fitnest.domain.usecase.GetOnboardingStep
-import com.fitnest.domain.usecase.GetRegistrationStepData
+import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
+import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 
 class ProxyViewModel(
     private val generateTokenUseCase: GenerateTokenUseCase,

@@ -29,6 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
@@ -37,10 +39,17 @@ import com.fitnest.android.screen.private_area.home.data.LatestWorkoutUIModel
 import com.fitnest.android.screen.private_area.home.data.SleepDurationUIModel
 import com.fitnest.android.screen.private_area.home.data.WaterIntakeUIModel
 import com.fitnest.android.style.*
+import org.kodein.di.compose.rememberInstance
 
 @Preview
 @Composable
 fun HomeScreen() {
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = HomeViewModel::class.java
+    )
+
     val screenData by remember {
         mutableStateOf(
             HomeScreenData(

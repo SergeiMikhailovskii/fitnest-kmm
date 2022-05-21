@@ -2,14 +2,17 @@ package com.fitnest.domain.functional
 
 import kotlinx.serialization.Serializable
 
-sealed class Failure {
+sealed class Failure(message: String? = null) : Exception(message) {
+
+    constructor() : this(null)
+
     data class ServerError(val responseCode: Int) : Failure()
 
     @Serializable
     data class ValidationError(
         val field: String?,
-        val message: String
-    ) : Failure()
+        override val message: String
+    ) : Failure(message)
 
     @Serializable
     data class ValidationErrors(
