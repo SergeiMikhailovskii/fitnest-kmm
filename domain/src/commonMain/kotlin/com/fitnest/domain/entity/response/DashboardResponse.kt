@@ -1,5 +1,6 @@
 package com.fitnest.domain.entity.response
 
+import com.fitnest.domain.enum.BMIType
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -41,7 +42,7 @@ data class DashboardResponse(
     @Serializable
     data class BMIWidget(
         val index: Double? = null,
-        val result: String? = null
+        val result: BMIType? = null
     )
 
     @Serializable

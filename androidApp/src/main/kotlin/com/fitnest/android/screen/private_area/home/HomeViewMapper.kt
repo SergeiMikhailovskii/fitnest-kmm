@@ -3,6 +3,7 @@ package com.fitnest.android.screen.private_area.home
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.entity.response.DashboardResponse
+import com.fitnest.domain.enum.BMIType
 
 class HomeViewMapper {
 
@@ -38,15 +39,23 @@ class HomeViewMapper {
             null
         }
 
-    private fun mapBMIWidget(bmiResponse: DashboardResponse.BMIWidget?) =
-        if (bmiResponse != null) {
+    private fun mapBMIWidget(bmiResponse: DashboardResponse.BMIWidget?): HomeScreenData.BMIWidget? {
+        return if (bmiResponse != null) {
+            val bmiResult = when (bmiResponse.result) {
+                BMIType.UNDERWEIGHT -> R.string.private_area_dashboard_bmi_underweight
+                BMIType.NORMAL_WEIGHT -> R.string.private_area_dashboard_bmi_normal_weight
+                BMIType.OVERWEIGHT -> R.string.private_area_dashboard_bmi_overweight
+                BMIType.OBESITY -> R.string.private_area_dashboard_bmi_obesity
+                null -> R.string.error_unknown
+            }
             HomeScreenData.BMIWidget(
                 index = bmiResponse.index,
-                result = R.string.private_area_dashboard_bmi_normal_weight
+                result = bmiResult
             )
         } else {
             null
         }
+    }
 
     private fun mapTodayTargetWidget(todayTargetResponse: DashboardResponse.TodayTargetWidget?) =
         if (todayTargetResponse != null) {

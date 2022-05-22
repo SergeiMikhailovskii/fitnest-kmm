@@ -9,7 +9,12 @@
     <string name="private_area_dashboard_bmi_title">BMI (Body Mass Index)</string>
     <string name="private_area_dashboard_bmi_progress_percent">%1$d %%</string>
     <string name="private_area_dashboard_bmi_view_more">View More</string>
+
+    <string name="private_area_dashboard_bmi_underweight">You have a underweight</string>
     <string name="private_area_dashboard_bmi_normal_weight">You have a normal weight</string>
+    <string name="private_area_dashboard_bmi_overweight">You have a overweight</string>
+    <string name="private_area_dashboard_bmi_obesity">You have a obesity</string>
+
     <string name="private_area_dashboard_today_target_title">Today Target</string>
     <string name="private_area_dashboard_today_target_check">Check</string>
     <string name="private_area_dashboard_activity_status_title">Activity Status</string>
