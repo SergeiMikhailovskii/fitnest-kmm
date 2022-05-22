@@ -28,7 +28,8 @@
     <string name="private_area_dashboard_calories_value">%1$d kCal</string>
     <string name="private_area_dashboard_calories_left_value">%1$d kCal left</string>
     <string name="private_area_dashboard_water_intake_title">Water Intake</string>
-    <string name="private_area_dashboard_water_intake_liters">%1$d Liters</string>
+    <string name="private_area_dashboard_water_intake_liters">%1$.2f Liters</string>
+    <string name="private_area_dashboard_water_intake_millis">%1$d ml</string>
     <string name="private_area_dashboard_water_intake_realtime_updates">Real time updates</string>
     <string name="private_area_dashboard_latest_workout_title">Latest Workout</string>
     <string name="private_area_dashboard_latest_workout_see_more">See more</string>

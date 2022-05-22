@@ -35,7 +35,7 @@ data class HomeScreenData(
     )
 
     data class WaterIntakeSubWidget(
-        val amount: Int? = null,
+        val amount: Double? = null,
         val progress: Double? = null,
         val intakes: List<WaterIntake>? = null
     )

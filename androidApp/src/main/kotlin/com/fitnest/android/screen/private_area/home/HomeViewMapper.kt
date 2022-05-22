@@ -106,14 +106,19 @@ class HomeViewMapper {
     private fun mapWaterIntakeSubWidget(waterIntakeResponse: DashboardResponse.WaterIntakeSubWidget?) =
         if (waterIntakeResponse != null) {
             HomeScreenData.WaterIntakeSubWidget(
-                amount = waterIntakeResponse.amount,
+                amount = ((waterIntakeResponse.amount ?: 0) / 1000).toDouble(),
                 progress = waterIntakeResponse.progress,
-                intakes = waterIntakeResponse.intakes?.map {
-                    HomeScreenData.WaterIntake(
-                        timeDiapason = it.timeDiapason,
-                        amountInMillis = it.amountInMillis
-                    )
-                }
+                intakes = waterIntakeResponse.intakes?.groupBy { it.timeDiapason?.substring(0, 13) }
+                    ?.map {
+                        val from = it.key?.substring(11, 13)?.toInt() ?: 0
+                        val to = from + 1
+
+                        val amountByHour = it.value.sumOf { it.amountInMillis ?: 0 }
+                        HomeScreenData.WaterIntake(
+                            timeDiapason = "$from-$to",
+                            amountInMillis = amountByHour
+                        )
+                    }?.reversed()
             )
         } else {
             null

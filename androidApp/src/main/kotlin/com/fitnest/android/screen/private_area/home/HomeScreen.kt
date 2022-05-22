@@ -634,7 +634,7 @@ fun WaterIntakeBlock(
                 Text(
                     stringResource(
                         id = R.string.private_area_dashboard_water_intake_liters,
-                        waterIntakeSubWidget.amount ?: 0
+                        waterIntakeSubWidget.amount ?: .0
                     ),
                     modifier = Modifier
                         .textBrush(brush = Brush.horizontalGradient(BrandGradient))
@@ -650,7 +650,10 @@ fun WaterIntakeBlock(
                 waterIntakeSubWidget.intakes?.forEach {
                     Text(it.timeDiapason ?: "", style = PoppinsNormalStyle8Gray2)
                     Text(
-                        it.amountInMillis.toString(),
+                        stringResource(
+                            id = R.string.private_area_dashboard_water_intake_millis,
+                            it.amountInMillis ?: 0
+                        ),
                         style = PoppinsMediumStyle8,
                         modifier = Modifier
                             .textBrush(brush = Brush.horizontalGradient(SecondaryGradient))

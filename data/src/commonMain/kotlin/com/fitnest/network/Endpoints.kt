@@ -18,7 +18,7 @@ object Endpoints {
     object PrivateArea : Group {
         override val name = "private-area/"
 
-        const val DASHBOARD = "DASHBOARD"
+        const val DASHBOARD = "dashboard"
     }
 
     interface Group {
