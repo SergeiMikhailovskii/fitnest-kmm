@@ -94,8 +94,12 @@ fun HeaderBlock(headerWidget: HomeScreenData.HeaderWidget) {
                 .background(BorderColor),
             contentAlignment = Alignment.Center
         ) {
+            val notificationRes = if (headerWidget.hasNotifications == true)
+                R.drawable.ic_private_area_has_notifications
+            else R.drawable.ic_private_area_no_notifications
+
             Image(
-                painter = painterResource(id = R.drawable.ic_private_area_notification),
+                painter = painterResource(id = notificationRes),
                 contentDescription = null
             )
         }
