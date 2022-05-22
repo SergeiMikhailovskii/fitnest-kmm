@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fitnest.android.extension.ViewModelFactory
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
+import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
@@ -107,6 +108,9 @@ val privateAreaModule = DI.Module("private area module") {
 
 val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
     bind<HomeViewModel>() with factory {
-        HomeViewModel(instance())
+        HomeViewModel(instance(), instance())
+    }
+    bind<HomeViewMapper>() with factory {
+        HomeViewMapper()
     }
 }

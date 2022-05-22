@@ -1,0 +1,133 @@
+package com.fitnest.android.screen.private_area.home
+
+import com.fitnest.android.R
+import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.domain.entity.response.DashboardResponse
+
+class HomeViewMapper {
+
+    internal fun mapDashboardResponseToScreenData(response: DashboardResponse): HomeScreenData {
+        val headerResponse = response.widgets?.headerWidget
+        val bmiResponse = response.widgets?.bmiWidget
+        val todayTargetResponse = response.widgets?.todayTargetWidget
+        val activityStatusResponse = response.widgets?.activityStatusWidget
+        val latestWorkoutResponse = response.widgets?.latestWorkoutWidget
+
+        val headerWidget = mapHeaderWidget(headerResponse)
+        val bmiWidget = mapBMIWidget(bmiResponse)
+        val todayTargetWidget = mapTodayTargetWidget(todayTargetResponse)
+        val activityStatusWidget = mapActivityStatusWidget(activityStatusResponse)
+        val latestWorkoutWidget = mapLatestWorkoutWidget(latestWorkoutResponse)
+
+        return HomeScreenData(
+            headerWidget = headerWidget,
+            bmiWidget = bmiWidget,
+            todayTargetWidget = todayTargetWidget,
+            activityStatusWidget = activityStatusWidget,
+            latestWorkoutWidget = latestWorkoutWidget
+        )
+    }
+
+    private fun mapHeaderWidget(headerResponse: DashboardResponse.HeaderWidget?) =
+        if (headerResponse != null) {
+            HomeScreenData.HeaderWidget(
+                name = headerResponse.name,
+                hasNotifications = (headerResponse.notifications ?: 0) > 0
+            )
+        } else {
+            null
+        }
+
+    private fun mapBMIWidget(bmiResponse: DashboardResponse.BMIWidget?) =
+        if (bmiResponse != null) {
+            HomeScreenData.BMIWidget(
+                index = bmiResponse.index,
+                result = R.string.private_area_dashboard_bmi_normal_weight
+            )
+        } else {
+            null
+        }
+
+    private fun mapTodayTargetWidget(todayTargetResponse: DashboardResponse.TodayTargetWidget?) =
+        if (todayTargetResponse != null) {
+            HomeScreenData.TodayTargetWidget()
+        } else {
+            null
+        }
+
+    private fun mapActivityStatusWidget(activityStatusResponse: DashboardResponse.ActivityStatusWidget?) =
+        if (activityStatusResponse != null) {
+            HomeScreenData.ActivityStatusWidget(
+                heartRateSubWidget = mapHeartRateSubWidget(activityStatusResponse.heartRate),
+                waterIntakeSubWidget = mapWaterIntakeSubWidget(activityStatusResponse.waterIntake),
+                sleepSubWidget = mapSleepSubWidget(activityStatusResponse.sleep),
+                caloriesSubWidget = mapCaloriesSubWidget(activityStatusResponse.calories)
+            )
+        } else {
+            null
+        }
+
+    private fun mapLatestWorkoutWidget(latestWorkoutResponse: DashboardResponse.LatestWorkoutWidget?) =
+        if (latestWorkoutResponse != null) {
+            HomeScreenData.LatestWorkoutWidget(
+                workouts = latestWorkoutResponse.workouts?.map {
+                    HomeScreenData.Workout(
+                        name = it.name,
+                        calories = it.calories,
+                        minutes = it.minutes,
+                        progress = it.progress,
+                        image = it.image
+                    )
+                }
+            )
+        } else {
+            null
+        }
+
+    private fun mapHeartRateSubWidget(heartRateResponse: DashboardResponse.HeartRateSubWidget?) =
+        if (heartRateResponse != null) {
+            HomeScreenData.HeartRateSubWidget(
+                rate = heartRateResponse.rate,
+                date = heartRateResponse.date
+            )
+        } else {
+            null
+        }
+
+    private fun mapWaterIntakeSubWidget(waterIntakeResponse: DashboardResponse.WaterIntakeSubWidget?) =
+        if (waterIntakeResponse != null) {
+            HomeScreenData.WaterIntakeSubWidget(
+                amount = waterIntakeResponse.amount,
+                progress = waterIntakeResponse.progress,
+                intakes = waterIntakeResponse.intakes?.map {
+                    HomeScreenData.WaterIntake(
+                        timeDiapason = it.timeDiapason,
+                        amountInMillis = it.amountInMillis
+                    )
+                }
+            )
+        } else {
+            null
+        }
+
+    private fun mapSleepSubWidget(sleepResponse: DashboardResponse.SleepSubWidget?) =
+        if (sleepResponse != null) {
+            HomeScreenData.SleepSubWidget(
+                hours = sleepResponse.hours,
+                minutes = sleepResponse.minutes
+            )
+        } else {
+            null
+        }
+
+    private fun mapCaloriesSubWidget(caloriesResponse: DashboardResponse.CaloriesSubWidget?) =
+        if (caloriesResponse != null) {
+            HomeScreenData.CaloriesSubWidget(
+                consumed = caloriesResponse.consumed,
+                left = caloriesResponse.left
+            )
+        } else {
+            null
+        }
+
+}

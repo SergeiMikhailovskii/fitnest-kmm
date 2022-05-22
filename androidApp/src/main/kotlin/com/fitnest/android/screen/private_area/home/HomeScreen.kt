@@ -35,9 +35,6 @@ import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.screen.private_area.home.data.LatestWorkoutUIModel
-import com.fitnest.android.screen.private_area.home.data.SleepDurationUIModel
-import com.fitnest.android.screen.private_area.home.data.WaterIntakeUIModel
 import com.fitnest.android.style.*
 import org.kodein.di.compose.rememberInstance
 
@@ -50,52 +47,7 @@ fun HomeScreen() {
         modelClass = HomeViewModel::class.java
     )
 
-    val screenData by remember {
-        mutableStateOf(
-            HomeScreenData(
-                userName = "Stefani Wong",
-                bmiResultText = "You have a normal weight",
-                bmiProgress = 70.0,
-                lastHeartRateValue = 78,
-                lastHeartRateTime = 3,
-                kcalValue = 760,
-                kcalLeftValue = 230,
-                kcalProgress = 0.77F,
-                waterIntakeList = listOf(
-                    WaterIntakeUIModel(time = "6am - 8am", value = "600ml"),
-                    WaterIntakeUIModel(time = "9am - 11am", value = "500ml"),
-                    WaterIntakeUIModel(time = "11am - 2pm", value = "1000ml"),
-                    WaterIntakeUIModel(time = "2pm - 4pm", value = "700ml"),
-                    WaterIntakeUIModel(time = "4pm - now", value = "900ml")
-                ),
-                waterIntakeValue = 4,
-                latestWorkoutList = mutableListOf(
-                    LatestWorkoutUIModel(
-                        icon = R.drawable.ic_private_area_workout,
-                        name = "Fullbody Workout",
-                        calories = 180,
-                        minutes = 20
-                    ),
-                    LatestWorkoutUIModel(
-                        icon = R.drawable.ic_private_area_workout,
-                        name = "Lowerbody Workout",
-                        calories = 200,
-                        minutes = 30
-                    ),
-                    LatestWorkoutUIModel(
-                        icon = R.drawable.ic_private_area_workout,
-                        name = "Ab Workout",
-                        calories = 180,
-                        minutes = 20
-                    ),
-                ),
-                sleepDuration = SleepDurationUIModel(
-                    hours = 8,
-                    minutes = 20
-                )
-            )
-        )
-    }
+    val screenData by viewModel.screenDataFlow.collectAsState()
 
     Scaffold {
         Column(
@@ -104,18 +56,18 @@ fun HomeScreen() {
                 .padding(bottom = Padding.Padding30)
                 .verticalScroll(rememberScrollState())
         ) {
-            HeaderBlock(screenData)
-            BMIBlock(screenData)
-            TodayTargetBlock()
-            ActivityStatusBlock(screenData)
-            LatestWorkoutBlock(screenData)
+            screenData.headerWidget?.let { HeaderBlock(it) }
+            screenData.bmiWidget?.let { BMIBlock(it) }
+            screenData.todayTargetWidget?.let { TodayTargetBlock(it) }
+            screenData.activityStatusWidget?.let { ActivityStatusBlock(it) }
+            screenData.latestWorkoutWidget?.let { LatestWorkoutBlock(it) }
             Box(modifier = Modifier.height(200.dp))
         }
     }
 }
 
 @Composable
-fun HeaderBlock(screenData: HomeScreenData) {
+fun HeaderBlock(headerWidget: HomeScreenData.HeaderWidget) {
     Row(
         modifier = Modifier.padding(
             top = Padding.Padding20,
@@ -128,7 +80,7 @@ fun HeaderBlock(screenData: HomeScreenData) {
                 style = PoppinsNormalStyle12Gray2
             )
             Text(
-                text = screenData.userName,
+                text = headerWidget.name ?: "",
                 modifier = Modifier.padding(top = Padding.Padding5),
                 style = PoppinsBoldStyle20Black
             )
@@ -151,7 +103,7 @@ fun HeaderBlock(screenData: HomeScreenData) {
 }
 
 @Composable
-fun BMIBlock(screenData: HomeScreenData) {
+fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -174,7 +126,14 @@ fun BMIBlock(screenData: HomeScreenData) {
                     stringResource(id = R.string.private_area_dashboard_bmi_title),
                     style = PoppinsMediumStyle14White
                 )
-                Text(screenData.bmiResultText, style = PoppinsNormalStyle12White)
+
+                bmiWidget.result?.let {
+                    Text(
+                        stringResource(id = it),
+                        style = PoppinsNormalStyle12White
+                    )
+                }
+
                 Button(
                     modifier = Modifier
                         .padding(top = Padding.Padding15)
@@ -198,20 +157,23 @@ fun BMIBlock(screenData: HomeScreenData) {
                     }
                 }
             }
-            PieChart(
-                modifier = Modifier.padding(
-                    top = Padding.Padding26,
-                    bottom = Padding.Padding26,
-                    start = Padding.Padding7
-                ),
-                progress = screenData.bmiProgress
-            )
+
+            bmiWidget.index?.let {
+                PieChart(
+                    modifier = Modifier.padding(
+                        top = Padding.Padding26,
+                        bottom = Padding.Padding26,
+                        start = Padding.Padding7
+                    ),
+                    progress = it
+                )
+            }
         }
     }
 }
 
 @Composable
-fun TodayTargetBlock() {
+fun TodayTargetBlock(todayTargetWidget: HomeScreenData.TodayTargetWidget) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -259,26 +221,37 @@ fun TodayTargetBlock() {
 }
 
 @Composable
-fun ActivityStatusBlock(screenData: HomeScreenData) {
+fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivityStatusWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Text(
             stringResource(id = R.string.private_area_dashboard_activity_status_title),
             style = PoppinsBoldStyle16Black
         )
-        HeartRate(screenData)
+
+        activityStatusWidget.heartRateSubWidget?.let {
+            HeartRate(it)
+        }
+
         Row(
             modifier = Modifier
                 .padding(top = Padding.Padding16)
                 .height(IntrinsicSize.Min)
         ) {
-            WaterIntakeBlock(modifier = Modifier.weight(1F), screenData = screenData)
+            activityStatusWidget.waterIntakeSubWidget?.let {
+                WaterIntakeBlock(modifier = Modifier.weight(1F), waterIntakeSubWidget = it)
+            }
+
             Column(
                 modifier = Modifier
                     .weight(1F)
                     .padding(start = Padding.Padding8)
             ) {
-                SleepBlock(screenData)
-                CaloriesBlock(screenData)
+                activityStatusWidget.sleepSubWidget?.let {
+                    SleepBlock(it)
+                }
+                activityStatusWidget.caloriesSubWidget?.let {
+                    CaloriesBlock(it)
+                }
             }
         }
     }
@@ -319,10 +292,10 @@ fun PieChart(modifier: Modifier, progress: Double) {
 }
 
 @Composable
-fun DrawTooltip(screenData: HomeScreenData) {
+fun DrawTooltip(lastHeartRate: Int) {
     val textToDraw = stringResource(
         id = R.string.private_area_dashboard_tooltip_minutes_left,
-        screenData.lastHeartRateTime
+        lastHeartRate
     )
     Canvas(modifier = Modifier) {
         val nativeCanvas = this.drawContext.canvas.nativeCanvas
@@ -407,7 +380,7 @@ fun DrawActivityRing() {
 }
 
 @Composable
-fun HeartRate(screenData: HomeScreenData) {
+fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
     var chartWidth by remember { mutableStateOf(0) }
 
     Box(
@@ -435,7 +408,7 @@ fun HeartRate(screenData: HomeScreenData) {
                 Text(
                     stringResource(
                         id = R.string.private_area_dashboard_heart_rate_bpm,
-                        screenData.lastHeartRateValue
+                        heartRateSubWidget.rate ?: 0
                     ),
                     modifier = Modifier
                         .padding(start = Padding.Padding20, top = Padding.Padding5)
@@ -464,7 +437,8 @@ fun HeartRate(screenData: HomeScreenData) {
                     )
                 ) {
                     Column {
-                        DrawTooltip(screenData)
+                        // todo - add parsing of the date
+                        DrawTooltip(3)
                     }
                 }
 
@@ -484,7 +458,7 @@ fun HeartRate(screenData: HomeScreenData) {
 }
 
 @Composable
-fun SleepBlock(screenData: HomeScreenData) {
+fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
     Box(
         modifier = Modifier
             .shadow(elevation = Dimen.Dimen40)
@@ -502,7 +476,10 @@ fun SleepBlock(screenData: HomeScreenData) {
                 style = PoppinsMediumStyle12Black
             )
             Text(
-                buildSleepDurationAnnotatedString(screenData),
+                buildSleepDurationAnnotatedString(
+                    hours = sleepSubWidget.hours ?: 0,
+                    minutes = sleepSubWidget.minutes ?: 0
+                ),
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding20,
@@ -524,7 +501,7 @@ fun SleepBlock(screenData: HomeScreenData) {
 }
 
 @Composable
-fun CaloriesBlock(screenData: HomeScreenData) {
+fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
     Box(
         modifier = Modifier
             .padding(top = Padding.Padding15)
@@ -548,7 +525,7 @@ fun CaloriesBlock(screenData: HomeScreenData) {
             Text(
                 stringResource(
                     id = R.string.private_area_dashboard_calories_value,
-                    screenData.kcalValue
+                    caloriesSubWidget.consumed ?: 0
                 ),
                 modifier = Modifier
                     .padding(
@@ -569,7 +546,8 @@ fun CaloriesBlock(screenData: HomeScreenData) {
                     modifier = Modifier
                         .fillMaxSize()
                         .rotate(180F),
-                    progress = screenData.kcalProgress,
+                    progress = ((caloriesSubWidget.consumed ?: 0) / ((caloriesSubWidget.consumed
+                        ?: 0) + (caloriesSubWidget.left ?: 0))).toFloat(),
                     color = BrandColor,
                 )
                 Box(
@@ -585,7 +563,7 @@ fun CaloriesBlock(screenData: HomeScreenData) {
                     Text(
                         stringResource(
                             id = R.string.private_area_dashboard_calories_left_value,
-                            screenData.kcalLeftValue
+                            caloriesSubWidget.left ?: 0
                         ),
                         modifier = Modifier.padding(all = Padding.Padding6),
                         textAlign = TextAlign.Center,
@@ -598,7 +576,10 @@ fun CaloriesBlock(screenData: HomeScreenData) {
 }
 
 @Composable
-fun WaterIntakeBlock(modifier: Modifier, screenData: HomeScreenData) {
+fun WaterIntakeBlock(
+    modifier: Modifier,
+    waterIntakeSubWidget: HomeScreenData.WaterIntakeSubWidget
+) {
     Box(
         modifier = modifier
             .fillMaxHeight()
@@ -649,7 +630,7 @@ fun WaterIntakeBlock(modifier: Modifier, screenData: HomeScreenData) {
                 Text(
                     stringResource(
                         id = R.string.private_area_dashboard_water_intake_liters,
-                        screenData.waterIntakeValue
+                        waterIntakeSubWidget.amount ?: 0
                     ),
                     modifier = Modifier
                         .textBrush(brush = Brush.horizontalGradient(BrandGradient))
@@ -662,10 +643,10 @@ fun WaterIntakeBlock(modifier: Modifier, screenData: HomeScreenData) {
                     style = PoppinsMediumStyle10Gray1
                 )
                 Box(Modifier.height(Dimen.Dimen10))
-                screenData.waterIntakeList.forEach {
-                    Text(it.time, style = PoppinsNormalStyle8Gray2)
+                waterIntakeSubWidget.intakes?.forEach {
+                    Text(it.timeDiapason ?: "", style = PoppinsNormalStyle8Gray2)
                     Text(
-                        it.value,
+                        it.amountInMillis.toString(),
                         style = PoppinsMediumStyle8,
                         modifier = Modifier
                             .textBrush(brush = Brush.horizontalGradient(SecondaryGradient))
@@ -680,7 +661,7 @@ fun WaterIntakeBlock(modifier: Modifier, screenData: HomeScreenData) {
 }
 
 @Composable
-fun LatestWorkoutBlock(screenData: HomeScreenData) {
+fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkoutWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
@@ -693,7 +674,7 @@ fun LatestWorkoutBlock(screenData: HomeScreenData) {
                 style = PoppinsMediumStyle12Gray2
             )
         }
-        screenData.latestWorkoutList.forEach {
+        latestWorkoutWidget.workouts?.forEach {
             LatestWorkoutItem(
                 modifier = Modifier
                     .padding(bottom = Padding.Padding15)
@@ -709,10 +690,10 @@ fun LatestWorkoutBlock(screenData: HomeScreenData) {
 }
 
 @Composable
-fun LatestWorkoutItem(modifier: Modifier, model: LatestWorkoutUIModel) {
+fun LatestWorkoutItem(modifier: Modifier, model: HomeScreenData.Workout) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         Image(
-            painter = painterResource(id = model.icon),
+            painter = painterResource(id = R.drawable.ic_private_area_workout),
             contentDescription = null,
             modifier = Modifier
                 .padding(start = Padding.Padding15)
@@ -730,12 +711,12 @@ fun LatestWorkoutItem(modifier: Modifier, model: LatestWorkoutUIModel) {
                 )
                 .weight(1F)
         ) {
-            Text(model.name, style = PoppinsMediumStyle12Black)
+            Text(model.name ?: "", style = PoppinsMediumStyle12Black)
             Text(
                 stringResource(
                     id = R.string.private_area_dashboard_latest_workout_calories_burn,
-                    model.calories,
-                    model.minutes
+                    model.calories ?: 0,
+                    model.minutes ?: 0
                 ),
                 style = PoppinsNormalStyle10Gray2,
                 modifier = Modifier.padding(top = Padding.Padding5)
@@ -762,15 +743,15 @@ fun LatestWorkoutItem(modifier: Modifier, model: LatestWorkoutUIModel) {
 }
 
 @Composable
-fun buildSleepDurationAnnotatedString(screenData: HomeScreenData) = buildAnnotatedString {
+fun buildSleepDurationAnnotatedString(hours: Int, minutes: Int) = buildAnnotatedString {
     withStyle(SpanStyle(fontSize = TextSize.Size14)) {
-        append(screenData.sleepDuration.hours.toString())
+        append(hours.toString())
     }
     withStyle(SpanStyle(fontSize = TextSize.Size10)) {
         append(stringResource(id = R.string.private_area_dashboard_sleep_hours))
     }
     withStyle(SpanStyle(fontSize = TextSize.Size14)) {
-        append(" ${screenData.sleepDuration.minutes}")
+        append(" $minutes")
     }
     withStyle(SpanStyle(fontSize = TextSize.Size10)) {
         append(stringResource(id = R.string.private_area_dashboard_sleep_minutes))

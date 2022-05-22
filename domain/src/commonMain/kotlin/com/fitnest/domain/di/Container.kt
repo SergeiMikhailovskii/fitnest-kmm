@@ -44,6 +44,6 @@ val useCaseModule = DI.Module("use case module") {
      * Private area
      */
     bind<GetDashboardDataUseCase>() with factory {
-        GetDashboardDataUseCase(instance())
+        GetDashboardDataUseCase(instance(), instance())
     }
 }
