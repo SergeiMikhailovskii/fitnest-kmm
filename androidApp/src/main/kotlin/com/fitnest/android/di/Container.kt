@@ -111,6 +111,6 @@ val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
         HomeViewModel(instance(), instance())
     }
     bind<HomeViewMapper>() with factory {
-        HomeViewMapper()
+        HomeViewMapper(instance())
     }
 }

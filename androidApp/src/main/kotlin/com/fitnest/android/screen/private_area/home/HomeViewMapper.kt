@@ -1,11 +1,14 @@
 package com.fitnest.android.screen.private_area.home
 
+import android.content.Context
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.entity.response.DashboardResponse
 import com.fitnest.domain.enum.BMIType
 
-class HomeViewMapper {
+class HomeViewMapper(
+    private val context: Context
+) {
 
     internal fun mapDashboardResponseToScreenData(response: DashboardResponse): HomeScreenData {
         val headerResponse = response.widgets?.headerWidget
@@ -108,17 +111,28 @@ class HomeViewMapper {
             HomeScreenData.WaterIntakeSubWidget(
                 amount = ((waterIntakeResponse.amount ?: 0) / 1000).toDouble(),
                 progress = waterIntakeResponse.progress,
-                intakes = waterIntakeResponse.intakes?.groupBy { it.timeDiapason?.substring(0, 13) }
-                    ?.map {
-                        val from = it.key?.substring(11, 13)?.toInt() ?: 0
-                        val to = from + 1
+                intakes = waterIntakeResponse.intakes?.groupBy {
+                    it.timeDiapason?.substring(0, 13)
+                }?.map {
+                    val from = it.key?.substring(11, 13)?.toInt() ?: 0
+                    val to = from + 1
 
-                        val amountByHour = it.value.sumOf { it.amountInMillis ?: 0 }
-                        HomeScreenData.WaterIntake(
-                            timeDiapason = "$from-$to",
-                            amountInMillis = amountByHour
-                        )
-                    }?.reversed()
+                    val fromStr = if (from <= 12) context.getString(
+                        R.string.private_area_dashboard_time_am,
+                        from
+                    ) else context.getString(R.string.private_area_dashboard_time_pm, from)
+
+                    val toStr = if (to <= 12) context.getString(
+                        R.string.private_area_dashboard_time_am,
+                        to
+                    ) else context.getString(R.string.private_area_dashboard_time_pm, to)
+
+                    val amountByHour = it.value.sumOf { it.amountInMillis ?: 0 }
+                    HomeScreenData.WaterIntake(
+                        timeDiapason = "$fromStr - $toStr",
+                        amountInMillis = amountByHour
+                    )
+                }?.reversed()
             )
         } else {
             null

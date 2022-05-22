@@ -34,4 +34,7 @@
     <string name="private_area_dashboard_latest_workout_title">Latest Workout</string>
     <string name="private_area_dashboard_latest_workout_see_more">See more</string>
     <string name="private_area_dashboard_latest_workout_calories_burn">%1$d Calories Burn | %2$d minutes</string>
+
+    <string name="private_area_dashboard_time_am">%1$d am</string>
+    <string name="private_area_dashboard_time_pm">%1$d pm</string>
 </resources>
