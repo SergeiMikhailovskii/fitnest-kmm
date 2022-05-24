@@ -112,24 +112,25 @@ class HomeViewMapper(
                 amount = ((waterIntakeResponse.amount ?: 0) / 1000).toDouble(),
                 progress = waterIntakeResponse.progress,
                 intakes = waterIntakeResponse.intakes?.groupBy {
-                    it.timeDiapason?.substring(0, 13)
+                    it.timeDiapason?.hour
                 }?.map {
-                    val from = it.key?.substring(11, 13)?.toInt() ?: 0
-                    val to = from + 1
+                    val hoursFrom = it.key
+                    val hoursTo = it.key?.plus(1)
 
-                    val fromStr = if (from <= 12) context.getString(
+                    val hoursFromStr = if (isBeforeMidDay(hoursFrom)) context.getString(
                         R.string.private_area_dashboard_time_am,
-                        from
-                    ) else context.getString(R.string.private_area_dashboard_time_pm, from)
+                        hoursFrom
+                    ) else context.getString(R.string.private_area_dashboard_time_pm, hoursFrom)
 
-                    val toStr = if (to <= 12) context.getString(
+                    val hoursToStr = if (isBeforeMidDay(hoursTo)) context.getString(
                         R.string.private_area_dashboard_time_am,
-                        to
-                    ) else context.getString(R.string.private_area_dashboard_time_pm, to)
+                        hoursTo
+                    ) else context.getString(R.string.private_area_dashboard_time_pm, hoursTo)
 
+                    val timeDiapason = "$hoursFromStr - $hoursToStr"
                     val amountByHour = it.value.sumOf { it.amountInMillis ?: 0 }
                     HomeScreenData.WaterIntake(
-                        timeDiapason = "$fromStr - $toStr",
+                        timeDiapason = timeDiapason,
                         amountInMillis = amountByHour
                     )
                 }?.reversed()
@@ -157,5 +158,7 @@ class HomeViewMapper(
         } else {
             null
         }
+
+    private fun isBeforeMidDay(hours: Int?) = hours in 0..12
 
 }

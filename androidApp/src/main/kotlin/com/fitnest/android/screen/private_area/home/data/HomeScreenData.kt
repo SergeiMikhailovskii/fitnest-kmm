@@ -2,6 +2,7 @@ package com.fitnest.android.screen.private_area.home.data
 
 import androidx.annotation.StringRes
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 
 data class HomeScreenData(
     val headerWidget: HeaderWidget? = null,
@@ -31,7 +32,7 @@ data class HomeScreenData(
 
     data class HeartRateSubWidget(
         val rate: Int? = null,
-        val date: LocalDate? = null
+        val date: LocalDateTime? = null
     )
 
     data class WaterIntakeSubWidget(

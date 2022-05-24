@@ -2,6 +2,7 @@ package com.fitnest.domain.entity.response
 
 import com.fitnest.domain.enum.BMIType
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -62,7 +63,7 @@ data class DashboardResponse(
     @Serializable
     data class HeartRateSubWidget(
         val rate: Int? = null,
-        val date: LocalDate? = null
+        val date: LocalDateTime? = null
     )
 
     @Serializable
@@ -75,7 +76,7 @@ data class DashboardResponse(
     @Serializable
     data class WaterIntake(
         @SerialName("time_diapason")
-        val timeDiapason: String? = null,
+        val timeDiapason: LocalDateTime? = null,
 
         @SerialName("amount_in_millis")
         val amountInMillis: Int? = null

@@ -550,7 +550,7 @@ fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                     modifier = Modifier
                         .fillMaxSize()
                         .rotate(180F),
-                    progress = ((caloriesSubWidget.consumed ?: 0) / ((caloriesSubWidget.consumed
+                    progress = ((caloriesSubWidget.consumed?.toDouble() ?: .0) / ((caloriesSubWidget.consumed
                         ?: 0) + (caloriesSubWidget.left ?: 0))).toFloat(),
                     color = BrandColor,
                 )
