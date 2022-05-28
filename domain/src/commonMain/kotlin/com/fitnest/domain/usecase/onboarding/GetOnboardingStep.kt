@@ -1,6 +1,7 @@
-package com.fitnest.domain.usecase
+package com.fitnest.domain.usecase.onboarding
 
 import com.fitnest.domain.repository.NetworkRepository
+import com.fitnest.domain.usecase.UseCase
 
 class GetOnboardingStep(private val repository: NetworkRepository) : UseCase<String>() {
 

@@ -8,12 +8,15 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import com.fitnest.android.base.FitnestApp
+import com.fitnest.android.di.privateAreaModule
 import com.fitnest.android.di.registrationModule
 import com.fitnest.android.di.viewModelModule
 import com.fitnest.di.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.kodein.di.*
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity(), DIAware {
     override val di by DI.lazy {
         bind<Context>() with instance(this@MainActivity)
         import(registrationModule)
+        import(privateAreaModule)
         import(viewModelModule)
         import(repositoryModule)
         import(serviceModule)

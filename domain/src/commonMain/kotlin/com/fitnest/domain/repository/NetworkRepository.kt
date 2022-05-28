@@ -21,4 +21,6 @@ interface NetworkRepository {
 
     suspend fun submitRegistrationStep(request: BaseRequest): Either<Failure, Unit>
 
+    suspend fun getDashboardData(): BaseResponse
+
 }

@@ -41,4 +41,7 @@ class NetworkRepository(
         networkService.sendData<Unit>(Endpoints.Onboarding.name)
             .flatMap { Either.Right(Unit) }
 
+    override suspend fun getDashboardData() =
+        networkService.getDataResult(Endpoints.PrivateArea.name + Endpoints.PrivateArea.DASHBOARD)
+
 }

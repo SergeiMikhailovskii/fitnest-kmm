@@ -4,7 +4,7 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.enum.SexType
-import com.fitnest.domain.usecase.SubmitRegistrationStepAndGetNext
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
 import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

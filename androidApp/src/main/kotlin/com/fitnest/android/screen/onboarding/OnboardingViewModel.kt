@@ -6,10 +6,9 @@ import com.fitnest.android.R
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.OnboardingState
-import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
-import com.fitnest.domain.usecase.GetOnboardingStep
-import com.fitnest.domain.usecase.SubmitOnboardingStep
+import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
+import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
 
 class OnboardingViewModel(
     private val getOnboardingStepUseCase: GetOnboardingStep,

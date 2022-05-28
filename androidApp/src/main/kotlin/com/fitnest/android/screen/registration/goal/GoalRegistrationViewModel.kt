@@ -4,7 +4,7 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.goal.data.GoalRegistrationScreenData
 import com.fitnest.domain.enum.GoalType
-import com.fitnest.domain.usecase.SubmitRegistrationStepAndGetNext
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
 
 class GoalRegistrationViewModel(
     private val viewMapper: GoalRegistrationViewMapper,

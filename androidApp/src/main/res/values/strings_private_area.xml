@@ -9,6 +9,12 @@
     <string name="private_area_dashboard_bmi_title">BMI (Body Mass Index)</string>
     <string name="private_area_dashboard_bmi_progress_percent">%1$d %%</string>
     <string name="private_area_dashboard_bmi_view_more">View More</string>
+
+    <string name="private_area_dashboard_bmi_underweight">You have a underweight</string>
+    <string name="private_area_dashboard_bmi_normal_weight">You have a normal weight</string>
+    <string name="private_area_dashboard_bmi_overweight">You have a overweight</string>
+    <string name="private_area_dashboard_bmi_obesity">You have a obesity</string>
+
     <string name="private_area_dashboard_today_target_title">Today Target</string>
     <string name="private_area_dashboard_today_target_check">Check</string>
     <string name="private_area_dashboard_activity_status_title">Activity Status</string>
@@ -22,9 +28,13 @@
     <string name="private_area_dashboard_calories_value">%1$d kCal</string>
     <string name="private_area_dashboard_calories_left_value">%1$d kCal left</string>
     <string name="private_area_dashboard_water_intake_title">Water Intake</string>
-    <string name="private_area_dashboard_water_intake_liters">%1$d Liters</string>
+    <string name="private_area_dashboard_water_intake_liters">%1$.2f Liters</string>
+    <string name="private_area_dashboard_water_intake_millis">%1$d ml</string>
     <string name="private_area_dashboard_water_intake_realtime_updates">Real time updates</string>
     <string name="private_area_dashboard_latest_workout_title">Latest Workout</string>
     <string name="private_area_dashboard_latest_workout_see_more">See more</string>
     <string name="private_area_dashboard_latest_workout_calories_burn">%1$d Calories Burn | %2$d minutes</string>
+
+    <string name="private_area_dashboard_time_am">%1$02d am</string>
+    <string name="private_area_dashboard_time_pm">%1$02d pm</string>
 </resources>
