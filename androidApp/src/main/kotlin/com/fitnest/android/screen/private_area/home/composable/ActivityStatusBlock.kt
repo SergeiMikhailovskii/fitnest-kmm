@@ -36,7 +36,12 @@ import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @Composable
 fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivityStatusWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
@@ -74,6 +79,7 @@ fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivityStatusWidge
     }
 }
 
+@ExperimentalTime
 @Composable
 private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
     var chartWidth by remember { mutableStateOf(0) }
@@ -132,8 +138,12 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                     )
                 ) {
                     Column {
-                        // todo - add parsing of the date
-                        DrawTooltip(3)
+                        val now = Clock.System.now()
+                        val lastHeartRateInstant =
+                            heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault()) ?: return
+                        val diff = now - lastHeartRateInstant
+                        val minutesDiff = diff.inWholeMinutes
+                        DrawTooltip(minutesDiff)
                     }
                 }
 
@@ -390,7 +400,7 @@ private fun DrawActivityRing() {
 }
 
 @Composable
-private fun DrawTooltip(lastHeartRate: Int) {
+private fun DrawTooltip(lastHeartRate: Long) {
     val textToDraw = stringResource(
         id = R.string.private_area_dashboard_tooltip_minutes_left,
         lastHeartRate

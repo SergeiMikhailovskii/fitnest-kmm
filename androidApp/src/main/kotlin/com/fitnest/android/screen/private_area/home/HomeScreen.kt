@@ -18,7 +18,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.screen.private_area.home.composable.*
 import com.fitnest.android.style.Padding
 import org.kodein.di.compose.rememberInstance
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @Preview
 @Composable
 fun HomeScreen() {

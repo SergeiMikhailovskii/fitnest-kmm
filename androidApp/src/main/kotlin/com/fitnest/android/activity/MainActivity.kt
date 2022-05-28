@@ -14,7 +14,9 @@ import com.fitnest.android.di.viewModelModule
 import com.fitnest.di.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.kodein.di.*
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
