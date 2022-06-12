@@ -29,6 +29,12 @@ jobs:
           name: androidApp-debug.apk
           path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
 
+  distribute:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
       - name: Upload artifact to FAD
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
