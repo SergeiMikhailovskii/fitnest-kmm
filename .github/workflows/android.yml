@@ -14,7 +14,7 @@ jobs:
 
       - name: Get latest commit
         id: vars
-        run: echo ::set-output name=LATEST_COMMIT_MESSAGE::$(echo git log -1 --pretty=format:"%s")
+        run: ::set-output name=LATEST_COMMIT_MESSAGE::$(echo $(git log -1 --pretty=format:"%s"))
 
       - name: Print commit
         run: echo $(steps.vars.outputs.LATEST_COMMIT_MESSAGE)
