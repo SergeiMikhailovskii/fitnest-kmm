@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
     kotlin("android")
 }
 
@@ -8,6 +9,7 @@ dependencies {
     implementation(AndroidDependencies.dependencies)
     implementation(ComposeDependencies.dependencies)
     implementation(KodeinDependencies.Android.dependencies)
+    implementation(platform("com.google.firebase:firebase-bom:30.1.0"))
 }
 
 android {
