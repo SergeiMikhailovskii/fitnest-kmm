@@ -7,17 +7,17 @@ on:
     branches:
       - 'master'
 jobs:
-  test:
+  testJob:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
 
-    - name: Get latest commit
-      id: vars
-      run: echo ::set-output name=LATEST_COMMIT_MESSAGE::${github.event.commits[0].message}
+      - name: Get latest commit
+        id: vars
+        run: echo ::set-output name=LATEST_COMMIT_MESSAGE::${github.event.commits[0].message}
 
-    - name: Print commit
-      run: steps.vars.outputs.LATEST_COMMIT_MESSAGE
+      - name: Print commit
+        run: steps.vars.outputs.LATEST_COMMIT_MESSAGE
 
 #  build:
 #    runs-on: macos-latest
