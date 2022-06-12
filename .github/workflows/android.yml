@@ -38,6 +38,10 @@ jobs:
         with:
           name: androidApp-debug.apk
 
+      - name: Get latest commit
+        id: vars
+        run: echo ::set-output name=LATEST_COMMIT_MESSAGE::${github.event.commits[0].message}
+
       - name: Upload artifact to FAD
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
@@ -45,3 +49,4 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
           file: androidApp-debug.apk
+          releaseNotes: ${{ steps.vars.outputs.LATEST_COMMIT_MESSAGE }}
