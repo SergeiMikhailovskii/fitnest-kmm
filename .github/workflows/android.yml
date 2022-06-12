@@ -17,3 +17,8 @@ jobs:
           java-version: '11'
       - name: Build debug
         run: ./gradlew assembleDebug
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: androidApp-debug.apk
+          path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
