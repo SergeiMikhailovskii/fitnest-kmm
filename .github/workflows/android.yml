@@ -11,5 +11,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Test script
-        run: echo Hello, world!
+      - name: Build debug
+        run: ./gradlew assembleDebug
