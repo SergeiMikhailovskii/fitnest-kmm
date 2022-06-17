@@ -2,6 +2,7 @@ package com.fitnest.android.screen.private_area.home
 
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
+import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import kotlinx.coroutines.delay
@@ -29,6 +30,10 @@ class HomeViewModel(
             _screenDataFlow.emit(screenData.copy())
             _progressSharedFlow.emit(false)
         }
+    }
+
+    internal fun navigateToNotifications() {
+        handleRoute(Route.PrivateAreaNotifications)
     }
 
 }

@@ -24,6 +24,7 @@ import com.fitnest.android.enum.BottomNavigationType
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.private_area.home.HomeScreen
+import com.fitnest.android.screen.private_area.notification.NotificationsScreen
 import com.fitnest.android.screen.private_area.photo.PhotoScreen
 import com.fitnest.android.screen.private_area.settings.SettingsScreen
 import com.fitnest.android.screen.private_area.tracker.TrackerScreen
@@ -174,7 +175,7 @@ fun FitnestApp() {
                     }
                 }
                 composable(route = Route.PrivateAreaHome.screenName) {
-                    HomeScreen()
+                    HomeScreen(navController = navController)
                 }
                 composable(route = Route.PrivateAreaSettings.screenName) {
                     SettingsScreen()
@@ -184,6 +185,9 @@ fun FitnestApp() {
                 }
                 composable(route = Route.PrivateAreaTracker.screenName) {
                     TrackerScreen()
+                }
+                composable(route = Route.PrivateAreaNotifications.screenName) {
+                    NotificationsScreen()
                 }
             }
         }
