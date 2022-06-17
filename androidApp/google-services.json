@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "622421916627",
+    "project_id": "fitnest-328617",
+    "storage_bucket": "fitnest-328617.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622421916627:android:1436ad6633c0df8b65cd26",
+        "android_client_info": {
+          "package_name": "com.fitnest.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622421916627-lsoilhtl680o7cmpi7ed7gt4iqavt0od.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZiEvCzaT4QJgoI9WDK3OkWxMy0GFBFwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622421916627-lsoilhtl680o7cmpi7ed7gt4iqavt0od.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

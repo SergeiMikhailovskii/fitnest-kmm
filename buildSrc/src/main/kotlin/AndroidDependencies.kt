@@ -12,11 +12,13 @@ object AndroidDependencies : Dependencies {
         "androidx.appcompat:appcompat:${Versions.APPCOMPAT_VERSION}"
     private const val CONSTRAINT_LAYOUT =
         "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT_VERSION}"
+    private const val ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
 
     override val dependencies = mutableListOf(
         MATERIAL,
         APPCOMPAT,
-        CONSTRAINT_LAYOUT
+        CONSTRAINT_LAYOUT,
+        ANALYTICS
     )
 
 }
