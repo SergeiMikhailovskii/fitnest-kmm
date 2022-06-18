@@ -10,9 +10,8 @@ import androidx.compose.runtime.Composable
 @ExperimentalFoundationApi
 @Composable
 internal fun NotificationsScreen() {
-    val state = rememberLazyListState()
     Box {
-        LazyColumn(state = state) {
+        LazyColumn {
             items(150) {
                 Text("Hello, $it")
             }
