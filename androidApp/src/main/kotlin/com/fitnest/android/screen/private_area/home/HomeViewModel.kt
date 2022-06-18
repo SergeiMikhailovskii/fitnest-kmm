@@ -21,13 +21,13 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            _progressStateFlow.emit(true)
+            handleProgress(true)
             val dashboardData = getDashboardDataUseCase().getOrThrow()
             val mappedData = viewMapper.mapDashboardResponseToScreenData(dashboardData)
 
             screenData = mappedData
             _screenDataFlow.emit(screenData.copy())
-            _progressStateFlow.emit(false)
+            handleProgress(false)
         }
     }
 
