@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
@@ -14,6 +15,7 @@ internal fun NotificationsScreen() {
         LazyColumn {
             items(150) {
                 Text("Hello, $it")
+                Divider()
             }
         }
     }
