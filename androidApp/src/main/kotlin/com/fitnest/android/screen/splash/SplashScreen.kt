@@ -42,7 +42,7 @@ fun SplashScreen(navController: NavController) {
             }
         }
         launch {
-            viewModel.progressSharedFlow.collect {
+            viewModel.progressStateFlow.collect {
                 progress = it
             }
         }
