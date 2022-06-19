@@ -81,6 +81,6 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
-fun handleNavigation(route: Route, navController: NavController) {
+private fun handleNavigation(route: Route, navController: NavController) {
     navController.navigate(route.screenName)
 }
