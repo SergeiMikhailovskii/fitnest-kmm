@@ -19,7 +19,15 @@ import com.fitnest.android.style.PoppinsMediumStyle12Black
 
 @Preview
 @Composable
-internal fun NotificationItem() {
+private fun NotificationItemPreview() {
+    NotificationItem(title = "Hey, it’s time for lunch", description = "About 1 minutes ago")
+}
+
+@Composable
+internal fun NotificationItem(
+    title: String,
+    description: String
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,8 +45,8 @@ internal fun NotificationItem() {
                 .weight(1F),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("Hey, it’s time for lunch", style = PoppinsMediumStyle12Black)
-            Text("About 1 minutes ago", style = PoppinsMediumStyle10Gray1)
+            Text(title, style = PoppinsMediumStyle12Black)
+            Text(description, style = PoppinsMediumStyle10Gray1)
         }
         Icon(Icons.Default.MoreVert, contentDescription = null, tint = GrayColor2)
     }
