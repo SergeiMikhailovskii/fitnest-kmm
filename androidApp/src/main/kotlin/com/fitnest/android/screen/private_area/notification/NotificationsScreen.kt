@@ -8,12 +8,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.zIndex
+import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.extension.move
@@ -22,6 +24,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlin.math.absoluteValue
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
 internal fun NotificationsScreen() {
@@ -97,18 +100,16 @@ internal fun NotificationsScreen() {
                         indexWithOffset?.takeIf { it.first == index }?.second
                     }
                 }
-                Box(
+                NotificationItem(
                     modifier = Modifier
                         .zIndex(offset?.let { 1f } ?: 0f)
                         .graphicsLayer {
                             translationY = offset ?: 0f
-                        }
-                ) {
-                    NotificationItem(
-                        title = it.title,
-                        description = it.description
-                    )
-                }
+                        },
+                    title = it.title,
+                    description = it.description,
+                    icon = R.drawable.ic_private_area_notification_meal
+                )
                 Divider()
             }
         }
