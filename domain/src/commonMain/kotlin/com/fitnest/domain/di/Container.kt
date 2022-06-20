@@ -5,6 +5,7 @@ import com.fitnest.domain.usecase.LoginUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
+import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
 import org.kodein.di.DI
@@ -45,5 +46,8 @@ val useCaseModule = DI.Module("use case module") {
      */
     bind<GetDashboardDataUseCase>() with factory {
         GetDashboardDataUseCase(instance(), instance())
+    }
+    bind<GetNotificationsPageUseCase>() with factory {
+        GetNotificationsPageUseCase(instance(), instance())
     }
 }

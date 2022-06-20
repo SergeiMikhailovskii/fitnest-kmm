@@ -15,6 +15,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.android.style.Padding
@@ -22,12 +24,19 @@ import com.fitnest.domain.extension.move
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import org.kodein.di.compose.rememberInstance
 import kotlin.math.absoluteValue
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
 internal fun NotificationsScreen() {
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = NotificationsViewModel::class.java
+    )
+
     val list = mutableListOf<NotificationUIInfo>().apply {
         for (i in 0..150) {
             add(

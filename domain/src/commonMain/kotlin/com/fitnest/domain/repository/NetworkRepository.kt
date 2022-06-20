@@ -23,4 +23,6 @@ interface NetworkRepository {
 
     suspend fun getDashboardData(): BaseResponse
 
+    suspend fun getNotificationsPage(): BaseResponse
+
 }

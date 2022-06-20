@@ -44,4 +44,7 @@ class NetworkRepository(
     override suspend fun getDashboardData() =
         networkService.getDataResult(Endpoints.PrivateArea.name + Endpoints.PrivateArea.DASHBOARD)
 
+    override suspend fun getNotificationsPage() =
+        networkService.getDataResult(Endpoints.PrivateArea.name + Endpoints.PrivateArea.NOTIFICATIONS)
+
 }
