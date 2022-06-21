@@ -15,8 +15,8 @@ class GetNotificationsPageUseCase(
     }.fold(
         onSuccess = {
             val decoded = json.decodeFromJsonElement<NotificationsPageResponse>(it.data)
-            decoded.widgets?.notificationsWidget?.notifications
+            Result.success(decoded.widgets?.notificationsWidget?.notifications)
         },
-        onFailure = { it }
+        onFailure = { Result.failure(it) }
     )
 }

@@ -18,7 +18,6 @@ import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.extension.move
 import kotlinx.coroutines.flow.collect
@@ -37,16 +36,7 @@ internal fun NotificationsScreen() {
         modelClass = NotificationsViewModel::class.java
     )
 
-    val list = mutableListOf<NotificationUIInfo>().apply {
-        for (i in 0..150) {
-            add(
-                NotificationUIInfo(
-                    title = "Hey, it’s time for lunch",
-                    description = "About $i minutes ago"
-                )
-            )
-        }
-    }
+    val screenData by viewModel.screenDataFlow.collectAsState()
 
     val listState = rememberLazyListState()
     var position by remember { mutableStateOf<Float?>(null) }
@@ -71,7 +61,7 @@ internal fun NotificationsScreen() {
                 draggedItem = when {
                     near == null -> null
                     draggedItem == null -> near
-                    else -> near.also { list.move(draggedItem ?: 0, it) }
+                    else -> near.also { screenData.notifications.toMutableList().move(draggedItem ?: 0, it) }
                 }
             }
     }
@@ -103,7 +93,7 @@ internal fun NotificationsScreen() {
                     )
                 }
         ) {
-            itemsIndexed(list) { index, it ->
+            itemsIndexed(screenData.notifications) { index, it ->
                 val offset by remember {
                     derivedStateOf {
                         indexWithOffset?.takeIf { it.first == index }?.second

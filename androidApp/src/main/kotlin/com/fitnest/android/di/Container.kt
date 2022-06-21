@@ -6,6 +6,7 @@ import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
+import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
 import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.RegistrationScreenState
@@ -119,6 +120,9 @@ val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
 
 val notificationsPrivateAreaModule = DI.Module("notifications private area module") {
     bind<NotificationsViewModel>() with factory {
-        NotificationsViewModel(instance())
+        NotificationsViewModel(instance(), instance())
+    }
+    bind<NotificationsViewMapper>() with factory {
+        NotificationsViewMapper()
     }
 }
