@@ -114,7 +114,7 @@ internal fun NotificationsScreen() {
                         },
                     title = it.title,
                     description = it.description,
-                    icon = R.drawable.ic_private_area_notification_meal
+                    icon = it.icon
                 )
                 if (screenData.notifications.last() != it) {
                     Divider()

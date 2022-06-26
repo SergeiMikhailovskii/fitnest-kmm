@@ -1,5 +1,6 @@
 package com.fitnest.domain.enum
 
 enum class NotificationType {
-    DEFAULT
+    DEFAULT,
+    WORKOUT
 }

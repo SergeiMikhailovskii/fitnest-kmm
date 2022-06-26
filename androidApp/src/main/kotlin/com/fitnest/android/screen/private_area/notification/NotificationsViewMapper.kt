@@ -8,6 +8,7 @@ import com.fitnest.android.extension.getMinutesDiff
 import com.fitnest.android.extension.isSameHour
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.domain.entity.response.NotificationsPageResponse
+import com.fitnest.domain.enum.NotificationType
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -22,7 +23,8 @@ internal class NotificationsViewMapper(
         notifications?.map {
             NotificationUIInfo(
                 title = it.title ?: "",
-                description = formatNotificationTime(it.date)
+                description = formatNotificationTime(it.date),
+                icon = getNotificationIcon(it.type)
             )
         } ?: emptyList()
 
@@ -39,5 +41,9 @@ internal class NotificationsViewMapper(
             SimpleDateFormat("dd MMMM", Locale.getDefault()).format(Date(millis))
         }
     }
+
+    private fun getNotificationIcon(type: NotificationType?) =
+        if (type == NotificationType.WORKOUT) R.drawable.ic_private_area_notification_workout
+        else R.drawable.ic_private_area_notification_meal
 
 }
