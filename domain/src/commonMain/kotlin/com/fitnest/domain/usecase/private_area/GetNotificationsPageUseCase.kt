@@ -12,11 +12,10 @@ class GetNotificationsPageUseCase(
 
     suspend operator fun invoke() = runCatching {
         repository.getNotificationsPage()
-    }.fold(
-        onSuccess = {
-            val decoded = json.decodeFromJsonElement<NotificationsPageResponse>(it.data)
-            Result.success(decoded.widgets?.notificationsWidget?.notifications)
-        },
-        onFailure = { Result.failure(it) }
-    )
+    }.map {
+        val decoded = json.decodeFromJsonElement<NotificationsPageResponse>(it.data)
+        val notifications = decoded.widgets?.notificationsWidget?.notifications
+        val sorted = notifications?.sortedByDescending { it.date }
+        sorted
+    }
 }

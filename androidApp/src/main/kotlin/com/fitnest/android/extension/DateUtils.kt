@@ -18,4 +18,4 @@ internal fun isSameHour(firstDate: Long, secondDate: Long = Date().time): Boolea
 
 internal fun getMinutesDiff(from: Long, to: Long = Date().time): Long = (to - from) / 1000 / 60
 
-internal fun getHoursDiff(from: Long, to: Long = Date().time): Long = (to - from) / 1000 / 60
+internal fun getHoursDiff(from: Long, to: Long = Date().time): Long = (to - from) / 1000 / 60 / 60
