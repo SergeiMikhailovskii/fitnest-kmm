@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -21,10 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
-import com.fitnest.android.style.GrayColor2
-import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsMediumStyle10Gray1
-import com.fitnest.android.style.PoppinsMediumStyle12Black
+import com.fitnest.android.style.*
 import kotlin.math.absoluteValue
 
 @ExperimentalMaterialApi
@@ -34,7 +32,8 @@ private fun NotificationItemPreview() {
     NotificationItem(
         title = "Hey, it’s time for lunch",
         description = "About 1 minutes ago",
-        icon = R.drawable.ic_private_area_notification_meal
+        icon = R.drawable.ic_private_area_notification_meal,
+        isActive = true
     )
 }
 
@@ -44,7 +43,8 @@ internal fun NotificationItem(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
-    @DrawableRes icon: Int
+    @DrawableRes icon: Int,
+    isActive: Boolean
 ) {
     val dismissState = rememberDismissState(
         confirmStateChange = {
@@ -102,6 +102,17 @@ internal fun NotificationItem(
                 .padding(vertical = Padding.Padding16),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            if (isActive) {
+                Box(
+                    modifier = Modifier
+                        .padding(end = Padding.Padding16)
+                        .background(
+                            color = Color.Red,
+                            shape = CircleShape
+                        )
+                        .size(Dimen.Dimen8)
+                )
+            }
             Image(
                 painter = painterResource(id = icon),
                 contentDescription = null

@@ -114,7 +114,8 @@ internal fun NotificationsScreen() {
                         },
                     title = it.title,
                     description = it.description,
-                    icon = it.icon
+                    icon = it.icon,
+                    isActive = it.isActive
                 )
                 if (screenData.notifications.last() != it) {
                     Divider()

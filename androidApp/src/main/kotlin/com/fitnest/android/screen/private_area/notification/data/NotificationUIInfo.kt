@@ -5,5 +5,6 @@ import androidx.annotation.DrawableRes
 data class NotificationUIInfo(
     val title: String,
     val description: String,
-    @DrawableRes val icon: Int
+    @DrawableRes val icon: Int,
+    val isActive: Boolean
 )
