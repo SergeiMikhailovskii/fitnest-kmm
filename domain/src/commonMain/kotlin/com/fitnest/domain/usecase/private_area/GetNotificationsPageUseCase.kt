@@ -15,7 +15,6 @@ class GetNotificationsPageUseCase(
     }.map {
         val decoded = json.decodeFromJsonElement<NotificationsPageResponse>(it.data)
         val notifications = decoded.widgets?.notificationsWidget?.notifications
-        val sorted = notifications?.sortedByDescending { it.date }
-        sorted
+        notifications?.sortedByDescending { it.date }
     }
 }
