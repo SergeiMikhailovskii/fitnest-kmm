@@ -25,9 +25,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.kodein.di.compose.rememberInstance
 import kotlin.math.absoluteValue
+import kotlin.time.ExperimentalTime
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
+@ExperimentalTime
 @Composable
 internal fun NotificationsScreen() {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
@@ -109,7 +111,9 @@ internal fun NotificationsScreen() {
                     description = it.description,
                     icon = R.drawable.ic_private_area_notification_meal
                 )
-                Divider()
+                if (screenData.notifications.last() != it) {
+                    Divider()
+                }
             }
         }
     }

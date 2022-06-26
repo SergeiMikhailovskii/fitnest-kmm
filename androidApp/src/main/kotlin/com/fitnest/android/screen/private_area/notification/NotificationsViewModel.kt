@@ -7,6 +7,7 @@ import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlin.time.ExperimentalTime
 
 internal class NotificationsViewModel(
     private val getNotificationsPageUseCase: GetNotificationsPageUseCase,

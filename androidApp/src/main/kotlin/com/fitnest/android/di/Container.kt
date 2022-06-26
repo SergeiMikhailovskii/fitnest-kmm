@@ -123,6 +123,6 @@ val notificationsPrivateAreaModule = DI.Module("notifications private area modul
         NotificationsViewModel(instance(), instance())
     }
     bind<NotificationsViewMapper>() with factory {
-        NotificationsViewMapper()
+        NotificationsViewMapper(instance())
     }
 }
