@@ -3,6 +3,7 @@ package com.fitnest.android.screen.private_area.notification
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.screen.private_area.notification.data.NotificationScreenData
+import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,6 +27,11 @@ internal class NotificationsViewModel(
             screenData = screenData.copy(notifications = mappedNotifications)
             updateScreen()
         }
+    }
+
+    internal fun updateNotifications(movedList: List<NotificationUIInfo>) {
+        screenData = screenData.copy(notifications = movedList)
+        updateScreen()
     }
 
     private fun updateScreen() {

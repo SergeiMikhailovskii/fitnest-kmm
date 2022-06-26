@@ -63,7 +63,12 @@ internal fun NotificationsScreen() {
                 draggedItem = when {
                     near == null -> null
                     draggedItem == null -> near
-                    else -> near.also { screenData.notifications.toMutableList().move(draggedItem ?: 0, it) }
+                    else -> near.also {
+                        val movedList = screenData.notifications.toMutableList().apply {
+                            move(draggedItem ?: 0, it)
+                        }.toList()
+                        viewModel.updateNotifications(movedList)
+                    }
                 }
             }
     }
