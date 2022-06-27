@@ -18,8 +18,15 @@ internal object Endpoints {
     object PrivateArea : Group {
         override val name = "private-area/"
 
-        const val DASHBOARD = "dashboard"
-        const val NOTIFICATIONS = "notifications"
+        val DASHBOARD = "${name}dashboard"
+
+        object Notifications : Group {
+
+            override val name = "${PrivateArea.name}notifications/"
+
+            val DEACTIVATE = "${name}deactivate"
+
+        }
     }
 
     interface Group {

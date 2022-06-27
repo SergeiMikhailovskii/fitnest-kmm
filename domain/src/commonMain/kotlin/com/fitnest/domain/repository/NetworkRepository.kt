@@ -25,4 +25,6 @@ interface NetworkRepository {
 
     suspend fun getNotificationsPage(): BaseResponse
 
+    suspend fun deactivateNotifications(ids: List<Int>?): BaseResponse
+
 }

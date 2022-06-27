@@ -11,6 +11,11 @@ interface NetworkService {
         data: Request? = null
     ): Either<Failure, BaseResponse>
 
+    suspend fun <Request> sendDataResult(
+        path: String,
+        data: Request? = null
+    ): BaseResponse
+
     suspend fun getData(path: String): Either<Failure, BaseResponse>
 
     suspend fun getDataResult(path: String): BaseResponse

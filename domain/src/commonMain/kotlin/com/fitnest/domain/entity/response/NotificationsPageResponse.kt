@@ -23,6 +23,7 @@ class NotificationsPageResponse(
 
     @Serializable
     class Notification(
+        val id: Int? = null,
         val title: String? = null,
         val date: LocalDateTime? = null,
         val type: NotificationType? = null,

@@ -4,6 +4,7 @@ import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.LoginUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
+import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
@@ -49,5 +50,8 @@ val useCaseModule = DI.Module("use case module") {
     }
     bind<GetNotificationsPageUseCase>() with factory {
         GetNotificationsPageUseCase(instance(), instance())
+    }
+    bind<DeactivateNotificationsUseCase>() with factory {
+        DeactivateNotificationsUseCase(instance())
     }
 }

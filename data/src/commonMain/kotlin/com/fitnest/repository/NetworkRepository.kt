@@ -42,9 +42,13 @@ class NetworkRepository(
             .flatMap { Either.Right(Unit) }
 
     override suspend fun getDashboardData() =
-        networkService.getDataResult(Endpoints.PrivateArea.name + Endpoints.PrivateArea.DASHBOARD)
+        networkService.getDataResult(Endpoints.PrivateArea.DASHBOARD)
 
     override suspend fun getNotificationsPage() =
-        networkService.getDataResult(Endpoints.PrivateArea.name + Endpoints.PrivateArea.NOTIFICATIONS)
+        networkService.getDataResult(Endpoints.PrivateArea.Notifications.name)
+
+    override suspend fun deactivateNotifications(ids: List<Int>?) =
+        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DEACTIVATE, data = ids)
+
 
 }
