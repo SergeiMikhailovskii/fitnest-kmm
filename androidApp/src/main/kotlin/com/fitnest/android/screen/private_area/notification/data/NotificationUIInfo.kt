@@ -6,5 +6,6 @@ data class NotificationUIInfo(
     val title: String,
     val description: String,
     @DrawableRes val icon: Int,
-    val isActive: Boolean
+    val isActive: Boolean,
+    val isPinned: Boolean
 )

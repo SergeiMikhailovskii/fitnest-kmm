@@ -18,10 +18,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
+import com.fitnest.android.extension.vibrate
 import com.fitnest.android.style.*
 import kotlin.math.absoluteValue
 
@@ -33,7 +37,8 @@ private fun NotificationItemPreview() {
         title = "Hey, it’s time for lunch",
         description = "About 1 minutes ago",
         icon = R.drawable.ic_private_area_notification_meal,
-        isActive = true
+        isActive = true,
+        isPinned = true
     )
 }
 
@@ -44,14 +49,20 @@ internal fun NotificationItem(
     title: String,
     description: String,
     @DrawableRes icon: Int,
-    isActive: Boolean
+    isActive: Boolean,
+    isPinned: Boolean,
 ) {
+    val view = LocalView.current
+    val haptic = LocalHapticFeedback.current
+
     val dismissState = rememberDismissState(
         confirmStateChange = {
             if (it == DismissValue.DismissedToEnd) {
                 println("dismissed to end")
+                vibrate(view)
             } else if (it == DismissValue.DismissedToStart) {
                 println("dismissed to start")
+                vibrate(view)
             }
             it == DismissValue.Default
         }
@@ -127,6 +138,13 @@ internal fun NotificationItem(
                 Text(title, style = PoppinsMediumStyle12Black)
                 Text(description, style = PoppinsMediumStyle10Gray1)
             }
+            if (isPinned) Icon(
+                Icons.Default.PushPin,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(end = Padding.Padding16)
+                    .size(Dimen.Dimen12)
+            )
             Icon(Icons.Default.MoreVert, contentDescription = null, tint = GrayColor2)
         }
     }

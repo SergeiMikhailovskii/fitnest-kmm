@@ -25,7 +25,8 @@ internal class NotificationsViewMapper(
                 title = it.title ?: "",
                 description = formatNotificationTime(it.date),
                 icon = getNotificationIcon(it.type),
-                isActive = it.isActive == true
+                isActive = it.isActive == true,
+                isPinned = it.isPinned == true
             )
         } ?: emptyList()
 

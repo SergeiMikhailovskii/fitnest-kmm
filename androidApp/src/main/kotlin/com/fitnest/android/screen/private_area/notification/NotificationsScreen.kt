@@ -1,12 +1,5 @@
 package com.fitnest.android.screen.private_area.notification
 
-import android.content.Context
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
-import android.view.HapticFeedbackConstants
-import android.view.View
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.layout.Box
@@ -19,16 +12,13 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.hapticfeedback.HapticFeedback
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.fitnest.android.extension.vibrate
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.extension.move
 import kotlinx.coroutines.flow.collect
@@ -130,7 +120,8 @@ internal fun NotificationsScreen() {
                     title = it.title,
                     description = it.description,
                     icon = it.icon,
-                    isActive = it.isActive
+                    isActive = it.isActive,
+                    isPinned = it.isPinned
                 )
                 if (screenData.notifications.last() != it) {
                     Divider()
@@ -138,8 +129,4 @@ internal fun NotificationsScreen() {
             }
         }
     }
-}
-
-private fun vibrate(view: View) {
-    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
 }
