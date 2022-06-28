@@ -1,5 +1,12 @@
 package com.fitnest.android.screen.private_area.notification
 
+import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
+import android.view.HapticFeedbackConstants
+import android.view.View
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.layout.Box
@@ -12,12 +19,16 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.fitnest.android.R
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.extension.move
 import kotlinx.coroutines.flow.collect
@@ -44,6 +55,8 @@ internal fun NotificationsScreen() {
     var position by remember { mutableStateOf<Float?>(null) }
     var draggedItem by remember { mutableStateOf<Int?>(null) }
 
+    val view = LocalView.current
+
     val indexWithOffset by derivedStateOf {
         draggedItem
             ?.let { listState.layoutInfo.visibleItemsInfo.getOrNull(it - listState.firstVisibleItemIndex) }
@@ -68,6 +81,8 @@ internal fun NotificationsScreen() {
                             move(draggedItem ?: 0, it)
                         }.toList()
                         viewModel.updateNotifications(movedList)
+
+                        vibrate(view)
                     }
                 }
             }
@@ -123,4 +138,8 @@ internal fun NotificationsScreen() {
             }
         }
     }
+}
+
+private fun vibrate(view: View) {
+    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
 }
