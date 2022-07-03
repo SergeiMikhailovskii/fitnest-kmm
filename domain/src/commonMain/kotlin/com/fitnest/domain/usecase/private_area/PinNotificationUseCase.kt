@@ -7,7 +7,7 @@ class PinNotificationUseCase(
     private val repository: NetworkRepository
 ) {
 
-    suspend operator fun invoke(request: PinNotificationRequest) {
+    suspend operator fun invoke(request: PinNotificationRequest) = kotlin.runCatching {
         repository.pinNotification(request)
     }
 }

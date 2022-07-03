@@ -123,7 +123,7 @@ internal fun NotificationsScreen() {
                     isActive = it.isActive,
                     isPinned = it.isPinned,
                     onPin = {
-                        viewModel.pinNotification(it.id)
+                        viewModel.pinNotification(screenData.notifications[index].id)
                     }
                 )
                 if (screenData.notifications.last() != it) {

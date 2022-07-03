@@ -29,7 +29,7 @@ internal class NotificationsViewModel(
             val result = getNotificationsPageUseCase().getOrThrow()
             val mappedNotifications = viewMapper.mapServerNotificationsToUIModel(result)
             screenData = screenData.copy(notifications = mappedNotifications)
-            updateScreen()
+            orderNotificationsAndUpdateScreen()
 
             deactivateNotifications(result)
         }
@@ -45,8 +45,34 @@ internal class NotificationsViewModel(
         val request = viewMapper.mapNotificationToPinRequest(notificationToPin)
 
         viewModelScope.launch {
-            pinNotificationUseCase(request)
+            pinNotificationUseCase(request).getOrThrow()
+            screenData = screenData.copy(
+                notifications = screenData.notifications.map {
+                    if (it.id == notificationToPin.id) {
+                        it.copy(isPinned = !it.isPinned)
+                    } else {
+                        it
+                    }
+                }
+            )
+            orderNotificationsAndUpdateScreen()
         }
+    }
+
+    private fun orderNotificationsAndUpdateScreen() {
+        val groupedNotifications = screenData.notifications.sortedByDescending { it.isPinned }
+            .groupBy {
+                it.isPinned
+            }.mapValues {
+                it.value.sortedByDescending { it.date }
+            }
+        val orderedNotifications = mutableListOf<NotificationUIInfo>().apply {
+            groupedNotifications.forEach {
+                addAll(it.value)
+            }
+        }
+        screenData = screenData.copy(notifications = orderedNotifications)
+        updateScreen()
     }
 
     private fun deactivateNotifications(notifications: List<NotificationsPageResponse.Notification>?) {
