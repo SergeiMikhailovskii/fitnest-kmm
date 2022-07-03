@@ -7,6 +7,7 @@ import com.fitnest.android.extension.getHoursDiff
 import com.fitnest.android.extension.getMinutesDiff
 import com.fitnest.android.extension.isSameHour
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
+import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.entity.response.NotificationsPageResponse
 import com.fitnest.domain.enum.NotificationType
 import kotlinx.datetime.LocalDateTime
@@ -22,6 +23,7 @@ internal class NotificationsViewMapper(
     internal fun mapServerNotificationsToUIModel(notifications: List<NotificationsPageResponse.Notification>?) =
         notifications?.map {
             NotificationUIInfo(
+                id = it.id ?: 0,
                 title = it.title ?: "",
                 description = formatNotificationTime(it.date),
                 icon = getNotificationIcon(it.type),
@@ -29,6 +31,9 @@ internal class NotificationsViewMapper(
                 isPinned = it.isPinned == true
             )
         } ?: emptyList()
+
+    internal fun mapNotificationToPinRequest(notification: NotificationUIInfo) =
+        PinNotificationRequest(notification.id, !notification.isPinned)
 
     private fun formatNotificationTime(date: LocalDateTime?): String {
         val millis = date?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: 0

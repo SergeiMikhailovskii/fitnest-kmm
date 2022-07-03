@@ -2,7 +2,8 @@ package com.fitnest.android.screen.private_area.notification.data
 
 import androidx.annotation.DrawableRes
 
-data class NotificationUIInfo(
+internal data class NotificationUIInfo(
+    val id: Int,
     val title: String,
     val description: String,
     @DrawableRes val icon: Int,

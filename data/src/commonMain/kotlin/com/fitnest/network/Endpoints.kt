@@ -22,9 +22,10 @@ internal object Endpoints {
 
         object Notifications : Group {
 
-            override val name = "${PrivateArea.name}notifications/"
+            override val name = "${PrivateArea.name}notifications"
 
-            val DEACTIVATE = "${name}deactivate"
+            val DEACTIVATE = "${name}/deactivate"
+            val PIN = "${name}/pin"
 
         }
     }

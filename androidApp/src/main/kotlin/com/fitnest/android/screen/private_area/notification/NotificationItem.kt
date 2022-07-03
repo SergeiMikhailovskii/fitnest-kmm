@@ -18,8 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,14 +49,14 @@ internal fun NotificationItem(
     @DrawableRes icon: Int,
     isActive: Boolean,
     isPinned: Boolean,
+    onPin: (() -> Unit)? = null
 ) {
     val view = LocalView.current
-    val haptic = LocalHapticFeedback.current
 
     val dismissState = rememberDismissState(
         confirmStateChange = {
             if (it == DismissValue.DismissedToEnd) {
-                println("dismissed to end")
+                onPin?.invoke()
                 vibrate(view)
             } else if (it == DismissValue.DismissedToStart) {
                 println("dismissed to start")

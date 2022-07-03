@@ -121,7 +121,10 @@ internal fun NotificationsScreen() {
                     description = it.description,
                     icon = it.icon,
                     isActive = it.isActive,
-                    isPinned = it.isPinned
+                    isPinned = it.isPinned,
+                    onPin = {
+                        viewModel.pinNotification(it.id)
+                    }
                 )
                 if (screenData.notifications.last() != it) {
                     Divider()

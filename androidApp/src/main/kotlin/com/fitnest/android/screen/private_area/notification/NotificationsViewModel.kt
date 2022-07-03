@@ -7,6 +7,7 @@ import com.fitnest.android.screen.private_area.notification.data.NotificationUII
 import com.fitnest.domain.entity.response.NotificationsPageResponse
 import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
+import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 internal class NotificationsViewModel(
     private val getNotificationsPageUseCase: GetNotificationsPageUseCase,
     private val deactivateNotificationsUseCase: DeactivateNotificationsUseCase,
+    private val pinNotificationUseCase: PinNotificationUseCase,
     private val viewMapper: NotificationsViewMapper
 ) : BaseViewModel() {
 
@@ -38,9 +40,18 @@ internal class NotificationsViewModel(
         updateScreen()
     }
 
+    internal fun pinNotification(id: Int) {
+        val notificationToPin = screenData.notifications.firstOrNull { it.id == id } ?: return
+        val request = viewMapper.mapNotificationToPinRequest(notificationToPin)
+
+        viewModelScope.launch {
+            pinNotificationUseCase(request)
+        }
+    }
+
     private fun deactivateNotifications(notifications: List<NotificationsPageResponse.Notification>?) {
-        val activeNotificationIds =
-            notifications?.filter { it.isActive == true }?.mapNotNull { it.id }
+        val activeNotificationIds = notifications?.filter { it.isActive == true }
+            ?.mapNotNull { it.id }
 
         if (!activeNotificationIds.isNullOrEmpty()) {
             viewModelScope.launch { deactivateNotificationsUseCase(activeNotificationIds) }
