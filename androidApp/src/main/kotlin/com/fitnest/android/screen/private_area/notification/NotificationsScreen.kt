@@ -3,13 +3,16 @@ package com.fitnest.android.screen.private_area.notification
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.consumeAllChanges
@@ -44,6 +47,8 @@ internal fun NotificationsScreen() {
     val listState = rememberLazyListState()
     var position by remember { mutableStateOf<Float?>(null) }
     var draggedItem by remember { mutableStateOf<Int?>(null) }
+
+    val progress by viewModel.progressStateFlow.collectAsState()
 
     val view = LocalView.current
 
@@ -124,12 +129,24 @@ internal fun NotificationsScreen() {
                     isPinned = it.isPinned,
                     onPin = {
                         viewModel.pinNotification(screenData.notifications[index].id)
+                    },
+                    onDelete = {
+                        viewModel.deleteNotification(screenData.notifications[index].id)
                     }
                 )
                 if (screenData.notifications.last() != it) {
                     Divider()
                 }
             }
+        }
+    }
+
+    if (progress) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
         }
     }
 }

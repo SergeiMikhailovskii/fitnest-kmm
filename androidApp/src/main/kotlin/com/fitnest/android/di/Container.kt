@@ -120,7 +120,7 @@ val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
 
 val notificationsPrivateAreaModule = DI.Module("notifications private area module") {
     bind<NotificationsViewModel>() with factory {
-        NotificationsViewModel(instance(), instance(), instance(), instance())
+        NotificationsViewModel(instance(), instance(), instance(), instance(), instance())
     }
     bind<NotificationsViewMapper>() with factory {
         NotificationsViewMapper(instance())

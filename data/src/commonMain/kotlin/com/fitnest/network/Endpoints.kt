@@ -26,6 +26,7 @@ internal object Endpoints {
 
             val DEACTIVATE = "${name}/deactivate"
             val PIN = "${name}/pin"
+            val DELETE = "${name}/delete"
 
         }
     }

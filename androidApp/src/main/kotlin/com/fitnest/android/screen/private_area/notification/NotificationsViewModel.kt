@@ -6,6 +6,7 @@ import com.fitnest.android.screen.private_area.notification.data.NotificationScr
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.domain.entity.response.NotificationsPageResponse
 import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
+import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +17,7 @@ internal class NotificationsViewModel(
     private val getNotificationsPageUseCase: GetNotificationsPageUseCase,
     private val deactivateNotificationsUseCase: DeactivateNotificationsUseCase,
     private val pinNotificationUseCase: PinNotificationUseCase,
+    private val deleteNotificationUseCase: DeleteNotificationUseCase,
     private val viewMapper: NotificationsViewMapper
 ) : BaseViewModel() {
 
@@ -26,7 +28,9 @@ internal class NotificationsViewModel(
 
     init {
         viewModelScope.launch {
+            handleProgress(true)
             val result = getNotificationsPageUseCase().getOrThrow()
+            handleProgress()
             val mappedNotifications = viewMapper.mapServerNotificationsToUIModel(result)
             screenData = screenData.copy(notifications = mappedNotifications)
             orderNotificationsAndUpdateScreen()
@@ -45,7 +49,9 @@ internal class NotificationsViewModel(
         val request = viewMapper.mapNotificationToPinRequest(notificationToPin)
 
         viewModelScope.launch {
+            handleProgress(true)
             pinNotificationUseCase(request).getOrThrow()
+            handleProgress()
             screenData = screenData.copy(
                 notifications = screenData.notifications.map {
                     if (it.id == notificationToPin.id) {
@@ -54,6 +60,21 @@ internal class NotificationsViewModel(
                         it
                     }
                 }
+            )
+            orderNotificationsAndUpdateScreen()
+        }
+    }
+
+    internal fun deleteNotification(id: Int) {
+        val notificationToDelete = screenData.notifications.firstOrNull { it.id == id } ?: return
+        val request = viewMapper.mapNotificationToDeleteRequest(notificationToDelete)
+
+        viewModelScope.launch {
+            handleProgress(true)
+            deleteNotificationUseCase(request).getOrThrow()
+            handleProgress()
+            screenData = screenData.copy(
+                notifications = screenData.notifications.filter { it.id != id }
             )
             orderNotificationsAndUpdateScreen()
         }

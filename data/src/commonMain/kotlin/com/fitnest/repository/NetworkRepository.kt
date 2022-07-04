@@ -2,6 +2,7 @@ package com.fitnest.repository
 
 import com.fitnest.domain.entity.LoginData
 import com.fitnest.domain.entity.base.BaseRequest
+import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
@@ -53,5 +54,8 @@ class NetworkRepository(
 
     override suspend fun pinNotification(request: PinNotificationRequest) =
         networkService.sendDataResult(Endpoints.PrivateArea.Notifications.PIN, request)
+
+    override suspend fun deleteNotification(request: DeleteNotificationRequest) =
+        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DELETE, request)
 
 }

@@ -7,6 +7,7 @@ import com.fitnest.android.extension.getHoursDiff
 import com.fitnest.android.extension.getMinutesDiff
 import com.fitnest.android.extension.isSameHour
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
+import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.entity.response.NotificationsPageResponse
 import com.fitnest.domain.enum.NotificationType
@@ -35,6 +36,9 @@ internal class NotificationsViewMapper(
 
     internal fun mapNotificationToPinRequest(notification: NotificationUIInfo) =
         PinNotificationRequest(notification.id, !notification.isPinned)
+
+    internal fun mapNotificationToDeleteRequest(notification: NotificationUIInfo) =
+        DeleteNotificationRequest(notification.id)
 
     private fun formatNotificationTime(date: LocalDateTime?): String {
         val millis = date?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: 0

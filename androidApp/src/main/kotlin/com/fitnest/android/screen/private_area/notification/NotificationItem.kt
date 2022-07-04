@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PushPin
+import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -49,9 +50,11 @@ internal fun NotificationItem(
     @DrawableRes icon: Int,
     isActive: Boolean,
     isPinned: Boolean,
-    onPin: (() -> Unit)? = null
+    onPin: (() -> Unit)? = null,
+    onDelete: (() -> Unit)? = null
 ) {
     val view = LocalView.current
+    val pinIcon = if (isPinned) Icons.Outlined.PushPin else Icons.Default.PushPin
 
     val dismissState = rememberDismissState(
         confirmStateChange = {
@@ -59,7 +62,7 @@ internal fun NotificationItem(
                 onPin?.invoke()
                 vibrate(view)
             } else if (it == DismissValue.DismissedToStart) {
-                println("dismissed to start")
+                onDelete?.invoke()
                 vibrate(view)
             }
             it == DismissValue.Default
@@ -81,7 +84,7 @@ internal fun NotificationItem(
                 DismissDirection.EndToStart -> Alignment.CenterEnd
             }
             val actionIcon = when (direction) {
-                DismissDirection.StartToEnd -> Icons.Default.PushPin
+                DismissDirection.StartToEnd -> pinIcon
                 DismissDirection.EndToStart -> Icons.Default.Delete
             }
             val scale by animateFloatAsState(
