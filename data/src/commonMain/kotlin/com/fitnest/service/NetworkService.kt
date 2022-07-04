@@ -55,6 +55,17 @@ class NetworkService(val di: DI) : NetworkService {
         }
     }
 
+    override suspend fun <Request> sendDataResult(path: String, data: Request?): BaseResponse {
+        val url = "${Endpoints.BASE_URL}${path}"
+        val httpResponse: HttpResponse = httpClient.post(url) {
+            contentType(ContentType.Application.Json)
+            if (data != null) {
+                body = data
+            }
+        }
+        return httpResponse.receive()
+    }
+
     override suspend fun getData(path: String): Either<Failure, BaseResponse> {
         val url = "${Endpoints.BASE_URL}${path}"
         return try {

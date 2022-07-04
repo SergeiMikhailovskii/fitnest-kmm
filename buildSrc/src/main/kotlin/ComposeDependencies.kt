@@ -6,7 +6,7 @@ object ComposeDependencies : Dependencies {
         const val COMPOSE_CONSTRAINT_VERSION = "1.0.0-rc01"
         const val COMPOSE_NAVIGATION_VERSION = "2.4.0-beta02"
         const val COMPOSE_THEME_ADAPTER_VERSION = "1.0.5"
-        const val COMPOSE_VERSION = "1.1.0-beta02"
+        const val COMPOSE_VERSION = "1.1.1"
     }
 
     private const val CONSTRAINT_COMPOSE =

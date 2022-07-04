@@ -4,6 +4,8 @@ import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.LoginData
 import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.entity.base.BaseResponse
+import com.fitnest.domain.entity.request.DeleteNotificationRequest
+import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
 
@@ -22,5 +24,13 @@ interface NetworkRepository {
     suspend fun submitRegistrationStep(request: BaseRequest): Either<Failure, Unit>
 
     suspend fun getDashboardData(): BaseResponse
+
+    suspend fun getNotificationsPage(): BaseResponse
+
+    suspend fun deactivateNotifications(ids: List<Int>?): BaseResponse
+
+    suspend fun pinNotification(request: PinNotificationRequest): BaseResponse
+
+    suspend fun deleteNotification(request: DeleteNotificationRequest): BaseResponse
 
 }

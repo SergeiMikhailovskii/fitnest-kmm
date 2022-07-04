@@ -37,4 +37,8 @@
 
     <string name="private_area_dashboard_time_am">%1$02d am</string>
     <string name="private_area_dashboard_time_pm">%1$02d pm</string>
+
+    <string name="private_area_notifications_screen_title">Notifications</string>
+    <string name="private_area_notifications_minutes_ago">About %1$d minutes ago</string>
+    <string name="private_area_notifications_hours_ago">About %1$d hours ago</string>
 </resources>

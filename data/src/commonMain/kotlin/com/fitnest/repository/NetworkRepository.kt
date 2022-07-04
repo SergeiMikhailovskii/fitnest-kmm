@@ -2,6 +2,8 @@ package com.fitnest.repository
 
 import com.fitnest.domain.entity.LoginData
 import com.fitnest.domain.entity.base.BaseRequest
+import com.fitnest.domain.entity.request.DeleteNotificationRequest
+import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.functional.flatMap
@@ -42,6 +44,18 @@ class NetworkRepository(
             .flatMap { Either.Right(Unit) }
 
     override suspend fun getDashboardData() =
-        networkService.getDataResult(Endpoints.PrivateArea.name + Endpoints.PrivateArea.DASHBOARD)
+        networkService.getDataResult(Endpoints.PrivateArea.DASHBOARD)
+
+    override suspend fun getNotificationsPage() =
+        networkService.getDataResult(Endpoints.PrivateArea.Notifications.name)
+
+    override suspend fun deactivateNotifications(ids: List<Int>?) =
+        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DEACTIVATE, data = ids)
+
+    override suspend fun pinNotification(request: PinNotificationRequest) =
+        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.PIN, request)
+
+    override suspend fun deleteNotification(request: DeleteNotificationRequest) =
+        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DELETE, request)
 
 }

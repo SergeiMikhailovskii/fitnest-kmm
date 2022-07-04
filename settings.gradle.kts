@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "KMMTest"
+rootProject.name = "fitnest"
 include(":androidApp")
 include(":data")
 include(":domain")

@@ -56,6 +56,7 @@ val serializationModule = DI.Module("Serialization module") {
             ignoreUnknownKeys = true
             isLenient = true
             serializersModule = module
+            coerceInputValues = true
         }
     }
 }
