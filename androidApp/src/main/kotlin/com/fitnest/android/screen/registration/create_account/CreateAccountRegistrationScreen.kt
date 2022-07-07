@@ -45,7 +45,6 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
-import com.fitnest.android.view.ui_elements.ViewWithError
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -392,7 +391,7 @@ fun DividerWithChild(modifier: Modifier, child: @Composable () -> Unit) {
 @Composable
 fun RegistrationOutlinedTextField(
     value: String,
-    constraintAsModifier: Modifier.() -> Modifier,
+    constraintAsModifier: (Modifier.() -> Modifier)? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     label: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -406,7 +405,9 @@ fun RegistrationOutlinedTextField(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .constraintAsModifier()
+            .run {
+                constraintAsModifier?.invoke(this) ?: this
+            }
             .padding(
                 start = Padding30,
                 end = Padding30

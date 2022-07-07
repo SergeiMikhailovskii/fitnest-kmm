@@ -7,7 +7,6 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -54,7 +53,7 @@ fun FitnestApp() {
                     SplashScreen(navController = navController)
                 }
                 composable(route = Route.Login.screenName) {
-                    LoginScreen()
+                    LoginScreen(navController = navController)
                 }
                 composable(route = Route.Proxy.screenName) {
                     ProxyScreen(navController = navController)
