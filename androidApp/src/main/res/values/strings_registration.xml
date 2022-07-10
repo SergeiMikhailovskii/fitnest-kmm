@@ -47,4 +47,5 @@
     <string name="login_login_button">Login</string>
     <string name="login_footer_divider">Or</string>
     <string name="login_register">Don’t have an account yet? Register</string>
+    <string name="login_register_span">Register</string>
 </resources>

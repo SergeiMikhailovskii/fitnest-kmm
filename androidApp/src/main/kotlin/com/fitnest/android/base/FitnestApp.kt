@@ -24,6 +24,7 @@ import com.fitnest.android.screen.registration.goal.GoalRegistrationScreen
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
+import com.fitnest.domain.enum.FlowType
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -55,8 +56,11 @@ fun FitnestApp() {
                 composable(route = Route.Login.screenName) {
                     LoginScreen(navController = navController)
                 }
-                composable(route = Route.Proxy.screenName) {
-                    ProxyScreen(navController = navController)
+                composable(route = "proxy/{flowType}", arguments = listOf(navArgument("flowType") {
+                    type = NavType.EnumType(type = FlowType::class.java)
+                })) {
+                    val flowType = it.arguments?.getSerializable("flowType") as FlowType
+                    ProxyScreen(navController = navController, flowType)
                 }
                 composable(
                     route = "onboardingStep/{stepName}",

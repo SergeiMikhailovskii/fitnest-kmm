@@ -2,6 +2,8 @@ package com.fitnest.android.screen.login
 
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
+import com.fitnest.android.base.Route
+import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.usecase.LoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -47,11 +49,13 @@ internal class LoginViewModel(
         updateScreenData()
     }
 
+    internal fun goToRegistration() {
+        handleRoute(Route.Proxy(FlowType.REGISTRATION))
+    }
+
     private fun updateScreenData() {
         viewModelScope.launch {
             _screenDataFlow.emit(screenData.copy())
         }
     }
-
-
 }

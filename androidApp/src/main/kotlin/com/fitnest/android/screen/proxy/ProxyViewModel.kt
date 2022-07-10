@@ -8,18 +8,22 @@ import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 
-class ProxyViewModel(
+internal class ProxyViewModel(
     private val generateTokenUseCase: GenerateTokenUseCase,
     private val getOnboardingStepUseCase: GetOnboardingStep,
     private val getRegistrationStepDataUseCase: GetRegistrationStepData,
     private val registrationScreenState: RegistrationScreenState,
 ) : BaseViewModel() {
 
-    internal fun getNextFlow() {
-        generateTokenUseCase {
-            it.either(::handleFailure) {
-                showNextScreen(it?.getFlow() ?: FlowType.UNKNOWN)
+    internal fun getNextFlow(flow: FlowType) {
+        if (flow == FlowType.UNKNOWN) {
+            generateTokenUseCase {
+                it.either(::handleFailure) {
+                    showNextScreen(it?.getFlow() ?: FlowType.UNKNOWN)
+                }
             }
+        } else {
+            showNextScreen(flow)
         }
     }
 

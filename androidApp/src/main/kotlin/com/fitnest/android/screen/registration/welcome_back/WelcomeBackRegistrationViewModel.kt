@@ -40,7 +40,7 @@ class WelcomeBackRegistrationViewModel(
 
     private fun handleRegistrationFailure(failure: Failure?) {
         if (failure is Failure.ValidationError && failure.message == "registration.finished") {
-            handleRoute(Route.Proxy)
+            handleRoute(Route.Proxy())
         }
     }
 

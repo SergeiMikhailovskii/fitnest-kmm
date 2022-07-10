@@ -4,12 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,17 +26,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreenUtils
 import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
 import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
+import com.fitnest.android.screen.splash.handleNavigation
 import com.fitnest.android.style.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
+
+internal object LoginScreenConsts {
+    internal const val LOGIN_SPAN_TAG = "1000"
+}
 
 @Composable
 internal fun LoginScreen(navController: NavController) {
     val focusManager = LocalFocusManager.current
 
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val viewMapper: LoginViewMapper by rememberInstance()
+    val registrationAnnotatedString = viewMapper.getLoginAnnotatedString()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -42,6 +54,14 @@ internal fun LoginScreen(navController: NavController) {
     )
 
     val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
+
+    LaunchedEffect(key1 = null) {
+        launch {
+            viewModel.routeSharedFlow.collect {
+                handleNavigation(it, navController)
+            }
+        }
+    }
 
     Scaffold {
         Column(
@@ -166,14 +186,22 @@ internal fun LoginScreen(navController: NavController) {
                 )
             }
 
-            Text(
+            ClickableText(
+                text = registrationAnnotatedString,
                 style = PoppinsNormalStyle14Black,
-                text = stringResource(id = R.string.login_register),
                 modifier = Modifier.padding(
                     bottom = Padding.Padding40,
                     top = Padding.Padding30
                 )
-            )
+            ) {
+                registrationAnnotatedString.getStringAnnotations(
+                    LoginScreenConsts.LOGIN_SPAN_TAG,
+                    it,
+                    it
+                ).firstOrNull()?.let {
+                    viewModel.goToRegistration()
+                }
+            }
         }
     }
 }
