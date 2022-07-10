@@ -43,4 +43,8 @@
     <string name="login_description">Welcome Back</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
+    <string name="login_forgot_password">Forgot your password?</string>
+    <string name="login_login_button">Login</string>
+    <string name="login_footer_divider">Or</string>
+    <string name="login_register">Don’t have an account yet? Register</string>
 </resources>
