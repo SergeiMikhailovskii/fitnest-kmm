@@ -138,7 +138,7 @@ fun CreateAccountRegistrationScreen(
                 style = PoppinsBoldStyle20Black
             )
             RegistrationOutlinedTextField(
-                value = screenData.firstName ?: "",
+                value = screenData.firstName.orEmpty(),
                 constraintAsModifier = {
                     constrainAs(tfFirstName) {
                         top.linkTo(textBottomLabel.bottom, margin = Padding30)
@@ -164,7 +164,7 @@ fun CreateAccountRegistrationScreen(
                 error = screenData.exception.firstNameError
             )
             RegistrationOutlinedTextField(
-                value = screenData.lastName ?: "",
+                value = screenData.lastName.orEmpty(),
                 constraintAsModifier = {
                     constrainAs(tfLastName) {
                         top.linkTo(tfFirstName.bottom, margin = Padding15)
@@ -190,7 +190,7 @@ fun CreateAccountRegistrationScreen(
                 error = screenData.exception.lastNameError
             )
             RegistrationOutlinedTextField(
-                value = screenData.email ?: "",
+                value = screenData.email.orEmpty(),
                 constraintAsModifier = {
                     constrainAs(tfEmail) {
                         top.linkTo(tfLastName.bottom, margin = Padding15)
@@ -217,7 +217,7 @@ fun CreateAccountRegistrationScreen(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
             RegistrationOutlinedTextField(
-                value = screenData.password ?: "",
+                value = screenData.password.orEmpty(),
                 constraintAsModifier = {
                     constrainAs(tfPassword) {
                         top.linkTo(tfEmail.bottom, margin = Padding15)

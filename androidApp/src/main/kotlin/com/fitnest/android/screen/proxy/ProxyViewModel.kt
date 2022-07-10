@@ -28,7 +28,7 @@ class ProxyViewModel(
             FlowType.ONBOARDING -> {
                 getOnboardingStepUseCase {
                     it.either(::handleFailure) {
-                        handleRoute(Route.OnboardingStep(stepName = it ?: ""))
+                        handleRoute(Route.OnboardingStep(stepName = it.orEmpty()))
                     }
                 }
             }
@@ -37,7 +37,7 @@ class ProxyViewModel(
                     it.either(::handleFailure) {
                         registrationScreenState.fields = it?.fields
                         registrationScreenState.validationSchema = it?.validationSchema
-                        handleRoute(Route.RegistrationStep(stepName = it?.step ?: ""))
+                        handleRoute(Route.RegistrationStep(stepName = it?.step.orEmpty()))
                     }
                 }
             }

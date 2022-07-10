@@ -35,7 +35,7 @@ fun HeaderBlock(
                 style = PoppinsNormalStyle12Gray2
             )
             Text(
-                text = headerWidget.name ?: "",
+                text = headerWidget.name.orEmpty(),
                 modifier = Modifier.padding(top = Padding.Padding5),
                 style = PoppinsBoldStyle20Black
             )

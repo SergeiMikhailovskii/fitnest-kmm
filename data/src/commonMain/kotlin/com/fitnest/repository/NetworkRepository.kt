@@ -26,7 +26,7 @@ class NetworkRepository(
 
     override suspend fun getOnboardingStep() = networkService.getData(Endpoints.Onboarding.name)
         .map {
-            it?.data?.jsonObject?.get("step")?.jsonPrimitive?.content ?: ""
+            it?.data?.jsonObject?.get("step")?.jsonPrimitive?.content.orEmpty()
         }
 
     override suspend fun getRegistrationStepData() =

@@ -69,7 +69,7 @@ private fun LatestWorkoutItem(modifier: Modifier, model: HomeScreenData.Workout)
                 )
                 .weight(1F)
         ) {
-            Text(model.name ?: "", style = PoppinsMediumStyle12Black)
+            Text(model.name.orEmpty(), style = PoppinsMediumStyle12Black)
             Text(
                 stringResource(
                     id = R.string.private_area_dashboard_latest_workout_calories_burn,

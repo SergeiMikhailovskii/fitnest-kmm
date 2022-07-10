@@ -58,7 +58,7 @@ fun WelcomeBackRegistrationScreen(navController: NavController) {
         Text(
             text = stringResource(
                 id = R.string.registration_welcome_back_title,
-                screenData.name ?: ""
+                screenData.name.orEmpty()
             ),
             style = PoppinsBoldStyle20Black,
             modifier = Modifier.padding(

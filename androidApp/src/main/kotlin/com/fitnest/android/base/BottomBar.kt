@@ -31,7 +31,7 @@ fun BottomBar(navController: NavController) {
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: ""
+    val currentRoute = navBackStackEntry?.destination?.route.orEmpty()
     if (isRouteWithBottomNavigation(currentRoute)) {
         androidx.compose.material.BottomNavigation {
             bottomNavigationItems.forEach {

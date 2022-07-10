@@ -76,7 +76,7 @@ fun FitnestApp() {
                 ) {
                     OnboardingScreen(
                         navController = navController,
-                        stepName = it.arguments?.getString("stepName") ?: ""
+                        stepName = it.arguments?.getString("stepName").orEmpty()
                     )
                 }
                 composable(
@@ -97,7 +97,7 @@ fun FitnestApp() {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
-                    when (it.arguments?.getString("stepName") ?: "") {
+                    when (it.arguments?.getString("stepName").orEmpty()) {
                         "STEP_CREATE_ACCOUNT" -> {
                             CreateAccountRegistrationScreen(navController = navController)
                         }

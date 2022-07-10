@@ -10,6 +10,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -18,16 +20,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
 import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
 import com.fitnest.android.style.*
+import org.kodein.di.compose.rememberInstance
 
 @Composable
 internal fun LoginScreen(navController: NavController) {
     val focusManager = LocalFocusManager.current
+
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+
+    val viewModel = viewModel(
+        factory = viewModelFactory,
+        modelClass = LoginViewModel::class.java
+    )
+
+    val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
 
     Scaffold {
         Column(
@@ -50,7 +64,7 @@ internal fun LoginScreen(navController: NavController) {
                 style = PoppinsBoldStyle20Black
             )
             RegistrationOutlinedTextField(
-                value = "",
+                value = screenData.login.orEmpty(),
                 constraintAsModifier = {
                     Modifier.padding(top = Padding.Padding30)
                 },
@@ -66,13 +80,13 @@ internal fun LoginScreen(navController: NavController) {
                         contentDescription = null
                     )
                 },
-                onValueChange = { /*viewModel::updateFirstName*/ },
-                onFocusChanged = { /*viewModel::updateFirstNameFocus*/ },
-                isFocused = false/*screenData.isFirstNameFocused*/,
+                onValueChange = viewModel::updateLogin,
+                onFocusChanged = viewModel::updateLoginFocus,
+                isFocused = screenData.hasLoginFocus,
                 error = null/*screenData.exception.firstNameError*/
             )
             RegistrationOutlinedTextField(
-                value = "",
+                value = screenData.password.orEmpty(),
                 constraintAsModifier = {
                     Modifier.padding(top = Padding.Padding15)
                 },
@@ -88,16 +102,15 @@ internal fun LoginScreen(navController: NavController) {
                         contentDescription = null
                     )
                 },
-                onValueChange = { /*viewModel::updateFirstName*/ },
-                onFocusChanged = { /*viewModel::updateFirstNameFocus*/ },
-                isFocused = false,/*screenData.isFirstNameFocused*/
+                onValueChange = viewModel::updatePassword,
+                onFocusChanged = viewModel::updatePasswordFocus,
+                isFocused = screenData.hasPasswordFocus,
                 error = null,/*screenData.exception.firstNameError*/
                 trailingIcon = {
-                    IconButton(onClick = { /*viewModel::changePasswordVisibility*/ }) {
+                    IconButton(onClick = viewModel::changePasswordVisibility) {
                         val painter =
-                            /*if (screenData.passwordVisible)*/
-                            painterResource(id = R.drawable.ic_password_show)
-//                            else painterResource(id = R.drawable.ic_password_hide)
+                            if (screenData.isPasswordVisible) painterResource(id = R.drawable.ic_password_show)
+                            else painterResource(id = R.drawable.ic_password_hide)
                         Image(painter = painter, null)
                     }
                 },
@@ -124,10 +137,19 @@ internal fun LoginScreen(navController: NavController) {
                     .height(Dimen.Dimen60)
                     .fillMaxWidth(),
             ) {
-                Text(
-                    text = stringResource(id = R.string.login_login_button),
-                    style = PoppinsBoldStyle16
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_login),
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = Padding.Padding10)
+                    )
+                    Text(
+                        text = stringResource(id = R.string.login_login_button),
+                        style = PoppinsBoldStyle16
+                    )
+                }
             }
             DividerWithChild(
                 modifier = Modifier

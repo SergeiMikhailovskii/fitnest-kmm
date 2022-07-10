@@ -184,7 +184,7 @@ fun CompleteAccountRegistrationScreen(
                     onItemClicked = {
                         viewModel.saveSex(SexType.fromLocalizedName(it, context))
                     },
-                    value = screenData.sex?.localizedNameId?.let(context::getString) ?: "",
+                    value = screenData.sex?.localizedNameId?.let(context::getString).orEmpty(),
                     isFocused = screenData.isSexFocused,
                     onFocusChanged = viewModel::updateSexFocus
                 )
@@ -202,7 +202,7 @@ fun CompleteAccountRegistrationScreen(
             ) {
                 DateOfBirthTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = screenData.formattedDateOfBirth() ?: ""
+                    value = screenData.formattedDateOfBirth().orEmpty()
                 ) {
                     showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
                 }
@@ -219,7 +219,7 @@ fun CompleteAccountRegistrationScreen(
                     }
             ) {
                 AnthropometryTextField(
-                    value = screenData.weight?.toString() ?: "",
+                    value = screenData.weight?.toString().orEmpty(),
                     leadingIcon = R.drawable.ic_complete_registration_weight,
                     label = context.getString(R.string.registration_complete_account_weight_hint),
                     optionLabel = context.getString(R.string.registration_complete_account_weight_kg)
@@ -240,7 +240,7 @@ fun CompleteAccountRegistrationScreen(
                     }
             ) {
                 AnthropometryTextField(
-                    value = screenData.height?.toString() ?: "",
+                    value = screenData.height?.toString().orEmpty(),
                     leadingIcon = R.drawable.ic_complete_registration_height,
                     label = context.getString(R.string.registration_complete_account_height_hint),
                     optionLabel = context.getString(R.string.registration_complete_account_height_cm)

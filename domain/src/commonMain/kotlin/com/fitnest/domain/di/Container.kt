@@ -14,7 +14,7 @@ import org.kodein.di.instance
 
 val useCaseModule = DI.Module("use case module") {
     bind<LoginUseCase>() with factory {
-        LoginUseCase(di)
+        LoginUseCase()
     }
     bind<GenerateTokenUseCase>() with factory {
         GenerateTokenUseCase(instance())
