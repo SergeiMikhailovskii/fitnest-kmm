@@ -19,7 +19,7 @@ class LoginPageResponse(
 
     @Serializable
     class LoginPageValidationSchema(
-        val login: List<Validator>,
-        val password: List<Validator>
+        val login: List<Validator>? = null,
+        val password: List<Validator>? = null
     )
 }

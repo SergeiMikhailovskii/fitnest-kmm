@@ -13,8 +13,7 @@ class GetLoginPageUseCase(
     suspend operator fun invoke() = runCatching {
         repository.getLoginPage()
     }.map {
-        val data = json.decodeFromJsonElement<LoginPageResponse>(it.data)
-        data
+        json.decodeFromJsonElement<LoginPageResponse>(it.data)
     }
 
 }

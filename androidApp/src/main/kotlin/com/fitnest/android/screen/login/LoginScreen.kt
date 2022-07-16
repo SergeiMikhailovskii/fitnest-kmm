@@ -26,7 +26,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
-import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreenUtils
 import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
 import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
@@ -103,7 +102,7 @@ internal fun LoginScreen(navController: NavController) {
                 onValueChange = viewModel::updateLogin,
                 onFocusChanged = viewModel::updateLoginFocus,
                 isFocused = screenData.hasLoginFocus,
-                error = null/*screenData.exception.firstNameError*/
+                error = screenData.exception?.loginError
             )
             RegistrationOutlinedTextField(
                 value = screenData.password.orEmpty(),
@@ -125,7 +124,7 @@ internal fun LoginScreen(navController: NavController) {
                 onValueChange = viewModel::updatePassword,
                 onFocusChanged = viewModel::updatePasswordFocus,
                 isFocused = screenData.hasPasswordFocus,
-                error = null,/*screenData.exception.firstNameError*/
+                error = screenData.exception?.passwordError,
                 trailingIcon = {
                     IconButton(onClick = viewModel::changePasswordVisibility) {
                         val painter =
@@ -146,7 +145,7 @@ internal fun LoginScreen(navController: NavController) {
             )
             Box(modifier = Modifier.weight(1F))
             Button(
-                onClick = {},
+                onClick = viewModel::validateAndLogin,
                 shape = CircleShape,
                 modifier = Modifier
                     .padding(
