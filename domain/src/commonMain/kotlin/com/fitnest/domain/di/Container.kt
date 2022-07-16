@@ -1,7 +1,7 @@
 package com.fitnest.domain.di
 
 import com.fitnest.domain.usecase.GenerateTokenUseCase
-import com.fitnest.domain.usecase.LoginUseCase
+import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
 import com.fitnest.domain.usecase.private_area.*
@@ -13,8 +13,11 @@ import org.kodein.di.factory
 import org.kodein.di.instance
 
 val useCaseModule = DI.Module("use case module") {
-    bind<LoginUseCase>() with factory {
-        LoginUseCase()
+    /**
+     * Auth
+     */
+    bind<GetLoginPageUseCase>() with factory {
+        GetLoginPageUseCase(instance(), instance())
     }
     bind<GenerateTokenUseCase>() with factory {
         GenerateTokenUseCase(instance())

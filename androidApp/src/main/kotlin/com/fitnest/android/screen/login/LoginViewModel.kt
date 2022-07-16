@@ -4,19 +4,31 @@ import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.enum.FlowType
-import com.fitnest.domain.usecase.LoginUseCase
+import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
-    private val loginUseCase: LoginUseCase
+    private val getLoginPageUseCase: GetLoginPageUseCase
 ) : BaseViewModel() {
 
     private var screenData = LoginScreenData()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            val page = getLoginPageUseCase().getOrThrow()
+            screenData = screenData.copy(
+                login = page.fields?.login,
+                password = page.fields?.password,
+                validationSchema = page.validationSchema
+            )
+            updateScreenData()
+        }
+    }
 
     internal fun updateLogin(login: String) {
         screenData = screenData.copy(login = login)

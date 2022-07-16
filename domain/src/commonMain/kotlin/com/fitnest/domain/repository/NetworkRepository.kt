@@ -33,4 +33,6 @@ interface NetworkRepository {
 
     suspend fun deleteNotification(request: DeleteNotificationRequest): BaseResponse
 
+    suspend fun getLoginPage(): BaseResponse
+
 }

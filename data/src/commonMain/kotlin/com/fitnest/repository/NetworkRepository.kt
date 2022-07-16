@@ -58,4 +58,6 @@ class NetworkRepository(
     override suspend fun deleteNotification(request: DeleteNotificationRequest) =
         networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DELETE, request)
 
+    override suspend fun getLoginPage() = networkService.getDataResult(Endpoints.Auth.LOGIN)
+
 }
