@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class CreateAccountRegistrationViewModel(
+internal class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val validator: CreateAccountRegistrationValidator,
     private val viewMapper: CreateAccountRegistrationViewMapper,
@@ -112,6 +112,10 @@ class CreateAccountRegistrationViewModel(
                 it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
             }
         }
+    }
+
+    internal fun navigateToLogin() {
+        handleRoute(Route.Login)
     }
 
     private fun setInitialScreenData(stepData: RegistrationStepModel.CreateAccountStepModel) {

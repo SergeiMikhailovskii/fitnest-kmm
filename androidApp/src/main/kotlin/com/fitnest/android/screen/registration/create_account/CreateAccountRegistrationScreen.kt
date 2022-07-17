@@ -348,6 +348,7 @@ fun CreateAccountRegistrationScreen(
                         it,
                         it
                     ).firstOrNull()?.let {
+                        viewModel.navigateToLogin()
                     }
                 },
                 modifier = Modifier
