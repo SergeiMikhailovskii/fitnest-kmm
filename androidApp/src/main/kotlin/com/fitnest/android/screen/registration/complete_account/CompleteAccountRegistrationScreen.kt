@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
-import com.fitnest.android.screen.registration.create_account.handleNavigation
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.ui.AnthropometryBottomSheet
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
 import com.fitnest.android.screen.registration.ui.DateOfBirthTextField

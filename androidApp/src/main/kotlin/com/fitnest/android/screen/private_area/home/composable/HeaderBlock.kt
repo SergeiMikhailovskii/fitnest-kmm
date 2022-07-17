@@ -19,7 +19,7 @@ import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.*
 
 @Composable
-fun HeaderBlock(
+internal fun HeaderBlock(
     headerWidget: HomeScreenData.HeaderWidget,
     viewModel: HomeViewModel
 ) {

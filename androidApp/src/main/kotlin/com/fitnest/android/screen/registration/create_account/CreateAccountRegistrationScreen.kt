@@ -33,8 +33,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
-import com.fitnest.android.base.Route
 import com.fitnest.android.extension.stringResourceByIdentifier
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Dimen.Dimen1
 import com.fitnest.android.style.Dimen.Dimen14
@@ -451,11 +451,6 @@ fun RegistrationOutlinedTextField(
 fun getPasswordVisualTransformation(passwordVisibility: Boolean) =
     if (passwordVisibility) PasswordVisualTransformation()
     else VisualTransformation.None
-
-fun handleNavigation(route: Route, navController: NavController) {
-    navController.popBackStack()
-    navController.navigate(route.screenName)
-}
 
 object CreateAccountRegistrationScreenUtils {
     const val LOGIN_SPAN_TAG = "LOGIN"

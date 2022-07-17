@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
-import com.fitnest.android.base.Route
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.*
 import com.fitnest.android.view.ui_elements.GradientButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
@@ -97,9 +97,4 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
             )
         }
     }
-}
-
-fun handleNavigation(route: Route, navController: NavController) {
-    navController.popBackStack()
-    navController.navigate(route.screenName)
 }

@@ -14,7 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
-import com.fitnest.android.base.Route
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.domain.enum.FlowType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -55,9 +55,4 @@ fun ProxyScreen(navController: NavController, flowType: FlowType) {
             CircularProgressIndicator()
         }
     }
-}
-
-fun handleNavigation(route: Route, navController: NavController) {
-    navController.popBackStack()
-    navController.navigate(route.screenName)
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.fitnest.android.base.Route
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.private_area.home.composable.*
 import com.fitnest.android.style.Padding
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
@@ -79,8 +79,4 @@ fun HomeScreen(navController: NavController) {
             }
         }
     }
-}
-
-private fun handleNavigation(route: Route, navController: NavController) {
-    navController.navigate(route.screenName)
 }

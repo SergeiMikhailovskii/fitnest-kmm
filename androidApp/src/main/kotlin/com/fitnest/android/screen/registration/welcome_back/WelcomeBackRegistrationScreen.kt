@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
-import com.fitnest.android.screen.registration.create_account.handleNavigation
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
