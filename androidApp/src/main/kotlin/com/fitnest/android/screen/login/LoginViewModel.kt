@@ -99,6 +99,7 @@ internal class LoginViewModel(
             validator(fields, screenData.validationSchema).getOrThrow()
             loginUserUseCase(fields).getOrThrow()
             handleProgress()
+            handleRoute(Route.Proxy())
         }
     }
 
