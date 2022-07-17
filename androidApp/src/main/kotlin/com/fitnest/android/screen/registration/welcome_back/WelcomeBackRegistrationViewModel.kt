@@ -31,7 +31,7 @@ class WelcomeBackRegistrationViewModel(
     }
 
     internal fun next() {
-        submitRegistrationStepAndGetNext(WelcomeBackStepRequest) {
+        submitRegistrationStepAndGetNext(WelcomeBackStepRequest()) {
             it.either(::handleRegistrationFailure) {
                 it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
             }

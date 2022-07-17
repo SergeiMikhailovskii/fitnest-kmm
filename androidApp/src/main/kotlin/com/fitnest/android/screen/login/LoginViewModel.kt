@@ -6,6 +6,7 @@ import com.fitnest.android.base.Route
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.exception.LoginPageValidationException
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
+import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 internal class LoginViewModel(
     private val getLoginPageUseCase: GetLoginPageUseCase,
     private val validator: LoginPageValidationUseCase,
+    private val loginUserUseCase: LoginUserUseCase,
     private val viewMapper: LoginViewMapper
 ) : BaseViewModel() {
 
@@ -25,6 +27,7 @@ internal class LoginViewModel(
             screenData = screenData.copy(exception = throwable)
             updateScreenData()
         }
+        handleProgress()
     }
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
@@ -91,8 +94,11 @@ internal class LoginViewModel(
 
     internal fun validateAndLogin() {
         viewModelScope.launch(exceptionHandler) {
+            handleProgress(true)
             val fields = viewMapper.mapScreenDataToLoginFields(screenData)
             validator(fields, screenData.validationSchema).getOrThrow()
+            loginUserUseCase(fields).getOrThrow()
+            handleProgress()
         }
     }
 

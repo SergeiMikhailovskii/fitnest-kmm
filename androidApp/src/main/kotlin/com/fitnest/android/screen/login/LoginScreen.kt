@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -53,6 +50,7 @@ internal fun LoginScreen(navController: NavController) {
     )
 
     val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
+    val progress: Boolean by viewModel.progressStateFlow.collectAsState()
 
     LaunchedEffect(key1 = null) {
         launch {
@@ -200,6 +198,15 @@ internal fun LoginScreen(navController: NavController) {
                 ).firstOrNull()?.let {
                     viewModel.goToRegistration()
                 }
+            }
+        }
+
+        if (progress) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
             }
         }
     }

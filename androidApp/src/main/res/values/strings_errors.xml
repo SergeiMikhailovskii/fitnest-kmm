@@ -4,9 +4,10 @@
     <string name="first_name.error.invalid">Invalid first name</string>
     <string name="last_name.error.invalid">Invalid last name</string>
     <string name="email.error.invalid">Invalid email</string>
-    <string name="password.error.invalid">Password should contain digits, capital and small letters, underscore</string>
+    <string name="password.error.invalid">Invalid password</string>
     <string name="password.error.minLength">Password too short</string>
     <string name="error.maxAge">You should be younger :(</string>
     <string name="error.minAge">You should be at least 18 years old</string>
     <string name="error.unknown">Something went wrong :(</string>
+    <string name="login.error.invalid">Invalid login</string>
 </resources>

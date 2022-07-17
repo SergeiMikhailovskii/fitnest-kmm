@@ -6,12 +6,11 @@ import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.entity.base.BaseResponse
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
+import com.fitnest.domain.entity.response.LoginPageResponse
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
 
 interface NetworkRepository {
-
-    suspend fun loginUser(data: LoginData)
 
     suspend fun generateToken(): Either<Failure, BaseResponse>
 
@@ -34,5 +33,7 @@ interface NetworkRepository {
     suspend fun deleteNotification(request: DeleteNotificationRequest): BaseResponse
 
     suspend fun getLoginPage(): BaseResponse
+
+    suspend fun loginUser(request: LoginPageResponse.LoginPageFields): BaseResponse
 
 }
