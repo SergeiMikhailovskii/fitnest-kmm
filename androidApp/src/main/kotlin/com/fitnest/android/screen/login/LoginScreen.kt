@@ -1,5 +1,9 @@
 package com.fitnest.android.screen.login
 
+import android.app.Activity
+import android.content.Context
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,12 +31,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.fitnest.android.BuildConfig
 import com.fitnest.android.R
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
 import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
 import com.fitnest.android.style.*
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -55,6 +65,19 @@ internal fun LoginScreen(navController: NavController) {
 
     val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
     val progress: Boolean by viewModel.progressStateFlow.collectAsState()
+
+    val startForResult =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                if (result.data != null) {
+                    val task = GoogleSignIn.getSignedInAccountFromIntent(intent).result
+                    handleSignInResult(task)
+                }
+            }
+        }
+
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = null) {
         launch {
@@ -197,7 +220,13 @@ internal fun LoginScreen(navController: NavController) {
                     Box(
                         modifier = Modifier
                             .background(Color.White)
-                            .size(Dimen.Dimen20),
+                            .size(Dimen.Dimen20)
+                            .pointerInput(Unit) {
+                                detectTapGestures {
+                                    val intent = getGoogleLoginAuth(context).signInIntent
+                                    startForResult.launch(intent)
+                                }
+                            },
                         contentAlignment = Alignment.Center,
                     ) {
                         Image(
@@ -256,4 +285,18 @@ internal fun LoginScreen(navController: NavController) {
             }
         }
     }
+}
+
+private fun getGoogleLoginAuth(context: Context): GoogleSignInClient {
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestEmail()
+        .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
+        .requestId()
+        .requestProfile()
+        .build()
+    return GoogleSignIn.getClient(context, gso)
+}
+
+private fun handleSignInResult(account: GoogleSignInAccount) {
+    println()
 }
