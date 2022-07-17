@@ -1,6 +1,6 @@
 package com.fitnest.domain.enum
 
-internal enum class FlowType {
+enum class FlowType {
     ONBOARDING,
     REGISTRATION,
     MAIN,

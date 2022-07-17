@@ -1,9 +1,12 @@
 package com.fitnest.android.screen.login
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -13,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -182,7 +186,49 @@ internal fun LoginScreen(navController: NavController) {
                     style = PoppinsNormalStyle12Black
                 )
             }
+            Row {
+                Card(
+                    modifier = Modifier
+                        .height(Dimen.Dimen50)
+                        .width(Dimen.Dimen50),
+                    shape = RoundedCornerShape(Dimen.Dimen14),
+                    border = BorderStroke(Dimen.Dimen1, GrayColor3),
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .background(Color.White)
+                            .size(Dimen.Dimen20),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_google),
+                            contentDescription = null,
+                        )
+                    }
+                }
 
+                Box(modifier = Modifier.width(Dimen.Dimen30))
+
+                Card(
+                    modifier = Modifier
+                        .height(Dimen.Dimen50)
+                        .width(Dimen.Dimen50),
+                    shape = RoundedCornerShape(Dimen.Dimen14),
+                    border = BorderStroke(Dimen.Dimen1, GrayColor3),
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .background(Color.White)
+                            .size(Dimen.Dimen20),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_facebook),
+                            contentDescription = null,
+                        )
+                    }
+                }
+            }
             ClickableText(
                 text = registrationAnnotatedString,
                 style = PoppinsNormalStyle14Black,

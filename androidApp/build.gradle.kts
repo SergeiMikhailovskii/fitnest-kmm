@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
@@ -20,6 +23,8 @@ android {
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "GOOGLE_CLIENT_ID", getGoogleClientId())
     }
     buildTypes {
         getByName("release") {
@@ -35,4 +40,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.0.0-beta09"
     }
+}
+
+fun getGoogleClientId(): String {
+    val propFile = rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty("GOOGLE_CLIENT_ID")
 }

@@ -22,7 +22,7 @@ internal class SplashViewModel(
     }
 
     internal fun navigateNext() {
-        handleRoute(Route.Proxy())
+        handleRoute(Route.Login)
     }
 
     private fun handleGenerateTokenFailure(failure: Failure) {
