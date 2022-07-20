@@ -18,14 +18,10 @@ jobs:
           java-version: '11'
 
       - name: Init keys
-        env:
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          DEBUG_KEYSTORE_PASSWORD: ${{ secrets.DEBUG_KEYSTORE_PASSWORD }}
-          DEBUG_KEY_PASSWORD: ${{ secrets.DEBUG_KEY_PASSWORD }}
         run: |
-          echo GOOGLE_CLIENT_ID=\"GOOGLE_CLIENT_ID\" >> local.properties
-          echo DEBUG_KEYSTORE_PASSWORD=\"DEBUG_KEYSTORE_PASSWORD\" >> local.properties
-          echo DEBUG_KEY_PASSWORD=\"DEBUG_KEY_PASSWORD\" >> local.properties
+          echo -e GOOGLE_CLIENT_ID=\"${{ secrets.GOOGLE_CLIENT_ID }}\" >> local.properties
+          echo -e DEBUG_KEYSTORE_PASSWORD=${{ secrets.DEBUG_KEYSTORE_PASSWORD }} >> local.properties
+          echo -e DEBUG_KEY_PASSWORD=${{ secrets.DEBUG_KEY_PASSWORD }} >> local.properties
 
       - name: Debug info
         run: cat local.properties
