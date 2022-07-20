@@ -24,7 +24,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "GOOGLE_CLIENT_ID", getGoogleClientId())
+        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${getGoogleClientId()}\"")
     }
     signingConfigs {
         getByName("debug") {
