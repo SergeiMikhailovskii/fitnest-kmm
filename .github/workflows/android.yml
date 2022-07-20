@@ -19,7 +19,7 @@ jobs:
 
       - name: Init keys
         run: |
-          echo -e GOOGLE_CLIENT_ID=\"${{ secrets.GOOGLE_CLIENT_ID }}\" >> local.properties
+          echo -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> local.properties
           echo -e DEBUG_KEYSTORE_PASSWORD=${{ secrets.DEBUG_KEYSTORE_PASSWORD }} >> local.properties
           echo -e DEBUG_KEY_PASSWORD=${{ secrets.DEBUG_KEY_PASSWORD }} >> local.properties
 
