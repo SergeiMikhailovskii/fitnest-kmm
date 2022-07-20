@@ -19,8 +19,13 @@ jobs:
 
       - name: Init keys
         env:
-          APOD_API_KEY: ${{ secrets.GOOGLE_CLIENT_ID }}
-        run: echo GOOGLE_CLIENT_ID=\"GOOGLE_CLIENT_ID\" > local.properties
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          DEBUG_KEYSTORE_PASSWORD: ${{ secrets.DEBUG_KEYSTORE_PASSWORD }}
+          DEBUG_KEY_PASSWORD: ${{ secrets.DEBUG_KEY_PASSWORD }}
+        run: |
+          echo GOOGLE_CLIENT_ID=\"GOOGLE_CLIENT_ID\"\\n
+          DEBUG_KEYSTORE_PASSWORD=\"DEBUG_KEYSTORE_PASSWORD\"\\n
+          DEBUG_KEY_PASSWORD=\"DEBUG_KEY_PASSWORD\" > local.properties
 
       - name: Clean
         run: ./gradlew clean

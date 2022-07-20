@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "622421916627-lsoilhtl680o7cmpi7ed7gt4iqavt0od.apps.googleusercontent.com",
+          "client_id": "622421916627-f8t99m0euuml89jhtkl1pboprcf4k7f6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitnest.android",
+            "certificate_hash": "8b857b843921de5007b2bd6307136f61c1653826"
+          }
+        },
+        {
+          "client_id": "622421916627-2te2snltecg15vp5fb9vb498q29uufed.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "622421916627-lsoilhtl680o7cmpi7ed7gt4iqavt0od.apps.googleusercontent.com",
+              "client_id": "622421916627-2te2snltecg15vp5fb9vb498q29uufed.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

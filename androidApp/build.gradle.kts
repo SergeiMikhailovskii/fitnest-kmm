@@ -26,6 +26,14 @@ android {
 
         buildConfigField("String", "GOOGLE_CLIENT_ID", getGoogleClientId())
     }
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("build_system/debug.keystore")
+            storePassword = getDebugKeystorePassword()
+            keyAlias = "debug"
+            keyPassword = getDebugKeyPassword()
+        }
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -47,4 +55,18 @@ fun getGoogleClientId(): String {
     val properties = Properties()
     properties.load(FileInputStream(propFile))
     return properties.getProperty("GOOGLE_CLIENT_ID")
+}
+
+fun getDebugKeystorePassword(): String {
+    val propFile = rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty("DEBUG_KEYSTORE_PASSWORD")
+}
+
+fun getDebugKeyPassword(): String {
+    val propFile = rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty("DEBUG_KEY_PASSWORD")
 }
