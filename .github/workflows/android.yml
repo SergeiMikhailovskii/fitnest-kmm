@@ -27,6 +27,9 @@ jobs:
           DEBUG_KEYSTORE_PASSWORD=\"DEBUG_KEYSTORE_PASSWORD\"\\n
           DEBUG_KEY_PASSWORD=\"DEBUG_KEY_PASSWORD\" > local.properties
 
+      - name: Debug info
+        run: cat local.properties
+
       - name: Clean
         run: ./gradlew clean
 
