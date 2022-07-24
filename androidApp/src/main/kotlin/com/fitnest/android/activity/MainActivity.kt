@@ -10,8 +10,13 @@ import androidx.compose.material.ExperimentalMaterialApi
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.di.privateAreaModule
 import com.fitnest.android.di.registrationModule
+import com.fitnest.android.di.serviceModule
 import com.fitnest.android.di.viewModelModule
-import com.fitnest.di.*
+import com.fitnest.android.internal.GoogleSignInService
+import com.fitnest.di.cookieModule
+import com.fitnest.di.mapperModule
+import com.fitnest.di.repositoryModule
+import com.fitnest.di.serializationModule
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.kodein.di.*
 import kotlin.time.ExperimentalTime
@@ -39,9 +44,15 @@ class MainActivity : AppCompatActivity(), DIAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initServices()
         setContent {
             FitnestApp()
         }
+    }
+
+    private fun initServices() {
+        val googleSignInService: GoogleSignInService by di.instance()
+        googleSignInService.init()
     }
 
 }
