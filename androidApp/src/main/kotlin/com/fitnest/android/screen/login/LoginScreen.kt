@@ -72,7 +72,7 @@ internal fun LoginScreen(navController: NavController) {
                 val intent = result.data
                 if (result.data != null) {
                     val task = GoogleSignIn.getSignedInAccountFromIntent(intent).result
-                    handleSignInResult(task)
+                    handleSignInResult(task, viewModel)
                 }
             }
         }
@@ -297,6 +297,8 @@ private fun getGoogleLoginAuth(context: Context): GoogleSignInClient {
     return GoogleSignIn.getClient(context, gso)
 }
 
-private fun handleSignInResult(account: GoogleSignInAccount) {
-    println()
+private fun handleSignInResult(account: GoogleSignInAccount, viewModel: LoginViewModel) {
+    account.email?.let(viewModel::updateLogin)
+    account.idToken?.let(viewModel::updatePassword)
+    viewModel.validateAndLogin()
 }
