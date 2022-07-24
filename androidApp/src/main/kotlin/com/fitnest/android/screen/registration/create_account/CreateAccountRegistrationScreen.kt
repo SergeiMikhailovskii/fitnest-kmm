@@ -3,7 +3,7 @@ package com.fitnest.android.screen.registration.create_account
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,6 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.stringResourceByIdentifier
+import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.*
 import com.fitnest.android.style.Dimen.Dimen1
@@ -45,6 +45,7 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -54,6 +55,8 @@ fun CreateAccountRegistrationScreen(
     navController: NavController,
 ) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val googleSignInService: GoogleSignInService by rememberInstance()
+
     val viewModel = viewModel(
         factory = viewModelFactory,
         modelClass = CreateAccountRegistrationViewModel::class.java
@@ -95,10 +98,8 @@ fun CreateAccountRegistrationScreen(
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        focusManager.clearFocus()
-                    })
+                .clickable {
+                    focusManager.clearFocus()
                 },
         ) {
             val (
@@ -300,6 +301,11 @@ fun CreateAccountRegistrationScreen(
                     .constrainAs(cvGoogle) {
                         bottom.linkTo(tvHaveAccount.top, Padding30)
                         end.linkTo(guidelineHalf, Padding15)
+                    }
+                    .clickable {
+                        googleSignInService.login {
+                            viewModel.handleGoogleSignIn(it)
+                        }
                     },
                 shape = RoundedCornerShape(Dimen14),
                 border = BorderStroke(Dimen1, GrayColor3),
@@ -447,6 +453,15 @@ fun RegistrationOutlinedTextField(
         }
     }
 
+}
+
+private fun handleSignInResult(
+    account: GoogleSignInAccount,
+    viewModel: CreateAccountRegistrationViewModel
+) {
+    account.email?.let(viewModel::updateEmail)
+    account.idToken?.let(viewModel::updatePassword)
+    viewModel.submitRegistration()
 }
 
 fun getPasswordVisualTransformation(passwordVisibility: Boolean) =

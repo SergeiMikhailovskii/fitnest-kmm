@@ -3,7 +3,7 @@ package com.fitnest.android.screen.registration.complete_account
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +12,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -122,10 +121,8 @@ fun CompleteAccountRegistrationScreen(
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        focusManager.clearFocus()
-                    })
+                .clickable {
+                    focusManager.clearFocus()
                 },
         ) {
             val (

@@ -3,7 +3,7 @@ package com.fitnest.android.screen.login
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -72,10 +71,8 @@ internal fun LoginScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures {
-                        focusManager.clearFocus()
-                    }
+                .clickable {
+                    focusManager.clearFocus()
                 }) {
             Text(
                 modifier = Modifier.padding(top = Padding.Padding40),
@@ -201,11 +198,9 @@ internal fun LoginScreen(navController: NavController) {
                         modifier = Modifier
                             .background(Color.White)
                             .size(Dimen.Dimen20)
-                            .pointerInput(Unit) {
-                                detectTapGestures {
-                                    googleSignInService.login {
-                                        handleSignInResult(it, viewModel)
-                                    }
+                            .clickable {
+                                googleSignInService.login {
+                                    handleSignInResult(it, viewModel)
                                 }
                             },
                         contentAlignment = Alignment.Center,
