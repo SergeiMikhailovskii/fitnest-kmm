@@ -22,6 +22,8 @@ jobs:
           echo -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> local.properties
           echo -e DEBUG_KEYSTORE_PASSWORD=${{ secrets.DEBUG_KEYSTORE_PASSWORD }} >> local.properties
           echo -e DEBUG_KEY_PASSWORD=${{ secrets.DEBUG_KEY_PASSWORD }} >> local.properties
+          echo -e facebook_app_id=${{ secrets.facebook_app_id }} >> local.properties
+          echo -e facebook_client_token=${{ secrets.facebook_client_token }} >> local.properties
 
       - name: Debug info
         run: cat local.properties

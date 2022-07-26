@@ -2,6 +2,7 @@ package com.fitnest.android.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.fitnest.android.extension.ViewModelFactory
+import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
@@ -139,6 +140,9 @@ val notificationsPrivateAreaModule = DI.Module("notifications private area modul
 val serviceModule = DI.Module("service module") {
     bind<GoogleSignInService>() with singleton {
         GoogleSignInService(instance())
+    }
+    bind<FacebookService>() with singleton {
+        FacebookService(instance())
     }
     import(com.fitnest.di.serviceModule)
 }

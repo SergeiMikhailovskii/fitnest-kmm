@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.create_account.DividerWithChild
@@ -49,6 +50,7 @@ internal fun LoginScreen(navController: NavController) {
     val viewMapper: LoginViewMapper by rememberInstance()
     val registrationAnnotatedString = viewMapper.getLoginAnnotatedString()
     val googleSignInService: GoogleSignInService by rememberInstance()
+    val facebookService: FacebookService by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -190,19 +192,19 @@ internal fun LoginScreen(navController: NavController) {
                 Card(
                     modifier = Modifier
                         .height(Dimen.Dimen50)
-                        .width(Dimen.Dimen50),
+                        .width(Dimen.Dimen50)
+                        .clickable {
+                            googleSignInService.login {
+                                viewModel.handleGoogleSignIn(it)
+                            }
+                        },
                     shape = RoundedCornerShape(Dimen.Dimen14),
                     border = BorderStroke(Dimen.Dimen1, GrayColor3),
                 ) {
                     Box(
                         modifier = Modifier
                             .background(Color.White)
-                            .size(Dimen.Dimen20)
-                            .clickable {
-                                googleSignInService.login {
-                                    handleSignInResult(it, viewModel)
-                                }
-                            },
+                            .size(Dimen.Dimen20),
                         contentAlignment = Alignment.Center,
                     ) {
                         Image(
@@ -224,7 +226,12 @@ internal fun LoginScreen(navController: NavController) {
                     Box(
                         modifier = Modifier
                             .background(Color.White)
-                            .size(Dimen.Dimen20),
+                            .size(Dimen.Dimen20)
+                            .clickable {
+                                facebookService.login {
+                                    viewModel.handleFacebookLogin(it)
+                                }
+                            },
                         contentAlignment = Alignment.Center,
                     ) {
                         Image(
@@ -261,10 +268,4 @@ internal fun LoginScreen(navController: NavController) {
             }
         }
     }
-}
-
-private fun handleSignInResult(account: GoogleSignInAccount, viewModel: LoginViewModel) {
-    account.email?.let(viewModel::updateLogin)
-    account.idToken?.let(viewModel::updatePassword)
-    viewModel.validateAndLogin()
 }

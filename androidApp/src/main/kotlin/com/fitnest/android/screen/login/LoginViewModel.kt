@@ -3,11 +3,13 @@ package com.fitnest.android.screen.login
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
+import com.fitnest.domain.entity.response.FacebookLoginResponse
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.exception.LoginPageValidationException
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -90,6 +92,24 @@ internal class LoginViewModel(
 
     internal fun goToRegistration() {
         handleRoute(Route.Proxy(FlowType.REGISTRATION))
+    }
+
+    internal fun handleGoogleSignIn(account: GoogleSignInAccount) {
+        screenData = screenData.copy(
+            login = account.email,
+            password = account.idToken
+        )
+        updateScreenData()
+        validateAndLogin()
+    }
+
+    internal fun handleFacebookLogin(profile: FacebookLoginResponse) {
+        screenData = screenData.copy(
+            login = profile.email,
+            password = profile.id
+        )
+        updateScreenData()
+        validateAndLogin()
     }
 
     internal fun validateAndLogin() {

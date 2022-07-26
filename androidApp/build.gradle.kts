@@ -24,14 +24,16 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${getGoogleClientId()}\"")
+        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${googleClientId}\"")
+        resValue("string", "facebook_app_id", facebookAppId)
+        resValue("string", "facebook_client_token", facebookClientToken)
     }
     signingConfigs {
         getByName("debug") {
             storeFile = file("build_system/debug.keystore")
-            storePassword = getDebugKeystorePassword()
+            storePassword = debugKeystorePassword
             keyAlias = "debug"
-            keyPassword = getDebugKeyPassword()
+            keyPassword = debugKeyPassword
         }
     }
     buildTypes {
@@ -50,23 +52,25 @@ android {
     }
 }
 
-fun getGoogleClientId(): String {
-    val propFile = rootProject.file("local.properties")
-    val properties = Properties()
-    properties.load(FileInputStream(propFile))
-    return properties.getProperty("GOOGLE_CLIENT_ID")
-}
+val properties: Properties
+    get() {
+        val propFile = rootProject.file("local.properties")
+        val properties = Properties()
+        properties.load(FileInputStream(propFile))
+        return properties
+    }
 
-fun getDebugKeystorePassword(): String {
-    val propFile = rootProject.file("local.properties")
-    val properties = Properties()
-    properties.load(FileInputStream(propFile))
-    return properties.getProperty("DEBUG_KEYSTORE_PASSWORD")
-}
+val googleClientId: String
+    get() = properties.getProperty("GOOGLE_CLIENT_ID")
 
-fun getDebugKeyPassword(): String {
-    val propFile = rootProject.file("local.properties")
-    val properties = Properties()
-    properties.load(FileInputStream(propFile))
-    return properties.getProperty("DEBUG_KEY_PASSWORD")
-}
+val debugKeystorePassword: String
+    get() = properties.getProperty("DEBUG_KEYSTORE_PASSWORD")
+
+val debugKeyPassword: String
+    get() = properties.getProperty("DEBUG_KEY_PASSWORD")
+
+val facebookAppId: String
+    get() = properties.getProperty("facebook_app_id")
+
+val facebookClientToken: String
+    get() = properties.getProperty("facebook_client_token")
