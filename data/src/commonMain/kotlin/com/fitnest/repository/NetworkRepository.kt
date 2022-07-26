@@ -1,9 +1,9 @@
 package com.fitnest.repository
 
-import com.fitnest.domain.entity.LoginData
 import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
+import com.fitnest.domain.entity.response.LoginPageResponse
 import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.functional.flatMap
@@ -19,14 +19,11 @@ class NetworkRepository(
     private val registrationResponseMapper: RegistrationResponseMapper
 ) : NetworkRepository {
 
-    override suspend fun loginUser(data: LoginData) {
-    }
-
     override suspend fun generateToken() = networkService.getData(Endpoints.Flow.name)
 
     override suspend fun getOnboardingStep() = networkService.getData(Endpoints.Onboarding.name)
         .map {
-            it?.data?.jsonObject?.get("step")?.jsonPrimitive?.content ?: ""
+            it?.data?.jsonObject?.get("step")?.jsonPrimitive?.content.orEmpty()
         }
 
     override suspend fun getRegistrationStepData() =
@@ -57,5 +54,10 @@ class NetworkRepository(
 
     override suspend fun deleteNotification(request: DeleteNotificationRequest) =
         networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DELETE, request)
+
+    override suspend fun getLoginPage() = networkService.getDataResult(Endpoints.Auth.LOGIN)
+
+    override suspend fun loginUser(request: LoginPageResponse.LoginPageFields) =
+        networkService.sendDataResult(Endpoints.Auth.LOGIN, request)
 
 }

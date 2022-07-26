@@ -19,7 +19,7 @@ import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.*
 
 @Composable
-fun HeaderBlock(
+internal fun HeaderBlock(
     headerWidget: HomeScreenData.HeaderWidget,
     viewModel: HomeViewModel
 ) {
@@ -35,7 +35,7 @@ fun HeaderBlock(
                 style = PoppinsNormalStyle12Gray2
             )
             Text(
-                text = headerWidget.name ?: "",
+                text = headerWidget.name.orEmpty(),
                 modifier = Modifier.padding(top = Padding.Padding5),
                 style = PoppinsBoldStyle20Black
             )

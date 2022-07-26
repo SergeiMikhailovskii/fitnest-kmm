@@ -4,20 +4,22 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
+import com.fitnest.domain.entity.response.FacebookLoginResponse
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
 import com.fitnest.domain.validator.CreateAccountRegistrationValidator
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class CreateAccountRegistrationViewModel(
+internal class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val validator: CreateAccountRegistrationValidator,
     private val viewMapper: CreateAccountRegistrationViewMapper,
     private val submitRegistrationStepAndGetNext: SubmitRegistrationStepAndGetNext
 ) : BaseViewModel() {
 
-    private val screenData = CreateAccountRegistrationScreenData.init()
+    private var screenData = CreateAccountRegistrationScreenData()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
@@ -29,72 +31,98 @@ class CreateAccountRegistrationViewModel(
             validator.initialize(
                 jsonSchema = it,
                 onFirstNameErrorChanged = {
-                    screenData.exception.firstNameError = it
+                    screenData = screenData.copy(
+                        exception = screenData.exception.copy(firstNameError = it)
+                    )
                 },
                 onLastNameErrorChanged = {
-                    screenData.exception.lastNameError = it
+                    screenData = screenData.copy(
+                        exception = screenData.exception.copy(lastNameError = it)
+                    )
                 },
                 onEmailErrorChanged = {
-                    screenData.exception.emailError = it
+                    screenData = screenData.copy(
+                        exception = screenData.exception.copy(emailError = it)
+                    )
                 },
                 onPasswordErrorChanged = {
-                    screenData.exception.passwordError = it
+                    screenData = screenData.copy(
+                        exception = screenData.exception.copy(passwordError = it)
+                    )
                 }
             )
         }
         if (fields is RegistrationStepModel.CreateAccountStepModel) {
             setInitialScreenData(fields)
         }
-        screenData.validationSchema = validationSchema
+        screenData = screenData.copy(validationSchema = validationSchema)
         updateScreenData()
     }
 
     internal fun updateFirstName(name: String) {
-        screenData.firstName = name
-        screenData.exception.firstNameError = null
+        screenData = screenData.copy(
+            firstName = name,
+            exception = screenData.exception.copy(firstNameError = null)
+        )
         updateScreenData()
     }
 
     internal fun updateLastName(lastName: String) {
-        screenData.lastName = lastName
-        screenData.exception.lastNameError = null
+        screenData = screenData.copy(
+            lastName = lastName,
+            exception = screenData.exception.copy(lastNameError = null)
+        )
         updateScreenData()
     }
 
     internal fun updateEmail(email: String) {
-        screenData.email = email
-        screenData.exception.emailError = null
+        screenData = screenData.copy(
+            email = email,
+            exception = screenData.exception.copy(emailError = null)
+        )
         updateScreenData()
     }
 
     internal fun updatePassword(password: String) {
-        screenData.password = password
-        screenData.exception.passwordError = null
+        screenData = screenData.copy(
+            email = password,
+            exception = screenData.exception.copy(passwordError = null)
+        )
         updateScreenData()
     }
 
     internal fun changePasswordVisibility() {
-        screenData.passwordVisible = !screenData.passwordVisible
+        screenData = screenData.copy(
+            passwordVisible = !screenData.passwordVisible,
+        )
         updateScreenData()
     }
 
     internal fun updateFirstNameFocus(isFocused: Boolean) {
-        screenData.isFirstNameFocused = isFocused
+        screenData = screenData.copy(
+            isFirstNameFocused = isFocused,
+        )
         updateScreenData()
     }
 
     internal fun updateLastNameFocus(isFocused: Boolean) {
-        screenData.isLastNameFocused = isFocused
+        screenData = screenData.copy(
+            isLastNameFocused = isFocused,
+        )
         updateScreenData()
     }
 
     internal fun updateEmailFocus(isFocused: Boolean) {
-        screenData.isEmailFocused = isFocused
+        screenData = screenData.copy(
+            isEmailFocused = isFocused,
+        )
         updateScreenData()
     }
 
     internal fun updatePasswordFocus(isFocused: Boolean) {
-        screenData.isPasswordFocused = isFocused
+        screenData = screenData.copy(
+            isPasswordFocused = isFocused,
+        )
         updateScreenData()
     }
 
@@ -114,11 +142,39 @@ class CreateAccountRegistrationViewModel(
         }
     }
 
+    internal fun navigateToLogin() {
+        handleRoute(Route.Login)
+    }
+
+    internal fun handleGoogleSignIn(account: GoogleSignInAccount) {
+        screenData = screenData.copy(
+            firstName = account.givenName,
+            lastName = account.familyName,
+            email = account.email,
+            password = account.idToken
+        )
+        updateScreenData()
+        submitRegistration()
+    }
+
+    internal fun handleFacebookSignIn(account: FacebookLoginResponse) {
+        screenData = screenData.copy(
+            firstName = account.firstName,
+            lastName = account.lastName,
+            email = account.email,
+            password = account.id
+        )
+        updateScreenData()
+        submitRegistration()
+    }
+
     private fun setInitialScreenData(stepData: RegistrationStepModel.CreateAccountStepModel) {
-        screenData.firstName = stepData.firstName
-        screenData.lastName = stepData.lastName
-        screenData.email = stepData.email
-        screenData.password = stepData.password
+        screenData = screenData.copy(
+            firstName = stepData.firstName,
+            lastName = stepData.lastName,
+            email = stepData.email,
+            password = stepData.password
+        )
         updateScreenData()
     }
 

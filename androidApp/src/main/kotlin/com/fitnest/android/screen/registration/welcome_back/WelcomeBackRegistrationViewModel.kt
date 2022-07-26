@@ -31,7 +31,7 @@ class WelcomeBackRegistrationViewModel(
     }
 
     internal fun next() {
-        submitRegistrationStepAndGetNext(WelcomeBackStepRequest) {
+        submitRegistrationStepAndGetNext(WelcomeBackStepRequest()) {
             it.either(::handleRegistrationFailure) {
                 it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
             }
@@ -40,7 +40,7 @@ class WelcomeBackRegistrationViewModel(
 
     private fun handleRegistrationFailure(failure: Failure?) {
         if (failure is Failure.ValidationError && failure.message == "registration.finished") {
-            handleRoute(Route.Proxy)
+            handleRoute(Route.Proxy())
         }
     }
 

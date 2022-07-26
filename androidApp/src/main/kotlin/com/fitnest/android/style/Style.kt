@@ -151,6 +151,10 @@ val PoppinsNormalStyle14Gray2 = PoppinsNormalStyle14.copy(
     color = GrayColor2
 )
 
+val PoppinsNormalStyle14Black = PoppinsNormalStyle14.copy(
+    color = BlackColor
+)
+
 val PoppinsNormalStyle16 = PoppinsNormalStyle.copy(
     fontSize = TextSize.Size16
 )

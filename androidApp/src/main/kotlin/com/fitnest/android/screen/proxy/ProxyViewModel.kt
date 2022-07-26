@@ -8,18 +8,22 @@ import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 
-class ProxyViewModel(
+internal class ProxyViewModel(
     private val generateTokenUseCase: GenerateTokenUseCase,
     private val getOnboardingStepUseCase: GetOnboardingStep,
     private val getRegistrationStepDataUseCase: GetRegistrationStepData,
     private val registrationScreenState: RegistrationScreenState,
 ) : BaseViewModel() {
 
-    internal fun getNextFlow() {
-        generateTokenUseCase {
-            it.either(::handleFailure) {
-                showNextScreen(it?.getFlow() ?: FlowType.UNKNOWN)
+    internal fun getNextFlow(flow: FlowType) {
+        if (flow == FlowType.UNKNOWN) {
+            generateTokenUseCase {
+                it.either(::handleFailure) {
+                    showNextScreen(it?.getFlow() ?: FlowType.UNKNOWN)
+                }
             }
+        } else {
+            showNextScreen(flow)
         }
     }
 
@@ -28,7 +32,7 @@ class ProxyViewModel(
             FlowType.ONBOARDING -> {
                 getOnboardingStepUseCase {
                     it.either(::handleFailure) {
-                        handleRoute(Route.OnboardingStep(stepName = it ?: ""))
+                        handleRoute(Route.OnboardingStep(stepName = it.orEmpty()))
                     }
                 }
             }
@@ -37,7 +41,7 @@ class ProxyViewModel(
                     it.either(::handleFailure) {
                         registrationScreenState.fields = it?.fields
                         registrationScreenState.validationSchema = it?.validationSchema
-                        handleRoute(Route.RegistrationStep(stepName = it?.step ?: ""))
+                        handleRoute(Route.RegistrationStep(stepName = it?.step.orEmpty()))
                     }
                 }
             }

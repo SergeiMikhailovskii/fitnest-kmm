@@ -6,7 +6,7 @@ import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 
-class SplashViewModel(
+internal class SplashViewModel(
     private val generateTokenUseCase: GenerateTokenUseCase
 ) : BaseViewModel() {
 
@@ -22,7 +22,7 @@ class SplashViewModel(
     }
 
     internal fun navigateNext() {
-        handleRoute(Route.Proxy)
+        handleRoute(Route.Proxy())
     }
 
     private fun handleGenerateTokenFailure(failure: Failure) {

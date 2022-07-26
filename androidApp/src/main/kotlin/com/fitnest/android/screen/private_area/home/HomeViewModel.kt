@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
+internal class HomeViewModel(
     getDashboardDataUseCase: GetDashboardDataUseCase,
     private val viewMapper: HomeViewMapper
 ) : BaseViewModel() {

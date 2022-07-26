@@ -3,7 +3,7 @@ package com.fitnest.android.screen.registration.complete_account
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +12,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -28,7 +27,7 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
-import com.fitnest.android.screen.registration.create_account.handleNavigation
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.ui.AnthropometryBottomSheet
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
 import com.fitnest.android.screen.registration.ui.DateOfBirthTextField
@@ -122,10 +121,8 @@ fun CompleteAccountRegistrationScreen(
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        focusManager.clearFocus()
-                    })
+                .clickable {
+                    focusManager.clearFocus()
                 },
         ) {
             val (
@@ -184,7 +181,7 @@ fun CompleteAccountRegistrationScreen(
                     onItemClicked = {
                         viewModel.saveSex(SexType.fromLocalizedName(it, context))
                     },
-                    value = screenData.sex?.localizedNameId?.let(context::getString) ?: "",
+                    value = screenData.sex?.localizedNameId?.let(context::getString).orEmpty(),
                     isFocused = screenData.isSexFocused,
                     onFocusChanged = viewModel::updateSexFocus
                 )
@@ -202,7 +199,7 @@ fun CompleteAccountRegistrationScreen(
             ) {
                 DateOfBirthTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = screenData.formattedDateOfBirth() ?: ""
+                    value = screenData.formattedDateOfBirth().orEmpty()
                 ) {
                     showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
                 }
@@ -219,7 +216,7 @@ fun CompleteAccountRegistrationScreen(
                     }
             ) {
                 AnthropometryTextField(
-                    value = screenData.weight?.toString() ?: "",
+                    value = screenData.weight?.toString().orEmpty(),
                     leadingIcon = R.drawable.ic_complete_registration_weight,
                     label = context.getString(R.string.registration_complete_account_weight_hint),
                     optionLabel = context.getString(R.string.registration_complete_account_weight_kg)
@@ -240,7 +237,7 @@ fun CompleteAccountRegistrationScreen(
                     }
             ) {
                 AnthropometryTextField(
-                    value = screenData.height?.toString() ?: "",
+                    value = screenData.height?.toString().orEmpty(),
                     leadingIcon = R.drawable.ic_complete_registration_height,
                     label = context.getString(R.string.registration_complete_account_height_hint),
                     optionLabel = context.getString(R.string.registration_complete_account_height_cm)

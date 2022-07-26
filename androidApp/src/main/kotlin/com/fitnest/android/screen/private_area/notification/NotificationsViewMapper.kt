@@ -25,7 +25,7 @@ internal class NotificationsViewMapper(
         notifications?.map {
             NotificationUIInfo(
                 id = it.id ?: 0,
-                title = it.title ?: "",
+                title = it.title.orEmpty(),
                 description = formatNotificationTime(it.date),
                 icon = getNotificationIcon(it.type),
                 isActive = it.isActive == true,

@@ -17,6 +17,17 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
+      - name: Init keys
+        run: |
+          echo -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> local.properties
+          echo -e DEBUG_KEYSTORE_PASSWORD=${{ secrets.DEBUG_KEYSTORE_PASSWORD }} >> local.properties
+          echo -e DEBUG_KEY_PASSWORD=${{ secrets.DEBUG_KEY_PASSWORD }} >> local.properties
+          echo -e facebook_app_id=${{ secrets.facebook_app_id }} >> local.properties
+          echo -e facebook_client_token=${{ secrets.facebook_client_token }} >> local.properties
+
+      - name: Debug info
+        run: cat local.properties
+
       - name: Clean
         run: ./gradlew clean
 
@@ -38,15 +49,10 @@ jobs:
         with:
           name: androidApp-debug.apk
 
-      - name: Get latest commit
-        id: vars
-        run: echo ::set-output name=LATEST_COMMIT_MESSAGE::$(echo $(git log -1 --pretty=format:"%s"))
-
       - name: Upload artifact to FAD
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
           file: androidApp-debug.apk
-          releaseNotes: ${{ steps.vars.outputs.LATEST_COMMIT_MESSAGE }}

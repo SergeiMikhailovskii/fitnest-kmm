@@ -2,7 +2,7 @@ package com.fitnest.android.screen.registration.ui
 
 import android.widget.NumberPicker
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
@@ -10,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -40,25 +39,21 @@ fun AnthropometryBottomSheet(
         ) {
             Text(
                 context.getString(R.string.registration_complete_account_cancel),
-                modifier = Modifier.pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        coroutineScope.launch {
-                            modalBottomSheetState.hide()
-                            picker = null
-                        }
-                    })
+                modifier = Modifier.clickable {
+                    coroutineScope.launch {
+                        modalBottomSheetState.hide()
+                        picker = null
+                    }
                 })
             Box(modifier = Modifier.weight(1F))
             Text(context.getString(R.string.registration_complete_account_save),
                 color = BrandColor,
-                modifier = Modifier.pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        coroutineScope.launch {
-                            onSubmit(picker?.value ?: 0)
-                            modalBottomSheetState.hide()
-                            picker = null
-                        }
-                    })
+                modifier = Modifier.clickable {
+                    coroutineScope.launch {
+                        onSubmit(picker?.value ?: 0)
+                        modalBottomSheetState.hide()
+                        picker = null
+                    }
                 })
         }
         AndroidView(

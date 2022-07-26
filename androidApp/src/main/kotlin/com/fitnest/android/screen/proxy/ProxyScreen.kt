@@ -14,7 +14,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
-import com.fitnest.android.base.Route
+import com.fitnest.android.navigation.handleNavigation
+import com.fitnest.domain.enum.FlowType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -22,11 +23,14 @@ import org.kodein.di.compose.rememberInstance
 @Preview
 @Composable
 fun ProxyScreenPreview() {
-    ProxyScreen(navController = rememberNavController(ComposeNavigator()))
+    ProxyScreen(
+        navController = rememberNavController(ComposeNavigator()),
+        flowType = FlowType.UNKNOWN
+    )
 }
 
 @Composable
-fun ProxyScreen(navController: NavController) {
+fun ProxyScreen(navController: NavController, flowType: FlowType) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
 
     val viewModel = viewModel(
@@ -43,7 +47,7 @@ fun ProxyScreen(navController: NavController) {
                 )
             }
         }
-        viewModel.getNextFlow()
+        viewModel.getNextFlow(flowType)
     }
 
     Scaffold {
@@ -51,9 +55,4 @@ fun ProxyScreen(navController: NavController) {
             CircularProgressIndicator()
         }
     }
-}
-
-fun handleNavigation(route: Route, navController: NavController) {
-    navController.popBackStack()
-    navController.navigate(route.screenName)
 }

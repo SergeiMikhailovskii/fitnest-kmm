@@ -366,7 +366,7 @@ private fun WaterIntakeBlock(
                 )
                 Box(Modifier.height(Dimen.Dimen10))
                 waterIntakeSubWidget.intakes?.forEach {
-                    Text(it.timeDiapason ?: "", style = PoppinsNormalStyle8Gray2)
+                    Text(it.timeDiapason.orEmpty(), style = PoppinsNormalStyle8Gray2)
                     Text(
                         stringResource(
                             id = R.string.private_area_dashboard_water_intake_millis,

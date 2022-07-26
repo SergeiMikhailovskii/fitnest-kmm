@@ -2,6 +2,9 @@ package com.fitnest.android.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.fitnest.android.extension.ViewModelFactory
+import com.fitnest.android.internal.FacebookService
+import com.fitnest.android.internal.GoogleSignInService
+import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.private_area.home.HomeViewMapper
@@ -30,9 +33,6 @@ val viewModelModule = DI.Module("view model module") {
     bind<ViewModelProvider.Factory>() with singleton {
         ViewModelFactory(di)
     }
-    bind<LoginViewModel>() with factory {
-        LoginViewModel(instance())
-    }
     bind<SplashViewModel>() with factory {
         SplashViewModel(instance())
     }
@@ -49,6 +49,7 @@ val registrationModule = DI.Module("registration module") {
     import(completeAccountRegistrationScreenModule)
     import(goalRegistrationScreenModule)
     import(welcomeBackRegistrationScreenModule)
+    import(loginScreenModule)
 
     bind<RegistrationScreenState>() with singleton {
         RegistrationScreenState()
@@ -98,6 +99,15 @@ val goalRegistrationScreenModule = DI.Module("goal registration screen module") 
     }
 }
 
+val loginScreenModule = DI.Module("login screen module") {
+    bind<LoginViewModel>() with factory {
+        LoginViewModel(instance(), instance(), instance(), instance())
+    }
+    bind<LoginViewMapper>() with factory {
+        LoginViewMapper(instance())
+    }
+}
+
 val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
     bind<WelcomeBackRegistrationViewModel>() with factory {
         WelcomeBackRegistrationViewModel(instance(), instance())
@@ -125,4 +135,14 @@ val notificationsPrivateAreaModule = DI.Module("notifications private area modul
     bind<NotificationsViewMapper>() with factory {
         NotificationsViewMapper(instance())
     }
+}
+
+val serviceModule = DI.Module("service module") {
+    bind<GoogleSignInService>() with singleton {
+        GoogleSignInService(instance())
+    }
+    bind<FacebookService>() with singleton {
+        FacebookService(instance())
+    }
+    import(com.fitnest.di.serviceModule)
 }

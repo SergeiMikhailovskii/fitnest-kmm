@@ -1,8 +1,10 @@
 package com.fitnest.android.base
 
+import com.fitnest.domain.enum.FlowType
+
 sealed class Route(val screenName: String) {
     object Splash : Route("splash")
-    object Proxy : Route("proxy")
+    data class Proxy(val flow: FlowType = FlowType.UNKNOWN) : Route("proxy/${flow}")
 
     data class OnboardingStep(val stepName: String) : Route("onboardingStep/$stepName")
 

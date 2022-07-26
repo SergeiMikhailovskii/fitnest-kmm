@@ -15,7 +15,7 @@ class CompleteAccountRegistrationViewMapper :
         val weight = data.weight
         val height = data.height
         val dateOfBirth = if (data.dateOfBirth == null) null
-        else LocalDate.parse(data.dateOfBirth?.format("yyyy-MM-dd") ?: "")
+        else LocalDate.parse(data.dateOfBirth?.format("yyyy-MM-dd").orEmpty())
 
         return CompleteAccountStepRequest(
             sex = sex,

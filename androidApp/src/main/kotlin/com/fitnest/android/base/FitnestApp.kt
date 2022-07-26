@@ -7,7 +7,6 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -25,6 +24,7 @@ import com.fitnest.android.screen.registration.goal.GoalRegistrationScreen
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
+import com.fitnest.domain.enum.FlowType
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -54,10 +54,13 @@ fun FitnestApp() {
                     SplashScreen(navController = navController)
                 }
                 composable(route = Route.Login.screenName) {
-                    LoginScreen()
+                    LoginScreen(navController = navController)
                 }
-                composable(route = Route.Proxy.screenName) {
-                    ProxyScreen(navController = navController)
+                composable(route = "proxy/{flowType}", arguments = listOf(navArgument("flowType") {
+                    type = NavType.EnumType(type = FlowType::class.java)
+                })) {
+                    val flowType = it.arguments?.getSerializable("flowType") as FlowType
+                    ProxyScreen(navController = navController, flowType)
                 }
                 composable(
                     route = "onboardingStep/{stepName}",
@@ -77,7 +80,7 @@ fun FitnestApp() {
                 ) {
                     OnboardingScreen(
                         navController = navController,
-                        stepName = it.arguments?.getString("stepName") ?: ""
+                        stepName = it.arguments?.getString("stepName").orEmpty()
                     )
                 }
                 composable(
@@ -98,7 +101,7 @@ fun FitnestApp() {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
-                    when (it.arguments?.getString("stepName") ?: "") {
+                    when (it.arguments?.getString("stepName").orEmpty()) {
                         "STEP_CREATE_ACCOUNT" -> {
                             CreateAccountRegistrationScreen(navController = navController)
                         }

@@ -23,7 +23,7 @@ import com.fitnest.android.style.PoppinsBoldStyle16
 @Composable
 fun TopBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: ""
+    val currentRoute = navBackStackEntry?.destination?.route.orEmpty()
 
     if (isRouteWithTopBar(currentRoute)) {
         Row(

@@ -15,6 +15,12 @@ internal object Endpoints {
         override val name = "registration"
     }
 
+    object Auth : Group {
+        override val name = "auth/"
+
+        val LOGIN = "${name}login"
+    }
+
     object PrivateArea : Group {
         override val name = "private-area/"
 

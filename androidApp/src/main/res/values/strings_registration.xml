@@ -38,4 +38,14 @@
     <string name="registration_welcome_back_title">Welcome, %1$s</string>
     <string name="registration_welcome_back_description">You are all set now, let’s reach your goals together with us</string>
     <string name="registration_welcome_back_next_button_label">Go To Home</string>
+
+    <string name="login_title">Hey there,</string>
+    <string name="login_description">Welcome Back</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_forgot_password">Forgot your password?</string>
+    <string name="login_login_button">Login</string>
+    <string name="login_footer_divider">Or</string>
+    <string name="login_register">Don’t have an account yet? Register</string>
+    <string name="login_register_span">Register</string>
 </resources>
