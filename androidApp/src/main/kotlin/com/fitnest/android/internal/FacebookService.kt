@@ -33,7 +33,14 @@ internal class FacebookService(
                     ) { _, response ->
                         val id = response?.jsonObject?.getString("id")
                         val email = response?.jsonObject?.getString("email")
-                        val fbResponse = FacebookLoginResponse(id = id, email = email)
+                        val firstName = response?.jsonObject?.getString("first_name")
+                        val lastName = response?.jsonObject?.getString("last_name")
+                        val fbResponse = FacebookLoginResponse(
+                            id = id,
+                            email = email,
+                            firstName = firstName,
+                            lastName = lastName
+                        )
                         onSuccess(fbResponse)
                     }
                     val parameters = Bundle()

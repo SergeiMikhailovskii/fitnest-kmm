@@ -33,6 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.stringResourceByIdentifier
+import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.*
@@ -56,6 +57,7 @@ fun CreateAccountRegistrationScreen(
 ) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val googleSignInService: GoogleSignInService by rememberInstance()
+    val facebookSignInService: FacebookService by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -330,6 +332,10 @@ fun CreateAccountRegistrationScreen(
                     .constrainAs(cvFacebook) {
                         start.linkTo(guidelineHalf, Padding15)
                         bottom.linkTo(tvHaveAccount.top, Padding30)
+                    }.clickable {
+                        facebookSignInService.login {
+                            viewModel.handleFacebookSignIn(it)
+                        }
                     },
                 shape = RoundedCornerShape(Dimen14),
                 border = BorderStroke(Dimen1, GrayColor3),
@@ -453,15 +459,6 @@ fun RegistrationOutlinedTextField(
         }
     }
 
-}
-
-private fun handleSignInResult(
-    account: GoogleSignInAccount,
-    viewModel: CreateAccountRegistrationViewModel
-) {
-    account.email?.let(viewModel::updateEmail)
-    account.idToken?.let(viewModel::updatePassword)
-    viewModel.submitRegistration()
 }
 
 fun getPasswordVisualTransformation(passwordVisibility: Boolean) =

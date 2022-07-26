@@ -4,6 +4,7 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
+import com.fitnest.domain.entity.response.FacebookLoginResponse
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
 import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -151,6 +152,17 @@ internal class CreateAccountRegistrationViewModel(
             lastName = account.familyName,
             email = account.email,
             password = account.idToken
+        )
+        updateScreenData()
+        submitRegistration()
+    }
+
+    internal fun handleFacebookSignIn(account: FacebookLoginResponse) {
+        screenData = screenData.copy(
+            firstName = account.firstName,
+            lastName = account.lastName,
+            email = account.email,
+            password = account.id
         )
         updateScreenData()
         submitRegistration()
