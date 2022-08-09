@@ -6,16 +6,21 @@ import com.fitnest.domain.functional.Either
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.service.NetworkService
 import com.fitnest.network.Endpoints
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.features.*
-import io.ktor.client.features.cookies.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.receive
+import io.ktor.client.features.ClientRequestException
+import io.ktor.client.features.cookies.HttpCookies
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.features.logging.DEFAULT
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logger
+import io.ktor.client.features.logging.Logging
+import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import org.kodein.di.DI
 
 class NetworkService(val di: DI) : NetworkService {
@@ -41,7 +46,7 @@ class NetworkService(val di: DI) : NetworkService {
         path: String,
         data: Request?
     ): Either<Failure, BaseResponse> {
-        val url = "${Endpoints.BASE_URL}${path}"
+        val url = "${Endpoints.BASE_URL}$path"
         return try {
             val httpResponse: HttpResponse = httpClient.post(url) {
                 contentType(ContentType.Application.Json)
@@ -56,7 +61,7 @@ class NetworkService(val di: DI) : NetworkService {
     }
 
     override suspend fun <Request> sendDataResult(path: String, data: Request?): BaseResponse {
-        val url = "${Endpoints.BASE_URL}${path}"
+        val url = "${Endpoints.BASE_URL}$path"
         val httpResponse: HttpResponse = httpClient.post(url) {
             contentType(ContentType.Application.Json)
             if (data != null) {
@@ -67,7 +72,7 @@ class NetworkService(val di: DI) : NetworkService {
     }
 
     override suspend fun getData(path: String): Either<Failure, BaseResponse> {
-        val url = "${Endpoints.BASE_URL}${path}"
+        val url = "${Endpoints.BASE_URL}$path"
         return try {
             val httpResponse: HttpResponse = httpClient.get(url) {
                 contentType(ContentType.Application.Json)
@@ -90,7 +95,7 @@ class NetworkService(val di: DI) : NetworkService {
     }
 
     override suspend fun getDataResult(path: String): BaseResponse {
-        val url = "${Endpoints.BASE_URL}${path}"
+        val url = "${Endpoints.BASE_URL}$path"
         return httpClient.get(url)
     }
 }

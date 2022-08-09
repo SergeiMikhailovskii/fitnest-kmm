@@ -1,3 +1,11 @@
+plugins {
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -23,6 +31,18 @@ allprojects {
         }
         maven(url = "https://jitpack.io")
         maven(url = "https://dl.bintray.com/kodein-framework/Kodein-DI")
+    }
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    repositories {
+        mavenCentral()
+    }
+
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        debug.set(true)
     }
 }
 

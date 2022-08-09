@@ -25,11 +25,11 @@ jobs:
           echo -e facebook_app_id=${{ secrets.facebook_app_id }} >> local.properties
           echo -e facebook_client_token=${{ secrets.facebook_client_token }} >> local.properties
 
-      - name: Debug info
-        run: cat local.properties
-
       - name: Clean
         run: ./gradlew clean
+
+      - name: Lint check
+        run: ./gradlew ktlintCheck
 
       - name: Build
         run: ./gradlew :androidApp:assembleDebug

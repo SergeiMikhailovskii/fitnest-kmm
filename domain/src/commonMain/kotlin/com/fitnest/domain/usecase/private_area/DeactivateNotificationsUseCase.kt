@@ -7,5 +7,4 @@ class DeactivateNotificationsUseCase(
 ) {
 
     suspend operator fun invoke(ids: List<Int>?) = repository.deactivateNotifications(ids)
-
 }

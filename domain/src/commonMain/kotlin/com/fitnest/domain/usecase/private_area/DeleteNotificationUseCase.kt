@@ -1,7 +1,6 @@
 package com.fitnest.domain.usecase.private_area
 
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
-import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.repository.NetworkRepository
 
 class DeleteNotificationUseCase(

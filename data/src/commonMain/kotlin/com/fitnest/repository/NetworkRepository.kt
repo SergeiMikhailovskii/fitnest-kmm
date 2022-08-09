@@ -63,5 +63,4 @@ class NetworkRepository(
 
     override suspend fun forgetPassword(request: ForgetPasswordRequest) =
         networkService.sendDataResult(Endpoints.Auth.FORGET_PASSWORD, request)
-
 }

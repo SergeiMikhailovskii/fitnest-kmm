@@ -25,7 +25,11 @@ import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
 import com.fitnest.domain.validator.CreateAccountRegistrationValidator
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.factory
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)

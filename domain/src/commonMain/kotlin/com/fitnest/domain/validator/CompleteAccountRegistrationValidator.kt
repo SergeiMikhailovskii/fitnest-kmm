@@ -61,10 +61,9 @@ class CompleteAccountRegistrationValidator : BaseValidator() {
             onHeightErrorChanged?.invoke(it)
         }
 
-        return sexFailedValidator == null
-                && dateOfBirthFailedValidator == null
-                && weightFailedValidator == null
-                && heightFailedValidator == null
+        return sexFailedValidator == null &&
+            dateOfBirthFailedValidator == null &&
+            weightFailedValidator == null &&
+            heightFailedValidator == null
     }
-
 }

@@ -9,5 +9,4 @@ expect class LocalStorageRepository(di: DI) {
     fun <T> saveValue(key: String, value: T?)
 
     inline fun <reified T> getValue(key: String, defaultValue: T? = null): T?
-
 }

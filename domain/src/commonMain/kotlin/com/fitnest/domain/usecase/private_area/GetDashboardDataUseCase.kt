@@ -14,5 +14,4 @@ class GetDashboardDataUseCase(
         val jsonData = networkRepository.getDashboardData()
         json.decodeFromJsonElement<DashboardResponse>(jsonData.data)
     }
-
 }

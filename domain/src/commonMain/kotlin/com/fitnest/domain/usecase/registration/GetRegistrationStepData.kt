@@ -8,5 +8,4 @@ class GetRegistrationStepData(private val repository: NetworkRepository) :
     UseCase<GetRegistrationResponseData>() {
 
     override suspend fun run() = repository.getRegistrationStepData()
-
 }

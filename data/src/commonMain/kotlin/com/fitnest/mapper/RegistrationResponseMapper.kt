@@ -3,7 +3,13 @@ package com.fitnest.mapper
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.validator.Validator
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 class RegistrationResponseMapper(
     private val json: Json
@@ -56,5 +62,4 @@ class RegistrationResponseMapper(
         }
         return mappedValidationSchema
     }
-
 }

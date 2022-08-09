@@ -17,7 +17,6 @@ abstract class UseCase<out Type> {
             onResult(job.await())
         }
     }
-
 }
 
 abstract class UseCaseUnit : UseCase<Unit>()

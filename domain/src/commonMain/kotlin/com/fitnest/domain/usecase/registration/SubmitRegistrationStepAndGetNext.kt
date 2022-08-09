@@ -12,5 +12,4 @@ class SubmitRegistrationStepAndGetNext(private val networkRepository: NetworkRep
     override suspend fun run(params: BaseRequest) =
         networkRepository.submitRegistrationStep(params)
             .flatMap { networkRepository.getRegistrationStepData() }
-
 }

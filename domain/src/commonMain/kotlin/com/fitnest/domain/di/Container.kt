@@ -6,7 +6,11 @@ import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
-import com.fitnest.domain.usecase.private_area.*
+import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
+import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
+import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
+import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
+import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase

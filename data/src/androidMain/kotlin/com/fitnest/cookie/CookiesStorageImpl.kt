@@ -21,10 +21,9 @@ actual class CookiesStorageImpl actual constructor(di: DI) : CookieStorageImpl {
     actual override fun getCookies() = mutableListOf<Cookie>().apply {
         CookieType.values().forEach { cookie ->
             localStorageRepository.getValue<String>(cookie.value, null)?.let {
-                println("Loaded: ${cookie.value}=${it}")
+                println("Loaded: ${cookie.value}=$it")
                 add(Cookie(cookie.value, it))
             }
         }
     }
-
 }

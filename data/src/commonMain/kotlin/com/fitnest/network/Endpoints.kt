@@ -31,10 +31,9 @@ internal object Endpoints {
 
             override val name = "${PrivateArea.name}notifications"
 
-            val DEACTIVATE = "${name}/deactivate"
-            val PIN = "${name}/pin"
-            val DELETE = "${name}/delete"
-
+            val DEACTIVATE = "$name/deactivate"
+            val PIN = "$name/pin"
+            val DELETE = "$name/delete"
         }
     }
 

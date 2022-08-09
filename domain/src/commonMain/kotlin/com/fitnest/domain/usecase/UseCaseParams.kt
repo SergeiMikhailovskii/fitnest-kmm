@@ -17,7 +17,6 @@ abstract class UseCaseParams<out Type, in Params> {
             onResult(job.await())
         }
     }
-
 }
 
 abstract class UseCaseParamsUnit<in Params> : UseCaseParams<Unit, Params>()
