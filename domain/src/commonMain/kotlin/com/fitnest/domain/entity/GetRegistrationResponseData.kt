@@ -7,4 +7,3 @@ data class GetRegistrationResponseData(
     val fields: RegistrationStepModel? = null,
     val validationSchema: Map<String, List<Validator>>? = null
 )
-

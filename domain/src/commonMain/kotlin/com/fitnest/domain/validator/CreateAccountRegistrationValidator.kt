@@ -58,10 +58,9 @@ class CreateAccountRegistrationValidator : BaseValidator() {
             onPasswordErrorChanged?.invoke(it)
         }
 
-        return firstNameFailedValidator == null
-                && lastNameFailedValidator == null
-                && emailFailedValidator == null
-                && passwordFailedValidator == null
+        return firstNameFailedValidator == null &&
+            lastNameFailedValidator == null &&
+            emailFailedValidator == null &&
+            passwordFailedValidator == null
     }
-
 }
