@@ -33,6 +33,7 @@ import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
 import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
 import com.fitnest.android.style.*
+import com.fitnest.android.view.dialog.ForgetPasswordSuccessDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -58,6 +59,7 @@ internal fun LoginScreen(navController: NavController) {
 
     val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
     val progress: Boolean by viewModel.progressStateFlow.collectAsState()
+    val screenState: LoginScreenState by viewModel.screenStateFlow.collectAsState()
 
     LaunchedEffect(key1 = null) {
         launch {
@@ -266,6 +268,12 @@ internal fun LoginScreen(navController: NavController) {
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()
+            }
+        }
+
+        if (screenState == LoginScreenState.FORGET_PASSWORD_SUCCESS) {
+            ForgetPasswordSuccessDialog {
+                viewModel.dismissForgetPasswordDialog()
             }
         }
     }

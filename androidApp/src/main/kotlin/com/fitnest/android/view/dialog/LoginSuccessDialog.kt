@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(showSystemUi = true)
 @Composable
 fun LoginSuccessDialog() {
-    var dialogVisibility by remember { mutableStateOf(false) }
+    var dialogVisibility by remember { mutableStateOf(true) }
 
 //    loginViewModel.loginResultLiveData.observe(this, {
 //        dialogVisibility = it == LoginResultState.LOGIN_SUCCESS

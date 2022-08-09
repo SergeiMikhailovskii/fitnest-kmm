@@ -37,6 +37,9 @@ internal class LoginViewModel(
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
 
+    private val _screenStateFlow = MutableStateFlow(LoginScreenState.DEFAULT)
+    internal val screenStateFlow = _screenStateFlow.asStateFlow()
+
     init {
         viewModelScope.launch {
             val page = getLoginPageUseCase().getOrThrow()
@@ -130,7 +133,14 @@ internal class LoginViewModel(
             handleProgress(true)
             val request = viewMapper.mapScreenDataToForgetPasswordRequest(screenData)
             forgetPasswordUseCase(request).getOrThrow()
+            _screenStateFlow.emit(LoginScreenState.FORGET_PASSWORD_SUCCESS)
             handleProgress()
+        }
+    }
+
+    internal fun dismissForgetPasswordDialog() {
+        viewModelScope.launch {
+            _screenStateFlow.emit(LoginScreenState.DEFAULT)
         }
     }
 
