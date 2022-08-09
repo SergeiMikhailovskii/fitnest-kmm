@@ -1,7 +1,14 @@
 package com.fitnest.di
 
 import com.fitnest.cookie.CookiesStorageImpl
-import com.fitnest.domain.entity.validator.*
+import com.fitnest.domain.entity.validator.EnumValidator
+import com.fitnest.domain.entity.validator.MaxAgeValidator
+import com.fitnest.domain.entity.validator.MaxValueValidator
+import com.fitnest.domain.entity.validator.MinAgeValidator
+import com.fitnest.domain.entity.validator.MinLengthValidator
+import com.fitnest.domain.entity.validator.RegExpValidator
+import com.fitnest.domain.entity.validator.RequiredValidator
+import com.fitnest.domain.entity.validator.Validator
 import com.fitnest.mapper.RegistrationResponseMapper
 import com.fitnest.repository.LocalStorageRepository
 import com.fitnest.repository.NetworkRepository
@@ -10,7 +17,11 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.factory
+import org.kodein.di.instance
+import org.kodein.di.singleton
 
 val repositoryModule = DI.Module("Repository module") {
     bind<com.fitnest.domain.repository.NetworkRepository>() with singleton {
