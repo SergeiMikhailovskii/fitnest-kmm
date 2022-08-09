@@ -2,6 +2,7 @@ package com.fitnest.repository
 
 import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
+import com.fitnest.domain.entity.request.ForgetPasswordRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.entity.response.LoginPageResponse
 import com.fitnest.domain.functional.Either
@@ -59,5 +60,8 @@ class NetworkRepository(
 
     override suspend fun loginUser(request: LoginPageResponse.LoginPageFields) =
         networkService.sendDataResult(Endpoints.Auth.LOGIN, request)
+
+    override suspend fun forgetPassword(request: ForgetPasswordRequest) =
+        networkService.sendDataResult(Endpoints.Auth.FORGET_PASSWORD, request)
 
 }

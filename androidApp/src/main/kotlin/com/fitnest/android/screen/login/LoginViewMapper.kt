@@ -6,6 +6,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import com.fitnest.android.R
 import com.fitnest.android.style.SecondaryColor1
+import com.fitnest.domain.entity.request.ForgetPasswordRequest
 import com.fitnest.domain.entity.response.LoginPageResponse
 
 internal class LoginViewMapper(
@@ -33,4 +34,7 @@ internal class LoginViewMapper(
 
     internal fun mapScreenDataToLoginFields(screenData: LoginScreenData) =
         LoginPageResponse.LoginPageFields(screenData.login, screenData.password)
+
+    internal fun mapScreenDataToForgetPasswordRequest(screenData: LoginScreenData) =
+        ForgetPasswordRequest(login = screenData.login)
 }

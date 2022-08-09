@@ -1,6 +1,7 @@
 package com.fitnest.domain.di
 
 import com.fitnest.domain.usecase.GenerateTokenUseCase
+import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
@@ -29,6 +30,9 @@ val useCaseModule = DI.Module("use case module") {
     }
     bind<LoginUserUseCase>() with factory {
         LoginUserUseCase(instance())
+    }
+    bind<ForgetPasswordUseCase>() with factory {
+        ForgetPasswordUseCase(instance())
     }
 
     /**

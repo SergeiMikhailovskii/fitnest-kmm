@@ -33,7 +33,6 @@ import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
 import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
 import com.fitnest.android.style.*
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -145,7 +144,9 @@ internal fun LoginScreen(navController: NavController) {
                 style = PoppinsMediumStyle12Gray2.copy(
                     textDecoration = TextDecoration.Underline
                 ),
-                modifier = Modifier.padding(top = Padding.Padding10)
+                modifier = Modifier
+                    .padding(top = Padding.Padding10)
+                    .clickable(onClick = viewModel::forgetPassword)
             )
             Box(modifier = Modifier.weight(1F))
             Button(

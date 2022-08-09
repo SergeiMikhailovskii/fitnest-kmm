@@ -19,6 +19,7 @@ internal object Endpoints {
         override val name = "auth/"
 
         val LOGIN = "${name}login"
+        val FORGET_PASSWORD = "${name}forget-password"
     }
 
     object PrivateArea : Group {
