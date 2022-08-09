@@ -15,5 +15,4 @@ class GetLoginPageUseCase(
     }.map {
         json.decodeFromJsonElement<LoginPageResponse>(it.data)
     }
-
 }

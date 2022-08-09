@@ -1,7 +1,6 @@
 package com.fitnest.domain.repository
 
 import com.fitnest.domain.entity.GetRegistrationResponseData
-import com.fitnest.domain.entity.LoginData
 import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.entity.base.BaseResponse
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
@@ -38,5 +37,4 @@ interface NetworkRepository {
     suspend fun loginUser(request: LoginPageResponse.LoginPageFields): BaseResponse
 
     suspend fun forgetPassword(request: ForgetPasswordRequest): BaseResponse
-
 }

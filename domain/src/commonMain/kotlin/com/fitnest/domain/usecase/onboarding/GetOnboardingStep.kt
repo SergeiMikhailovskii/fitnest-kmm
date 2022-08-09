@@ -6,5 +6,4 @@ import com.fitnest.domain.usecase.UseCase
 class GetOnboardingStep(private val repository: NetworkRepository) : UseCase<String>() {
 
     override suspend fun run() = repository.getOnboardingStep()
-
 }

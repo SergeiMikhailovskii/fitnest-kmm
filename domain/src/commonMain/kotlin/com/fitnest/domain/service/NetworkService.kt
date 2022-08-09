@@ -19,5 +19,4 @@ interface NetworkService {
     suspend fun getData(path: String): Either<Failure, BaseResponse>
 
     suspend fun getDataResult(path: String): BaseResponse
-
 }

@@ -1,7 +1,6 @@
 package com.fitnest.domain.entity.response
 
 import com.fitnest.domain.enum.BMIType
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

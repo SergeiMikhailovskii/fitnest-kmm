@@ -56,5 +56,4 @@ class RegistrationResponseMapper(
         }
         return mappedValidationSchema
     }
-
 }

@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 @Serializable
 class DeleteNotificationRequest(
     private val id: Int
-): BaseRequest
+) : BaseRequest

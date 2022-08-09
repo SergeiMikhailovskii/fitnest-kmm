@@ -66,5 +66,4 @@ class CompleteAccountRegistrationValidator : BaseValidator() {
                 && weightFailedValidator == null
                 && heightFailedValidator == null
     }
-
 }

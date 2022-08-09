@@ -9,5 +9,4 @@ abstract class BaseValidator {
             it.field = fieldName
             it
         }
-
 }
