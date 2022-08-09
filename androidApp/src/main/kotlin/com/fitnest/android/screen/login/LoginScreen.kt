@@ -33,7 +33,7 @@ import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
 import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
 import com.fitnest.android.style.*
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.fitnest.android.view.dialog.ForgetPasswordSuccessDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -59,6 +59,7 @@ internal fun LoginScreen(navController: NavController) {
 
     val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
     val progress: Boolean by viewModel.progressStateFlow.collectAsState()
+    val screenState: LoginScreenState by viewModel.screenStateFlow.collectAsState()
 
     LaunchedEffect(key1 = null) {
         launch {
@@ -145,7 +146,9 @@ internal fun LoginScreen(navController: NavController) {
                 style = PoppinsMediumStyle12Gray2.copy(
                     textDecoration = TextDecoration.Underline
                 ),
-                modifier = Modifier.padding(top = Padding.Padding10)
+                modifier = Modifier
+                    .padding(top = Padding.Padding10)
+                    .clickable(onClick = viewModel::forgetPassword)
             )
             Box(modifier = Modifier.weight(1F))
             Button(
@@ -265,6 +268,12 @@ internal fun LoginScreen(navController: NavController) {
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()
+            }
+        }
+
+        if (screenState == LoginScreenState.FORGET_PASSWORD_SUCCESS) {
+            ForgetPasswordSuccessDialog {
+                viewModel.dismissForgetPasswordDialog()
             }
         }
     }

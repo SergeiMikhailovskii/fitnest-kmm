@@ -75,6 +75,10 @@ val PoppinsBoldStyle16 = PoppinsBoldStyle.copy(
     fontSize = TextSize.Size16
 )
 
+val PoppinsBoldStyle16Brand = PoppinsBoldStyle.copy(
+    color = BrandColor
+)
+
 val PoppinsBoldStyle16Black = PoppinsBoldStyle16.copy(
     color = BlackColor
 )

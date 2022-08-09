@@ -101,7 +101,7 @@ val goalRegistrationScreenModule = DI.Module("goal registration screen module") 
 
 val loginScreenModule = DI.Module("login screen module") {
     bind<LoginViewModel>() with factory {
-        LoginViewModel(instance(), instance(), instance(), instance())
+        LoginViewModel(instance(), instance(), instance(), instance(), instance())
     }
     bind<LoginViewMapper>() with factory {
         LoginViewMapper(instance())
