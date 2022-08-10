@@ -17,6 +17,7 @@ sealed class Route(val screenName: String) {
     abstract class PrivateAreaRoute(screenName: String) : Route(screenName)
     object PrivateAreaHome : PrivateAreaRoute("privateAreaHome")
     object PrivateAreaNotifications : PrivateAreaRoute("privateAreaNotifications")
+    object PrivateAreaActivityTracker : PrivateAreaRoute("privateAreaActivityTracker")
     object PrivateAreaTracker : PrivateAreaRoute("privateAreaTracker")
     object PrivateAreaPhoto : PrivateAreaRoute("privateAreaPhoto")
     object PrivateAreaSettings : PrivateAreaRoute("privateAreaSettings")

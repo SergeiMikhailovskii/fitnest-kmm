@@ -12,6 +12,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
+import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerScreen
 import com.fitnest.android.screen.private_area.home.HomeScreen
 import com.fitnest.android.screen.private_area.notification.NotificationsScreen
 import com.fitnest.android.screen.private_area.photo.PhotoScreen
@@ -130,6 +131,9 @@ fun FitnestApp() {
                 }
                 composable(route = Route.PrivateAreaNotifications.screenName) {
                     NotificationsScreen()
+                }
+                composable(route = Route.PrivateAreaActivityTracker.screenName) {
+                    ActivityTrackerScreen()
                 }
             }
         }

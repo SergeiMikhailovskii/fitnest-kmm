@@ -41,4 +41,6 @@
     <string name="private_area_notifications_screen_title">Notifications</string>
     <string name="private_area_notifications_minutes_ago">About %1$d minutes ago</string>
     <string name="private_area_notifications_hours_ago">About %1$d hours ago</string>
+
+    <string name="private_area_activity_tracker_screen_title">Activity Tracker</string>
 </resources>

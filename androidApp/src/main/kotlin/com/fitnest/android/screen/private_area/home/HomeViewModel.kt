@@ -35,4 +35,8 @@ internal class HomeViewModel(
         handleRoute(Route.PrivateAreaNotifications)
     }
 
+    internal fun navigateToActivityTracker() {
+        handleRoute(Route.PrivateAreaActivityTracker)
+    }
+
 }

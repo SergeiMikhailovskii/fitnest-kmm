@@ -1,7 +1,14 @@
 package com.fitnest.android.screen.private_area.home.composable
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -12,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import com.fitnest.android.R
+import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.BrandGradient
 import com.fitnest.android.style.Dimen
@@ -19,7 +27,10 @@ import com.fitnest.android.style.Padding
 import com.fitnest.android.style.PoppinsMediumStyle14Black
 
 @Composable
-fun TodayTargetBlock(todayTargetWidget: HomeScreenData.TodayTargetWidget) {
+internal fun TodayTargetBlock(
+    todayTargetWidget: HomeScreenData.TodayTargetWidget,
+    viewModel: HomeViewModel
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,7 +54,9 @@ fun TodayTargetBlock(todayTargetWidget: HomeScreenData.TodayTargetWidget) {
             )
             Spacer(modifier = Modifier.weight(1F))
             Button(
-                onClick = {},
+                onClick = {
+                    viewModel.navigateToActivityTracker()
+                },
                 shape = CircleShape,
                 contentPadding = PaddingValues(),
                 modifier = Modifier
