@@ -99,6 +99,10 @@ val PoppinsSemiBoldStyle14White = PoppinsSemiBoldStyle14.copy(
     color = WhiteColor
 )
 
+val PoppinsSemiBoldStyle14Black = PoppinsSemiBoldStyle14.copy(
+    color = BlackColor
+)
+
 val PoppinsSemiBoldStyle16 = PoppinsSemiBoldStyle.copy(
     fontSize = TextSize.Size16
 )
