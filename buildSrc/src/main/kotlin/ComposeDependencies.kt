@@ -7,6 +7,7 @@ object ComposeDependencies : Dependencies {
         const val COMPOSE_NAVIGATION_VERSION = "2.4.0-beta02"
         const val COMPOSE_THEME_ADAPTER_VERSION = "1.0.5"
         const val COMPOSE_VERSION = "1.1.1"
+        const val CHARTS_VERSION = "0.1.2"
     }
 
     private const val CONSTRAINT_COMPOSE =
@@ -44,6 +45,8 @@ object ComposeDependencies : Dependencies {
         "com.google.accompanist:accompanist-pager:${Versions.COMPOSE_ACCOMPANIST}"
     private const val COMPOSE_ACCOMPANIST_PAGER_INDICATORS =
         "com.google.accompanist:accompanist-pager-indicators:${Versions.COMPOSE_ACCOMPANIST}"
+    private const val CHARTS =
+        "io.github.bytebeats:compose-charts:${Versions.CHARTS_VERSION}"
 
     override val dependencies = mutableListOf(
         CONSTRAINT_COMPOSE,
@@ -64,6 +67,7 @@ object ComposeDependencies : Dependencies {
         COMPOSE_ACCOMPANIST_INSETS,
         COMPOSE_ACCOMPANIST_PAGER,
         COMPOSE_ACCOMPANIST_PAGER_INDICATORS,
+        CHARTS
     )
 
 }
