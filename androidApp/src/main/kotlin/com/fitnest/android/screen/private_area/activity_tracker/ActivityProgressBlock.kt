@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,9 +22,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
-import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.ErrorColor
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.PoppinsNormalStyle12Gray1
 import com.fitnest.android.style.PoppinsSemiBoldStyle16Black
@@ -37,6 +36,7 @@ internal fun ActivityProgressBlockPreview() {
 
 @Composable
 internal fun ActivityProgressBlock(modifier: Modifier) {
+    val progresses = arrayOf(0.1F, 0.2F, 0.3F, 0.4F, 0.5F, 0.6F, 0.7F)
     Column(modifier = modifier) {
         Text(
             stringResource(id = R.string.private_area_activity_tracker_screen_activity_progress_title),
@@ -47,9 +47,12 @@ internal fun ActivityProgressBlock(modifier: Modifier) {
                 .padding(top = Padding.Padding15)
                 .fillMaxWidth(),
             shape = RoundedCornerShape(Dimen.Dimen20),
-            backgroundColor = WhiteColor
         ) {
-            Row(modifier = Modifier.padding(Padding.Padding20)) {
+            Row(
+                modifier = Modifier
+                    .background(WhiteColor)
+                    .padding(Padding.Padding20)
+            ) {
                 for (i in 0 until 7) {
                     Column(
                         modifier = Modifier.weight(1F),
@@ -75,6 +78,21 @@ internal fun ActivityProgressBlock(modifier: Modifier) {
                             )
                             drawContext.canvas.nativeCanvas.drawPath(path, Paint().apply {
                                 color = Color.GRAY
+                            })
+
+                            val newPath = Path()
+                            newPath.addRoundRect(
+                                RectF(
+                                    -Dimen.Dimen10.toPx(),
+                                    Dimen.Dimen135.toPx() - Dimen.Dimen135.toPx() * progresses[i],
+                                    Dimen.Dimen10.toPx(),
+                                    Dimen.Dimen135.toPx()
+                                ),
+                                corners,
+                                Path.Direction.CW
+                            )
+                            drawContext.canvas.nativeCanvas.drawPath(newPath, Paint().apply {
+                                color = Color.BLUE
                             })
                         }
                         Text(
