@@ -1,6 +1,5 @@
 package com.fitnest.android.screen.private_area.activity_tracker
 
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
@@ -18,25 +17,69 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
+import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityProgressSectionData
+import com.fitnest.android.style.BorderColor
+import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.PoppinsNormalStyle12Gray1
 import com.fitnest.android.style.PoppinsSemiBoldStyle16Black
+import com.fitnest.android.style.SecondaryColor
 import com.fitnest.android.style.WhiteColor
 
 @Preview
 @Composable
 internal fun ActivityProgressBlockPreview() {
-    ActivityProgressBlock(modifier = Modifier)
+    ActivityProgressBlock(
+        modifier = Modifier, sections = arrayOf(
+            ActivityProgressSectionData(
+                dayName = "Mon",
+                progress = 0.1F,
+                color = BrandColor.toArgb()
+            ),
+            ActivityProgressSectionData(
+                dayName = "Tue",
+                progress = 0.2F,
+                color = SecondaryColor.toArgb()
+            ),
+            ActivityProgressSectionData(
+                dayName = "Wed",
+                progress = 0.3F,
+                color = BrandColor.toArgb()
+            ),
+            ActivityProgressSectionData(
+                dayName = "Thu",
+                progress = 0.4F,
+                color = SecondaryColor.toArgb()
+            ),
+            ActivityProgressSectionData(
+                dayName = "Fri",
+                progress = 0.5F,
+                color = BrandColor.toArgb()
+            ),
+            ActivityProgressSectionData(
+                dayName = "Sat",
+                progress = 0.6F,
+                color = SecondaryColor.toArgb()
+            ),
+            ActivityProgressSectionData(
+                dayName = "Sun",
+                progress = 0.7F,
+                color = BrandColor.toArgb()
+            )
+        )
+    )
 }
 
 @Composable
-internal fun ActivityProgressBlock(modifier: Modifier) {
-    val progresses = arrayOf(0.1F, 0.2F, 0.3F, 0.4F, 0.5F, 0.6F, 0.7F)
+internal fun ActivityProgressBlock(
+    modifier: Modifier,
+    sections: Array<ActivityProgressSectionData>
+) {
     Column(modifier = modifier) {
         Text(
             stringResource(id = R.string.private_area_activity_tracker_screen_activity_progress_title),
@@ -53,7 +96,7 @@ internal fun ActivityProgressBlock(modifier: Modifier) {
                     .background(WhiteColor)
                     .padding(Padding.Padding20)
             ) {
-                for (i in 0 until 7) {
+                sections.forEach {
                     Column(
                         modifier = Modifier.weight(1F),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -77,14 +120,14 @@ internal fun ActivityProgressBlock(modifier: Modifier) {
                                 Path.Direction.CW
                             )
                             drawContext.canvas.nativeCanvas.drawPath(path, Paint().apply {
-                                color = Color.GRAY
+                                color = BorderColor.toArgb()
                             })
 
                             val newPath = Path()
                             newPath.addRoundRect(
                                 RectF(
                                     -Dimen.Dimen10.toPx(),
-                                    Dimen.Dimen135.toPx() - Dimen.Dimen135.toPx() * progresses[i],
+                                    Dimen.Dimen135.toPx() - Dimen.Dimen135.toPx() * it.progress,
                                     Dimen.Dimen10.toPx(),
                                     Dimen.Dimen135.toPx()
                                 ),
@@ -92,11 +135,11 @@ internal fun ActivityProgressBlock(modifier: Modifier) {
                                 Path.Direction.CW
                             )
                             drawContext.canvas.nativeCanvas.drawPath(newPath, Paint().apply {
-                                color = Color.BLUE
+                                color = it.color
                             })
                         }
                         Text(
-                            stringArrayResource(id = R.array.day_names_short)[i],
+                            text = it.dayName,
                             modifier = Modifier.padding(top = Padding.Padding7),
                             style = PoppinsNormalStyle12Gray1
                         )
