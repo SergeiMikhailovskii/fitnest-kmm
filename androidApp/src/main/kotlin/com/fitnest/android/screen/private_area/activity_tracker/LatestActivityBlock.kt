@@ -1,0 +1,90 @@
+package com.fitnest.android.screen.private_area.activity_tracker
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.fitnest.android.R
+import com.fitnest.android.screen.private_area.activity_tracker.data.LatestActivityItemData
+import com.fitnest.android.style.GrayColor2
+import com.fitnest.android.style.Padding
+import com.fitnest.android.style.PoppinsMediumStyle12Black
+import com.fitnest.android.style.PoppinsNormalStyle10Gray2
+import com.fitnest.android.style.PoppinsSemiBoldStyle16Black
+
+@Preview
+@Composable
+internal fun LatestActivityBlockPreview() {
+    LatestActivityBlock(
+        modifier = Modifier,
+        activities = listOf(
+            LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
+            LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
+            LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago")
+        )
+    )
+}
+
+@Preview
+@Composable
+internal fun LatestActivityItemPreview() {
+    LatestActivityItem(LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"))
+}
+
+@Composable
+internal fun LatestActivityBlock(
+    modifier: Modifier,
+    activities: List<LatestActivityItemData>? = null
+) {
+    Column(modifier = modifier) {
+        Text(
+            stringResource(id = R.string.private_area_activity_tracker_screen_latest_activity_title),
+            style = PoppinsSemiBoldStyle16Black
+        )
+        activities?.forEach {
+            LatestActivityItem(activity = it)
+        }
+    }
+}
+
+@Composable
+private fun LatestActivityItem(activity: LatestActivityItemData) {
+    Card(
+        modifier = Modifier
+            .padding(top = Padding.Padding15)
+            .fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(Padding.Padding15),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_private_area_notification_meal),
+                contentDescription = null
+            )
+            Column(modifier = Modifier.padding(start = Padding.Padding8)) {
+                Text(activity.title, style = PoppinsMediumStyle12Black)
+                Text(
+                    activity.description,
+                    modifier = Modifier.padding(top = Padding.Padding3),
+                    style = PoppinsNormalStyle10Gray2
+                )
+            }
+            Box(modifier = Modifier.weight(1F))
+            Icon(Icons.Default.MoreVert, contentDescription = null, tint = GrayColor2)
+        }
+    }
+}

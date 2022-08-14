@@ -47,4 +47,5 @@
     <string name="private_area_activity_tracker_screen_water_index">Water Intake</string>
     <string name="private_area_activity_tracker_screen_steps_index">Foot Steps</string>
     <string name="private_area_activity_tracker_screen_activity_progress_title">Activity Progress</string>
+    <string name="private_area_activity_tracker_screen_latest_activity_title">Latest Activity</string>
 </resources>

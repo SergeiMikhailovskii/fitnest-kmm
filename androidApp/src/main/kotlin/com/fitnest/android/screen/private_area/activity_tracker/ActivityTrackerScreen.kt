@@ -2,12 +2,15 @@ package com.fitnest.android.screen.private_area.activity_tracker
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityProgressSectionData
+import com.fitnest.android.screen.private_area.activity_tracker.data.LatestActivityItemData
 import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.SecondaryColor
@@ -16,7 +19,7 @@ import com.fitnest.android.style.SecondaryColor
 @Composable
 internal fun ActivityTrackerScreen() {
     Scaffold {
-        Column {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             TodayTargetBlock(
                 modifier = Modifier.padding(horizontal = Padding.Padding30)
             )
@@ -62,6 +65,16 @@ internal fun ActivityTrackerScreen() {
                         progress = 0.7F,
                         color = BrandColor.toArgb()
                     )
+                )
+            )
+            LatestActivityBlock(
+                modifier = Modifier.padding(Padding.Padding30),
+                activities = listOf(
+                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
+                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
+                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
+                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
+                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
                 )
             )
         }
