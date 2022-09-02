@@ -19,7 +19,7 @@ import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.*
 
 @Composable
-fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkoutWidget) {
+internal fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkoutWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(

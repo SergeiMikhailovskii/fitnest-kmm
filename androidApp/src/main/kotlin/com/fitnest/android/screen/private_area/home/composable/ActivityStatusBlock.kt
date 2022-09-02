@@ -43,7 +43,7 @@ import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
 @Composable
-fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivityStatusWidget) {
+internal fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivityStatusWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Text(
             stringResource(id = R.string.private_area_dashboard_activity_status_title),

@@ -7,6 +7,7 @@ import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
+import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
@@ -145,7 +146,10 @@ val notificationsPrivateAreaModule = DI.Module("notifications private area modul
 
 val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area module") {
     bind<ActivityTrackerViewModel>() with factory {
-        ActivityTrackerViewModel(instance())
+        ActivityTrackerViewModel(instance(), instance())
+    }
+    bind<ActivityTrackerViewMapper>() with factory {
+        ActivityTrackerViewMapper()
     }
 }
 

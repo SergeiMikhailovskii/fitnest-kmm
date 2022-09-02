@@ -25,7 +25,7 @@ import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.*
 
 @Composable
-fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
+internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
