@@ -39,5 +39,4 @@ interface NetworkRepository {
     suspend fun loginUser(request: LoginPageResponse.LoginPageFields): BaseResponse
 
     suspend fun forgetPassword(request: ForgetPasswordRequest): BaseResponse
-
 }

@@ -38,7 +38,6 @@ internal object Endpoints {
 
         object ActivityTracker : Group {
             override val name = "${PrivateArea.name}activity-tracker"
-
         }
     }
 

@@ -26,5 +26,4 @@ internal class ActivityTrackerViewModel(
     private fun handlePageResponse(widgets: ActivityTrackerPageResponse.ActivityTrackerWidgets?) {
         screenData = viewMapper.mapWidgetsToScreenData(widgets)
     }
-
 }
