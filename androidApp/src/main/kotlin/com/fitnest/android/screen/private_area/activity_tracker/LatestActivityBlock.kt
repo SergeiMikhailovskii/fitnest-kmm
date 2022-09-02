@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -14,11 +15,13 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.activity_tracker.data.LatestActivityItemData
+import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.GrayColor2
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.PoppinsMediumStyle12Black
@@ -65,6 +68,7 @@ private fun LatestActivityItem(activity: LatestActivityItemData) {
     Card(
         modifier = Modifier
             .padding(top = Padding.Padding15)
+            .clip(RoundedCornerShape(Dimen.Dimen16))
             .fillMaxWidth()
     ) {
         Row(

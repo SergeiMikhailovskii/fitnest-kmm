@@ -57,7 +57,11 @@ data class DashboardResponse(
     )
 
     @Serializable
-    class TodayTargetWidget
+    class TodayTargetWidget(
+        @SerialName("water_intake")
+        val waterIntake: Int? = null,
+        val steps: Int? = null
+    )
 
     @Serializable
     data class HeartRateSubWidget(

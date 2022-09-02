@@ -26,6 +26,8 @@ interface NetworkRepository {
 
     suspend fun getNotificationsPage(): BaseResponse
 
+    suspend fun getActivityTrackerPage(): BaseResponse
+
     suspend fun deactivateNotifications(ids: List<Int>?): BaseResponse
 
     suspend fun pinNotification(request: PinNotificationRequest): BaseResponse
@@ -37,4 +39,5 @@ interface NetworkRepository {
     suspend fun loginUser(request: LoginPageResponse.LoginPageFields): BaseResponse
 
     suspend fun forgetPassword(request: ForgetPasswordRequest): BaseResponse
+
 }

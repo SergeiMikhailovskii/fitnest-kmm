@@ -47,6 +47,9 @@ class NetworkRepository(
     override suspend fun getNotificationsPage() =
         networkService.getDataResult(Endpoints.PrivateArea.Notifications.name)
 
+    override suspend fun getActivityTrackerPage() =
+        networkService.getDataResult(Endpoints.PrivateArea.ActivityTracker.name)
+
     override suspend fun deactivateNotifications(ids: List<Int>?) =
         networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DEACTIVATE, data = ids)
 
