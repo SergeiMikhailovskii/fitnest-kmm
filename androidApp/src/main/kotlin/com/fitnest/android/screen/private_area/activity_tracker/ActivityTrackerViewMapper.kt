@@ -65,7 +65,7 @@ internal class ActivityTrackerViewMapper(
         progresses?.mapIndexed { index, it ->
             ActivityTrackerScreenData.Progress(
                 day = it.date?.dayOfWeek?.let(::mapDayOfWeekToShortName) ?: "",
-                progress = it.total?.toFloat() ?: 0F,
+                progress = (it.total?.toFloat() ?: 0F) / 10_000,
                 color = if (index % 2 == 0) BrandColor.toArgb() else SecondaryColor.toArgb()
             )
         }
