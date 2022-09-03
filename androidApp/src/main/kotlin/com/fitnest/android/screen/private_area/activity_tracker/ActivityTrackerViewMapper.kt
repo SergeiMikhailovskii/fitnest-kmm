@@ -8,6 +8,7 @@ import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.SecondaryColor
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
+import com.fitnest.domain.enum.ActivityType
 import kotlinx.datetime.DayOfWeek
 
 internal class ActivityTrackerViewMapper(
@@ -36,20 +37,14 @@ internal class ActivityTrackerViewMapper(
                 )
             }
 
-            widgets?.activityProgressWidget?.let {
-                val mappedProgresses = mapProgressesResponseModelToUIModel(it.progresses)
-                screenData = screenData.copy(
-                    activityProgressWidget = ActivityTrackerScreenData.ActivityProgressWidget(
-                        progresses = mappedProgresses
-                    )
-                )
-            }
-
             widgets?.todayTargetWidget?.let {
                 screenData = screenData.copy(
                     todayTargetWidget = HomeScreenData.TodayTargetWidget(
-                        waterIntake = it.waterIntake,
-                        steps = it.steps
+                        waterIntake = context.getString(
+                            R.string.private_area_activity_tracker_screen_today_target_litres,
+                            (it.waterIntake ?: 0)
+                        ),
+                        steps = it.steps?.toString() ?: "0"
                     )
                 )
             }
@@ -60,9 +55,9 @@ internal class ActivityTrackerViewMapper(
     private fun mapActivitiesResponseModelToUIModel(activities: List<ActivityTrackerPageResponse.Activity>?) =
         activities?.map {
             ActivityTrackerScreenData.Activity(
-                amount = it.amount,
-                time = it.time,
-                type = it.type
+                type = it.type ?: ActivityType.WATER,
+                title = mapActivityTypeToTitle(it.type ?: ActivityType.WATER, it.amount ?: 0),
+                description = it.time?.toString() ?: ""
             )
         }
 
@@ -78,4 +73,12 @@ internal class ActivityTrackerViewMapper(
     private fun mapDayOfWeekToShortName(dayOfWeek: DayOfWeek) =
         context.resources.getStringArray(R.array.day_names_short)[dayOfWeek.ordinal]
 
+    private fun mapActivityTypeToTitle(type: ActivityType, amount: Int) =
+        if (type == ActivityType.WATER) context.getString(
+            R.string.private_area_activity_tracker_screen_latest_activity_water_title,
+            amount
+        ) else context.getString(
+            R.string.private_area_activity_tracker_screen_latest_activity_calories_title,
+            amount
+        )
 }

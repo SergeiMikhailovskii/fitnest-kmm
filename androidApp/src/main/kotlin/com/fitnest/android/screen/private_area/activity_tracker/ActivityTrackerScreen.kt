@@ -13,7 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityProgressBlock
-import com.fitnest.android.screen.private_area.activity_tracker.data.LatestActivityItemData
+import com.fitnest.android.screen.private_area.activity_tracker.composable.LatestActivityBlock
+import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
 import com.fitnest.android.style.Padding
 import org.kodein.di.compose.rememberInstance
 
@@ -30,32 +31,37 @@ internal fun ActivityTrackerScreen() {
     val screenData by viewModel.screenDataFlow.collectAsState()
 
     Scaffold {
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            TodayTargetBlock(
-                modifier = Modifier.padding(
-                    start = Padding.Padding30,
-                    end = Padding.Padding30,
-                    top = Padding.Padding24
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = Padding.Padding20)
+        ) {
+            screenData.todayTargetWidget?.let {
+                TodayTargetBlock(
+                    modifier = Modifier.padding(
+                        start = Padding.Padding30,
+                        end = Padding.Padding30,
+                        top = Padding.Padding24
+                    ),
+                    data = it
                 )
-            )
-            ActivityProgressBlock(
-                modifier = Modifier.padding(
-                    top = Padding.Padding30,
-                    start = Padding.Padding30,
-                    end = Padding.Padding30
-                ),
-                sections = screenData.activityProgressWidget?.progresses
-            )
-            LatestActivityBlock(
-                modifier = Modifier.padding(Padding.Padding30),
-                activities = listOf(
-                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
-                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
-                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
-                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
-                    LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
+            }
+            screenData.activityProgressWidget?.let {
+                ActivityProgressBlock(
+                    modifier = Modifier.padding(
+                        top = Padding.Padding30,
+                        start = Padding.Padding30,
+                        end = Padding.Padding30
+                    ),
+                    sections = it.progresses
                 )
-            )
+            }
+            screenData.latestActivityWidget?.let {
+                LatestActivityBlock(
+                    modifier = Modifier.padding(Padding.Padding30),
+                    activities = it.activities
+                )
+            }
         }
     }
 }

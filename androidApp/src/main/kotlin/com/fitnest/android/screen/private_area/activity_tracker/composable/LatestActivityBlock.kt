@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.activity_tracker
+package com.fitnest.android.screen.private_area.activity_tracker.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -20,13 +20,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.activity_tracker.data.LatestActivityItemData
+import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.GrayColor2
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.PoppinsMediumStyle12Black
 import com.fitnest.android.style.PoppinsNormalStyle10Gray2
 import com.fitnest.android.style.PoppinsSemiBoldStyle16Black
+import com.fitnest.domain.enum.ActivityType
 
 @Preview
 @Composable
@@ -34,9 +35,21 @@ internal fun LatestActivityBlockPreview() {
     LatestActivityBlock(
         modifier = Modifier,
         activities = listOf(
-            LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
-            LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"),
-            LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago")
+            ActivityTrackerScreenData.Activity(
+                "Drinking 300ml Water",
+                "About 3 minutes ago",
+                ActivityType.WATER
+            ),
+            ActivityTrackerScreenData.Activity(
+                "Drinking 300ml Water",
+                "About 3 minutes ago",
+                ActivityType.WATER
+            ),
+            ActivityTrackerScreenData.Activity(
+                "Drinking 300ml Water",
+                "About 3 minutes ago",
+                ActivityType.WATER
+            ),
         )
     )
 }
@@ -44,13 +57,19 @@ internal fun LatestActivityBlockPreview() {
 @Preview
 @Composable
 internal fun LatestActivityItemPreview() {
-    LatestActivityItem(LatestActivityItemData("Drinking 300ml Water", "About 3 minutes ago"))
+    LatestActivityItem(
+        ActivityTrackerScreenData.Activity(
+            "Drinking 300ml Water",
+            "About 3 minutes ago",
+            ActivityType.WATER
+        ),
+    )
 }
 
 @Composable
 internal fun LatestActivityBlock(
     modifier: Modifier,
-    activities: List<LatestActivityItemData>? = null
+    activities: List<ActivityTrackerScreenData.Activity>? = null
 ) {
     Column(modifier = modifier) {
         Text(
@@ -64,7 +83,7 @@ internal fun LatestActivityBlock(
 }
 
 @Composable
-private fun LatestActivityItem(activity: LatestActivityItemData) {
+private fun LatestActivityItem(activity: ActivityTrackerScreenData.Activity) {
     Card(
         modifier = Modifier
             .padding(top = Padding.Padding15)

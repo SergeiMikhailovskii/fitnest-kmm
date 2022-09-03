@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.activity_tracker
+package com.fitnest.android.screen.private_area.activity_tracker.composable
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
+import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.BrandGradient
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
@@ -38,11 +39,14 @@ import com.fitnest.android.style.WhiteColor
 @Preview
 @Composable
 internal fun TodayTargetBlockPreview() {
-    TodayTargetBlock(modifier = Modifier)
+    TodayTargetBlock(
+        modifier = Modifier,
+        data = HomeScreenData.TodayTargetWidget(waterIntake = "8L", steps = "2400")
+    )
 }
 
 @Composable
-internal fun TodayTargetBlock(modifier: Modifier) {
+internal fun TodayTargetBlock(modifier: Modifier, data: HomeScreenData.TodayTargetWidget) {
     Column(
         modifier = modifier
             .background(
@@ -79,20 +83,24 @@ internal fun TodayTargetBlock(modifier: Modifier) {
         }
         Row {
             TargetViewBlock(
-                modifier = Modifier.padding(
-                    top = Padding.Padding15,
-                ).weight(1F),
+                modifier = Modifier
+                    .padding(
+                        top = Padding.Padding15,
+                    )
+                    .weight(1F),
                 icon = R.drawable.ic_activity_tracker_water,
-                amountText = "8L",
+                amountText = data.waterIntake,
                 indexTitle = R.string.private_area_activity_tracker_screen_water_index
             )
             TargetViewBlock(
-                modifier = Modifier.padding(
-                    top = Padding.Padding15,
-                    start = Padding.Padding15
-                ).weight(1F),
+                modifier = Modifier
+                    .padding(
+                        top = Padding.Padding15,
+                        start = Padding.Padding15
+                    )
+                    .weight(1F),
                 icon = R.drawable.ic_activity_tracker_steps,
-                amountText = "2400",
+                amountText = data.steps,
                 indexTitle = R.string.private_area_activity_tracker_screen_steps_index
             )
         }
@@ -104,7 +112,7 @@ internal fun TodayTargetBlock(modifier: Modifier) {
 private fun TargetViewBlockPreview() {
     TargetViewBlock(
         modifier = Modifier,
-        icon = R.drawable.ic_activity_tracker_steps,
+        icon = R.drawable.ic_activity_tracker_water,
         amountText = "8L",
         indexTitle = R.string.private_area_activity_tracker_screen_water_index
     )
