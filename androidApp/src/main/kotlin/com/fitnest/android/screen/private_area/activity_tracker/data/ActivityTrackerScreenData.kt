@@ -2,7 +2,6 @@ package com.fitnest.android.screen.private_area.activity_tracker.data
 
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.enum.ActivityType
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 
 internal data class ActivityTrackerScreenData(
@@ -26,8 +25,9 @@ internal data class ActivityTrackerScreenData(
     )
 
     class Progress(
-        val date: LocalDate? = null,
-        val total: Int? = null
+        val day: String,
+        val progress: Float,
+        val color: Int
     )
 
 

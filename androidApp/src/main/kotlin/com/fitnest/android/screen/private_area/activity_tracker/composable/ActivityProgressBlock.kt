@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.activity_tracker
+package com.fitnest.android.screen.private_area.activity_tracker.composable
 
 import android.graphics.Paint
 import android.graphics.Path
@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityProgressSectionData
+import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.android.style.BorderColor
 import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Dimen
@@ -35,39 +35,39 @@ import com.fitnest.android.style.WhiteColor
 @Composable
 internal fun ActivityProgressBlockPreview() {
     ActivityProgressBlock(
-        modifier = Modifier, sections = arrayOf(
-            ActivityProgressSectionData(
-                dayName = "Mon",
+        modifier = Modifier, sections = listOf(
+            ActivityTrackerScreenData.Progress(
+                day = "Mon",
                 progress = 0.1F,
                 color = BrandColor.toArgb()
             ),
-            ActivityProgressSectionData(
-                dayName = "Tue",
+            ActivityTrackerScreenData.Progress(
+                day = "Tue",
                 progress = 0.2F,
                 color = SecondaryColor.toArgb()
             ),
-            ActivityProgressSectionData(
-                dayName = "Wed",
+            ActivityTrackerScreenData.Progress(
+                day = "Wed",
                 progress = 0.3F,
                 color = BrandColor.toArgb()
             ),
-            ActivityProgressSectionData(
-                dayName = "Thu",
+            ActivityTrackerScreenData.Progress(
+                day = "Thu",
                 progress = 0.4F,
                 color = SecondaryColor.toArgb()
             ),
-            ActivityProgressSectionData(
-                dayName = "Fri",
+            ActivityTrackerScreenData.Progress(
+                day = "Fri",
                 progress = 0.5F,
                 color = BrandColor.toArgb()
             ),
-            ActivityProgressSectionData(
-                dayName = "Sat",
+            ActivityTrackerScreenData.Progress(
+                day = "Sat",
                 progress = 0.6F,
                 color = SecondaryColor.toArgb()
             ),
-            ActivityProgressSectionData(
-                dayName = "Sun",
+            ActivityTrackerScreenData.Progress(
+                day = "Sun",
                 progress = 0.7F,
                 color = BrandColor.toArgb()
             )
@@ -78,7 +78,7 @@ internal fun ActivityProgressBlockPreview() {
 @Composable
 internal fun ActivityProgressBlock(
     modifier: Modifier,
-    sections: Array<ActivityProgressSectionData>
+    sections: List<ActivityTrackerScreenData.Progress>?
 ) {
     Column(modifier = modifier) {
         Text(
@@ -96,7 +96,7 @@ internal fun ActivityProgressBlock(
                     .background(WhiteColor)
                     .padding(Padding.Padding20)
             ) {
-                sections.forEach {
+                sections?.forEach {
                     Column(
                         modifier = Modifier.weight(1F),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -139,7 +139,7 @@ internal fun ActivityProgressBlock(
                             })
                         }
                         Text(
-                            text = it.dayName,
+                            text = it.day,
                             modifier = Modifier.padding(top = Padding.Padding7),
                             style = PoppinsNormalStyle12Gray1
                         )

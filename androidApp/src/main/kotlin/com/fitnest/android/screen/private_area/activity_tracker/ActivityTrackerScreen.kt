@@ -6,16 +6,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityProgressSectionData
+import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityProgressBlock
 import com.fitnest.android.screen.private_area.activity_tracker.data.LatestActivityItemData
-import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.SecondaryColor
 import org.kodein.di.compose.rememberInstance
 
 @Preview
@@ -28,10 +27,16 @@ internal fun ActivityTrackerScreen() {
         modelClass = ActivityTrackerViewModel::class.java
     )
 
+    val screenData by viewModel.screenDataFlow.collectAsState()
+
     Scaffold {
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             TodayTargetBlock(
-                modifier = Modifier.padding(horizontal = Padding.Padding30)
+                modifier = Modifier.padding(
+                    start = Padding.Padding30,
+                    end = Padding.Padding30,
+                    top = Padding.Padding24
+                )
             )
             ActivityProgressBlock(
                 modifier = Modifier.padding(
@@ -39,43 +44,7 @@ internal fun ActivityTrackerScreen() {
                     start = Padding.Padding30,
                     end = Padding.Padding30
                 ),
-                sections = arrayOf(
-                    ActivityProgressSectionData(
-                        dayName = "Mon",
-                        progress = 0.1F,
-                        color = BrandColor.toArgb()
-                    ),
-                    ActivityProgressSectionData(
-                        dayName = "Tue",
-                        progress = 0.2F,
-                        color = SecondaryColor.toArgb()
-                    ),
-                    ActivityProgressSectionData(
-                        dayName = "Wed",
-                        progress = 0.3F,
-                        color = BrandColor.toArgb()
-                    ),
-                    ActivityProgressSectionData(
-                        dayName = "Thu",
-                        progress = 0.4F,
-                        color = SecondaryColor.toArgb()
-                    ),
-                    ActivityProgressSectionData(
-                        dayName = "Fri",
-                        progress = 0.5F,
-                        color = BrandColor.toArgb()
-                    ),
-                    ActivityProgressSectionData(
-                        dayName = "Sat",
-                        progress = 0.6F,
-                        color = SecondaryColor.toArgb()
-                    ),
-                    ActivityProgressSectionData(
-                        dayName = "Sun",
-                        progress = 0.7F,
-                        color = BrandColor.toArgb()
-                    )
-                )
+                sections = screenData.activityProgressWidget?.progresses
             )
             LatestActivityBlock(
                 modifier = Modifier.padding(Padding.Padding30),

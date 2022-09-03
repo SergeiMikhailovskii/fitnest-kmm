@@ -1,10 +1,18 @@
 package com.fitnest.android.screen.private_area.activity_tracker
 
+import android.content.Context
+import androidx.compose.ui.graphics.toArgb
+import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.android.style.BrandColor
+import com.fitnest.android.style.SecondaryColor
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
+import kotlinx.datetime.DayOfWeek
 
-internal class ActivityTrackerViewMapper {
+internal class ActivityTrackerViewMapper(
+    private val context: Context
+) {
 
     internal fun mapWidgetsToScreenData(widgets: ActivityTrackerPageResponse.ActivityTrackerWidgets?): ActivityTrackerScreenData =
         run {
@@ -59,11 +67,15 @@ internal class ActivityTrackerViewMapper {
         }
 
     private fun mapProgressesResponseModelToUIModel(progresses: List<ActivityTrackerPageResponse.Progress>?) =
-        progresses?.map {
+        progresses?.mapIndexed { index, it ->
             ActivityTrackerScreenData.Progress(
-                date = it.date,
-                total = it.total
+                day = it.date?.dayOfWeek?.let(::mapDayOfWeekToShortName) ?: "",
+                progress = it.total?.toFloat() ?: 0F,
+                color = if (index % 2 == 0) BrandColor.toArgb() else SecondaryColor.toArgb()
             )
         }
+
+    private fun mapDayOfWeekToShortName(dayOfWeek: DayOfWeek) =
+        context.resources.getStringArray(R.array.day_names_short)[dayOfWeek.ordinal]
 
 }

@@ -149,7 +149,7 @@ val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area 
         ActivityTrackerViewModel(instance(), instance())
     }
     bind<ActivityTrackerViewMapper>() with factory {
-        ActivityTrackerViewMapper()
+        ActivityTrackerViewMapper(instance())
     }
 }
 
