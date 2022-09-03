@@ -26,7 +26,7 @@ kotlin {
         ios.deploymentTarget = "14.1"
         frameworkName = "domain"
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
