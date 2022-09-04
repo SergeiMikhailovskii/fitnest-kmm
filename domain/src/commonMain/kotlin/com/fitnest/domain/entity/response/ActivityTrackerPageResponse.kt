@@ -33,6 +33,7 @@ class ActivityTrackerPageResponse(
 
     @Serializable
     class Activity(
+        val id: Int? = null,
         val amount: Int? = null,
         val time: LocalDateTime? = null,
         val type: ActivityType? = null

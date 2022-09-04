@@ -1,6 +1,7 @@
 package com.fitnest.repository
 
 import com.fitnest.domain.entity.base.BaseRequest
+import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.ForgetPasswordRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
@@ -66,4 +67,10 @@ class NetworkRepository(
 
     override suspend fun forgetPassword(request: ForgetPasswordRequest) =
         networkService.sendDataResult(Endpoints.Auth.FORGET_PASSWORD, request)
+
+    override suspend fun deleteActivity(request: DeleteActivityRequest) =
+        networkService.sendDataResult(
+            Endpoints.PrivateArea.ActivityTracker.DELETE_ACTIVITY,
+            request
+        )
 }

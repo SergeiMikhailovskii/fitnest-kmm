@@ -8,6 +8,7 @@ import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTra
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.SecondaryColor
+import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.enum.ActivityType
 import kotlinx.datetime.DayOfWeek
@@ -46,7 +47,7 @@ internal class ActivityTrackerViewMapper(
                             R.string.private_area_activity_tracker_screen_today_target_litres,
                             ((it.waterIntake ?: 0).toDouble() / 1000)
                         ),
-                        steps = it.steps?.toString() ?: "0"
+                        steps = it.steps?.toString().orEmpty()
                     )
                 )
             }
@@ -54,9 +55,16 @@ internal class ActivityTrackerViewMapper(
             screenData
         }
 
+    internal fun mapActivityToDeleteActivityRequest(activity: ActivityTrackerScreenData.Activity) =
+        DeleteActivityRequest(
+            id = activity.id,
+            type = activity.type
+        )
+
     private fun mapActivitiesResponseModelToUIModel(activities: List<ActivityTrackerPageResponse.Activity>?) =
         activities?.map {
             ActivityTrackerScreenData.Activity(
+                id = it.id ?: 0,
                 type = it.type ?: ActivityType.WATER,
                 title = mapActivityTypeToTitle(it.type ?: ActivityType.WATER, it.amount ?: 0),
                 description = dateMapper.mapLocalDateTimeToString(it.time, "dd MMMM, hh:mm")

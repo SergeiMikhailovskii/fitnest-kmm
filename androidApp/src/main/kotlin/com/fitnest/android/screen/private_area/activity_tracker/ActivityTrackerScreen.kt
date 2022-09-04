@@ -59,6 +59,7 @@ internal fun ActivityTrackerScreen() {
             screenData.latestActivityWidget?.let {
                 LatestActivityBlock(
                     modifier = Modifier.padding(Padding.Padding30),
+                    viewModel = viewModel,
                     activities = it.activities
                 )
             }
