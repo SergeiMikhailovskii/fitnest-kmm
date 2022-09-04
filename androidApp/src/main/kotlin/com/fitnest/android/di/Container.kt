@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fitnest.android.extension.ViewModelFactory
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
+import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
@@ -32,6 +33,12 @@ import org.kodein.di.bind
 import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.singleton
+
+val androidModule = DI.Module("android module") {
+    bind<DateMapper>() with singleton {
+        DateMapper()
+    }
+}
 
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
@@ -149,7 +156,7 @@ val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area 
         ActivityTrackerViewModel(instance(), instance())
     }
     bind<ActivityTrackerViewMapper>() with factory {
-        ActivityTrackerViewMapper(instance())
+        ActivityTrackerViewMapper(instance(), instance())
     }
 }
 

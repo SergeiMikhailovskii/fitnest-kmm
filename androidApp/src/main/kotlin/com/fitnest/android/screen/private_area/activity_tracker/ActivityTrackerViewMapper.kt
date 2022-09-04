@@ -3,6 +3,7 @@ package com.fitnest.android.screen.private_area.activity_tracker
 import android.content.Context
 import androidx.compose.ui.graphics.toArgb
 import com.fitnest.android.R
+import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.BrandColor
@@ -12,7 +13,8 @@ import com.fitnest.domain.enum.ActivityType
 import kotlinx.datetime.DayOfWeek
 
 internal class ActivityTrackerViewMapper(
-    private val context: Context
+    private val context: Context,
+    private val dateMapper: DateMapper
 ) {
 
     internal fun mapWidgetsToScreenData(widgets: ActivityTrackerPageResponse.ActivityTrackerWidgets?): ActivityTrackerScreenData =
@@ -42,7 +44,7 @@ internal class ActivityTrackerViewMapper(
                     todayTargetWidget = HomeScreenData.TodayTargetWidget(
                         waterIntake = context.getString(
                             R.string.private_area_activity_tracker_screen_today_target_litres,
-                            (it.waterIntake ?: 0)
+                            ((it.waterIntake ?: 0).toDouble() / 1000)
                         ),
                         steps = it.steps?.toString() ?: "0"
                     )
@@ -57,7 +59,7 @@ internal class ActivityTrackerViewMapper(
             ActivityTrackerScreenData.Activity(
                 type = it.type ?: ActivityType.WATER,
                 title = mapActivityTypeToTitle(it.type ?: ActivityType.WATER, it.amount ?: 0),
-                description = it.time?.toString() ?: ""
+                description = dateMapper.mapLocalDateTimeToString(it.time, "dd MMMM, hh:mm")
             )
         }
 

@@ -8,6 +8,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import com.fitnest.android.base.FitnestApp
+import com.fitnest.android.di.androidModule
 import com.fitnest.android.di.privateAreaModule
 import com.fitnest.android.di.registrationModule
 import com.fitnest.android.di.serviceModule
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity(), DIAware {
         import(cookieModule)
         import(mapperModule)
         import(serializationModule)
+        import(androidModule)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
