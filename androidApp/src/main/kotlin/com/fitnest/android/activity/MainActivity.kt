@@ -19,7 +19,12 @@ import com.fitnest.di.mapperModule
 import com.fitnest.di.repositoryModule
 import com.fitnest.di.serializationModule
 import com.google.accompanist.pager.ExperimentalPagerApi
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.DIContext
+import org.kodein.di.bind
+import org.kodein.di.diContext
+import org.kodein.di.instance
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
