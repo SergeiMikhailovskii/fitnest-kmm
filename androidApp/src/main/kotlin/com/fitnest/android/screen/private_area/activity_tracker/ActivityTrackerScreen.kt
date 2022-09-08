@@ -1,13 +1,17 @@
 package com.fitnest.android.screen.private_area.activity_tracker
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
@@ -29,39 +33,49 @@ internal fun ActivityTrackerScreen() {
     )
 
     val screenData by viewModel.screenDataFlow.collectAsState()
+    val progress by viewModel.progressStateFlow.collectAsState()
 
     Scaffold {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(bottom = Padding.Padding20)
-        ) {
-            screenData.todayTargetWidget?.let {
-                TodayTargetBlock(
-                    modifier = Modifier.padding(
-                        start = Padding.Padding30,
-                        end = Padding.Padding30,
-                        top = Padding.Padding24
-                    ),
-                    data = it
-                )
+        if (progress) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
             }
-            screenData.activityProgressWidget?.let {
-                ActivityProgressBlock(
-                    modifier = Modifier.padding(
-                        top = Padding.Padding30,
-                        start = Padding.Padding30,
-                        end = Padding.Padding30
-                    ),
-                    sections = it.progresses
-                )
-            }
-            screenData.latestActivityWidget?.let {
-                LatestActivityBlock(
-                    modifier = Modifier.padding(Padding.Padding30),
-                    viewModel = viewModel,
-                    activities = it.activities
-                )
+        } else {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(bottom = Padding.Padding20)
+            ) {
+                screenData.todayTargetWidget?.let {
+                    TodayTargetBlock(
+                        modifier = Modifier.padding(
+                            start = Padding.Padding30,
+                            end = Padding.Padding30,
+                            top = Padding.Padding24
+                        ),
+                        data = it
+                    )
+                }
+                screenData.activityProgressWidget?.let {
+                    ActivityProgressBlock(
+                        modifier = Modifier.padding(
+                            top = Padding.Padding30,
+                            start = Padding.Padding30,
+                            end = Padding.Padding30
+                        ),
+                        sections = it.progresses
+                    )
+                }
+                screenData.latestActivityWidget?.let {
+                    LatestActivityBlock(
+                        modifier = Modifier.padding(Padding.Padding30),
+                        viewModel = viewModel,
+                        activities = it.activities
+                    )
+                }
             }
         }
     }
