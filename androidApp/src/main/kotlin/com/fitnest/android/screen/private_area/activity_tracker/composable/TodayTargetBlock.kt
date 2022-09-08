@@ -41,12 +41,17 @@ import com.fitnest.android.style.WhiteColor
 internal fun TodayTargetBlockPreview() {
     TodayTargetBlock(
         modifier = Modifier,
-        data = HomeScreenData.TodayTargetWidget(waterIntake = "8L", steps = "2400")
+        data = HomeScreenData.TodayTargetWidget(waterIntake = "8L", steps = "2400"),
+        onAddActivityClicked = {}
     )
 }
 
 @Composable
-internal fun TodayTargetBlock(modifier: Modifier, data: HomeScreenData.TodayTargetWidget) {
+internal fun TodayTargetBlock(
+    modifier: Modifier,
+    data: HomeScreenData.TodayTargetWidget,
+    onAddActivityClicked: () -> Unit
+) {
     Column(
         modifier = modifier
             .background(
@@ -63,7 +68,7 @@ internal fun TodayTargetBlock(modifier: Modifier, data: HomeScreenData.TodayTarg
             )
             Box(modifier = Modifier.weight(1F))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = onAddActivityClicked,
                 contentPadding = PaddingValues(),
                 modifier = Modifier
                     .width(Dimen.Dimen24)
