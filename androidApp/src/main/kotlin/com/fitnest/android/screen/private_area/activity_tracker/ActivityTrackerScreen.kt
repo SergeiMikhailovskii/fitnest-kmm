@@ -22,10 +22,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityInputBottomSheet
 import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityProgressBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.LatestActivityBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
-import com.fitnest.android.screen.registration.ui.AnthropometryBottomSheet
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -52,17 +52,10 @@ internal fun ActivityTrackerScreen() {
     ModalBottomSheetLayout(
         sheetContent = {
             Box(modifier = Modifier.fillMaxSize()) {
-                AnthropometryBottomSheet(
-                    coroutineScope = coroutineScope,
-                    modalBottomSheetState = modalBottomSheetState,
-                    minValue = 0,
-                    maxValue = 200,
-                    initialValue = 70,
-                    onSubmit = { }
-                )
+                ActivityInputBottomSheet()
             }
         },
-        sheetShape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
+        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         sheetState = modalBottomSheetState
     ) {
         if (progress) {
