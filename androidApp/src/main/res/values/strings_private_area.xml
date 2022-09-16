@@ -52,4 +52,6 @@
     <string name="private_area_activity_tracker_screen_latest_activity_water_title">Drinking %1$dml Water</string>
     <string name="private_area_activity_tracker_screen_latest_activity_calories_title">Consuming %1$d Calories</string>
     <string name="private_area_activity_tracker_screen_latest_activity_save">Save</string>
+    <string name="private_area_activity_tracker_screen_activity_calories">Calories</string>
+    <string name="private_area_activity_tracker_screen_activity_water">Water</string>
 </resources>

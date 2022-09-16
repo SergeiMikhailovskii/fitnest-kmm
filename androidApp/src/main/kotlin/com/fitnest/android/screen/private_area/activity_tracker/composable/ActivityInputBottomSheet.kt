@@ -15,10 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,25 +25,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import com.fitnest.android.R
+import com.fitnest.android.extension.enum.fromLocalizedName
+import com.fitnest.android.extension.enum.localizedNames
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.GrayColor1
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.PoppinsBoldStyle16
 import com.fitnest.android.style.PoppinsSemiBoldStyle14White
+import com.fitnest.domain.enum.ActivityType
 
 @Preview
 @Composable
-internal fun ActivityInputBottomSheet() {
-    val items = listOf("Calories", "Steps")
+internal fun ActivityInputBottomSheetPreview() {
+    ActivityInputBottomSheet { _, _ -> }
+}
+
+@Composable
+internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
+    val context = LocalContext.current
+    val items = ActivityType.localizedNames(context)
     var currentActive by remember {
         mutableStateOf(items[0])
     }
-    var picker: NumberPicker?
+    var picker: NumberPicker? = null
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -113,7 +120,13 @@ internal fun ActivityInputBottomSheet() {
             }
         )
         Button(
-            onClick = { },
+            onClick = {
+                val activityType = ActivityType.fromLocalizedName(
+                    currentActive,
+                    context
+                )
+                onSubmit(activityType, (picker?.value ?: 0) * 100)
+            },
             shape = CircleShape,
             modifier = Modifier
                 .padding(all = Padding.Padding30)

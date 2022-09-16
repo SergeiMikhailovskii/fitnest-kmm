@@ -1,5 +1,7 @@
 package com.fitnest.domain.enum
 
 enum class ActivityType {
-    WATER, CALORIES
+    WATER, CALORIES;
+
+    companion object
 }

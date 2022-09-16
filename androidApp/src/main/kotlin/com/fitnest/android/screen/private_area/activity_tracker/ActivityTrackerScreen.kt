@@ -52,7 +52,12 @@ internal fun ActivityTrackerScreen() {
     ModalBottomSheetLayout(
         sheetContent = {
             Box(modifier = Modifier.fillMaxSize()) {
-                ActivityInputBottomSheet()
+                ActivityInputBottomSheet { activityType, value ->
+                    coroutineScope.launch {
+                        modalBottomSheetState.hide()
+                        println(value)
+                    }
+                }
             }
         },
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
