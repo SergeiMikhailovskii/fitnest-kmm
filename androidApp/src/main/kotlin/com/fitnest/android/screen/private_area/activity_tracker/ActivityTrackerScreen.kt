@@ -81,9 +81,7 @@ internal fun ActivityTrackerScreen() {
                         data = it,
                         onAddActivityClicked = {
                             coroutineScope.launch {
-                                modalBottomSheetState.animateTo(
-                                    ModalBottomSheetValue.Expanded
-                                )
+                                modalBottomSheetState.show()
                             }
                         }
                     )
