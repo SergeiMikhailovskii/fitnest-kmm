@@ -68,7 +68,8 @@ internal class ActivityTrackerViewMapper(
                 id = it.id ?: 0,
                 type = it.type ?: ActivityType.WATER,
                 title = mapActivityTypeToTitle(it.type ?: ActivityType.WATER, it.amount ?: 0),
-                description = dateMapper.mapLocalDateTimeToString(it.time, "dd MMMM, hh:mm")
+                description = dateMapper.mapLocalDateTimeToString(it.time, "dd MMMM, hh:mm"),
+                icon = mapActivityTypeToIcon(it.type)
             )
         }
 
@@ -92,4 +93,8 @@ internal class ActivityTrackerViewMapper(
             R.string.private_area_activity_tracker_screen_latest_activity_steps_title,
             amount
         )
+
+    private fun mapActivityTypeToIcon(type: ActivityType?) =
+        if (type == ActivityType.WATER) R.drawable.ic_private_area_activity_water
+        else R.drawable.ic_private_area_notification_workout
 }

@@ -47,19 +47,22 @@ internal fun LatestActivityBlockPreview() {
                 1,
                 "Drinking 300ml Water",
                 "About 3 minutes ago",
-                ActivityType.WATER
+                ActivityType.WATER,
+                R.drawable.ic_private_area_activity_water
             ),
             ActivityTrackerScreenData.Activity(
                 2,
                 "Drinking 300ml Water",
                 "About 3 minutes ago",
-                ActivityType.WATER
+                ActivityType.WATER,
+                R.drawable.ic_private_area_activity_water
             ),
             ActivityTrackerScreenData.Activity(
                 3,
                 "Drinking 300ml Water",
                 "About 3 minutes ago",
-                ActivityType.WATER
+                ActivityType.WATER,
+                R.drawable.ic_private_area_activity_water
             ),
         )
     )
@@ -73,7 +76,8 @@ internal fun LatestActivityItemPreview() {
             1,
             "Drinking 300ml Water",
             "About 3 minutes ago",
-            ActivityType.WATER
+            ActivityType.WATER,
+            R.drawable.ic_private_area_activity_water
         ),
         Any() as ActivityTrackerViewModel
     )
@@ -117,7 +121,7 @@ private fun LatestActivityItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_private_area_notification_meal),
+                painter = painterResource(id = activity.icon),
                 contentDescription = null
             )
             Column(modifier = Modifier.padding(start = Padding.Padding8)) {

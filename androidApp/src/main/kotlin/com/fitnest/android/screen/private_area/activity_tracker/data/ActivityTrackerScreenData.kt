@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.private_area.activity_tracker.data
 
+import androidx.annotation.DrawableRes
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.enum.ActivityType
 
@@ -21,7 +22,8 @@ internal data class ActivityTrackerScreenData(
         val id: Int,
         val title: String,
         val description: String,
-        val type: ActivityType
+        val type: ActivityType,
+        @DrawableRes val icon: Int
     )
 
     class Progress(
