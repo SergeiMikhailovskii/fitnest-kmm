@@ -14,7 +14,7 @@ import com.fitnest.domain.functional.Failure
 
 interface NetworkRepository {
 
-    suspend fun generateToken(): Either<Failure, BaseResponse>
+    suspend fun generateToken(): BaseResponse
 
     suspend fun getOnboardingStep(): Either<Failure, String>
 

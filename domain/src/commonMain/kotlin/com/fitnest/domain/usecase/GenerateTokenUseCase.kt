@@ -1,9 +1,8 @@
 package com.fitnest.domain.usecase
 
-import com.fitnest.domain.entity.base.BaseResponse
 import com.fitnest.domain.repository.NetworkRepository
 
-class GenerateTokenUseCase(private val repository: NetworkRepository) : UseCase<BaseResponse>() {
+class GenerateTokenUseCase(private val repository: NetworkRepository) {
 
-    override suspend fun run() = repository.generateToken()
+    suspend operator fun invoke() = runCatching { repository.generateToken() }
 }

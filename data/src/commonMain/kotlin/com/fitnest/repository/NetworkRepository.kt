@@ -22,7 +22,7 @@ class NetworkRepository(
     private val registrationResponseMapper: RegistrationResponseMapper
 ) : NetworkRepository {
 
-    override suspend fun generateToken() = networkService.getData(Endpoints.Flow.name)
+    override suspend fun generateToken() = networkService.getDataResult(Endpoints.Flow.name)
 
     override suspend fun getOnboardingStep() = networkService.getData(Endpoints.Onboarding.name)
         .map {
