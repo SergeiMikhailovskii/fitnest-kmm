@@ -40,6 +40,7 @@ internal object Endpoints {
             override val name = "${PrivateArea.name}activity-tracker"
 
             val DELETE_ACTIVITY = "$name/delete-activity"
+            val ADD_ACTIVITY = "$name/add-activity"
         }
     }
 

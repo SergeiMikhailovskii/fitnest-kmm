@@ -6,7 +6,7 @@ import com.fitnest.domain.enum.ActivityType
 
 val ActivityType.localizedNameId: Int
     get() = when (this) {
-        ActivityType.CALORIES -> R.string.private_area_activity_tracker_screen_activity_calories
+        ActivityType.STEPS -> R.string.private_area_activity_tracker_screen_activity_steps
         ActivityType.WATER -> R.string.private_area_activity_tracker_screen_activity_water
     }
 
@@ -15,4 +15,4 @@ fun ActivityType.Companion.localizedNames(context: Context) =
 
 fun ActivityType.Companion.fromLocalizedName(activity: String, context: Context) =
     if (context.getString(ActivityType.WATER.localizedNameId) == activity) ActivityType.WATER
-    else ActivityType.CALORIES
+    else ActivityType.STEPS

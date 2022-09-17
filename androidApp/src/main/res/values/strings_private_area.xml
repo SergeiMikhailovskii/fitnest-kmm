@@ -50,8 +50,8 @@
     <string name="private_area_activity_tracker_screen_activity_progress_title">Activity Progress</string>
     <string name="private_area_activity_tracker_screen_latest_activity_title">Latest Activity</string>
     <string name="private_area_activity_tracker_screen_latest_activity_water_title">Drinking %1$dml Water</string>
-    <string name="private_area_activity_tracker_screen_latest_activity_calories_title">Consuming %1$d Calories</string>
+    <string name="private_area_activity_tracker_screen_latest_activity_steps_title">Walked %1$d steps</string>
     <string name="private_area_activity_tracker_screen_latest_activity_save">Save</string>
-    <string name="private_area_activity_tracker_screen_activity_calories">Calories</string>
+    <string name="private_area_activity_tracker_screen_activity_steps">Steps</string>
     <string name="private_area_activity_tracker_screen_activity_water">Water</string>
 </resources>

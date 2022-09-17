@@ -102,7 +102,7 @@ internal class LoginViewModel(
     internal fun handleGoogleSignIn(account: GoogleSignInAccount) {
         screenData = screenData.copy(
             login = account.email,
-            password = account.idToken
+            password = account.id
         )
         updateScreenData()
         validateAndLogin()

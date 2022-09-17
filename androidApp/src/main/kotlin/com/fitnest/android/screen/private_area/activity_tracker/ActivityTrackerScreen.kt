@@ -55,7 +55,7 @@ internal fun ActivityTrackerScreen() {
                 ActivityInputBottomSheet { activityType, value ->
                     coroutineScope.launch {
                         modalBottomSheetState.hide()
-                        println(value)
+                        viewModel.saveActivity(activityType, value)
                     }
                 }
             }

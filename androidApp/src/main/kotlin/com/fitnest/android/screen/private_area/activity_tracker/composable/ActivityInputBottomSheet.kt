@@ -53,7 +53,9 @@ internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
     var currentActive by remember {
         mutableStateOf(items[0])
     }
-    var picker: NumberPicker? = null
+    var picker: NumberPicker? by remember {
+        mutableStateOf(null)
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
