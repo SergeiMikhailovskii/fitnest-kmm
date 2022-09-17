@@ -6,8 +6,11 @@ import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
+import com.fitnest.domain.usecase.private_area.AddActivityUseCase
 import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
+import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
 import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
+import com.fitnest.domain.usecase.private_area.GetActivityTrackerPageUseCase
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
@@ -76,5 +79,14 @@ val useCaseModule = DI.Module("use case module") {
     }
     bind<DeleteNotificationUseCase>() with factory {
         DeleteNotificationUseCase(instance())
+    }
+    bind<GetActivityTrackerPageUseCase>() with factory {
+        GetActivityTrackerPageUseCase(instance(), instance())
+    }
+    bind<DeleteActivityUseCase>() with factory {
+        DeleteActivityUseCase(instance(), instance())
+    }
+    bind<AddActivityUseCase>() with factory {
+        AddActivityUseCase(instance(), instance())
     }
 }

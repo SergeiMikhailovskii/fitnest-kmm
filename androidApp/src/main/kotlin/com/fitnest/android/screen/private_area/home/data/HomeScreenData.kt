@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 
-data class HomeScreenData(
+internal data class HomeScreenData(
     val headerWidget: HeaderWidget? = null,
     val bmiWidget: BMIWidget? = null,
     val todayTargetWidget: TodayTargetWidget? = null,
@@ -21,7 +21,10 @@ data class HomeScreenData(
         @StringRes val result: Int? = null
     )
 
-    class TodayTargetWidget
+    class TodayTargetWidget(
+        val waterIntake: String = "",
+        val steps: String = ""
+    )
 
     data class ActivityStatusWidget(
         val heartRateSubWidget: HeartRateSubWidget? = null,

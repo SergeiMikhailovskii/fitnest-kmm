@@ -4,12 +4,26 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.IconButton
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,6 +41,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
@@ -36,20 +52,35 @@ import com.fitnest.android.extension.stringResourceByIdentifier
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.*
+import com.fitnest.android.style.BorderColor
+import com.fitnest.android.style.BrandColor
+import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Dimen.Dimen1
 import com.fitnest.android.style.Dimen.Dimen14
 import com.fitnest.android.style.Dimen.Dimen20
 import com.fitnest.android.style.Dimen.Dimen50
+import com.fitnest.android.style.ErrorStyle
+import com.fitnest.android.style.GrayColor3
 import com.fitnest.android.style.Padding.Padding0
 import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.fitnest.android.style.PoppinsBoldStyle16
+import com.fitnest.android.style.PoppinsBoldStyle20Black
+import com.fitnest.android.style.PoppinsNormalStyle12Black
+import com.fitnest.android.style.PoppinsNormalStyle14
+import com.fitnest.android.style.PoppinsNormalStyle16Black
+import com.fitnest.android.style.SecondaryColor1
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
+
+@Composable
+@Preview
+fun CreateAccountRegistrationScreenPreview() {
+    CreateAccountRegistrationScreen(navController = NavController(LocalContext.current))
+}
 
 @Composable
 fun CreateAccountRegistrationScreen(
@@ -332,7 +363,8 @@ fun CreateAccountRegistrationScreen(
                     .constrainAs(cvFacebook) {
                         start.linkTo(guidelineHalf, Padding15)
                         bottom.linkTo(tvHaveAccount.top, Padding30)
-                    }.clickable {
+                    }
+                    .clickable {
                         facebookSignInService.login {
                             viewModel.handleFacebookSignIn(it)
                         }

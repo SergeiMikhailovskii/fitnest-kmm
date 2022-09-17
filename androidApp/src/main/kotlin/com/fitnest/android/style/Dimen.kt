@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 object Dimen {
+    val Dimen0 = 0.dp
     val Dimen1 = 1.dp
     val Dimen2 = 2.dp
     val Dimen3 = 3.dp
@@ -22,6 +23,7 @@ object Dimen {
     val Dimen48 = 48.dp
     val Dimen50 = 50.dp
     val Dimen60 = 60.dp
+    val Dimen135 = 135.dp
 }
 
 object Padding {
@@ -37,6 +39,7 @@ object Padding {
     val Padding15 = 15.dp
     val Padding16 = 16.dp
     val Padding20 = 20.dp
+    val Padding24 = 24.dp
     val Padding26 = 26.dp
     val Padding30 = 30.dp
     val Padding35 = 35.dp

@@ -47,6 +47,10 @@ val PoppinsMediumStyle14White = PoppinsMediumStyle14.copy(
     color = WhiteColor
 )
 
+val PoppinsMediumStyle14Brand = PoppinsMediumStyle14.copy(
+    color = BrandColor
+)
+
 val PoppinsMediumStyle14Gray1 = PoppinsMediumStyle14.copy(
     color = GrayColor1
 )
@@ -97,6 +101,10 @@ val PoppinsSemiBoldStyle14 = PoppinsSemiBoldStyle.copy(
 
 val PoppinsSemiBoldStyle14White = PoppinsSemiBoldStyle14.copy(
     color = WhiteColor
+)
+
+val PoppinsSemiBoldStyle14Black = PoppinsSemiBoldStyle14.copy(
+    color = BlackColor
 )
 
 val PoppinsSemiBoldStyle16 = PoppinsSemiBoldStyle.copy(

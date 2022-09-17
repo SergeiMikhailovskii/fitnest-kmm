@@ -56,10 +56,12 @@ fun TopBar(navController: NavController) {
 
 private fun isRouteWithTopBar(route: String) = arrayOf(
     Route.PrivateAreaNotifications.screenName,
+    Route.PrivateAreaActivityTracker.screenName
 ).contains(route)
 
 @Composable
 private fun topBarScreenName(route: String) = when (route) {
     Route.PrivateAreaNotifications.screenName -> stringResource(id = R.string.private_area_notifications_screen_title)
+    Route.PrivateAreaActivityTracker.screenName -> stringResource(id = R.string.private_area_activity_tracker_screen_title)
     else -> ""
 }

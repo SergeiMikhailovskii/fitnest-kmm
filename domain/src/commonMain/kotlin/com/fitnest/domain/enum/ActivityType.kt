@@ -1,7 +1,7 @@
 package com.fitnest.domain.enum
 
-enum class SexType {
-    MALE, FEMALE;
+enum class ActivityType {
+    WATER, STEPS;
 
     companion object
 }

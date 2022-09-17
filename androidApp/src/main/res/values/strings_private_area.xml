@@ -41,4 +41,17 @@
     <string name="private_area_notifications_screen_title">Notifications</string>
     <string name="private_area_notifications_minutes_ago">About %1$d minutes ago</string>
     <string name="private_area_notifications_hours_ago">About %1$d hours ago</string>
+
+    <string name="private_area_activity_tracker_screen_title">Activity Tracker</string>
+    <string name="private_area_activity_tracker_screen_today_target_title">Today Target</string>
+    <string name="private_area_activity_tracker_screen_today_target_litres">%1$.1fL</string>
+    <string name="private_area_activity_tracker_screen_water_index">Water Intake</string>
+    <string name="private_area_activity_tracker_screen_steps_index">Foot Steps</string>
+    <string name="private_area_activity_tracker_screen_activity_progress_title">Activity Progress</string>
+    <string name="private_area_activity_tracker_screen_latest_activity_title">Latest Activity</string>
+    <string name="private_area_activity_tracker_screen_latest_activity_water_title">Drinking %1$dml Water</string>
+    <string name="private_area_activity_tracker_screen_latest_activity_steps_title">Walked %1$d steps</string>
+    <string name="private_area_activity_tracker_screen_latest_activity_save">Save</string>
+    <string name="private_area_activity_tracker_screen_activity_steps">Steps</string>
+    <string name="private_area_activity_tracker_screen_activity_water">Water</string>
 </resources>

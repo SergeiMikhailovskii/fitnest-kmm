@@ -4,7 +4,12 @@ import androidx.navigation.NavController
 import com.fitnest.android.base.Route
 
 internal fun handleNavigation(route: Route, navController: NavController) {
-    if (route == Route.PrivateAreaNotifications) {
+    if (
+        arrayOf(
+            Route.PrivateAreaNotifications,
+            Route.PrivateAreaActivityTracker
+        ).contains(route)
+    ) {
         navController.navigate(route.screenName)
     } else {
         navController.popBackStack()

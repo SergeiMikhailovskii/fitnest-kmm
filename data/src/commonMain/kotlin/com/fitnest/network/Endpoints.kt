@@ -35,6 +35,13 @@ internal object Endpoints {
             val PIN = "$name/pin"
             val DELETE = "$name/delete"
         }
+
+        object ActivityTracker : Group {
+            override val name = "${PrivateArea.name}activity-tracker"
+
+            val DELETE_ACTIVITY = "$name/delete-activity"
+            val ADD_ACTIVITY = "$name/add-activity"
+        }
     }
 
     interface Group {

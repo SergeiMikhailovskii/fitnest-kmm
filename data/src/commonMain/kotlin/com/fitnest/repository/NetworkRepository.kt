@@ -1,6 +1,8 @@
 package com.fitnest.repository
 
 import com.fitnest.domain.entity.base.BaseRequest
+import com.fitnest.domain.entity.request.AddActivityRequest
+import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.ForgetPasswordRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
@@ -47,6 +49,9 @@ class NetworkRepository(
     override suspend fun getNotificationsPage() =
         networkService.getDataResult(Endpoints.PrivateArea.Notifications.name)
 
+    override suspend fun getActivityTrackerPage() =
+        networkService.getDataResult(Endpoints.PrivateArea.ActivityTracker.name)
+
     override suspend fun deactivateNotifications(ids: List<Int>?) =
         networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DEACTIVATE, data = ids)
 
@@ -63,4 +68,13 @@ class NetworkRepository(
 
     override suspend fun forgetPassword(request: ForgetPasswordRequest) =
         networkService.sendDataResult(Endpoints.Auth.FORGET_PASSWORD, request)
+
+    override suspend fun deleteActivity(request: DeleteActivityRequest) =
+        networkService.sendDataResult(
+            Endpoints.PrivateArea.ActivityTracker.DELETE_ACTIVITY,
+            request
+        )
+
+    override suspend fun addActivity(request: AddActivityRequest) =
+        networkService.sendDataResult(Endpoints.PrivateArea.ActivityTracker.ADD_ACTIVITY, request)
 }

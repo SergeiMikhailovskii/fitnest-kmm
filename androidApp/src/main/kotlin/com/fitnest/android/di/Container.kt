@@ -4,9 +4,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.fitnest.android.extension.ViewModelFactory
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
+import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
+import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
+import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
@@ -30,6 +33,12 @@ import org.kodein.di.bind
 import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.singleton
+
+val androidModule = DI.Module("android module") {
+    bind<DateMapper>() with singleton {
+        DateMapper()
+    }
+}
 
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
@@ -121,6 +130,7 @@ val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration s
 val privateAreaModule = DI.Module("private area module") {
     import(dashboardPrivateAreaModule)
     import(notificationsPrivateAreaModule)
+    import(activityTrackerPrivateAreaModule)
 }
 
 val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
@@ -138,6 +148,15 @@ val notificationsPrivateAreaModule = DI.Module("notifications private area modul
     }
     bind<NotificationsViewMapper>() with factory {
         NotificationsViewMapper(instance())
+    }
+}
+
+val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area module") {
+    bind<ActivityTrackerViewModel>() with factory {
+        ActivityTrackerViewModel(instance(), instance(), instance(), instance())
+    }
+    bind<ActivityTrackerViewMapper>() with factory {
+        ActivityTrackerViewMapper(instance(), instance())
     }
 }
 
