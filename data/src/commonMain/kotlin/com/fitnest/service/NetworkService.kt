@@ -2,13 +2,10 @@ package com.fitnest.service
 
 import com.fitnest.cookie.CookiesStorage
 import com.fitnest.domain.entity.base.BaseResponse
-import com.fitnest.domain.functional.Either
-import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.service.NetworkService
 import com.fitnest.network.Endpoints
 import io.ktor.client.HttpClient
 import io.ktor.client.call.receive
-import io.ktor.client.features.ClientRequestException
 import io.ktor.client.features.cookies.HttpCookies
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
@@ -42,24 +39,6 @@ class NetworkService(val di: DI) : NetworkService {
         }
     }
 
-    override suspend fun <Request> sendData(
-        path: String,
-        data: Request?
-    ): Either<Failure, BaseResponse> {
-        val url = "${Endpoints.BASE_URL}$path"
-        return try {
-            val httpResponse: HttpResponse = httpClient.post(url) {
-                contentType(ContentType.Application.Json)
-                if (data != null) {
-                    body = data
-                }
-            }
-            Either.Right(httpResponse.receive())
-        } catch (e: ClientRequestException) {
-            Either.Left(Failure.ServerError(e.response.status.value))
-        }
-    }
-
     override suspend fun <Request> sendDataResult(path: String, data: Request?): BaseResponse {
         val url = "${Endpoints.BASE_URL}$path"
         val httpResponse: HttpResponse = httpClient.post(url) {
@@ -69,29 +48,6 @@ class NetworkService(val di: DI) : NetworkService {
             }
         }
         return httpResponse.receive()
-    }
-
-    override suspend fun getData(path: String): Either<Failure, BaseResponse> {
-        val url = "${Endpoints.BASE_URL}$path"
-        return try {
-            val httpResponse: HttpResponse = httpClient.get(url) {
-                contentType(ContentType.Application.Json)
-            }
-            val response = httpResponse.receive<BaseResponse>()
-
-            val errors = response.errors
-            if (errors != null) {
-                if (errors.size == 1) {
-                    Either.Left(errors[0])
-                } else {
-                    Either.Left(Failure.ValidationErrors(errors))
-                }
-            } else {
-                Either.Right(response)
-            }
-        } catch (e: ClientRequestException) {
-            Either.Left(Failure.ServerError(e.response.status.value))
-        }
     }
 
     override suspend fun getDataResult(path: String): BaseResponse {

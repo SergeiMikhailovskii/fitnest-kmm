@@ -8,7 +8,7 @@ import com.fitnest.domain.mapper.RegistrationResponseMapper
 import com.fitnest.domain.repository.NetworkRepository
 import kotlinx.serialization.json.jsonObject
 
-class SubmitRegistrationStepAndGetNext(
+class SubmitRegistrationStepAndGetNextUseCase(
     private val networkRepository: NetworkRepository,
     private val registrationResponseMapper: RegistrationResponseMapper,
     private val registrationScreenState: RegistrationScreenState

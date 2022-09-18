@@ -8,16 +8,14 @@ import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.ForgetPasswordRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.entity.response.LoginPageResponse
-import com.fitnest.domain.functional.Either
-import com.fitnest.domain.functional.Failure
 
 interface NetworkRepository {
 
     suspend fun generateToken(): BaseResponse
 
-    suspend fun getOnboardingStep(): Either<Failure, String>
+    suspend fun getOnboardingStep(): BaseResponse
 
-    suspend fun submitOnboardingStep(): Either<Failure, Unit>
+    suspend fun submitOnboardingStep()
 
     suspend fun getRegistrationStepData(): BaseResponse
 

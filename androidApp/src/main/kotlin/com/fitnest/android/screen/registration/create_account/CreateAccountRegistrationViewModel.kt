@@ -6,7 +6,7 @@ import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.response.FacebookLoginResponse
-import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.validator.CreateAccountRegistrationValidator
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ internal class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val validator: CreateAccountRegistrationValidator,
     private val viewMapper: CreateAccountRegistrationViewMapper,
-    private val submitRegistrationStepAndGetNext: SubmitRegistrationStepAndGetNext
+    private val submitRegistrationStepAndGetNextUseCase: SubmitRegistrationStepAndGetNextUseCase
 ) : BaseViewModel() {
 
     private var screenData = CreateAccountRegistrationScreenData()
@@ -136,7 +136,7 @@ internal class CreateAccountRegistrationViewModel(
         }
 
         viewModelScope.launch {
-            val response = submitRegistrationStepAndGetNext(requestData).getOrThrow()
+            val response = submitRegistrationStepAndGetNextUseCase(requestData).getOrThrow()
             response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }

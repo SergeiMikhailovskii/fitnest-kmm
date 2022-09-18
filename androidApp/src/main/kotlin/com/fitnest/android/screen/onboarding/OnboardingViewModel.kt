@@ -2,21 +2,30 @@ package com.fitnest.android.screen.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.fitnest.android.R
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.OnboardingState
 import com.fitnest.domain.functional.Failure
-import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
-import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
+import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
+import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 
 class OnboardingViewModel(
-    private val getOnboardingStepUseCase: GetOnboardingStep,
-    private val submitOnboardingStepUseCase: SubmitOnboardingStep,
+    private val getOnboardingStepUseCase: GetOnboardingStepUseCase,
+    private val submitOnboardingStepUseCase: SubmitOnboardingStepUseCase,
 ) : BaseViewModel() {
 
     private val _stateLiveData = MutableLiveData<OnboardingState>()
     internal val stateLiveData: LiveData<OnboardingState> = _stateLiveData
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, failure ->
+        if (failure is Failure.ValidationErrors && failure.fields.any { it.message == "onboarding.finished" }) {
+            handleRoute(Route.Proxy())
+        }
+    }
 
     internal fun updateScreenState(stepName: String) {
         _stateLiveData.value = when (stepName) {
@@ -62,23 +71,11 @@ class OnboardingViewModel(
     }
 
     internal fun navigateToNextScreen() {
-        submitOnboardingStepUseCase {
-            it.either(::handleFailure) {
-                getOnboardingStepUseCase {
-                    it.either(::handleOnboardingFailure) {
-                        it?.let {
-                            _stateLiveData.value = null
-                            handleRoute(Route.OnboardingStep(it))
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handleOnboardingFailure(failure: Failure?) {
-        if (failure is Failure.ValidationError && failure.message == "onboarding.finished") {
-            handleRoute(Route.Proxy())
+        viewModelScope.launch(exceptionHandler) {
+            submitOnboardingStepUseCase().getOrThrow()
+            val nextStep = getOnboardingStepUseCase().getOrThrow()
+            _stateLiveData.value = null
+            nextStep?.let { handleRoute(Route.OnboardingStep(it)) }
         }
     }
 

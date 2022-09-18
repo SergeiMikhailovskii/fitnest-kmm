@@ -5,8 +5,8 @@ import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
-import com.fitnest.domain.usecase.onboarding.GetOnboardingStep
-import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStep
+import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
+import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.private_area.AddActivityUseCase
 import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
@@ -16,7 +16,7 @@ import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
-import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import org.kodein.di.DI
 import org.kodein.di.bind
@@ -46,11 +46,11 @@ val useCaseModule = DI.Module("use case module") {
     /**
      * Onboarding
      */
-    bind<GetOnboardingStep>() with factory {
-        GetOnboardingStep(instance())
+    bind<GetOnboardingStepUseCase>() with factory {
+        GetOnboardingStepUseCase(instance(), instance())
     }
-    bind<SubmitOnboardingStep>() with factory {
-        SubmitOnboardingStep(instance())
+    bind<SubmitOnboardingStepUseCase>() with factory {
+        SubmitOnboardingStepUseCase(instance())
     }
 
     /**
@@ -59,8 +59,8 @@ val useCaseModule = DI.Module("use case module") {
     bind<GetRegistrationStepData>() with factory {
         GetRegistrationStepData(instance(), instance(), instance())
     }
-    bind<SubmitRegistrationStepAndGetNext>() with factory {
-        SubmitRegistrationStepAndGetNext(instance(), instance(), instance())
+    bind<SubmitRegistrationStepAndGetNextUseCase>() with factory {
+        SubmitRegistrationStepAndGetNextUseCase(instance(), instance(), instance())
     }
 
     /**

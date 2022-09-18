@@ -8,7 +8,7 @@ import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.request.WelcomeBackStepRequest
 import com.fitnest.domain.functional.Failure
-import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class WelcomeBackRegistrationViewModel(
     registrationScreenState: RegistrationScreenState,
-    private val submitRegistrationStepAndGetNext: SubmitRegistrationStepAndGetNext
+    private val submitRegistrationStepAndGetNextUseCase: SubmitRegistrationStepAndGetNextUseCase
 ) : BaseViewModel() {
 
     private var screenData = WelcomeBackRegistrationScreenData()
@@ -41,7 +41,7 @@ class WelcomeBackRegistrationViewModel(
 
     internal fun next() {
         viewModelScope.launch(exceptionHandler) {
-            val response = submitRegistrationStepAndGetNext(WelcomeBackStepRequest()).getOrThrow()
+            val response = submitRegistrationStepAndGetNextUseCase(WelcomeBackStepRequest()).getOrThrow()
             response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }

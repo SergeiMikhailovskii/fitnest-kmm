@@ -5,7 +5,7 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.enum.SexType
-import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +18,7 @@ class CompleteAccountRegistrationViewModel(
     private val viewMapper: CompleteAccountRegistrationViewMapper,
     private val screenData: CompleteAccountRegistrationScreenData,
     private val validator: CompleteAccountRegistrationValidator,
-    private val submitRegistrationStepAndGetNext: SubmitRegistrationStepAndGetNext
+    private val submitRegistrationStepAndGetNextUseCase: SubmitRegistrationStepAndGetNextUseCase
 ) : BaseViewModel() {
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
@@ -84,7 +84,7 @@ class CompleteAccountRegistrationViewModel(
             return
         }
         viewModelScope.launch {
-            val response = submitRegistrationStepAndGetNext(request).getOrThrow()
+            val response = submitRegistrationStepAndGetNextUseCase(request).getOrThrow()
             response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }
