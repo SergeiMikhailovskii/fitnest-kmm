@@ -2,9 +2,8 @@ package com.fitnest.domain.mapper
 
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationStepModel
-import com.fitnest.domain.entity.validator.Validator
+import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -25,7 +24,7 @@ class RegistrationResponseMapper(
 
         val jsonSchemaElement = source?.get("validation_schema")
         val validationSchema = if (jsonSchemaElement is JsonNull) null
-        else mapValidationSchema(jsonSchemaElement?.jsonObject)
+        else mapValidationSchema(jsonSchemaElement?.jsonObject, step)
 
         return GetRegistrationResponseData(
             step = step,
@@ -49,19 +48,23 @@ class RegistrationResponseMapper(
         }
     }
 
-    private fun mapValidationSchema(map: JsonObject?): Map<String, List<Validator>> {
-        val mappedValidationSchema = mutableMapOf<String, List<Validator>>()
-        val entries = map?.entries
-        entries?.forEach {
-            val validators = it.value
-            val mappedValidators = mutableListOf<Validator>()
-            if (validators is JsonArray) {
-                validators.forEach {
-                    mappedValidators.add(json.decodeFromJsonElement(it))
-                }
+    private fun mapValidationSchema(
+        schema: JsonObject?,
+        step: String?
+    ): RegistrationStepValidationSchema? {
+        if (schema == null) return null
+        return when (step) {
+            "STEP_CREATE_ACCOUNT" -> {
+                return json.decodeFromJsonElement<RegistrationStepValidationSchema.CreateAccountStepValidationSchema>(
+                    schema
+                )
             }
-            mappedValidationSchema[it.key] = mappedValidators
+            "STEP_COMPLETE_ACCOUNT" -> {
+                return json.decodeFromJsonElement<RegistrationStepValidationSchema.CompleteAccountStepValidationSchema>(
+                    schema
+                )
+            }
+            else -> null
         }
-        return mappedValidationSchema
     }
 }

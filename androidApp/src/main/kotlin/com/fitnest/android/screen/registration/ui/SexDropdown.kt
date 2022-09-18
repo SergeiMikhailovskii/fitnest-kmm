@@ -25,7 +25,8 @@ fun SexDropdown(
     onItemClicked: (String) -> Unit,
     value: String,
     isFocused: Boolean,
-    onFocusChanged: (Boolean) -> Unit
+    onFocusChanged: (Boolean) -> Unit,
+    isError: Boolean
 ) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
@@ -65,6 +66,7 @@ fun SexDropdown(
                     style = PoppinsNormalStyle14
                 )
             },
+            isError = isError,
             readOnly = true
         )
 

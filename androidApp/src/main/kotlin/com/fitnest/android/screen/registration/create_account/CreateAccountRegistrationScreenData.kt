@@ -1,6 +1,5 @@
 package com.fitnest.android.screen.registration.create_account
 
-import com.fitnest.domain.entity.validator.Validator
 import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
 
 data class CreateAccountRegistrationScreenData(
@@ -14,5 +13,4 @@ data class CreateAccountRegistrationScreenData(
     val isEmailFocused: Boolean = false,
     val isPasswordFocused: Boolean = false,
     val exception: CreateAccountRegistrationScreenException = CreateAccountRegistrationScreenException(),
-    val validationSchema: Map<String, List<Validator?>>? = null
 )

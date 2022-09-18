@@ -23,7 +23,8 @@ import com.fitnest.android.style.PoppinsNormalStyle14
 fun DateOfBirthTextField(
     modifier: Modifier = Modifier,
     value: String,
-    onClick: () -> Unit
+    isError: Boolean,
+    onClick: () -> Unit,
 ) {
     val interactionSource = remember {
         MutableInteractionSource()
@@ -58,6 +59,7 @@ fun DateOfBirthTextField(
             )
         },
         readOnly = true,
+        isError = isError
     )
 
 }

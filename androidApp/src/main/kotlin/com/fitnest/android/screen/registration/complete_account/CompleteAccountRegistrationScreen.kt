@@ -4,13 +4,30 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.runtime.*
+import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -32,17 +49,21 @@ import com.fitnest.android.screen.registration.ui.AnthropometryBottomSheet
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
 import com.fitnest.android.screen.registration.ui.DateOfBirthTextField
 import com.fitnest.android.screen.registration.ui.SexDropdown
-import com.fitnest.android.style.*
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
 import com.fitnest.android.style.Padding.Padding10
 import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
+import com.fitnest.android.style.PoppinsBoldStyle16
+import com.fitnest.android.style.PoppinsBoldStyle20Black
+import com.fitnest.android.style.PoppinsNormalStyle12Gray1
 import com.fitnest.android.view.ui_elements.ViewWithError
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
-import java.util.*
+import java.util.Date
 
 @ExperimentalMaterialApi
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
@@ -85,7 +106,6 @@ fun CompleteAccountRegistrationScreen(
                 handleNavigation(it, navController)
             }
         }
-        viewModel.initializeStartData()
     }
 
     ModalBottomSheetLayout(
@@ -183,7 +203,8 @@ fun CompleteAccountRegistrationScreen(
                     },
                     value = screenData.sex?.localizedNameId?.let(context::getString).orEmpty(),
                     isFocused = screenData.isSexFocused,
-                    onFocusChanged = viewModel::updateSexFocus
+                    onFocusChanged = viewModel::updateSexFocus,
+                    isError = screenData.exception.genderError != null
                 )
             }
             ViewWithError(
@@ -199,7 +220,8 @@ fun CompleteAccountRegistrationScreen(
             ) {
                 DateOfBirthTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = screenData.formattedDateOfBirth().orEmpty()
+                    value = screenData.formattedDateOfBirth().orEmpty(),
+                    isError = screenData.exception.birthDateError != null
                 ) {
                     showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
                 }
@@ -219,7 +241,8 @@ fun CompleteAccountRegistrationScreen(
                     value = screenData.weight?.toString().orEmpty(),
                     leadingIcon = R.drawable.ic_complete_registration_weight,
                     label = context.getString(R.string.registration_complete_account_weight_hint),
-                    optionLabel = context.getString(R.string.registration_complete_account_weight_kg)
+                    optionLabel = context.getString(R.string.registration_complete_account_weight_kg),
+                    isError = screenData.exception.weightError != null
                 ) {
                     modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
                     coroutineScope.launch { modalBottomSheetState.show() }
@@ -240,7 +263,8 @@ fun CompleteAccountRegistrationScreen(
                     value = screenData.height?.toString().orEmpty(),
                     leadingIcon = R.drawable.ic_complete_registration_height,
                     label = context.getString(R.string.registration_complete_account_height_hint),
-                    optionLabel = context.getString(R.string.registration_complete_account_height_cm)
+                    optionLabel = context.getString(R.string.registration_complete_account_height_cm),
+                    isError = screenData.exception.heightError != null
                 ) {
                     coroutineScope.launch {
                         modalBottomSheetType =
@@ -275,7 +299,6 @@ fun CompleteAccountRegistrationScreen(
         }
     }
 }
-
 
 private fun showDatePicker(
     activity: AppCompatActivity,

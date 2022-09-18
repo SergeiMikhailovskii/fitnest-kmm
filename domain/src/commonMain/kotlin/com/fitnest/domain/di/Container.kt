@@ -17,6 +17,8 @@ import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
+import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
+import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import org.kodein.di.DI
 import org.kodein.di.bind
@@ -61,6 +63,12 @@ val useCaseModule = DI.Module("use case module") {
     }
     bind<SubmitRegistrationStepAndGetNextUseCase>() with factory {
         SubmitRegistrationStepAndGetNextUseCase(instance(), instance(), instance())
+    }
+    bind<CompleteAccountRegistrationValidationUseCase>() with factory {
+        CompleteAccountRegistrationValidationUseCase()
+    }
+    bind<CreateAccountRegistrationValidationUseCase>() with factory {
+        CreateAccountRegistrationValidationUseCase()
     }
 
     /**

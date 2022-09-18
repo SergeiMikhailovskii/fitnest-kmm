@@ -4,30 +4,16 @@ import com.fitnest.android.extension.format
 import com.fitnest.domain.entity.validator.Validator
 import com.fitnest.domain.enum.SexType
 import com.fitnest.domain.exception.CompleteAccountRegistrationScreenException
-import java.util.*
+import java.util.Date
 
 data class CompleteAccountRegistrationScreenData(
-    var sex: SexType? = null,
-    var dateOfBirth: Date? = null,
-    var isSexFocused: Boolean = false,
-    var weight: Int? = null,
-    var height: Int? = null,
-    var exception: CompleteAccountRegistrationScreenException = CompleteAccountRegistrationScreenException(),
-    var validationSchema: Map<String, List<Validator?>>? = null
+    val sex: SexType? = null,
+    val dateOfBirth: Date? = null,
+    val isSexFocused: Boolean = false,
+    val weight: Int? = null,
+    val height: Int? = null,
+    val exception: CompleteAccountRegistrationScreenException = CompleteAccountRegistrationScreenException()
 ) {
-    internal fun copy() =
-        CompleteAccountRegistrationScreenData(
-            sex,
-            dateOfBirth,
-            isSexFocused,
-            weight,
-            height,
-            exception.copy()
-        )
 
     internal fun formattedDateOfBirth() = dateOfBirth?.format("dd/MM/yyyy")
-
-    companion object {
-        fun init() = CompleteAccountRegistrationScreenData()
-    }
 }

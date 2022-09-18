@@ -28,6 +28,7 @@ fun AnthropometryTextField(
     @DrawableRes leadingIcon: Int,
     label: String,
     optionLabel: String,
+    isError: Boolean,
     onTextFieldClick: () -> Unit
 ) {
     val interactionSource = remember {
@@ -68,6 +69,7 @@ fun AnthropometryTextField(
                 )
             },
             readOnly = true,
+            isError = isError
         )
         Box(
             modifier = Modifier
