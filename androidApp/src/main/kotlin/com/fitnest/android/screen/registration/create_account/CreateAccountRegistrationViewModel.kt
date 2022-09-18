@@ -5,10 +5,13 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
+import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.entity.response.FacebookLoginResponse
+import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
-import com.fitnest.domain.validator.CreateAccountRegistrationValidator
+import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -16,7 +19,7 @@ import kotlinx.coroutines.launch
 
 internal class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
-    private val validator: CreateAccountRegistrationValidator,
+    private val validator: CreateAccountRegistrationValidationUseCase,
     private val viewMapper: CreateAccountRegistrationViewMapper,
     private val submitRegistrationStepAndGetNextUseCase: SubmitRegistrationStepAndGetNextUseCase
 ) : BaseViewModel() {
@@ -26,38 +29,18 @@ internal class CreateAccountRegistrationViewModel(
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
 
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        if (throwable is CreateAccountRegistrationScreenException) {
+            screenData = screenData.copy(exception = throwable)
+            updateScreenData()
+        }
+    }
+
     internal fun initializeStartData() {
         val fields = registrationScreenState.fields
-        val validationSchema = registrationScreenState.validationSchema
-        validationSchema?.let {
-            validator.initialize(
-                jsonSchema = it,
-                onFirstNameErrorChanged = {
-                    screenData = screenData.copy(
-                        exception = screenData.exception.copy(firstNameError = it)
-                    )
-                },
-                onLastNameErrorChanged = {
-                    screenData = screenData.copy(
-                        exception = screenData.exception.copy(lastNameError = it)
-                    )
-                },
-                onEmailErrorChanged = {
-                    screenData = screenData.copy(
-                        exception = screenData.exception.copy(emailError = it)
-                    )
-                },
-                onPasswordErrorChanged = {
-                    screenData = screenData.copy(
-                        exception = screenData.exception.copy(passwordError = it)
-                    )
-                }
-            )
-        }
         if (fields is RegistrationStepModel.CreateAccountStepModel) {
             setInitialScreenData(fields)
         }
-        screenData = screenData.copy(validationSchema = validationSchema)
         updateScreenData()
     }
 
@@ -129,13 +112,14 @@ internal class CreateAccountRegistrationViewModel(
     }
 
     internal fun submitRegistration() {
-        val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
-        if (!validator.validate(requestData)) {
-            updateScreenData()
-            return
-        }
+        viewModelScope.launch(exceptionHandler) {
+            val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
 
-        viewModelScope.launch {
+            val validationSchema = registrationScreenState.validationSchema
+            if (validationSchema is RegistrationStepValidationSchema.CreateAccountStepValidationSchema) {
+                validator(requestData, validationSchema).getOrThrow()
+            }
+
             val response = submitRegistrationStepAndGetNextUseCase(requestData).getOrThrow()
             response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }

@@ -5,4 +5,4 @@ data class CreateAccountRegistrationScreenException(
     val lastNameError: String? = null,
     val emailError: String? = null,
     val passwordError: String? = null,
-)
+) : Throwable()

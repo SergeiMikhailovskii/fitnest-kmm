@@ -15,8 +15,6 @@ import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
 import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
-import com.fitnest.domain.entity.RegistrationScreenState
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreenData
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewMapper
@@ -26,8 +24,7 @@ import com.fitnest.android.screen.registration.goal.GoalRegistrationViewModel
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationViewModel
 import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
-import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
-import com.fitnest.domain.validator.CreateAccountRegistrationValidator
+import com.fitnest.domain.entity.RegistrationScreenState
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.factory
@@ -76,9 +73,6 @@ val createAccountRegistrationScreenModule = DI.Module("create account registrati
     bind<CreateAccountRegistrationViewMapper>() with factory {
         CreateAccountRegistrationViewMapper()
     }
-    bind<CreateAccountRegistrationValidator>() with factory {
-        CreateAccountRegistrationValidator()
-    }
 }
 
 val completeAccountRegistrationScreenModule =
@@ -89,17 +83,10 @@ val completeAccountRegistrationScreenModule =
                 instance(),
                 instance(),
                 instance(),
-                instance()
             )
         }
         bind<CompleteAccountRegistrationViewMapper>() with singleton {
             CompleteAccountRegistrationViewMapper()
-        }
-        bind<CompleteAccountRegistrationScreenData>() with factory {
-            CompleteAccountRegistrationScreenData.init()
-        }
-        bind<CompleteAccountRegistrationValidator>() with factory {
-            CompleteAccountRegistrationValidator()
         }
     }
 
