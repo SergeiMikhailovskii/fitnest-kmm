@@ -7,41 +7,29 @@ import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.ForgetPasswordRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.entity.response.LoginPageResponse
-import com.fitnest.domain.functional.Either
-import com.fitnest.domain.functional.Failure
-import com.fitnest.domain.functional.flatMap
 import com.fitnest.domain.repository.NetworkRepository
 import com.fitnest.domain.service.NetworkService
-import com.fitnest.mapper.RegistrationResponseMapper
 import com.fitnest.network.Endpoints
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
 
 class NetworkRepository(
     private val networkService: NetworkService,
-    private val registrationResponseMapper: RegistrationResponseMapper
 ) : NetworkRepository {
 
-    override suspend fun generateToken() = networkService.getData(Endpoints.Flow.name)
+    override suspend fun generateToken() = networkService.getDataResult(Endpoints.Flow.name)
 
-    override suspend fun getOnboardingStep() = networkService.getData(Endpoints.Onboarding.name)
-        .map {
-            it?.data?.jsonObject?.get("step")?.jsonPrimitive?.content.orEmpty()
-        }
+    override suspend fun getOnboardingStep() =
+        networkService.getDataResult(Endpoints.Onboarding.name)
 
     override suspend fun getRegistrationStepData() =
-        networkService.getData(Endpoints.Registration.name).map {
-            val data = it?.data?.jsonObject
-            registrationResponseMapper.map(data)
-        }
+        networkService.getDataResult(Endpoints.Registration.name)
 
-    override suspend fun submitRegistrationStep(request: BaseRequest): Either<Failure, Unit> =
-        networkService.sendData(Endpoints.Registration.name, data = request)
-            .flatMap { Either.Right(Unit) }
+    override suspend fun submitRegistrationStep(request: BaseRequest) {
+        networkService.sendDataResult(Endpoints.Registration.name, data = request)
+    }
 
-    override suspend fun submitOnboardingStep() =
-        networkService.sendData<Unit>(Endpoints.Onboarding.name)
-            .flatMap { Either.Right(Unit) }
+    override suspend fun submitOnboardingStep() {
+        networkService.sendDataResult<Unit>(Endpoints.Onboarding.name)
+    }
 
     override suspend fun getDashboardData() =
         networkService.getDataResult(Endpoints.PrivateArea.DASHBOARD)

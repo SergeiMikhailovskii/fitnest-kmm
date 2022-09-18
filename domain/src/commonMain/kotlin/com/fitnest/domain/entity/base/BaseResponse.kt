@@ -7,7 +7,7 @@ import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class BaseResponse(
-    val data: JsonElement,
+    val data: JsonElement?,
     val errors: List<Failure.ValidationError>?,
     private val flow: String?
 ) {

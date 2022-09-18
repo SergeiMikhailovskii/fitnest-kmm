@@ -1,26 +1,35 @@
 package com.fitnest.android.screen.registration.welcome_back
 
+import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
-import com.fitnest.android.screen.registration.RegistrationScreenState
 import com.fitnest.android.screen.registration.welcome_back.data.WelcomeBackRegistrationScreenData
+import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.request.WelcomeBackStepRequest
 import com.fitnest.domain.functional.Failure
-import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class WelcomeBackRegistrationViewModel(
     registrationScreenState: RegistrationScreenState,
-    private val submitRegistrationStepAndGetNext: SubmitRegistrationStepAndGetNext
+    private val submitRegistrationStepAndGetNextUseCase: SubmitRegistrationStepAndGetNextUseCase
 ) : BaseViewModel() {
 
     private var screenData = WelcomeBackRegistrationScreenData()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, failure ->
+        if (failure is Failure.ValidationErrors && failure.fields.any { it.message == "registration.finished" }) {
+            handleRoute(Route.Proxy())
+        }
+    }
 
     init {
         val fields = registrationScreenState.fields
@@ -31,16 +40,9 @@ class WelcomeBackRegistrationViewModel(
     }
 
     internal fun next() {
-        submitRegistrationStepAndGetNext(WelcomeBackStepRequest()) {
-            it.either(::handleRegistrationFailure) {
-                it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
-            }
-        }
-    }
-
-    private fun handleRegistrationFailure(failure: Failure?) {
-        if (failure is Failure.ValidationError && failure.message == "registration.finished") {
-            handleRoute(Route.Proxy())
+        viewModelScope.launch(exceptionHandler) {
+            val response = submitRegistrationStepAndGetNextUseCase(WelcomeBackStepRequest()).getOrThrow()
+            response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }
 

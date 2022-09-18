@@ -1,6 +1,5 @@
-package com.fitnest.android.screen.registration
+package com.fitnest.domain.entity
 
-import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.validator.Validator
 
 data class RegistrationScreenState(

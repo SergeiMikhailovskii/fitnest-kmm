@@ -44,9 +44,9 @@ internal class LoginViewModel(
         viewModelScope.launch {
             val page = getLoginPageUseCase().getOrThrow()
             screenData = screenData.copy(
-                login = page.fields?.login,
-                password = page.fields?.password,
-                validationSchema = page.validationSchema
+                login = page?.fields?.login,
+                password = page?.fields?.password,
+                validationSchema = page?.validationSchema
             )
             updateScreenData()
         }

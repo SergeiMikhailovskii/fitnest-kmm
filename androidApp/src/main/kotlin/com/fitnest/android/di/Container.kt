@@ -15,7 +15,7 @@ import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
 import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
-import com.fitnest.android.screen.registration.RegistrationScreenState
+import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreenData
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
@@ -53,7 +53,7 @@ val viewModelModule = DI.Module("view model module") {
         OnboardingViewModel(instance(), instance())
     }
     bind<ProxyViewModel>() with factory {
-        ProxyViewModel(instance(), instance(), instance(), instance())
+        ProxyViewModel(instance(), instance(), instance())
     }
 }
 

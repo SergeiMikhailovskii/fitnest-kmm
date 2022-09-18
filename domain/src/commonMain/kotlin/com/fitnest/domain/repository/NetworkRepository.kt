@@ -1,6 +1,5 @@
 package com.fitnest.domain.repository
 
-import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.entity.base.BaseResponse
 import com.fitnest.domain.entity.request.AddActivityRequest
@@ -9,20 +8,18 @@ import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.ForgetPasswordRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.entity.response.LoginPageResponse
-import com.fitnest.domain.functional.Either
-import com.fitnest.domain.functional.Failure
 
 interface NetworkRepository {
 
-    suspend fun generateToken(): Either<Failure, BaseResponse>
+    suspend fun generateToken(): BaseResponse
 
-    suspend fun getOnboardingStep(): Either<Failure, String>
+    suspend fun getOnboardingStep(): BaseResponse
 
-    suspend fun submitOnboardingStep(): Either<Failure, Unit>
+    suspend fun submitOnboardingStep()
 
-    suspend fun getRegistrationStepData(): Either<Failure, GetRegistrationResponseData>
+    suspend fun getRegistrationStepData(): BaseResponse
 
-    suspend fun submitRegistrationStep(request: BaseRequest): Either<Failure, Unit>
+    suspend fun submitRegistrationStep(request: BaseRequest)
 
     suspend fun getDashboardData(): BaseResponse
 

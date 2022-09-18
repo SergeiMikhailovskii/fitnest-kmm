@@ -15,9 +15,9 @@ import com.fitnest.android.di.serviceModule
 import com.fitnest.android.di.viewModelModule
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.di.cookieModule
-import com.fitnest.di.mapperModule
 import com.fitnest.di.repositoryModule
 import com.fitnest.di.serializationModule
+import com.fitnest.domain.di.mapperModule
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.kodein.di.DI
 import org.kodein.di.DIAware
