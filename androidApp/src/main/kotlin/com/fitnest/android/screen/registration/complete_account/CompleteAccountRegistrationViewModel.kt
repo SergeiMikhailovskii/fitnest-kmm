@@ -1,15 +1,17 @@
 package com.fitnest.android.screen.registration.complete_account
 
+import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
-import com.fitnest.android.screen.registration.RegistrationScreenState
+import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.enum.SexType
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
 import com.fitnest.domain.validator.CompleteAccountRegistrationValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import java.util.*
+import kotlinx.coroutines.launch
+import java.util.Date
 
 class CompleteAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
@@ -81,12 +83,9 @@ class CompleteAccountRegistrationViewModel(
             updateScreen()
             return
         }
-        submitRegistrationStepAndGetNext(request) {
-            it.either(::handleFailure) {
-                registrationScreenState.fields = it?.fields
-                registrationScreenState.validationSchema = it?.validationSchema
-                it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
-            }
+        viewModelScope.launch {
+            val response = submitRegistrationStepAndGetNext(request).getOrThrow()
+            response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }
 

@@ -22,11 +22,14 @@ internal class HomeViewModel(
     init {
         viewModelScope.launch {
             handleProgress(true)
-            val dashboardData = getDashboardDataUseCase().getOrThrow()
-            val mappedData = viewMapper.mapDashboardResponseToScreenData(dashboardData)
 
-            screenData = mappedData
-            _screenDataFlow.emit(screenData.copy())
+            val dashboardData = getDashboardDataUseCase().getOrThrow()
+            dashboardData?.let {
+                val mappedData = viewMapper.mapDashboardResponseToScreenData(it)
+                screenData = mappedData
+                _screenDataFlow.emit(screenData.copy())
+            }
+
             handleProgress(false)
         }
     }

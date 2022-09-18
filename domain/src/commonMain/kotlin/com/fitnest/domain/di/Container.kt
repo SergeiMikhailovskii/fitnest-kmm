@@ -1,5 +1,6 @@
 package com.fitnest.domain.di
 
+import com.fitnest.domain.mapper.RegistrationResponseMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
@@ -56,10 +57,10 @@ val useCaseModule = DI.Module("use case module") {
      * Registration
      */
     bind<GetRegistrationStepData>() with factory {
-        GetRegistrationStepData(instance())
+        GetRegistrationStepData(instance(), instance(), instance())
     }
     bind<SubmitRegistrationStepAndGetNext>() with factory {
-        SubmitRegistrationStepAndGetNext(instance())
+        SubmitRegistrationStepAndGetNext(instance(), instance(), instance())
     }
 
     /**
@@ -88,5 +89,11 @@ val useCaseModule = DI.Module("use case module") {
     }
     bind<AddActivityUseCase>() with factory {
         AddActivityUseCase(instance(), instance())
+    }
+}
+
+val mapperModule = DI.Module("Mapper module") {
+    bind<RegistrationResponseMapper>() with factory {
+        RegistrationResponseMapper(instance())
     }
 }

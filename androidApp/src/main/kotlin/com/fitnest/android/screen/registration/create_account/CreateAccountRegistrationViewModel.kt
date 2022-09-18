@@ -1,8 +1,9 @@
 package com.fitnest.android.screen.registration.create_account
 
+import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
-import com.fitnest.android.screen.registration.RegistrationScreenState
+import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.response.FacebookLoginResponse
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
@@ -11,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 internal class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
@@ -85,7 +87,7 @@ internal class CreateAccountRegistrationViewModel(
 
     internal fun updatePassword(password: String) {
         screenData = screenData.copy(
-            email = password,
+            password = password,
             exception = screenData.exception.copy(passwordError = null)
         )
         updateScreenData()
@@ -133,12 +135,9 @@ internal class CreateAccountRegistrationViewModel(
             return
         }
 
-        submitRegistrationStepAndGetNext(requestData) {
-            it.either(::handleFailure) {
-                registrationScreenState.fields = it?.fields
-                registrationScreenState.validationSchema = it?.validationSchema
-                it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
-            }
+        viewModelScope.launch {
+            val response = submitRegistrationStepAndGetNext(requestData).getOrThrow()
+            response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }
 

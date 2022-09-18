@@ -3,6 +3,7 @@ package com.fitnest.domain.usecase.private_area
 import com.fitnest.domain.entity.response.DashboardResponse
 import com.fitnest.domain.repository.NetworkRepository
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 
 class GetDashboardDataUseCase(
@@ -12,6 +13,6 @@ class GetDashboardDataUseCase(
 
     suspend operator fun invoke() = runCatching {
         val jsonData = networkRepository.getDashboardData()
-        json.decodeFromJsonElement<DashboardResponse>(jsonData.data)
+        jsonData.data?.let<JsonElement, DashboardResponse>(json::decodeFromJsonElement)
     }
 }

@@ -1,4 +1,4 @@
-package com.fitnest.mapper
+package com.fitnest.domain.mapper
 
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationStepModel
@@ -13,7 +13,9 @@ import kotlinx.serialization.json.jsonPrimitive
 
 class RegistrationResponseMapper(
     private val json: Json
-) : ResponseMapper<JsonObject, GetRegistrationResponseData> {
+) : Mapper<JsonObject, GetRegistrationResponseData> {
+
+    operator fun invoke(source: JsonObject?) = map(source)
 
     override fun map(source: JsonObject?): GetRegistrationResponseData {
         val step = source?.get("step")?.jsonPrimitive?.content

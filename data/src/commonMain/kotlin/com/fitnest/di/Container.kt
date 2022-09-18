@@ -9,7 +9,6 @@ import com.fitnest.domain.entity.validator.MinLengthValidator
 import com.fitnest.domain.entity.validator.RegExpValidator
 import com.fitnest.domain.entity.validator.RequiredValidator
 import com.fitnest.domain.entity.validator.Validator
-import com.fitnest.mapper.RegistrationResponseMapper
 import com.fitnest.repository.LocalStorageRepository
 import com.fitnest.repository.NetworkRepository
 import com.fitnest.service.NetworkService
@@ -19,13 +18,12 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import org.kodein.di.DI
 import org.kodein.di.bind
-import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.singleton
 
 val repositoryModule = DI.Module("Repository module") {
     bind<com.fitnest.domain.repository.NetworkRepository>() with singleton {
-        NetworkRepository(instance(), instance())
+        NetworkRepository(instance())
     }
     bind<LocalStorageRepository>() with singleton {
         LocalStorageRepository(di)
@@ -41,12 +39,6 @@ val serviceModule = DI.Module("Service module") {
 val cookieModule = DI.Module("Cookie module") {
     bind<com.fitnest.domain.cookie.CookieStorageImpl>() with singleton {
         CookiesStorageImpl(di)
-    }
-}
-
-val mapperModule = DI.Module("Mapper module") {
-    bind<RegistrationResponseMapper>() with factory {
-        RegistrationResponseMapper(instance())
     }
 }
 

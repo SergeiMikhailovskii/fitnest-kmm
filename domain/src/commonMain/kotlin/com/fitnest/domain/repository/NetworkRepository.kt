@@ -1,6 +1,5 @@
 package com.fitnest.domain.repository
 
-import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.base.BaseRequest
 import com.fitnest.domain.entity.base.BaseResponse
 import com.fitnest.domain.entity.request.AddActivityRequest
@@ -20,9 +19,9 @@ interface NetworkRepository {
 
     suspend fun submitOnboardingStep(): Either<Failure, Unit>
 
-    suspend fun getRegistrationStepData(): Either<Failure, GetRegistrationResponseData>
+    suspend fun getRegistrationStepData(): BaseResponse
 
-    suspend fun submitRegistrationStep(request: BaseRequest): Either<Failure, Unit>
+    suspend fun submitRegistrationStep(request: BaseRequest)
 
     suspend fun getDashboardData(): BaseResponse
 

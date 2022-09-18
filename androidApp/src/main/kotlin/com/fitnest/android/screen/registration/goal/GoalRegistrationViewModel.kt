@@ -1,10 +1,12 @@
 package com.fitnest.android.screen.registration.goal
 
+import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.goal.data.GoalRegistrationScreenData
 import com.fitnest.domain.enum.GoalType
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNext
+import kotlinx.coroutines.launch
 
 class GoalRegistrationViewModel(
     private val viewMapper: GoalRegistrationViewMapper,
@@ -19,10 +21,10 @@ class GoalRegistrationViewModel(
 
     internal fun submitRegistration() {
         val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
-        submitRegistrationStepAndGetNext(requestData) {
-            it.either(::handleFailure) {
-                it?.step?.let { handleRoute(Route.RegistrationStep(it)) }
-            }
+
+        viewModelScope.launch {
+            val response = submitRegistrationStepAndGetNext(requestData).getOrThrow()
+            response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }
 
