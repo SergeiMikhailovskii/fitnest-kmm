@@ -12,6 +12,7 @@ import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.enum.ActivityType
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.DayOfWeek
 
 internal class ActivityTrackerViewMapper(
@@ -27,7 +28,7 @@ internal class ActivityTrackerViewMapper(
                 val mappedActivities = mapActivitiesResponseModelToUIModel(it.activities)
                 screenData = screenData.copy(
                     latestActivityWidget = ActivityTrackerScreenData.LatestActivityWidget(
-                        activities = mappedActivities
+                        activities = mappedActivities?.toImmutableList()
                     )
                 )
             }
@@ -36,7 +37,7 @@ internal class ActivityTrackerViewMapper(
                 val mappedProgresses = mapProgressesResponseModelToUIModel(it.progresses)
                 screenData = screenData.copy(
                     activityProgressWidget = ActivityTrackerScreenData.ActivityProgressWidget(
-                        progresses = mappedProgresses
+                        progresses = mappedProgresses?.toImmutableList()
                     )
                 )
             }

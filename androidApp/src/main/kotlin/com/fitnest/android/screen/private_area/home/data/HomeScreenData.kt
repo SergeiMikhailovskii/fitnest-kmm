@@ -1,7 +1,7 @@
 package com.fitnest.android.screen.private_area.home.data
 
 import androidx.annotation.StringRes
-import kotlinx.datetime.LocalDate
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.LocalDateTime
 
 internal data class HomeScreenData(
@@ -41,7 +41,7 @@ internal data class HomeScreenData(
     data class WaterIntakeSubWidget(
         val amount: Double? = null,
         val progress: Double? = null,
-        val intakes: List<WaterIntake>? = null
+        val intakes: ImmutableList<WaterIntake>? = null
     )
 
     data class WaterIntake(
@@ -60,7 +60,7 @@ internal data class HomeScreenData(
     )
 
     data class LatestWorkoutWidget(
-        val workouts: List<Workout>? = null
+        val workouts: ImmutableList<Workout>? = null
     )
 
     data class Workout(

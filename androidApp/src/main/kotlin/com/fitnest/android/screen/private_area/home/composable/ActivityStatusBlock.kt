@@ -207,17 +207,19 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
 
 @Composable
 private fun buildSleepDurationAnnotatedString(hours: Int, minutes: Int) = buildAnnotatedString {
+    val hoursText = stringResource(id = R.string.private_area_dashboard_sleep_hours)
+    val minutesText = stringResource(id = R.string.private_area_dashboard_sleep_minutes)
     withStyle(SpanStyle(fontSize = TextSize.Size14)) {
         append(hours.toString())
     }
     withStyle(SpanStyle(fontSize = TextSize.Size10)) {
-        append(stringResource(id = R.string.private_area_dashboard_sleep_hours))
+        append(hoursText)
     }
     withStyle(SpanStyle(fontSize = TextSize.Size14)) {
         append(" $minutes")
     }
     withStyle(SpanStyle(fontSize = TextSize.Size10)) {
-        append(stringResource(id = R.string.private_area_dashboard_sleep_minutes))
+        append(minutesText)
     }
 }
 
