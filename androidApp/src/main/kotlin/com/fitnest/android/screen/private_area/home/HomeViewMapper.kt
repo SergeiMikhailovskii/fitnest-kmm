@@ -5,6 +5,7 @@ import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.entity.response.DashboardResponse
 import com.fitnest.domain.enum.BMIType
+import kotlinx.collections.immutable.toImmutableList
 
 class HomeViewMapper(
     private val context: Context
@@ -90,7 +91,7 @@ class HomeViewMapper(
                         progress = it.progress,
                         image = it.image
                     )
-                }
+                }?.toImmutableList()
             )
         } else {
             null
@@ -133,7 +134,7 @@ class HomeViewMapper(
                         timeDiapason = timeDiapason,
                         amountInMillis = amountByHour
                     )
-                }?.reversed()
+                }?.reversed()?.toImmutableList()
             )
         } else {
             null

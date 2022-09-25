@@ -35,6 +35,8 @@ import com.fitnest.android.style.PoppinsMediumStyle12Black
 import com.fitnest.android.style.PoppinsNormalStyle10Gray2
 import com.fitnest.android.style.PoppinsSemiBoldStyle16Black
 import com.fitnest.domain.enum.ActivityType
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Preview
 @Composable
@@ -42,7 +44,7 @@ internal fun LatestActivityBlockPreview() {
     LatestActivityBlock(
         modifier = Modifier,
         viewModel = Any() as ActivityTrackerViewModel,
-        activities = listOf(
+        activities = persistentListOf(
             ActivityTrackerScreenData.Activity(
                 1,
                 "Drinking 300ml Water",
@@ -87,7 +89,7 @@ internal fun LatestActivityItemPreview() {
 internal fun LatestActivityBlock(
     viewModel: ActivityTrackerViewModel,
     modifier: Modifier,
-    activities: List<ActivityTrackerScreenData.Activity>? = null
+    activities: ImmutableList<ActivityTrackerScreenData.Activity>? = null
 ) {
     Column(modifier = modifier) {
         Text(

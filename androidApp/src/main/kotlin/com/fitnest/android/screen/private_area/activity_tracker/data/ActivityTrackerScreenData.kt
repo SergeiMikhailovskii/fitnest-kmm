@@ -3,6 +3,7 @@ package com.fitnest.android.screen.private_area.activity_tracker.data
 import androidx.annotation.DrawableRes
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.enum.ActivityType
+import kotlinx.collections.immutable.ImmutableList
 
 internal data class ActivityTrackerScreenData(
     val activityProgressWidget: ActivityProgressWidget? = null,
@@ -11,11 +12,11 @@ internal data class ActivityTrackerScreenData(
 ) {
 
     class ActivityProgressWidget(
-        val progresses: List<Progress>? = null
+        val progresses: ImmutableList<Progress>? = null
     )
 
     class LatestActivityWidget(
-        val activities: List<Activity>? = null,
+        val activities: ImmutableList<Activity>? = null,
     )
 
     class Activity(

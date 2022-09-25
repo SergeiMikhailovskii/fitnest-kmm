@@ -30,12 +30,14 @@ import com.fitnest.android.style.PoppinsNormalStyle12Gray1
 import com.fitnest.android.style.PoppinsSemiBoldStyle16Black
 import com.fitnest.android.style.SecondaryColor
 import com.fitnest.android.style.WhiteColor
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Preview
 @Composable
 internal fun ActivityProgressBlockPreview() {
     ActivityProgressBlock(
-        modifier = Modifier, sections = listOf(
+        modifier = Modifier, sections = persistentListOf(
             ActivityTrackerScreenData.Progress(
                 day = "Mon",
                 progress = 0.1F,
@@ -78,7 +80,7 @@ internal fun ActivityProgressBlockPreview() {
 @Composable
 internal fun ActivityProgressBlock(
     modifier: Modifier,
-    sections: List<ActivityTrackerScreenData.Progress>?
+    sections: ImmutableList<ActivityTrackerScreenData.Progress>?
 ) {
     Column(modifier = modifier) {
         Text(

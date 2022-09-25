@@ -34,6 +34,7 @@ kotlin {
                 api(KotlinDependencies.SERIALIZATION_JSON)
                 api(KotlinDependencies.COROUTINES)
                 api(KotlinDependencies.DATETIME)
+                api(KotlinDependencies.IMMUTABLE_COLLECTIONS)
                 api(KodeinDependencies.Common.KODEIN_COMMON)
             }
         }
