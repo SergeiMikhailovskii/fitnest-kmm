@@ -43,7 +43,7 @@ internal class LoginViewModel(
     internal val screenStateFlow = _screenStateFlow.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val page = getLoginPageUseCase().getOrThrow()
             screenData = screenData.copy(
                 login = page?.fields?.login,
@@ -141,13 +141,13 @@ internal class LoginViewModel(
     }
 
     internal fun dismissForgetPasswordDialog() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _screenStateFlow.emit(LoginScreenState.DEFAULT)
         }
     }
 
     private fun updateScreenData() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _screenDataFlow.emit(screenData.copy())
         }
     }

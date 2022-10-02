@@ -160,7 +160,7 @@ val serviceModule = DI.Module("service module") {
         SnackbarDelegate()
     }
     bind<ErrorHandlerDelegate>() with singleton {
-        ErrorHandlerDelegate(instance())
+        ErrorHandlerDelegate(instance(), instance())
     }
     import(com.fitnest.di.serviceModule)
 }

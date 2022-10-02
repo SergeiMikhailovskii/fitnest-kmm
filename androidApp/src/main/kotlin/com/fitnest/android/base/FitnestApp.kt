@@ -7,6 +7,8 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,16 +47,24 @@ import kotlin.time.ExperimentalTime
 @Composable
 fun FitnestApp() {
     val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
-    val snackbarService: SnackbarDelegate by rememberInstance()
+    val snackbarDelegate: SnackbarDelegate by rememberInstance()
 
-    snackbarService.scaffoldState = rememberScaffoldState()
-    snackbarService.coroutineScope = rememberCoroutineScope()
+    snackbarDelegate.apply {
+        scaffoldState = rememberScaffoldState()
+        coroutineScope = rememberCoroutineScope()
+    }
 
     FitnestTheme {
         Scaffold(
-            scaffoldState = snackbarService.scaffoldState!!,
+            scaffoldState = snackbarDelegate.scaffoldState!!,
             bottomBar = { BottomBar(navController) },
-            topBar = { TopBar(navController) }
+            topBar = { TopBar(navController) },
+            snackbarHost = {
+                SnackbarHost(hostState = it) {
+                    val backgroundColor = snackbarDelegate.snackbarBackgroundColor
+                    Snackbar(snackbarData = it, backgroundColor = backgroundColor)
+                }
+            }
         ) {
             AnimatedNavHost(
                 navController = navController,

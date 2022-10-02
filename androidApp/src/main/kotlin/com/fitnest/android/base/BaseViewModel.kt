@@ -29,19 +29,19 @@ abstract class BaseViewModel : ViewModel() {
     internal val progressStateFlow = _progressStateFlow.asStateFlow()
 
     protected fun handleRoute(route: Route) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _routeSharedFlow.emit(route)
         }
     }
 
     protected fun handleProgress(progress: Boolean = false) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _progressStateFlow.emit(progress)
         }
     }
 
     protected fun handleFailure(failure: Failure) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _failureSharedFlow.emit(failure)
             _progressStateFlow.emit(false)
         }

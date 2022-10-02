@@ -10,4 +10,5 @@
     <string name="error.minAge">You should be at least 18 years old</string>
     <string name="error.unknown">Something went wrong :(</string>
     <string name="login.error.invalid">Invalid login</string>
+    <string name="error_server_error">O_o, you broke the internet :)</string>
 </resources>
