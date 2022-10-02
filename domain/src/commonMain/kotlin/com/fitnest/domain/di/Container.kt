@@ -30,7 +30,7 @@ val useCaseModule = DI.Module("use case module") {
      * Auth
      */
     bind<GetLoginPageUseCase>() with factory {
-        GetLoginPageUseCase(instance(), instance())
+        GetLoginPageUseCase(instance(), instance(), instance())
     }
     bind<GenerateTokenUseCase>() with factory {
         GenerateTokenUseCase(instance(), instance())
@@ -39,30 +39,30 @@ val useCaseModule = DI.Module("use case module") {
         LoginPageValidationUseCase()
     }
     bind<LoginUserUseCase>() with factory {
-        LoginUserUseCase(instance())
+        LoginUserUseCase(instance(), instance())
     }
     bind<ForgetPasswordUseCase>() with factory {
-        ForgetPasswordUseCase(instance())
+        ForgetPasswordUseCase(instance(), instance())
     }
 
     /**
      * Onboarding
      */
     bind<GetOnboardingStepUseCase>() with factory {
-        GetOnboardingStepUseCase(instance(), instance())
+        GetOnboardingStepUseCase(instance(), instance(), instance())
     }
     bind<SubmitOnboardingStepUseCase>() with factory {
-        SubmitOnboardingStepUseCase(instance())
+        SubmitOnboardingStepUseCase(instance(), instance())
     }
 
     /**
      * Registration
      */
     bind<GetRegistrationStepData>() with factory {
-        GetRegistrationStepData(instance(), instance(), instance())
+        GetRegistrationStepData(instance(), instance(), instance(), instance())
     }
     bind<SubmitRegistrationStepAndGetNextUseCase>() with factory {
-        SubmitRegistrationStepAndGetNextUseCase(instance(), instance(), instance())
+        SubmitRegistrationStepAndGetNextUseCase(instance(), instance(), instance(), instance())
     }
     bind<CompleteAccountRegistrationValidationUseCase>() with factory {
         CompleteAccountRegistrationValidationUseCase()
@@ -75,28 +75,28 @@ val useCaseModule = DI.Module("use case module") {
      * Private area
      */
     bind<GetDashboardDataUseCase>() with factory {
-        GetDashboardDataUseCase(instance(), instance())
+        GetDashboardDataUseCase(instance(), instance(), instance())
     }
     bind<GetNotificationsPageUseCase>() with factory {
-        GetNotificationsPageUseCase(instance(), instance())
+        GetNotificationsPageUseCase(instance(), instance(), instance())
     }
     bind<DeactivateNotificationsUseCase>() with factory {
-        DeactivateNotificationsUseCase(instance())
+        DeactivateNotificationsUseCase(instance(), instance())
     }
     bind<PinNotificationUseCase>() with factory {
-        PinNotificationUseCase(instance())
+        PinNotificationUseCase(instance(), instance())
     }
     bind<DeleteNotificationUseCase>() with factory {
-        DeleteNotificationUseCase(instance())
+        DeleteNotificationUseCase(instance(), instance())
     }
     bind<GetActivityTrackerPageUseCase>() with factory {
-        GetActivityTrackerPageUseCase(instance(), instance())
+        GetActivityTrackerPageUseCase(instance(), instance(), instance())
     }
     bind<DeleteActivityUseCase>() with factory {
-        DeleteActivityUseCase(instance(), instance())
+        DeleteActivityUseCase(instance(), instance(), instance())
     }
     bind<AddActivityUseCase>() with factory {
-        AddActivityUseCase(instance(), instance())
+        AddActivityUseCase(instance(), instance(), instance())
     }
 }
 

@@ -1,7 +1,9 @@
 package com.fitnest.domain.usecase.onboarding
 
 import com.fitnest.domain.entity.response.GetOnboardingStepResponse
+import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.domain.extension.flatMap
+import com.fitnest.domain.extension.mapError
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.repository.NetworkRepository
 import kotlinx.serialization.json.Json
@@ -10,7 +12,8 @@ import kotlinx.serialization.json.decodeFromJsonElement
 
 class GetOnboardingStepUseCase(
     private val repository: NetworkRepository,
-    private val json: Json
+    private val json: Json,
+    private val exceptionHandler: ExceptionHandler
 ) {
 
     suspend operator fun invoke() = runCatching {
@@ -24,5 +27,5 @@ class GetOnboardingStepUseCase(
     }.map {
         val data = it.data?.let<JsonElement, GetOnboardingStepResponse>(json::decodeFromJsonElement)
         data?.step
-    }
+    }.mapError(exceptionHandler::getError)
 }
