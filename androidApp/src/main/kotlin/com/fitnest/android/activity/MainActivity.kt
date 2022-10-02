@@ -15,6 +15,7 @@ import com.fitnest.android.di.serviceModule
 import com.fitnest.android.di.viewModelModule
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.di.cookieModule
+import com.fitnest.di.dataExceptionHandlerModule
 import com.fitnest.di.repositoryModule
 import com.fitnest.di.serializationModule
 import com.fitnest.domain.di.mapperModule
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity(), DIAware {
 
     override val di by DI.lazy {
         bind<Context>() with instance(this@MainActivity)
+        import(dataExceptionHandlerModule)
         import(registrationModule)
         import(privateAreaModule)
         import(viewModelModule)

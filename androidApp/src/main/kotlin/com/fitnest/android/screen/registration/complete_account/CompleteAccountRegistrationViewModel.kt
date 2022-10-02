@@ -7,6 +7,7 @@ import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.enum.SexType
 import com.fitnest.domain.exception.CompleteAccountRegistrationScreenException
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -28,10 +29,12 @@ class CompleteAccountRegistrationViewModel(
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is CompleteAccountRegistrationScreenException) {
             screenData = screenData.copy(exception = throwable)
             updateScreen()
+        } else if (throwable is Failure) {
+            super.handleFailure(throwable)
         }
     }
 

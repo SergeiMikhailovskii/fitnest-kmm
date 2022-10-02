@@ -6,6 +6,7 @@ import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.response.FacebookLoginResponse
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.exception.LoginPageValidationException
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
@@ -26,12 +27,13 @@ internal class LoginViewModel(
 
     private var screenData = LoginScreenData()
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is LoginPageValidationException) {
             screenData = screenData.copy(exception = throwable)
             updateScreenData()
+        } else if (throwable is Failure) {
+            super.handleFailure(throwable)
         }
-        handleProgress()
     }
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())

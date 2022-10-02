@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.enum.FlowType
-import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import kotlinx.coroutines.launch
 
@@ -15,7 +14,7 @@ internal class SplashViewModel(
     private var redirectFlow: FlowType? = null
 
     internal fun generateToken() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val result = generateTokenUseCase().getOrThrow()
             redirectFlow = result.getFlow()
             handleProgress()

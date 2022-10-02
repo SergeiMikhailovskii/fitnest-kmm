@@ -2,8 +2,10 @@ package com.fitnest.android.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.fitnest.android.extension.ViewModelFactory
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
+import com.fitnest.android.internal.SnackbarDelegate
 import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
@@ -153,6 +155,12 @@ val serviceModule = DI.Module("service module") {
     }
     bind<FacebookService>() with singleton {
         FacebookService(instance())
+    }
+    bind<SnackbarDelegate>() with singleton {
+        SnackbarDelegate()
+    }
+    bind<ErrorHandlerDelegate>() with singleton {
+        ErrorHandlerDelegate(instance())
     }
     import(com.fitnest.di.serviceModule)
 }

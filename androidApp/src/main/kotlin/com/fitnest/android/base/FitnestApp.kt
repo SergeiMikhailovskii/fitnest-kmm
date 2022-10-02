@@ -7,9 +7,12 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.fitnest.android.internal.SnackbarDelegate
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerScreen
@@ -31,6 +34,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import org.kodein.di.compose.rememberInstance
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
@@ -41,9 +45,14 @@ import kotlin.time.ExperimentalTime
 @Composable
 fun FitnestApp() {
     val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
+    val snackbarService: SnackbarDelegate by rememberInstance()
+
+    snackbarService.scaffoldState = rememberScaffoldState()
+    snackbarService.coroutineScope = rememberCoroutineScope()
 
     FitnestTheme {
         Scaffold(
+            scaffoldState = snackbarService.scaffoldState!!,
             bottomBar = { BottomBar(navController) },
             topBar = { TopBar(navController) }
         ) {

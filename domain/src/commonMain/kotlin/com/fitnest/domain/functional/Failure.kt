@@ -7,6 +7,7 @@ sealed class Failure(message: String? = null) : Exception(message) {
     constructor() : this(null)
 
     data class ServerError(val responseCode: Int) : Failure()
+    object Unknown : Failure()
 
     @Serializable
     data class ValidationError(

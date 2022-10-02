@@ -33,7 +33,7 @@ val useCaseModule = DI.Module("use case module") {
         GetLoginPageUseCase(instance(), instance())
     }
     bind<GenerateTokenUseCase>() with factory {
-        GenerateTokenUseCase(instance())
+        GenerateTokenUseCase(instance(), instance())
     }
     bind<LoginPageValidationUseCase>() with factory {
         LoginPageValidationUseCase()

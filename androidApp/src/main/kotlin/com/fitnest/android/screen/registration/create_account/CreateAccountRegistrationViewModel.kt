@@ -8,6 +8,7 @@ import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.entity.response.FacebookLoginResponse
 import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -29,10 +30,12 @@ internal class CreateAccountRegistrationViewModel(
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is CreateAccountRegistrationScreenException) {
             screenData = screenData.copy(exception = throwable)
             updateScreenData()
+        } else if (throwable is Failure) {
+            super.handleFailure(throwable)
         }
     }
 

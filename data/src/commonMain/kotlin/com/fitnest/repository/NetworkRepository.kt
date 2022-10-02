@@ -15,54 +15,54 @@ class NetworkRepository(
     private val networkService: NetworkService,
 ) : NetworkRepository {
 
-    override suspend fun generateToken() = networkService.getDataResult(Endpoints.Flow.name)
+    override suspend fun generateToken() = networkService.getData(Endpoints.Flow.name)
 
     override suspend fun getOnboardingStep() =
-        networkService.getDataResult(Endpoints.Onboarding.name)
+        networkService.getData(Endpoints.Onboarding.name)
 
     override suspend fun getRegistrationStepData() =
-        networkService.getDataResult(Endpoints.Registration.name)
+        networkService.getData(Endpoints.Registration.name)
 
     override suspend fun submitRegistrationStep(request: BaseRequest) {
-        networkService.sendDataResult(Endpoints.Registration.name, data = request)
+        networkService.sendData(Endpoints.Registration.name, data = request)
     }
 
     override suspend fun submitOnboardingStep() {
-        networkService.sendDataResult<Unit>(Endpoints.Onboarding.name)
+        networkService.sendData<Unit>(Endpoints.Onboarding.name)
     }
 
     override suspend fun getDashboardData() =
-        networkService.getDataResult(Endpoints.PrivateArea.DASHBOARD)
+        networkService.getData(Endpoints.PrivateArea.DASHBOARD)
 
     override suspend fun getNotificationsPage() =
-        networkService.getDataResult(Endpoints.PrivateArea.Notifications.name)
+        networkService.getData(Endpoints.PrivateArea.Notifications.name)
 
     override suspend fun getActivityTrackerPage() =
-        networkService.getDataResult(Endpoints.PrivateArea.ActivityTracker.name)
+        networkService.getData(Endpoints.PrivateArea.ActivityTracker.name)
 
     override suspend fun deactivateNotifications(ids: List<Int>?) =
-        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DEACTIVATE, data = ids)
+        networkService.sendData(Endpoints.PrivateArea.Notifications.DEACTIVATE, data = ids)
 
     override suspend fun pinNotification(request: PinNotificationRequest) =
-        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.PIN, request)
+        networkService.sendData(Endpoints.PrivateArea.Notifications.PIN, request)
 
     override suspend fun deleteNotification(request: DeleteNotificationRequest) =
-        networkService.sendDataResult(Endpoints.PrivateArea.Notifications.DELETE, request)
+        networkService.sendData(Endpoints.PrivateArea.Notifications.DELETE, request)
 
-    override suspend fun getLoginPage() = networkService.getDataResult(Endpoints.Auth.LOGIN)
+    override suspend fun getLoginPage() = networkService.getData(Endpoints.Auth.LOGIN)
 
     override suspend fun loginUser(request: LoginPageResponse.LoginPageFields) =
-        networkService.sendDataResult(Endpoints.Auth.LOGIN, request)
+        networkService.sendData(Endpoints.Auth.LOGIN, request)
 
     override suspend fun forgetPassword(request: ForgetPasswordRequest) =
-        networkService.sendDataResult(Endpoints.Auth.FORGET_PASSWORD, request)
+        networkService.sendData(Endpoints.Auth.FORGET_PASSWORD, request)
 
     override suspend fun deleteActivity(request: DeleteActivityRequest) =
-        networkService.sendDataResult(
+        networkService.sendData(
             Endpoints.PrivateArea.ActivityTracker.DELETE_ACTIVITY,
             request
         )
 
     override suspend fun addActivity(request: AddActivityRequest) =
-        networkService.sendDataResult(Endpoints.PrivateArea.ActivityTracker.ADD_ACTIVITY, request)
+        networkService.sendData(Endpoints.PrivateArea.ActivityTracker.ADD_ACTIVITY, request)
 }
