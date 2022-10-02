@@ -49,6 +49,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.stringResourceByIdentifier
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
@@ -89,6 +90,7 @@ fun CreateAccountRegistrationScreen(
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val googleSignInService: GoogleSignInService by rememberInstance()
     val facebookSignInService: FacebookService by rememberInstance()
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -104,6 +106,9 @@ fun CreateAccountRegistrationScreen(
             viewModel.routeSharedFlow.collect {
                 handleNavigation(it, navController)
             }
+        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }
         viewModel.initializeStartData()
     }

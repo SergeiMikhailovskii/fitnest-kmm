@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.private_area.home.composable.ActivityStatusBlock
 import com.fitnest.android.screen.private_area.home.composable.BMIBlock
@@ -47,6 +48,8 @@ fun HomeScreenPreview() {
 @Composable
 fun HomeScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
+
     val viewModel = viewModel(
         factory = viewModelFactory,
         modelClass = HomeViewModel::class.java
@@ -63,6 +66,9 @@ fun HomeScreen(navController: NavController) {
                     navController = navController
                 )
             }
+        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }
     }
 

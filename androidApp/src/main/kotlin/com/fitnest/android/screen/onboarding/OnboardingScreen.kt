@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.*
 import com.fitnest.android.view.ui_elements.GradientButtonWithProgress
@@ -37,6 +38,7 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
         modelClass = OnboardingViewModel::class.java
     )
     val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     LaunchedEffect(key1 = null) {
         viewModel.updateScreenState(stepName)
@@ -47,6 +49,9 @@ fun OnboardingScreen(navController: NavController, stepName: String) {
                     navController = navController
                 )
             }
+        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }
     }
 

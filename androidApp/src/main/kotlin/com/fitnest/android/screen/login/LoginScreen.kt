@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
@@ -56,6 +57,7 @@ internal fun LoginScreen(navController: NavController) {
         factory = viewModelFactory,
         modelClass = LoginViewModel::class.java
     )
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
     val progress: Boolean by viewModel.progressStateFlow.collectAsState()
@@ -66,6 +68,9 @@ internal fun LoginScreen(navController: NavController) {
             viewModel.routeSharedFlow.collect {
                 handleNavigation(it, navController)
             }
+        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }
     }
 

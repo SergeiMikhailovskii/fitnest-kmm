@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.*
 import kotlinx.coroutines.flow.collect
@@ -29,6 +30,7 @@ fun WelcomeBackRegistrationScreen(navController: NavController) {
         factory = viewModelFactory,
         modelClass = WelcomeBackRegistrationViewModel::class.java
     )
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val screenData by viewModel.screenDataFlow.collectAsState()
 
@@ -37,6 +39,9 @@ fun WelcomeBackRegistrationScreen(navController: NavController) {
             viewModel.routeSharedFlow.collect {
                 handleNavigation(it, navController)
             }
+        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }
     }
 

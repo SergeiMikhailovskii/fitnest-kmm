@@ -13,6 +13,7 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -22,11 +23,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityInputBottomSheet
 import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityProgressBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.LatestActivityBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
 import com.fitnest.android.style.Padding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
@@ -35,6 +38,7 @@ import org.kodein.di.compose.rememberInstance
 @ExperimentalMaterialApi
 internal fun ActivityTrackerScreen() {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -48,6 +52,12 @@ internal fun ActivityTrackerScreen() {
         ModalBottomSheetValue.Hidden
     )
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(null) {
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
+        }
+    }
 
     ModalBottomSheetLayout(
         sheetContent = {

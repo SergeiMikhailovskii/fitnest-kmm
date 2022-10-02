@@ -22,11 +22,13 @@ import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.extension.vibrate
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.extension.move
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import kotlin.math.absoluteValue
 import kotlin.time.ExperimentalTime
@@ -37,6 +39,8 @@ import kotlin.time.ExperimentalTime
 @Composable
 internal fun NotificationsScreen() {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
+
     val viewModel = viewModel(
         factory = viewModelFactory,
         modelClass = NotificationsViewModel::class.java
@@ -81,6 +85,9 @@ internal fun NotificationsScreen() {
                     }
                 }
             }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
+        }
     }
 
     Box {

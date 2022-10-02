@@ -14,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.domain.enum.FlowType
 import kotlinx.coroutines.flow.collect
@@ -32,6 +33,7 @@ fun ProxyScreenPreview() {
 @Composable
 fun ProxyScreen(navController: NavController, flowType: FlowType) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -46,6 +48,9 @@ fun ProxyScreen(navController: NavController, flowType: FlowType) {
                     navController = navController
                 )
             }
+        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }
         viewModel.getNextFlow(flowType)
     }
