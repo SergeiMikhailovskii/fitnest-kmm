@@ -38,6 +38,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
+//test
 @Composable
 fun SplashScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
