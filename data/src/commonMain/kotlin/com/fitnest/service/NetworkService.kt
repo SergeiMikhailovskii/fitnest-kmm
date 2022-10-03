@@ -39,7 +39,7 @@ class NetworkService(val di: DI) : NetworkService {
         }
     }
 
-    override suspend fun <Request> sendDataResult(path: String, data: Request?): BaseResponse {
+    override suspend fun <Request> sendData(path: String, data: Request?): BaseResponse {
         val url = "${Endpoints.BASE_URL}$path"
         val httpResponse: HttpResponse = httpClient.post(url) {
             contentType(ContentType.Application.Json)
@@ -50,7 +50,7 @@ class NetworkService(val di: DI) : NetworkService {
         return httpResponse.receive()
     }
 
-    override suspend fun getDataResult(path: String): BaseResponse {
+    override suspend fun getData(path: String): BaseResponse {
         val url = "${Endpoints.BASE_URL}$path"
         return httpClient.get(url)
     }

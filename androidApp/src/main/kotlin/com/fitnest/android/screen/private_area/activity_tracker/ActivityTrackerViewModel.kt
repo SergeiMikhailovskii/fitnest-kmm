@@ -25,7 +25,7 @@ internal class ActivityTrackerViewModel(
     internal val screenDataFlow: StateFlow<ActivityTrackerScreenData> = _screenDataFlow
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
             val response = getActivityTrackerPageUseCase().getOrThrow()
             handleProgress()
@@ -34,7 +34,7 @@ internal class ActivityTrackerViewModel(
     }
 
     internal fun deleteActivity(activity: ActivityTrackerScreenData.Activity) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
             val request = viewMapper.mapActivityToDeleteActivityRequest(activity)
             val response = deleteActivityUseCase(request).getOrThrow()
@@ -45,7 +45,7 @@ internal class ActivityTrackerViewModel(
 
     internal fun saveActivity(activityType: ActivityType, value: Int) {
         if (value == 0) return
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
             val request = viewMapper.mapAddActivityInfoToRequest(activityType, value)
             val response = addActivityUseCase(request).getOrThrow()
@@ -60,7 +60,7 @@ internal class ActivityTrackerViewModel(
     }
 
     private fun updateScreen() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _screenDataFlow.emit(screenData.copy())
         }
     }

@@ -25,9 +25,11 @@ class WelcomeBackRegistrationViewModel(
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, failure ->
+    override val exceptionHandler = CoroutineExceptionHandler { _, failure ->
         if (failure is Failure.ValidationErrors && failure.fields.any { it.message == "registration.finished" }) {
             handleRoute(Route.Proxy())
+        } else if (failure is Failure) {
+            super.handleFailure(failure)
         }
     }
 
@@ -41,7 +43,8 @@ class WelcomeBackRegistrationViewModel(
 
     internal fun next() {
         viewModelScope.launch(exceptionHandler) {
-            val response = submitRegistrationStepAndGetNextUseCase(WelcomeBackStepRequest()).getOrThrow()
+            val response =
+                submitRegistrationStepAndGetNextUseCase(WelcomeBackStepRequest()).getOrThrow()
             response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }
     }

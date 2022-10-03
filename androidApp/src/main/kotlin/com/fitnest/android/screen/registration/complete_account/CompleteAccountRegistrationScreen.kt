@@ -44,6 +44,7 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
+import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.ui.AnthropometryBottomSheet
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
@@ -78,6 +79,7 @@ fun CompleteAccountRegistrationScreen(
     navController: NavController,
 ) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -105,6 +107,9 @@ fun CompleteAccountRegistrationScreen(
             viewModel.routeSharedFlow.collect {
                 handleNavigation(it, navController)
             }
+        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }
     }
 

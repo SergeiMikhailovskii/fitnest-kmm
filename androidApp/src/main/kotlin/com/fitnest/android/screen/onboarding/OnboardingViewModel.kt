@@ -21,9 +21,11 @@ class OnboardingViewModel(
     private val _stateLiveData = MutableLiveData<OnboardingState>()
     internal val stateLiveData: LiveData<OnboardingState> = _stateLiveData
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, failure ->
+    override val exceptionHandler = CoroutineExceptionHandler { _, failure ->
         if (failure is Failure.ValidationErrors && failure.fields.any { it.message == "onboarding.finished" }) {
             handleRoute(Route.Proxy())
+        } else if (failure is Failure) {
+            super.handleFailure(failure)
         }
     }
 

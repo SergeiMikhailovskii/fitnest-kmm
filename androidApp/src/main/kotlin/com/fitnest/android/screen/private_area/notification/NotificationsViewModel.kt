@@ -27,7 +27,7 @@ internal class NotificationsViewModel(
     internal val screenDataFlow: StateFlow<NotificationScreenData> = _screenDataFlow
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
             val result = getNotificationsPageUseCase().getOrThrow()
             handleProgress()
@@ -48,7 +48,7 @@ internal class NotificationsViewModel(
         val notificationToPin = screenData.notifications.firstOrNull { it.id == id } ?: return
         val request = viewMapper.mapNotificationToPinRequest(notificationToPin)
 
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
             pinNotificationUseCase(request).getOrThrow()
             handleProgress()
@@ -69,7 +69,7 @@ internal class NotificationsViewModel(
         val notificationToDelete = screenData.notifications.firstOrNull { it.id == id } ?: return
         val request = viewMapper.mapNotificationToDeleteRequest(notificationToDelete)
 
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
             deleteNotificationUseCase(request).getOrThrow()
             handleProgress()
@@ -101,12 +101,12 @@ internal class NotificationsViewModel(
             ?.mapNotNull { it.id }
 
         if (!activeNotificationIds.isNullOrEmpty()) {
-            viewModelScope.launch { deactivateNotificationsUseCase(activeNotificationIds) }
+            viewModelScope.launch(exceptionHandler) { deactivateNotificationsUseCase(activeNotificationIds) }
         }
     }
 
     private fun updateScreen() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _screenDataFlow.emit(screenData.copy())
         }
     }

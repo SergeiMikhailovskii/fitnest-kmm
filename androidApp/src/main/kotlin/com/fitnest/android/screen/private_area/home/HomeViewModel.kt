@@ -20,7 +20,7 @@ internal class HomeViewModel(
     internal val screenDataFlow = _screenDataFlow.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
 
             val dashboardData = getDashboardDataUseCase().getOrThrow()

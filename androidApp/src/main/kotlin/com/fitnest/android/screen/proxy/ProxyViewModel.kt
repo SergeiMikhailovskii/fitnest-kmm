@@ -17,7 +17,7 @@ internal class ProxyViewModel(
 
     internal fun getNextFlow(flow: FlowType) {
         if (flow == FlowType.UNKNOWN) {
-            viewModelScope.launch {
+            viewModelScope.launch(exceptionHandler) {
                 val response = generateTokenUseCase().getOrThrow()
                 showNextScreen(response.getFlow())
             }
@@ -29,13 +29,13 @@ internal class ProxyViewModel(
     private fun showNextScreen(flow: FlowType) {
         when (flow) {
             FlowType.ONBOARDING -> {
-                viewModelScope.launch {
+                viewModelScope.launch(exceptionHandler) {
                     val response = getOnboardingStepUseCase().getOrThrow()
                     response?.let { handleRoute(Route.OnboardingStep(it)) }
                 }
             }
             FlowType.REGISTRATION -> {
-                viewModelScope.launch {
+                viewModelScope.launch(exceptionHandler) {
                     val response = getRegistrationStepDataUseCase().getOrThrow()
                     handleRoute(Route.RegistrationStep(stepName = response.step.orEmpty()))
                 }

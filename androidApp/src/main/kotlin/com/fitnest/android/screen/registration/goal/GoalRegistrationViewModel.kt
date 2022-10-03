@@ -22,7 +22,7 @@ class GoalRegistrationViewModel(
     internal fun submitRegistration() {
         val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
 
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val response = submitRegistrationStepAndGetNextUseCase(requestData).getOrThrow()
             response.step?.let { handleRoute(Route.RegistrationStep(it)) }
         }

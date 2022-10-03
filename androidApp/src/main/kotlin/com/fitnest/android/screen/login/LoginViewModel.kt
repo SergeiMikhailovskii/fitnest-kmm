@@ -6,6 +6,7 @@ import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.response.FacebookLoginResponse
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.exception.LoginPageValidationException
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
@@ -26,12 +27,13 @@ internal class LoginViewModel(
 
     private var screenData = LoginScreenData()
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is LoginPageValidationException) {
             screenData = screenData.copy(exception = throwable)
             updateScreenData()
+        } else if (throwable is Failure) {
+            super.handleFailure(throwable)
         }
-        handleProgress()
     }
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
@@ -41,7 +43,7 @@ internal class LoginViewModel(
     internal val screenStateFlow = _screenStateFlow.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val page = getLoginPageUseCase().getOrThrow()
             screenData = screenData.copy(
                 login = page?.fields?.login,
@@ -139,13 +141,13 @@ internal class LoginViewModel(
     }
 
     internal fun dismissForgetPasswordDialog() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _screenStateFlow.emit(LoginScreenState.DEFAULT)
         }
     }
 
     private fun updateScreenData() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _screenDataFlow.emit(screenData.copy())
         }
     }
