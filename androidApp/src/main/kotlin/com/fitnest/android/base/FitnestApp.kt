@@ -49,14 +49,16 @@ fun FitnestApp() {
     val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
     val snackbarDelegate: SnackbarDelegate by rememberInstance()
 
+    val scaffoldState = rememberScaffoldState()
+
     snackbarDelegate.apply {
-        scaffoldState = rememberScaffoldState()
+        snackbarHostState = scaffoldState.snackbarHostState
         coroutineScope = rememberCoroutineScope()
     }
 
     FitnestTheme {
         Scaffold(
-            scaffoldState = snackbarDelegate.scaffoldState!!,
+            scaffoldState = scaffoldState,
             bottomBar = { BottomBar(navController) },
             topBar = { TopBar(navController) },
             snackbarHost = {

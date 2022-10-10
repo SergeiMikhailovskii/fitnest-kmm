@@ -28,30 +28,27 @@ import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
 import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.factory
+import org.kodein.di.bindProvider
+import org.kodein.di.bindSingleton
 import org.kodein.di.instance
-import org.kodein.di.singleton
 
 val androidModule = DI.Module("android module") {
-    bind<DateMapper>() with singleton {
-        DateMapper()
-    }
+    bindSingleton { DateMapper() }
 }
 
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
 
-    bind<ViewModelProvider.Factory>() with singleton {
+    bindSingleton<ViewModelProvider.Factory>() {
         ViewModelFactory(di)
     }
-    bind<SplashViewModel>() with factory {
+    bindProvider {
         SplashViewModel(instance())
     }
-    bind<OnboardingViewModel>() with factory {
+    bindProvider {
         OnboardingViewModel(instance(), instance())
     }
-    bind<ProxyViewModel>() with factory {
+    bindProvider {
         ProxyViewModel(instance(), instance(), instance())
     }
 }
@@ -63,23 +60,23 @@ val registrationModule = DI.Module("registration module") {
     import(welcomeBackRegistrationScreenModule)
     import(loginScreenModule)
 
-    bind<RegistrationScreenState>() with singleton {
+    bindSingleton {
         RegistrationScreenState()
     }
 }
 
 val createAccountRegistrationScreenModule = DI.Module("create account registration screen module") {
-    bind<CreateAccountRegistrationViewModel>() with factory {
+    bindProvider {
         CreateAccountRegistrationViewModel(instance(), instance(), instance(), instance())
     }
-    bind<CreateAccountRegistrationViewMapper>() with factory {
+    bindProvider {
         CreateAccountRegistrationViewMapper()
     }
 }
 
 val completeAccountRegistrationScreenModule =
     DI.Module("complete account registration screen module") {
-        bind<CompleteAccountRegistrationViewModel>() with factory {
+        bindProvider {
             CompleteAccountRegistrationViewModel(
                 instance(),
                 instance(),
@@ -87,31 +84,31 @@ val completeAccountRegistrationScreenModule =
                 instance(),
             )
         }
-        bind<CompleteAccountRegistrationViewMapper>() with singleton {
+        bindProvider {
             CompleteAccountRegistrationViewMapper()
         }
     }
 
 val goalRegistrationScreenModule = DI.Module("goal registration screen module") {
-    bind<GoalRegistrationViewMapper>() with factory {
+    bindProvider {
         GoalRegistrationViewMapper()
     }
-    bind<GoalRegistrationViewModel>() with factory {
+    bindProvider {
         GoalRegistrationViewModel(instance(), instance())
     }
 }
 
 val loginScreenModule = DI.Module("login screen module") {
-    bind<LoginViewModel>() with factory {
+    bindProvider {
         LoginViewModel(instance(), instance(), instance(), instance(), instance())
     }
-    bind<LoginViewMapper>() with factory {
+    bindProvider {
         LoginViewMapper(instance())
     }
 }
 
 val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
-    bind<WelcomeBackRegistrationViewModel>() with factory {
+    bindProvider {
         WelcomeBackRegistrationViewModel(instance(), instance())
     }
 }
@@ -123,43 +120,43 @@ val privateAreaModule = DI.Module("private area module") {
 }
 
 val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
-    bind<HomeViewModel>() with factory {
+    bindProvider {
         HomeViewModel(instance(), instance())
     }
-    bind<HomeViewMapper>() with factory {
+    bindProvider {
         HomeViewMapper(instance())
     }
 }
 
 val notificationsPrivateAreaModule = DI.Module("notifications private area module") {
-    bind<NotificationsViewModel>() with factory {
+    bindProvider {
         NotificationsViewModel(instance(), instance(), instance(), instance(), instance())
     }
-    bind<NotificationsViewMapper>() with factory {
+    bindProvider {
         NotificationsViewMapper(instance())
     }
 }
 
 val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area module") {
-    bind<ActivityTrackerViewModel>() with factory {
+    bindProvider {
         ActivityTrackerViewModel(instance(), instance(), instance(), instance())
     }
-    bind<ActivityTrackerViewMapper>() with factory {
+    bindProvider {
         ActivityTrackerViewMapper(instance(), instance())
     }
 }
 
 val serviceModule = DI.Module("service module") {
-    bind<GoogleSignInService>() with singleton {
+    bindSingleton {
         GoogleSignInService(instance())
     }
-    bind<FacebookService>() with singleton {
+    bindSingleton {
         FacebookService(instance())
     }
-    bind<SnackbarDelegate>() with singleton {
+    bindSingleton {
         SnackbarDelegate()
     }
-    bind<ErrorHandlerDelegate>() with singleton {
+    bindSingleton {
         ErrorHandlerDelegate(instance(), instance())
     }
     import(com.fitnest.di.serviceModule)

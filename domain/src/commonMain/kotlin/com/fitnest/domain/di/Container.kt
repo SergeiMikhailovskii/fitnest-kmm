@@ -21,87 +21,86 @@ import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidati
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.factory
+import org.kodein.di.bindProvider
 import org.kodein.di.instance
 
 val useCaseModule = DI.Module("use case module") {
     /**
      * Auth
      */
-    bind<GetLoginPageUseCase>() with factory {
+    bindProvider {
         GetLoginPageUseCase(instance(), instance(), instance())
     }
-    bind<GenerateTokenUseCase>() with factory {
+    bindProvider {
         GenerateTokenUseCase(instance(), instance())
     }
-    bind<LoginPageValidationUseCase>() with factory {
+    bindProvider {
         LoginPageValidationUseCase()
     }
-    bind<LoginUserUseCase>() with factory {
+    bindProvider {
         LoginUserUseCase(instance(), instance())
     }
-    bind<ForgetPasswordUseCase>() with factory {
+    bindProvider {
         ForgetPasswordUseCase(instance(), instance())
     }
 
     /**
      * Onboarding
      */
-    bind<GetOnboardingStepUseCase>() with factory {
+    bindProvider {
         GetOnboardingStepUseCase(instance(), instance(), instance())
     }
-    bind<SubmitOnboardingStepUseCase>() with factory {
+    bindProvider {
         SubmitOnboardingStepUseCase(instance(), instance())
     }
 
     /**
      * Registration
      */
-    bind<GetRegistrationStepData>() with factory {
+    bindProvider {
         GetRegistrationStepData(instance(), instance(), instance(), instance())
     }
-    bind<SubmitRegistrationStepAndGetNextUseCase>() with factory {
+    bindProvider {
         SubmitRegistrationStepAndGetNextUseCase(instance(), instance(), instance(), instance())
     }
-    bind<CompleteAccountRegistrationValidationUseCase>() with factory {
+    bindProvider {
         CompleteAccountRegistrationValidationUseCase()
     }
-    bind<CreateAccountRegistrationValidationUseCase>() with factory {
+    bindProvider {
         CreateAccountRegistrationValidationUseCase()
     }
 
     /**
      * Private area
      */
-    bind<GetDashboardDataUseCase>() with factory {
+    bindProvider {
         GetDashboardDataUseCase(instance(), instance(), instance())
     }
-    bind<GetNotificationsPageUseCase>() with factory {
+    bindProvider {
         GetNotificationsPageUseCase(instance(), instance(), instance())
     }
-    bind<DeactivateNotificationsUseCase>() with factory {
+    bindProvider {
         DeactivateNotificationsUseCase(instance(), instance())
     }
-    bind<PinNotificationUseCase>() with factory {
+    bindProvider {
         PinNotificationUseCase(instance(), instance())
     }
-    bind<DeleteNotificationUseCase>() with factory {
+    bindProvider {
         DeleteNotificationUseCase(instance(), instance())
     }
-    bind<GetActivityTrackerPageUseCase>() with factory {
+    bindProvider {
         GetActivityTrackerPageUseCase(instance(), instance(), instance())
     }
-    bind<DeleteActivityUseCase>() with factory {
+    bindProvider {
         DeleteActivityUseCase(instance(), instance(), instance())
     }
-    bind<AddActivityUseCase>() with factory {
+    bindProvider {
         AddActivityUseCase(instance(), instance(), instance())
     }
 }
 
 val mapperModule = DI.Module("Mapper module") {
-    bind<RegistrationResponseMapper>() with factory {
+    bindProvider {
         RegistrationResponseMapper(instance())
     }
 }
