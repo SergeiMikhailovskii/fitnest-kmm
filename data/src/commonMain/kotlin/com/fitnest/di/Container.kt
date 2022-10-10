@@ -19,39 +19,38 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import org.kodein.di.DI
-import org.kodein.di.bind
+import org.kodein.di.bindSingleton
 import org.kodein.di.instance
-import org.kodein.di.singleton
 
 val dataExceptionHandlerModule = DI.Module("Exception handler module") {
-    bind<ExceptionHandler>() with singleton {
+    bindSingleton<ExceptionHandler> {
         GeneralExceptionHandler()
     }
 }
 
 val repositoryModule = DI.Module("Repository module") {
-    bind<com.fitnest.domain.repository.NetworkRepository>() with singleton {
+    bindSingleton<com.fitnest.domain.repository.NetworkRepository> {
         NetworkRepository(instance())
     }
-    bind<LocalStorageRepository>() with singleton {
+    bindSingleton {
         LocalStorageRepository(di)
     }
 }
 
 val serviceModule = DI.Module("Service module") {
-    bind<com.fitnest.domain.service.NetworkService>() with singleton {
+    bindSingleton<com.fitnest.domain.service.NetworkService> {
         NetworkService(di)
     }
 }
 
 val cookieModule = DI.Module("Cookie module") {
-    bind<com.fitnest.domain.cookie.CookieStorageImpl>() with singleton {
+    bindSingleton<com.fitnest.domain.cookie.CookieStorageImpl> {
         CookiesStorageImpl(di)
     }
 }
 
 val serializationModule = DI.Module("Serialization module") {
-    bind<Json>() with singleton {
+    bindSingleton {
         val module = SerializersModule {
             polymorphic(Validator::class) {
                 subclass(EnumValidator::class)

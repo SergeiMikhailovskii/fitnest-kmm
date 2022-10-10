@@ -1,8 +1,8 @@
 package com.fitnest.android.internal
 
-import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarDefaults
 import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.fitnest.android.enum.SnackbarState
@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 internal class SnackbarDelegate(
-    var scaffoldState: ScaffoldState? = null,
+    var snackbarHostState: SnackbarHostState? = null,
     var coroutineScope: CoroutineScope? = null
 ) {
 
@@ -32,7 +32,7 @@ internal class SnackbarDelegate(
     ) {
         this.snackbarState = state
         coroutineScope?.launch {
-            scaffoldState?.snackbarHostState?.showSnackbar(message, actionLabel, duration)
+            snackbarHostState?.showSnackbar(message, actionLabel, duration)
         }
     }
 }

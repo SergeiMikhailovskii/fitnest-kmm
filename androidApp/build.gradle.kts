@@ -16,11 +16,11 @@ dependencies {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.fitnest.android"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -50,6 +50,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.1"
     }
+    namespace = "com.fitnest.android"
 }
 
 val properties: Properties

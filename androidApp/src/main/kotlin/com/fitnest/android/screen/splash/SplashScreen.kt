@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -67,40 +66,38 @@ fun SplashScreen(navController: NavController) {
         viewModel.generateToken()
     }
 
-    Scaffold {
-        Box(
-            modifier = Modifier
-                .background(brush = Brush.verticalGradient(colors = BrandGradient))
-                .fillMaxSize()
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_splash_logo),
-                contentDescription = null,
-                modifier = Modifier.align(Alignment.Center)
-            )
-            if (progress == false) {
-                OutlinedButton(
-                    onClick = {
-                        viewModel.navigateNext()
-                    },
-                    shape = CircleShape,
-                    modifier = Modifier
-                        .padding(
-                            start = Padding.Padding30,
-                            end = Padding.Padding30,
-                            bottom = Padding.Padding40
-                        )
-                        .height(Dimen.Dimen60)
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter),
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.splash_button_title),
-                        fontFamily = poppinsFamily,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = TextSize.Size16
+    Box(
+        modifier = Modifier
+            .background(brush = Brush.verticalGradient(colors = BrandGradient))
+            .fillMaxSize()
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_splash_logo),
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.Center)
+        )
+        if (progress == false) {
+            OutlinedButton(
+                onClick = {
+                    viewModel.navigateNext()
+                },
+                shape = CircleShape,
+                modifier = Modifier
+                    .padding(
+                        start = Padding.Padding30,
+                        end = Padding.Padding30,
+                        bottom = Padding.Padding40
                     )
-                }
+                    .height(Dimen.Dimen60)
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.splash_button_title),
+                    fontFamily = poppinsFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = TextSize.Size16
+                )
             }
         }
     }
