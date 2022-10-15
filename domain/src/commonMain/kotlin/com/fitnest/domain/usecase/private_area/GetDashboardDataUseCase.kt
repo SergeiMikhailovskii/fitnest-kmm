@@ -6,6 +6,8 @@ import com.fitnest.domain.extension.mapError
 import com.fitnest.domain.mapper.DashboardResponseToCacheMapper
 import com.fitnest.domain.repository.DatabaseRepository
 import com.fitnest.domain.repository.NetworkRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -23,6 +25,6 @@ class GetDashboardDataUseCase(
         jsonData.data?.let<JsonElement, DashboardResponse>(json::decodeFromJsonElement)
     }.onSuccess {
         val cacheModel = cacheMapper.map(it)
-        dbRepository.saveDashboardResponse(cacheModel)
+        withContext(Dispatchers.Default) { dbRepository.saveDashboardResponse(cacheModel) }
     }.mapError(exceptionHandler::getError)
 }
