@@ -1,0 +1,3 @@
+CREATE TABLE dashboard(
+    id INTEGER NOT NULL
+);

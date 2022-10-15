@@ -1,6 +1,8 @@
 package com.fitnest.di
 
+import com.fitnest.FitnestDatabase
 import com.fitnest.cookie.CookiesStorageImpl
+import com.fitnest.db.SQLDelightDriverFactory
 import com.fitnest.domain.entity.validator.EnumValidator
 import com.fitnest.domain.entity.validator.MaxAgeValidator
 import com.fitnest.domain.entity.validator.MaxValueValidator
@@ -25,6 +27,13 @@ import org.kodein.di.instance
 val dataExceptionHandlerModule = DI.Module("Exception handler module") {
     bindSingleton<ExceptionHandler> {
         GeneralExceptionHandler()
+    }
+}
+
+val databaseModule = DI.Module("Database module") {
+    bindSingleton {
+        val driver = SQLDelightDriverFactory(di).getDriver()
+        FitnestDatabase(driver)
     }
 }
 
