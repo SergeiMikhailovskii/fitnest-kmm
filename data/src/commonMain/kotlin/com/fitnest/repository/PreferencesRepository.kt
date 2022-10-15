@@ -2,7 +2,7 @@ package com.fitnest.repository
 
 import org.kodein.di.DI
 
-expect class LocalStorageRepository(di: DI) {
+expect class PreferencesRepository(di: DI) {
 
     val di: DI
 

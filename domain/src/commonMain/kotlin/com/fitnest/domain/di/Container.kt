@@ -74,7 +74,7 @@ val useCaseModule = DI.Module("use case module") {
      * Private area
      */
     bindProvider {
-        GetDashboardDataUseCase(instance(), instance(), instance())
+        GetDashboardDataUseCase(instance(), instance(), instance(), instance())
     }
     bindProvider {
         GetNotificationsPageUseCase(instance(), instance(), instance())

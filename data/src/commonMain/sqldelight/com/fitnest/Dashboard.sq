@@ -1,3 +1,18 @@
 CREATE TABLE dashboard(
-    id INTEGER NOT NULL
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    activityStatusWidget TEXT,
+    bmiWidget TEXT,
+    headerWidget TEXT,
+    latestWorkoutWidget TEXT,
+    todayTargetWidget TEXT
 );
+
+getDashboard:
+SELECT * FROM dashboard;
+
+saveDashboard:
+INSERT INTO dashboard(activityStatusWidget, bmiWidget, headerWidget, latestWorkoutWidget, todayTargetWidget)
+VALUES (?, ?, ?, ?,?);
+
+deleteDashboard:
+DELETE FROM dashboard;

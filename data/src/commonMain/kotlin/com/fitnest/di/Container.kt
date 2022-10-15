@@ -13,7 +13,8 @@ import com.fitnest.domain.entity.validator.RequiredValidator
 import com.fitnest.domain.entity.validator.Validator
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.exception.GeneralExceptionHandler
-import com.fitnest.repository.LocalStorageRepository
+import com.fitnest.repository.DatabaseRepository
+import com.fitnest.repository.PreferencesRepository
 import com.fitnest.repository.NetworkRepository
 import com.fitnest.service.NetworkService
 import kotlinx.serialization.json.Json
@@ -42,7 +43,10 @@ val repositoryModule = DI.Module("Repository module") {
         NetworkRepository(instance())
     }
     bindSingleton {
-        LocalStorageRepository(di)
+        PreferencesRepository(di)
+    }
+    bindSingleton<com.fitnest.domain.repository.DatabaseRepository> {
+        DatabaseRepository(instance())
     }
 }
 
