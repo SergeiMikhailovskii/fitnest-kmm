@@ -1,7 +1,8 @@
 package com.fitnest.domain.di
 
-import com.fitnest.domain.mapper.DashboardResponseToCacheMapper
 import com.fitnest.domain.mapper.RegistrationResponseMapper
+import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
+import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
@@ -75,7 +76,14 @@ val useCaseModule = DI.Module("use case module") {
      * Private area
      */
     bindProvider {
-        GetDashboardDataUseCase(instance(), instance(), instance(), instance(), instance())
+        GetDashboardDataUseCase(
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance()
+        )
     }
     bindProvider {
         GetNotificationsPageUseCase(instance(), instance(), instance())
@@ -106,5 +114,8 @@ val mapperModule = DI.Module("Mapper module") {
     }
     bindProvider {
         DashboardResponseToCacheMapper(instance())
+    }
+    bindProvider {
+        DashboardCacheToResponseMapper(instance())
     }
 }

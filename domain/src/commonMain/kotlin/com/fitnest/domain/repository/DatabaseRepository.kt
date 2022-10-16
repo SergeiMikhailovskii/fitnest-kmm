@@ -4,7 +4,7 @@ import com.fitnest.domain.entity.cache.DashboardCacheModel
 
 interface DatabaseRepository {
 
-    fun getDashboard()
+    fun getDashboard(): DashboardCacheModel?
 
     fun saveDashboardResponse(response: DashboardCacheModel)
 }

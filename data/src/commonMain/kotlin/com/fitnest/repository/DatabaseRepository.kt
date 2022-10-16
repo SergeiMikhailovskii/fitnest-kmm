@@ -5,8 +5,19 @@ import com.fitnest.domain.entity.cache.DashboardCacheModel
 import com.fitnest.domain.repository.DatabaseRepository
 
 class DatabaseRepository(private val database: FitnestDatabase) : DatabaseRepository {
-    override fun getDashboard() {
-        database.dashboardQueries.getDashboard().executeAsList()
+    override fun getDashboard() = run {
+        val row = database.dashboardQueries.getDashboard().executeAsOneOrNull()
+
+        row?.let {
+            DashboardCacheModel(
+                activityStatusWidget = it.activityStatusWidget,
+                bmiWidget = it.bmiWidget,
+                headerWidget = it.headerWidget,
+                latestWorkoutWidget = it.latestWorkoutWidget,
+                todayTargetWidget = it.todayTargetWidget,
+                timeAt = it.timeAt
+            )
+        }
     }
 
     override fun saveDashboardResponse(response: DashboardCacheModel) {
