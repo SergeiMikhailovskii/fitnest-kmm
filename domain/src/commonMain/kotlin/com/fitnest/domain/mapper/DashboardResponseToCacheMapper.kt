@@ -2,6 +2,7 @@ package com.fitnest.domain.mapper
 
 import com.fitnest.domain.entity.cache.DashboardCacheModel
 import com.fitnest.domain.entity.response.DashboardResponse
+import kotlinx.datetime.Clock
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -24,6 +25,7 @@ class DashboardResponseToCacheMapper(
             latestWorkoutWidget = latestWorkoutWidgetStr,
             todayTargetWidget = todayTargetWidgetStr,
             headerWidget = headerWidgetStr,
+            timeAt = Clock.System.now().toEpochMilliseconds()
         )
     }
 }

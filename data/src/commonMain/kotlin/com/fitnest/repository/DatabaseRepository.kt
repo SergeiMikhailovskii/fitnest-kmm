@@ -16,7 +16,8 @@ class DatabaseRepository(private val database: FitnestDatabase) : DatabaseReposi
             response.bmiWidget,
             response.headerWidget,
             response.latestWorkoutWidget,
-            response.todayTargetWidget
+            response.todayTargetWidget,
+            response.timeAt
         )
     }
 }

@@ -4,15 +4,16 @@ CREATE TABLE dashboard(
     bmiWidget TEXT,
     headerWidget TEXT,
     latestWorkoutWidget TEXT,
-    todayTargetWidget TEXT
+    todayTargetWidget TEXT,
+    timeAt INTEGER NOT NULL
 );
 
 getDashboard:
 SELECT * FROM dashboard;
 
 saveDashboard:
-INSERT INTO dashboard(activityStatusWidget, bmiWidget, headerWidget, latestWorkoutWidget, todayTargetWidget)
-VALUES (?, ?, ?, ?,?);
+INSERT INTO dashboard(activityStatusWidget, bmiWidget, headerWidget, latestWorkoutWidget, todayTargetWidget, timeAt)
+VALUES (?, ?, ?, ?,?, ?);
 
 deleteDashboard:
 DELETE FROM dashboard;

@@ -5,5 +5,6 @@ class DashboardCacheModel(
     val bmiWidget: String? = null,
     val headerWidget: String? = null,
     val latestWorkoutWidget: String? = null,
-    val todayTargetWidget: String? = null
+    val todayTargetWidget: String? = null,
+    val timeAt: Long
 )
