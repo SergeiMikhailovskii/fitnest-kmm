@@ -7,5 +7,4 @@ interface DatabaseRepository {
     fun getDashboard()
 
     fun saveDashboardResponse(response: DashboardCacheModel)
-
 }

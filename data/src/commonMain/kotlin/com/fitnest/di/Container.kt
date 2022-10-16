@@ -14,8 +14,8 @@ import com.fitnest.domain.entity.validator.Validator
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.exception.GeneralExceptionHandler
 import com.fitnest.repository.DatabaseRepository
-import com.fitnest.repository.PreferencesRepository
 import com.fitnest.repository.NetworkRepository
+import com.fitnest.repository.PreferencesRepository
 import com.fitnest.service.NetworkService
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
