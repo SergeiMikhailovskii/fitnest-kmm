@@ -1,6 +1,7 @@
 package com.fitnest.repository
 
 import com.fitnest.FitnestDatabase
+import com.fitnest.domain.entity.cache.ActivityTrackerCacheModel
 import com.fitnest.domain.entity.cache.DashboardCacheModel
 import com.fitnest.domain.repository.DatabaseRepository
 
@@ -27,6 +28,29 @@ class DatabaseRepository(private val database: FitnestDatabase) : DatabaseReposi
             response.bmiWidget,
             response.headerWidget,
             response.latestWorkoutWidget,
+            response.todayTargetWidget,
+            response.timeAt
+        )
+    }
+
+    override fun getActivityTracker() = run {
+        val row = database.activityTrackerQueries.getActivityTracker().executeAsOneOrNull()
+
+        row?.let {
+            ActivityTrackerCacheModel(
+                activityProgressWidget = it.activityProgressWidget,
+                latestActivityWidget = it.latestActivityWidget,
+                todayTargetWidget = it.todayTargetWidget,
+                timeAt = it.timeAt
+            )
+        }
+    }
+
+    override fun saveActivityTrackerResponse(response: ActivityTrackerCacheModel) {
+        database.activityTrackerQueries.deleteActivityTracker()
+        database.activityTrackerQueries.saveActivityTracker(
+            response.activityProgressWidget,
+            response.latestActivityWidget,
             response.todayTargetWidget,
             response.timeAt
         )
