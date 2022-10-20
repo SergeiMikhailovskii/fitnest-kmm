@@ -1,6 +1,8 @@
 package com.fitnest.domain.di
 
 import com.fitnest.domain.mapper.RegistrationResponseMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
 import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
@@ -98,7 +100,14 @@ val useCaseModule = DI.Module("use case module") {
         DeleteNotificationUseCase(instance(), instance())
     }
     bindProvider {
-        GetActivityTrackerPageUseCase(instance(), instance(), instance())
+        GetActivityTrackerPageUseCase(
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance()
+        )
     }
     bindProvider {
         DeleteActivityUseCase(instance(), instance(), instance())
@@ -117,5 +126,11 @@ val mapperModule = DI.Module("Mapper module") {
     }
     bindProvider {
         DashboardCacheToResponseMapper(instance())
+    }
+    bindProvider {
+        ActivityTrackerResponseToCacheMapper(instance())
+    }
+    bindProvider {
+        ActivityTrackerCacheToResponseMapper(instance())
     }
 }
