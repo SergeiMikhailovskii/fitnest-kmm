@@ -2,9 +2,17 @@ package com.fitnest.android.screen.registration.goal
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -28,12 +36,20 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.*
+import com.fitnest.android.style.BrandGradient
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
+import com.fitnest.android.style.PoppinsBoldStyle16
+import com.fitnest.android.style.PoppinsBoldStyle20Black
+import com.fitnest.android.style.PoppinsNormalStyle12Gray1
+import com.fitnest.android.style.PoppinsNormalStyle12White
+import com.fitnest.android.style.PoppinsSemiBoldStyle14White
+import com.fitnest.android.style.WhiteColor
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import kotlin.math.absoluteValue
@@ -54,7 +70,7 @@ fun GoalRegistrationScreen(navController: NavController) {
     val pagerState = rememberPagerState()
 
     LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage }.collect { page ->
+        snapshotFlow { pagerState.currentPage }.collectLatest { page ->
             val goalType = viewMapper.mapGoalIndexToGoalType(page)
             viewModel.setGoal(goalType)
         }
@@ -87,7 +103,7 @@ fun GoalRegistrationScreen(navController: NavController) {
             modifier = Modifier.padding(top = Padding.Padding5),
             style = PoppinsNormalStyle12Gray1
         )
-        CompositionLocalProvider(LocalOverScrollConfiguration provides null) {
+        CompositionLocalProvider(LocalOverscrollConfiguration provides null) {
             HorizontalPager(
                 contentPadding = PaddingValues(horizontal = Padding.Padding50),
                 count = pageCount,
