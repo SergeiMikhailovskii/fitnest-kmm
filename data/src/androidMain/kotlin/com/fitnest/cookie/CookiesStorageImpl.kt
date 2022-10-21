@@ -3,13 +3,13 @@ package com.fitnest.cookie
 import com.fitnest.domain.cookie.CookieStorageImpl
 import com.fitnest.domain.cookie.CookieType
 import com.fitnest.domain.entity.base.Cookie
-import com.fitnest.repository.LocalStorageRepository
+import com.fitnest.repository.PreferencesRepository
 import org.kodein.di.DI
 import org.kodein.di.instance
 
 actual class CookiesStorageImpl actual constructor(di: DI) : CookieStorageImpl {
 
-    private val localStorageRepository: LocalStorageRepository by di.instance()
+    private val localStorageRepository: PreferencesRepository by di.instance()
 
     actual override fun addCookie(cookie: Cookie) {
         println("Set cookie name=${cookie.name}, value=${cookie.value}")

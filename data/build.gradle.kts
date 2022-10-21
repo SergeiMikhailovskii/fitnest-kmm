@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("com.squareup.sqldelight")
 }
 
 version = "1.0"
@@ -64,6 +65,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(KtorDependencies.Android.KTOR_ANDROID)
+                implementation("com.squareup.sqldelight:android-driver:1.5.3")
             }
         }
         val androidTest by getting {
@@ -75,8 +77,15 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation(KtorDependencies.IOS.KTOR_IOS)
+                implementation("com.squareup.sqldelight:native-driver:1.5.3")
             }
         }
         val iosTest by getting
+    }
+}
+
+sqldelight {
+    database("FitnestDatabase") {
+        packageName = "com.fitnest"
     }
 }

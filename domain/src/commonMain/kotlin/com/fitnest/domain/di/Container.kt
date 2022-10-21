@@ -1,6 +1,10 @@
 package com.fitnest.domain.di
 
 import com.fitnest.domain.mapper.RegistrationResponseMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
+import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
+import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
@@ -74,7 +78,14 @@ val useCaseModule = DI.Module("use case module") {
      * Private area
      */
     bindProvider {
-        GetDashboardDataUseCase(instance(), instance(), instance())
+        GetDashboardDataUseCase(
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance()
+        )
     }
     bindProvider {
         GetNotificationsPageUseCase(instance(), instance(), instance())
@@ -89,18 +100,37 @@ val useCaseModule = DI.Module("use case module") {
         DeleteNotificationUseCase(instance(), instance())
     }
     bindProvider {
-        GetActivityTrackerPageUseCase(instance(), instance(), instance())
+        GetActivityTrackerPageUseCase(
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance()
+        )
     }
     bindProvider {
-        DeleteActivityUseCase(instance(), instance(), instance())
+        DeleteActivityUseCase(instance(), instance(), instance(), instance(), instance())
     }
     bindProvider {
-        AddActivityUseCase(instance(), instance(), instance())
+        AddActivityUseCase(instance(), instance(), instance(), instance(), instance())
     }
 }
 
 val mapperModule = DI.Module("Mapper module") {
     bindProvider {
         RegistrationResponseMapper(instance())
+    }
+    bindProvider {
+        DashboardResponseToCacheMapper(instance())
+    }
+    bindProvider {
+        DashboardCacheToResponseMapper(instance())
+    }
+    bindProvider {
+        ActivityTrackerResponseToCacheMapper(instance())
+    }
+    bindProvider {
+        ActivityTrackerCacheToResponseMapper(instance())
     }
 }

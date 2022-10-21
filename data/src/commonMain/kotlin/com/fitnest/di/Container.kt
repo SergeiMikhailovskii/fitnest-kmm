@@ -1,6 +1,8 @@
 package com.fitnest.di
 
+import com.fitnest.FitnestDatabase
 import com.fitnest.cookie.CookiesStorageImpl
+import com.fitnest.db.SQLDelightDriverFactory
 import com.fitnest.domain.entity.validator.EnumValidator
 import com.fitnest.domain.entity.validator.MaxAgeValidator
 import com.fitnest.domain.entity.validator.MaxValueValidator
@@ -11,8 +13,9 @@ import com.fitnest.domain.entity.validator.RequiredValidator
 import com.fitnest.domain.entity.validator.Validator
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.exception.GeneralExceptionHandler
-import com.fitnest.repository.LocalStorageRepository
+import com.fitnest.repository.DatabaseRepository
 import com.fitnest.repository.NetworkRepository
+import com.fitnest.repository.PreferencesRepository
 import com.fitnest.service.NetworkService
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
@@ -28,12 +31,22 @@ val dataExceptionHandlerModule = DI.Module("Exception handler module") {
     }
 }
 
+val databaseModule = DI.Module("Database module") {
+    bindSingleton {
+        val driver = SQLDelightDriverFactory(di).getDriver()
+        FitnestDatabase(driver)
+    }
+}
+
 val repositoryModule = DI.Module("Repository module") {
     bindSingleton<com.fitnest.domain.repository.NetworkRepository> {
         NetworkRepository(instance())
     }
     bindSingleton {
-        LocalStorageRepository(di)
+        PreferencesRepository(di)
+    }
+    bindSingleton<com.fitnest.domain.repository.DatabaseRepository> {
+        DatabaseRepository(instance())
     }
 }
 

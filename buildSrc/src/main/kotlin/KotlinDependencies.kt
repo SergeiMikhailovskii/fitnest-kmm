@@ -3,7 +3,7 @@ object KotlinDependencies : Dependencies {
     private object Versions {
         const val SERIALIZATION_VERSION = "1.2.2"
         const val COROUTINES_VERSION = "1.5.2"
-        const val DATETIME_VERSION = "0.3.2"
+        const val DATETIME_VERSION = "0.4.0"
         const val IMMUTABLE_COLLECTIONS_VERSION = "0.3.5"
     }
 

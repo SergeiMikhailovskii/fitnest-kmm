@@ -10,7 +10,7 @@ class DeleteNotificationUseCase(
     private val exceptionHandler: ExceptionHandler
 ) {
 
-    suspend operator fun invoke(request: DeleteNotificationRequest) = kotlin.runCatching {
+    suspend operator fun invoke(request: DeleteNotificationRequest) = runCatching {
         repository.deleteNotification(request)
     }.mapError(exceptionHandler::getError)
 }

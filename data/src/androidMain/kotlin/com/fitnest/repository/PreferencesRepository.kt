@@ -4,7 +4,7 @@ import android.content.Context
 import org.kodein.di.DI
 import org.kodein.di.instance
 
-actual class LocalStorageRepository actual constructor(actual val di: DI) {
+actual class PreferencesRepository actual constructor(actual val di: DI) {
 
     private val context: Context by di.instance()
 

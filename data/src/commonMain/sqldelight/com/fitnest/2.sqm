@@ -1,0 +1,7 @@
+CREATE TABLE activityTracker(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    activityProgressWidget TEXT,
+    latestActivityWidget TEXT,
+    todayTargetWidget TEXT,
+    timeAt INTEGER NOT NULL
+);

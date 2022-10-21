@@ -4,14 +4,20 @@ import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.domain.extension.mapError
+import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
+import com.fitnest.domain.repository.DatabaseRepository
 import com.fitnest.domain.repository.NetworkRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 
-class DeleteActivityUseCase(
+class DeleteActivityUseCase internal constructor(
     private val repository: NetworkRepository,
+    private val dbRepository: DatabaseRepository,
     private val json: Json,
+    private val responseToCacheMapper: ActivityTrackerResponseToCacheMapper,
     private val exceptionHandler: ExceptionHandler
 ) {
 
@@ -20,7 +26,13 @@ class DeleteActivityUseCase(
             repository.deleteActivity(request)
             repository.getActivityTrackerPage()
         }.map {
-            val decoded = it.data?.let<JsonElement, ActivityTrackerPageResponse>(json::decodeFromJsonElement)
-            decoded?.widgets
+            it.data?.let<JsonElement, ActivityTrackerPageResponse>(json::decodeFromJsonElement)
+        }.onSuccess {
+            val cacheModel = responseToCacheMapper.map(it)
+            withContext(Dispatchers.Default) {
+                dbRepository.saveActivityTrackerResponse(cacheModel)
+            }
+        }.map {
+            it?.widgets
         }.mapError(exceptionHandler::getError)
 }
