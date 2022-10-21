@@ -110,10 +110,10 @@ val useCaseModule = DI.Module("use case module") {
         )
     }
     bindProvider {
-        DeleteActivityUseCase(instance(), instance(), instance())
+        DeleteActivityUseCase(instance(), instance(), instance(), instance(), instance())
     }
     bindProvider {
-        AddActivityUseCase(instance(), instance(), instance())
+        AddActivityUseCase(instance(), instance(), instance(), instance(), instance())
     }
 }
 
