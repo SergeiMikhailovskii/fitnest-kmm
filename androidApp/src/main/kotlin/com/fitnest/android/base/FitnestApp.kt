@@ -7,10 +7,9 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -41,6 +40,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import org.kodein.di.compose.rememberInstance
 import kotlin.time.ExperimentalTime
 
+@ExperimentalMaterial3Api
 @ExperimentalTime
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
@@ -60,14 +60,14 @@ fun FitnestApp() {
 
     FitnestTheme {
         Scaffold(
-            scaffoldState = scaffoldState,
+//            scaffoldState = scaffoldState,
             bottomBar = { BottomBar(navController) },
             topBar = { TopBar(navController) },
             snackbarHost = {
-                SnackbarHost(hostState = it) {
-                    val backgroundColor = snackbarDelegate.snackbarBackgroundColor
-                    Snackbar(snackbarData = it, backgroundColor = backgroundColor)
-                }
+//                SnackbarHost(hostState = it) {
+//                    val backgroundColor = snackbarDelegate.snackbarBackgroundColor
+//                    Snackbar(snackbarData = it, backgroundColor = backgroundColor)
+//                }
             }
         ) {
             AnimatedNavHost(
