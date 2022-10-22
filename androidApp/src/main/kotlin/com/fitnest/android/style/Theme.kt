@@ -1,31 +1,15 @@
 package com.fitnest.android.style
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
-fun FitnestTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
+fun FitnestTheme(content: @Composable () -> Unit) {
+    val colorScheme = if (isSystemInDarkTheme()) DarkColors.getColorScheme()
+    else LightColors.getColorScheme()
     MaterialTheme(
-        colors = Colors(
-            primary = BrandColor,
-            primaryVariant = BrandColor1,
-            secondary = SecondaryColor,
-            secondaryVariant = SecondaryColor1,
-            background = WhiteColor,
-            surface = WhiteColor,
-            error = ErrorColor,
-            onPrimary = WhiteColor,
-            onSecondary = BlackColor,
-            onBackground = BlackColor,
-            onSurface = BlackColor,
-            onError = WhiteColor,
-            isLight = darkTheme
-        ),
+        colorScheme = colorScheme,
         content = content
     )
 }
