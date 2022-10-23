@@ -23,7 +23,7 @@ val GrayColor3 = Color(0xFFDDDADA)
 val BorderColor = Color(0xFFF7F8F8)
 
 object LightColors {
-    private val PrimaryColor = Color(0xFF4758AC)
+    private val PrimaryColor = Color(0xFF92A3FD)
     private val OnPrimaryColor = Color(0xFFFFFFFF)
     private val PrimaryContainerColor = Color(0xFFDEE1FF)
     private val OnPrimaryContainerColor = Color(0xFF001258)
