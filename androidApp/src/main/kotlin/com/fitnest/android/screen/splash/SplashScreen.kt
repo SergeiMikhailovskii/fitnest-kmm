@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -30,8 +30,6 @@ import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.BrandGradient
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.TextSize
-import com.fitnest.android.style.poppinsFamily
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
@@ -75,10 +73,8 @@ fun SplashScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.Center)
         )
         if (!progress) {
-            OutlinedButton(
-                onClick = {
-                    viewModel.navigateNext()
-                },
+            FilledTonalButton(
+                onClick = viewModel::navigateNext,
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding30,
@@ -91,9 +87,7 @@ fun SplashScreen(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(id = R.string.splash_button_title),
-                    fontFamily = poppinsFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = TextSize.Size16
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
