@@ -1,8 +1,8 @@
 package com.fitnest.android.internal
 
-import androidx.compose.material.SnackbarDefaults
-import androidx.compose.material.SnackbarDuration
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.SnackbarDefaults
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.fitnest.android.enum.SnackbarState
@@ -20,7 +20,7 @@ internal class SnackbarDelegate(
     val snackbarBackgroundColor: Color
         @Composable
         get() = when (snackbarState) {
-            SnackbarState.DEFAULT -> SnackbarDefaults.backgroundColor
+            SnackbarState.DEFAULT -> SnackbarDefaults.color
             SnackbarState.ERROR -> ErrorColor
         }
 
@@ -28,11 +28,12 @@ internal class SnackbarDelegate(
         state: SnackbarState,
         message: String,
         actionLabel: String? = null,
+        withDismissAction: Boolean = false,
         duration: SnackbarDuration = SnackbarDuration.Short
     ) {
         this.snackbarState = state
         coroutineScope?.launch {
-            snackbarHostState?.showSnackbar(message, actionLabel, duration)
+            snackbarHostState?.showSnackbar(message, actionLabel, withDismissAction, duration)
         }
     }
 }

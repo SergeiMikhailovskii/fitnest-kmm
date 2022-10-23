@@ -7,10 +7,13 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
@@ -51,23 +54,24 @@ fun FitnestApp() {
     val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
     val snackbarDelegate: SnackbarDelegate by rememberInstance()
 
-    val scaffoldState = rememberScaffoldState()
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
 
     snackbarDelegate.apply {
-        snackbarHostState = scaffoldState.snackbarHostState
+        this.snackbarHostState = snackbarHostState
         coroutineScope = rememberCoroutineScope()
     }
 
     FitnestTheme {
         Scaffold(
-//            scaffoldState = scaffoldState,
             bottomBar = { BottomBar(navController) },
             topBar = { TopBar(navController) },
             snackbarHost = {
-//                SnackbarHost(hostState = it) {
-//                    val backgroundColor = snackbarDelegate.snackbarBackgroundColor
-//                    Snackbar(snackbarData = it, backgroundColor = backgroundColor)
-//                }
+                SnackbarHost(hostState = snackbarHostState) {
+                    val backgroundColor = snackbarDelegate.snackbarBackgroundColor
+                    Snackbar(snackbarData = it, containerColor = backgroundColor)
+                }
             }
         ) {
             AnimatedNavHost(
