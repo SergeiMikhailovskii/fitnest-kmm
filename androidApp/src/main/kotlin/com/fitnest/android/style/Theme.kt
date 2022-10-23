@@ -5,11 +5,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
-fun FitnestTheme(content: @Composable () -> Unit) {
+internal fun FitnestTheme(content: @Composable () -> Unit) {
     val colorScheme = if (isSystemInDarkTheme()) DarkColors.getColorScheme()
     else LightColors.getColorScheme()
     MaterialTheme(
         colorScheme = colorScheme,
-        content = content
+        content = content,
+        typography = Typography.getTypography()
     )
 }

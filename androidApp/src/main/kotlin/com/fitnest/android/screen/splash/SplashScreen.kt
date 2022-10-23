@@ -7,9 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,7 +32,6 @@ import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.TextSize
 import com.fitnest.android.style.poppinsFamily
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
@@ -47,7 +45,7 @@ fun SplashScreen(navController: NavController) {
         modelClass = SplashViewModel::class.java
     )
 
-    var progress: Boolean? by remember { mutableStateOf(null) }
+    var progress by remember { mutableStateOf(true) }
 
     LaunchedEffect(key1 = null) {
         launch {
@@ -76,12 +74,11 @@ fun SplashScreen(navController: NavController) {
             contentDescription = null,
             modifier = Modifier.align(Alignment.Center)
         )
-        if (progress == false) {
+        if (!progress) {
             OutlinedButton(
                 onClick = {
                     viewModel.navigateNext()
                 },
-                shape = CircleShape,
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding30,

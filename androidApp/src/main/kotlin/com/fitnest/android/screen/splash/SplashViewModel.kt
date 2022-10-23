@@ -15,6 +15,7 @@ internal class SplashViewModel(
 
     internal fun generateToken() {
         viewModelScope.launch(exceptionHandler) {
+            handleProgress(true)
             val result = generateTokenUseCase().getOrThrow()
             redirectFlow = result.getFlow()
             handleProgress()
