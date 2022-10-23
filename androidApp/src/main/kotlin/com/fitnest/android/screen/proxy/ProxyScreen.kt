@@ -21,7 +21,7 @@ import org.kodein.di.compose.rememberInstance
 
 @Preview
 @Composable
-fun ProxyScreenPreview() {
+internal fun ProxyScreenPreview() {
     ProxyScreen(
         navController = rememberNavController(ComposeNavigator()),
         flowType = FlowType.UNKNOWN
@@ -29,7 +29,7 @@ fun ProxyScreenPreview() {
 }
 
 @Composable
-fun ProxyScreen(navController: NavController, flowType: FlowType) {
+internal fun ProxyScreen(navController: NavController, flowType: FlowType) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 

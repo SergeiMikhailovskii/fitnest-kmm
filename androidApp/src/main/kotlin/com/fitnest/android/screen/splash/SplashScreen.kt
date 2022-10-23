@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Composable
-fun SplashScreen(navController: NavController) {
+internal fun SplashScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
