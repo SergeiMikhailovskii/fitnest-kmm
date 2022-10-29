@@ -1,5 +1,7 @@
 package com.fitnest.android.style
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 
@@ -51,10 +53,6 @@ val PoppinsMediumStyle14Brand = PoppinsMediumStyle14.copy(
     color = BrandColor
 )
 
-val PoppinsMediumStyle14Gray1 = PoppinsMediumStyle14.copy(
-    color = GrayColor1
-)
-
 val PoppinsMediumStyle14Black = PoppinsMediumStyle14.copy(
     color = BlackColor
 )
@@ -84,14 +82,6 @@ val PoppinsBoldStyle16Brand = PoppinsBoldStyle.copy(
 )
 
 val PoppinsBoldStyle16Black = PoppinsBoldStyle16.copy(
-    color = BlackColor
-)
-
-val PoppinsBoldStyle24 = PoppinsBoldStyle.copy(
-    fontSize = TextSize.Size24
-)
-
-val PoppinsBoldStyle24Black = PoppinsBoldStyle24.copy(
     color = BlackColor
 )
 
@@ -159,10 +149,6 @@ val PoppinsNormalStyle14 = PoppinsNormalStyle.copy(
     fontSize = TextSize.Size14
 )
 
-val PoppinsNormalStyle14Gray2 = PoppinsNormalStyle14.copy(
-    color = GrayColor2
-)
-
 val PoppinsNormalStyle14Black = PoppinsNormalStyle14.copy(
     color = BlackColor
 )
@@ -175,14 +161,8 @@ val PoppinsNormalStyle16Black = PoppinsNormalStyle16.copy(
     color = BlackColor
 )
 
-val PoppinsNormalStyle18 = PoppinsNormalStyle.copy(
-    fontSize = TextSize.Size16
-)
-
-val PoppinsNormalStyle18Gray1 = PoppinsNormalStyle18.copy(
-    color = GrayColor1
-)
-
-val ErrorStyle = PoppinsNormalStyle12.copy(
-    color = ErrorColor
-)
+val ErrorStyle
+    @Composable
+    get() = MaterialTheme.typography.bodySmall.copy(
+        color = ErrorColor
+    )

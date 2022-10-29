@@ -28,7 +28,7 @@ internal object Typography {
         bodyLarge = TextStyle(
             fontFamily = poppinsFamily,
             fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Normal,
             lineHeight = 24.sp,
         ),
         bodyMedium = TextStyle(

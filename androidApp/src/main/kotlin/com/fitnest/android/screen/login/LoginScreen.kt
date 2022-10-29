@@ -4,12 +4,26 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,11 +45,19 @@ import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.create_account.DividerWithChild
-import com.fitnest.android.screen.registration.create_account.RegistrationOutlinedTextField
-import com.fitnest.android.screen.registration.create_account.getPasswordVisualTransformation
-import com.fitnest.android.style.*
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.GrayColor3
+import com.fitnest.android.style.Padding
+import com.fitnest.android.style.PoppinsBoldStyle16
+import com.fitnest.android.style.PoppinsBoldStyle20Black
+import com.fitnest.android.style.PoppinsMediumStyle12Gray2
+import com.fitnest.android.style.PoppinsNormalStyle12Black
+import com.fitnest.android.style.PoppinsNormalStyle14
+import com.fitnest.android.style.PoppinsNormalStyle14Black
+import com.fitnest.android.style.PoppinsNormalStyle16Black
 import com.fitnest.android.view.dialog.ForgetPasswordSuccessDialog
-import kotlinx.coroutines.flow.collect
+import com.fitnest.android.view.ui_elements.FitnestTextField
+import com.fitnest.android.view.ui_elements.getPasswordVisualTransformation
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
@@ -43,6 +65,7 @@ internal object LoginScreenConsts {
     internal const val LOGIN_SPAN_TAG = "1000"
 }
 
+@ExperimentalMaterial3Api
 @Composable
 internal fun LoginScreen(navController: NavController) {
     val focusManager = LocalFocusManager.current
@@ -92,7 +115,7 @@ internal fun LoginScreen(navController: NavController) {
                 text = stringResource(id = R.string.login_description),
                 style = PoppinsBoldStyle20Black
             )
-            RegistrationOutlinedTextField(
+            FitnestTextField(
                 value = screenData.login.orEmpty(),
                 constraintAsModifier = {
                     Modifier.padding(top = Padding.Padding30)
@@ -114,7 +137,7 @@ internal fun LoginScreen(navController: NavController) {
                 isFocused = screenData.hasLoginFocus,
                 error = screenData.exception?.loginError
             )
-            RegistrationOutlinedTextField(
+            FitnestTextField(
                 value = screenData.password.orEmpty(),
                 constraintAsModifier = {
                     Modifier.padding(top = Padding.Padding15)
