@@ -46,7 +46,7 @@ object LightColors {
     private val OutlineColor = Color(0xFF767680)
     private val SurfaceVariantColor = Color(0xFFF7F8F8)
     private val OnSurfaceVariantColor = Color(0xFF7B6F72)
-    private val InverseOnSurfaceColor = Color(0xFFF3F0F4)
+    private val InverseOnSurfaceColor = Color(0xFFFFFFFF)
     private val InversePrimaryColor = Color(0xFFB9C3FF)
     private val InverseSurfaceColor = Color(0xFF303034)
     private val SurfaceTintColor = Color(0xFF4758AC)

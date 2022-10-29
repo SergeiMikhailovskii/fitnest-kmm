@@ -23,7 +23,7 @@ import com.fitnest.android.style.Padding
 @Composable
 internal fun FitnestTextField(
     value: String,
-    constraintAsModifier: (Modifier.() -> Modifier)? = null,
+    modifier: Modifier,
     leadingIcon: @Composable (() -> Unit)? = null,
     label: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -35,11 +35,8 @@ internal fun FitnestTextField(
     error: String? = null,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .run {
-                constraintAsModifier?.invoke(this) ?: this
-            }
             .padding(
                 start = Padding.Padding30,
                 end = Padding.Padding30

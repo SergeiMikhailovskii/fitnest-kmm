@@ -44,7 +44,6 @@ import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.screen.registration.create_account.DividerWithChild
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.GrayColor3
 import com.fitnest.android.style.Padding
@@ -56,6 +55,7 @@ import com.fitnest.android.style.PoppinsNormalStyle14
 import com.fitnest.android.style.PoppinsNormalStyle14Black
 import com.fitnest.android.style.PoppinsNormalStyle16Black
 import com.fitnest.android.view.dialog.ForgetPasswordSuccessDialog
+import com.fitnest.android.view.ui_elements.DividerWithChild
 import com.fitnest.android.view.ui_elements.FitnestTextField
 import com.fitnest.android.view.ui_elements.getPasswordVisualTransformation
 import kotlinx.coroutines.launch
@@ -116,10 +116,8 @@ internal fun LoginScreen(navController: NavController) {
                 style = PoppinsBoldStyle20Black
             )
             FitnestTextField(
+                modifier = Modifier.padding(top = Padding.Padding30),
                 value = screenData.login.orEmpty(),
-                constraintAsModifier = {
-                    Modifier.padding(top = Padding.Padding30)
-                },
                 label = {
                     Text(
                         stringResource(id = R.string.login_email_hint),
@@ -138,10 +136,8 @@ internal fun LoginScreen(navController: NavController) {
                 error = screenData.exception?.loginError
             )
             FitnestTextField(
+                modifier = Modifier.padding(top = Padding.Padding15),
                 value = screenData.password.orEmpty(),
-                constraintAsModifier = {
-                    Modifier.padding(top = Padding.Padding15)
-                },
                 label = {
                     Text(
                         stringResource(id = R.string.login_password_hint),

@@ -166,3 +166,15 @@ val ErrorStyle
     get() = MaterialTheme.typography.bodySmall.copy(
         color = ErrorColor
     )
+
+val BodyLargeOnBackground
+    @Composable
+    get() = MaterialTheme.typography.bodyLarge.copy(
+        color = MaterialTheme.colorScheme.onBackground
+    )
+
+val TitleMediumOnBackground
+    @Composable
+    get() = MaterialTheme.typography.titleMedium.copy(
+        color = MaterialTheme.colorScheme.onBackground
+    )
