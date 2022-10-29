@@ -8,6 +8,7 @@ import com.fitnest.domain.entity.validator.MaxAgeValidator
 import com.fitnest.domain.entity.validator.MaxValueValidator
 import com.fitnest.domain.entity.validator.MinAgeValidator
 import com.fitnest.domain.entity.validator.MinLengthValidator
+import com.fitnest.domain.entity.validator.MinValueValidator
 import com.fitnest.domain.entity.validator.RegExpValidator
 import com.fitnest.domain.entity.validator.RequiredValidator
 import com.fitnest.domain.entity.validator.Validator
@@ -68,6 +69,7 @@ val serializationModule = DI.Module("Serialization module") {
             polymorphic(Validator::class) {
                 subclass(EnumValidator::class)
                 subclass(MaxAgeValidator::class)
+                subclass(MinValueValidator::class)
                 subclass(MaxValueValidator::class)
                 subclass(MinAgeValidator::class)
                 subclass(MinLengthValidator::class)

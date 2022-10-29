@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 @SerialName("enum")
 class EnumValidator(private val validation: List<String>) : Validator() {
-    override fun isValid(field: Any?) = validation.contains(field)
+    override fun isValid(fieldName: String, field: Any?) = validation.contains(field)
 }

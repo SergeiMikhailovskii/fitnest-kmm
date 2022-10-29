@@ -4,17 +4,24 @@ import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.entity.request.CreateAccountStepRequest
 import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
 
-class CreateAccountRegistrationValidationUseCase {
+class CreateAccountRegistrationValidationUseCase internal constructor() {
 
     operator fun invoke(
         fields: CreateAccountStepRequest,
         validationSchema: RegistrationStepValidationSchema.CreateAccountStepValidationSchema?
     ) = runCatching {
-        val emailError = validationSchema?.email?.firstOrNull { !it.isValid(fields.email) }
-        val firstNameError =
-            validationSchema?.firstName?.firstOrNull { !it.isValid(fields.firstName) }
-        val lastNameError = validationSchema?.lastName?.firstOrNull { !it.isValid(fields.lastName) }
-        val passwordError = validationSchema?.password?.firstOrNull { !it.isValid(fields.password) }
+        val emailError = validationSchema?.email?.firstOrNull {
+            !it.isValid("email", fields.email)
+        }
+        val firstNameError = validationSchema?.firstName?.firstOrNull {
+            !it.isValid("first_name", fields.firstName)
+        }
+        val lastNameError = validationSchema?.lastName?.firstOrNull {
+            !it.isValid("last_name", fields.lastName)
+        }
+        val passwordError = validationSchema?.password?.firstOrNull {
+            !it.isValid("password", fields.password)
+        }
 
         if (emailError != null || firstNameError != null || lastNameError != null || passwordError != null) {
             throw CreateAccountRegistrationScreenException(
