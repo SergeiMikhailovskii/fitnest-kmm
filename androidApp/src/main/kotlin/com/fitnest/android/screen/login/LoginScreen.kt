@@ -116,44 +116,46 @@ internal fun LoginScreen(navController: NavController) {
                 style = PoppinsBoldStyle20Black
             )
             FitnestTextField(
-                modifier = Modifier.padding(top = Padding.Padding30),
                 value = screenData.login.orEmpty(),
-                label = {
-                    Text(
-                        stringResource(id = R.string.login_email_hint),
-                        style = PoppinsNormalStyle14
-                    )
-                },
+                modifier = Modifier.padding(
+                    top = Padding.Padding30,
+                    start = Padding.Padding30,
+                    end = Padding.Padding30
+                ),
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.ic_email),
                         contentDescription = null
                     )
                 },
-                onValueChange = viewModel::updateLogin,
-                onFocusChanged = viewModel::updateLoginFocus,
-                isFocused = screenData.hasLoginFocus,
-                error = screenData.exception?.loginError
-            )
-            FitnestTextField(
-                modifier = Modifier.padding(top = Padding.Padding15),
-                value = screenData.password.orEmpty(),
                 label = {
                     Text(
-                        stringResource(id = R.string.login_password_hint),
+                        stringResource(id = R.string.login_email_hint),
                         style = PoppinsNormalStyle14
                     )
                 },
+                onValueChange = viewModel::updateLogin,
+                error = screenData.exception?.loginError
+            )
+            FitnestTextField(
+                value = screenData.password.orEmpty(),
+                modifier = Modifier.padding(
+                    top = Padding.Padding15,
+                    start = Padding.Padding30,
+                    end = Padding.Padding30
+                ),
                 leadingIcon = {
                     Image(
                         painter = painterResource(id = R.drawable.ic_lock),
                         contentDescription = null
                     )
                 },
-                onValueChange = viewModel::updatePassword,
-                onFocusChanged = viewModel::updatePasswordFocus,
-                isFocused = screenData.hasPasswordFocus,
-                error = screenData.exception?.passwordError,
+                label = {
+                    Text(
+                        stringResource(id = R.string.login_password_hint),
+                        style = PoppinsNormalStyle14
+                    )
+                },
                 trailingIcon = {
                     IconButton(onClick = viewModel::changePasswordVisibility) {
                         val painter =
@@ -162,8 +164,10 @@ internal fun LoginScreen(navController: NavController) {
                         Image(painter = painter, null)
                     }
                 },
+                onValueChange = viewModel::updatePassword,
                 visualTransformation = getPasswordVisualTransformation(screenData.isPasswordVisible),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                error = screenData.exception?.passwordError
             )
             Text(
                 text = stringResource(id = R.string.login_forgot_password),

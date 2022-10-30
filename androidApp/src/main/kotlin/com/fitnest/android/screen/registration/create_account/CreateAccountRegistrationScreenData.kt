@@ -8,9 +8,5 @@ data class CreateAccountRegistrationScreenData(
     val email: String? = "",
     val password: String? = "",
     val passwordVisible: Boolean = false,
-    val isFirstNameFocused: Boolean = false,
-    val isLastNameFocused: Boolean = false,
-    val isEmailFocused: Boolean = false,
-    val isPasswordFocused: Boolean = false,
     val exception: CreateAccountRegistrationScreenException = CreateAccountRegistrationScreenException(),
 )

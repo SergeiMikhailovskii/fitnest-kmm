@@ -58,7 +58,6 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
-import com.fitnest.android.style.PoppinsNormalStyle14
 import com.fitnest.android.style.SecondaryColor1
 import com.fitnest.android.style.TitleMediumOnBackground
 import com.fitnest.android.view.ui_elements.DividerWithChild
@@ -142,82 +141,86 @@ internal fun CreateAccountRegistrationScreen(navController: NavController) {
             style = TitleMediumOnBackground
         )
         FitnestTextField(
-            modifier = Modifier.padding(top = Padding30),
             value = screenData.firstName.orEmpty(),
+            modifier = Modifier.padding(
+                top = Padding30,
+                start = Padding30,
+                end = Padding30
+            ),
+            leadingIcon = {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_user_login),
+                    contentDescription = null
+                )
+            },
             label = {
                 Text(
                     stringResource(id = R.string.registration_create_account_first_name_label),
-                    style = PoppinsNormalStyle14
-                )
-            },
-            leadingIcon = {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_user_login),
-                    contentDescription = null
+                    style = MaterialTheme.typography.bodyMedium
                 )
             },
             onValueChange = viewModel::updateFirstName,
-            onFocusChanged = viewModel::updateFirstNameFocus,
-            isFocused = screenData.isFirstNameFocused,
             error = screenData.exception.firstNameError
         )
         FitnestTextField(
-            modifier = Modifier.padding(top = Padding15),
             value = screenData.lastName.orEmpty(),
-            label = {
-                Text(
-                    stringResource(id = R.string.registration_create_account_last_name_label),
-                    style = PoppinsNormalStyle14
-                )
-            },
+            modifier = Modifier.padding(
+                top = Padding15,
+                start = Padding30,
+                end = Padding30
+            ),
             leadingIcon = {
                 Image(
                     painter = painterResource(id = R.drawable.ic_user_login),
                     contentDescription = null
                 )
             },
+            label = {
+                Text(
+                    stringResource(id = R.string.registration_create_account_last_name_label),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
             onValueChange = viewModel::updateLastName,
-            onFocusChanged = viewModel::updateLastNameFocus,
-            isFocused = screenData.isLastNameFocused,
             error = screenData.exception.lastNameError
         )
         FitnestTextField(
-            modifier = Modifier.padding(top = Padding15),
             value = screenData.email.orEmpty(),
-            label = {
-                Text(
-                    stringResource(id = R.string.registration_create_account_email_label),
-                    style = PoppinsNormalStyle14
-                )
-            },
+            modifier = Modifier.padding(
+                top = Padding15,
+                start = Padding30,
+                end = Padding30
+            ),
             leadingIcon = {
                 Image(
                     painter = painterResource(id = R.drawable.ic_email),
                     contentDescription = null
                 )
             },
-            onValueChange = viewModel::updateEmail,
-            onFocusChanged = viewModel::updateEmailFocus,
-            isFocused = screenData.isEmailFocused,
-            error = screenData.exception.emailError,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-        )
-        FitnestTextField(
-            modifier = Modifier.padding(top = Padding15),
-            value = screenData.password.orEmpty(),
             label = {
                 Text(
-                    stringResource(id = R.string.registration_create_account_password_label),
-                    style = PoppinsNormalStyle14
+                    stringResource(id = R.string.registration_create_account_email_label),
+                    style = MaterialTheme.typography.bodyMedium
                 )
             },
+            onValueChange = viewModel::updateEmail,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            error = screenData.exception.emailError
+        )
+        FitnestTextField(
+            value = screenData.password.orEmpty(),
+            modifier = Modifier.padding(
+                top = Padding15,
+                start = Padding30,
+                end = Padding30
+            ),
             leadingIcon = {
                 Image(
                     painter = painterResource(id = R.drawable.ic_lock),
                     contentDescription = null
                 )
             },
-            onValueChange = viewModel::updatePassword,
+            label = { Text(stringResource(id = R.string.registration_create_account_password_label)) },
             trailingIcon = {
                 IconButton(onClick = viewModel::changePasswordVisibility) {
                     val painter =
@@ -226,10 +229,9 @@ internal fun CreateAccountRegistrationScreen(navController: NavController) {
                     Image(painter = painter, null)
                 }
             },
+            onValueChange = viewModel::updatePassword,
             visualTransformation = getPasswordVisualTransformation(!screenData.passwordVisible),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            onFocusChanged = viewModel::updatePasswordFocus,
-            isFocused = screenData.isPasswordFocused,
             error = screenData.exception.passwordError
         )
         Button(

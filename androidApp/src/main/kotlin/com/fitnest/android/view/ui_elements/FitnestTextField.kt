@@ -31,34 +31,25 @@ internal fun FitnestTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onFocusChanged: ((Boolean) -> Unit)? = null,
-    isFocused: Boolean = false,
     error: String? = null,
+    readOnly: Boolean = false
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(
-                start = Padding.Padding30,
-                end = Padding.Padding30
-            )
             .onFocusChanged {
                 onFocusChanged?.invoke(it.isFocused)
             },
     ) {
-        val backgroundColor = when {
-            isFocused -> Color.White
-            else -> MaterialTheme.colorScheme.surfaceVariant
-        }
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = value,
             singleLine = true,
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = backgroundColor,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
                 focusedLabelColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = Color.Transparent
             ),
             leadingIcon = leadingIcon,
             label = label,
@@ -68,6 +59,7 @@ internal fun FitnestTextField(
             isError = error != null,
             trailingIcon = trailingIcon,
             keyboardOptions = keyboardOptions,
+            readOnly = readOnly
         )
         if (error != null) {
             Text(

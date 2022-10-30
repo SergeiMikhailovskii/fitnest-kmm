@@ -3,7 +3,7 @@ package com.fitnest.android.screen.registration.complete_account
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,15 +11,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -61,22 +63,23 @@ import com.fitnest.android.style.PoppinsNormalStyle12Gray1
 import com.fitnest.android.view.ui_elements.ViewWithError
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import java.util.Date
 
-@ExperimentalMaterialApi
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
 @Composable
+@ExperimentalMaterialApi
+@ExperimentalMaterial3Api
 fun CompleteAccountRegistrationScreenPreview() {
     CompleteAccountRegistrationScreen(NavController(LocalContext.current))
 }
 
 @ExperimentalMaterialApi
+@ExperimentalMaterial3Api
 @Composable
 fun CompleteAccountRegistrationScreen(
-    navController: NavController,
+    navController: NavController
 ) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
@@ -94,9 +97,7 @@ fun CompleteAccountRegistrationScreen(
 
     val coroutineScope = rememberCoroutineScope()
 
-    val modalBottomSheetState = rememberModalBottomSheetState(
-        ModalBottomSheetValue.Hidden
-    )
+    val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
     var modalBottomSheetType by remember {
         mutableStateOf<CompleteAccountRegistrationScreenBottomSheetType?>(null)
@@ -146,9 +147,9 @@ fun CompleteAccountRegistrationScreen(
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
-                .clickable {
-                    focusManager.clearFocus()
-                },
+                .pointerInput(Unit) {
+                    detectTapGestures { focusManager.clearFocus() }
+                }
         ) {
             val (
                 imageTop,
@@ -193,25 +194,21 @@ fun CompleteAccountRegistrationScreen(
                     end.linkTo(parent.end)
                 }
             )
-            ViewWithError(
-                error = screenData.exception.genderError,
+            SexDropdown(
                 modifier = Modifier
                     .padding(start = Padding30, end = Padding30)
                     .constrainAs(sexDropdown) {
                         bottom.linkTo(inputBirthDate.top, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    }) {
-                SexDropdown(
-                    onItemClicked = {
-                        viewModel.saveSex(SexType.fromLocalizedName(it, context))
                     },
-                    value = screenData.sex?.localizedNameId?.let(context::getString).orEmpty(),
-                    isFocused = screenData.isSexFocused,
-                    onFocusChanged = viewModel::updateSexFocus,
-                    isError = screenData.exception.genderError != null
-                )
-            }
+                onItemClicked = {
+                    viewModel.saveSex(SexType.fromLocalizedName(it, context))
+                },
+                value = screenData.sex?.localizedNameId?.let(context::getString).orEmpty(),
+                onFocusChanged = viewModel::updateSexFocus,
+                error = screenData.exception.genderError
+            )
             ViewWithError(
                 error = screenData.exception.birthDateError,
                 modifier = Modifier
