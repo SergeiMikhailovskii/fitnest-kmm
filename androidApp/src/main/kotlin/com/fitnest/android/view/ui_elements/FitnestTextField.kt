@@ -1,5 +1,6 @@
 package com.fitnest.android.view.ui_elements
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,6 +11,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -32,7 +34,8 @@ internal fun FitnestTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onFocusChanged: ((Boolean) -> Unit)? = null,
     error: String? = null,
-    readOnly: Boolean = false
+    readOnly: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     Column(
         modifier = modifier
@@ -59,7 +62,8 @@ internal fun FitnestTextField(
             isError = error != null,
             trailingIcon = trailingIcon,
             keyboardOptions = keyboardOptions,
-            readOnly = readOnly
+            readOnly = readOnly,
+            interactionSource = interactionSource
         )
         if (error != null) {
             Text(

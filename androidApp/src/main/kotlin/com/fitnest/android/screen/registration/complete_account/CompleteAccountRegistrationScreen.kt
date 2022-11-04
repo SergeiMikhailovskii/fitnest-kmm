@@ -60,7 +60,6 @@ import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.PoppinsBoldStyle16
 import com.fitnest.android.style.PoppinsBoldStyle20Black
 import com.fitnest.android.style.PoppinsNormalStyle12Gray1
-import com.fitnest.android.view.ui_elements.ViewWithError
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
@@ -71,14 +70,14 @@ import java.util.Date
 @Composable
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
-fun CompleteAccountRegistrationScreenPreview() {
+internal fun CompleteAccountRegistrationScreenPreview() {
     CompleteAccountRegistrationScreen(NavController(LocalContext.current))
 }
 
 @ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @Composable
-fun CompleteAccountRegistrationScreen(
+internal fun CompleteAccountRegistrationScreen(
     navController: NavController
 ) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
@@ -209,8 +208,7 @@ fun CompleteAccountRegistrationScreen(
                 onFocusChanged = viewModel::updateSexFocus,
                 error = screenData.exception.genderError
             )
-            ViewWithError(
-                error = screenData.exception.birthDateError,
+            DateOfBirthTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -218,18 +216,13 @@ fun CompleteAccountRegistrationScreen(
                         bottom.linkTo(inputWeight.top, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    }
+                    },
+                value = screenData.formattedDateOfBirth().orEmpty(),
+                error = screenData.exception.birthDateError
             ) {
-                DateOfBirthTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = screenData.formattedDateOfBirth().orEmpty(),
-                    isError = screenData.exception.birthDateError != null
-                ) {
-                    showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
-                }
+                showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
             }
-            ViewWithError(
-                error = screenData.exception.weightError,
+            AnthropometryTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -237,21 +230,17 @@ fun CompleteAccountRegistrationScreen(
                         bottom.linkTo(inputHeight.top, Padding15)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    }
+                    },
+                value = screenData.weight?.toString().orEmpty(),
+                leadingIcon = R.drawable.ic_complete_registration_weight,
+                label = context.getString(R.string.registration_complete_account_weight_hint),
+                optionLabel = context.getString(R.string.registration_complete_account_weight_kg),
+                error = screenData.exception.weightError
             ) {
-                AnthropometryTextField(
-                    value = screenData.weight?.toString().orEmpty(),
-                    leadingIcon = R.drawable.ic_complete_registration_weight,
-                    label = context.getString(R.string.registration_complete_account_weight_hint),
-                    optionLabel = context.getString(R.string.registration_complete_account_weight_kg),
-                    isError = screenData.exception.weightError != null
-                ) {
-                    modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
-                    coroutineScope.launch { modalBottomSheetState.show() }
-                }
+                modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
+                coroutineScope.launch { modalBottomSheetState.show() }
             }
-            ViewWithError(
-                error = screenData.exception.heightError,
+            AnthropometryTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = Padding30, end = Padding30)
@@ -259,20 +248,17 @@ fun CompleteAccountRegistrationScreen(
                         bottom.linkTo(btnNext.top, Padding30)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    }
+                    },
+                value = screenData.height?.toString().orEmpty(),
+                leadingIcon = R.drawable.ic_complete_registration_height,
+                label = context.getString(R.string.registration_complete_account_height_hint),
+                optionLabel = context.getString(R.string.registration_complete_account_height_cm),
+                error = screenData.exception.heightError,
             ) {
-                AnthropometryTextField(
-                    value = screenData.height?.toString().orEmpty(),
-                    leadingIcon = R.drawable.ic_complete_registration_height,
-                    label = context.getString(R.string.registration_complete_account_height_hint),
-                    optionLabel = context.getString(R.string.registration_complete_account_height_cm),
-                    isError = screenData.exception.heightError != null
-                ) {
-                    coroutineScope.launch {
-                        modalBottomSheetType =
-                            CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
-                        modalBottomSheetState.show()
-                    }
+                coroutineScope.launch {
+                    modalBottomSheetType =
+                        CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
+                    modalBottomSheetState.show()
                 }
             }
             Button(
