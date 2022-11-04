@@ -31,7 +31,6 @@ import com.fitnest.android.screen.private_area.home.composable.TodayTargetBlock
 import com.fitnest.android.style.Padding
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import kotlin.time.ExperimentalTime
@@ -86,7 +85,7 @@ fun HomeScreen(navController: NavController) {
             ) {
                 screenData.headerWidget?.let { HeaderBlock(it, viewModel) }
                 screenData.bmiWidget?.let { BMIBlock(it) }
-                screenData.todayTargetWidget?.let { TodayTargetBlock(it, viewModel) }
+                screenData.todayTargetWidget?.let { TodayTargetBlock(viewModel) }
                 screenData.activityStatusWidget?.let { ActivityStatusBlock(it) }
                 screenData.latestWorkoutWidget?.let { LatestWorkoutBlock(it) }
                 Box(modifier = Modifier.height(200.dp))
