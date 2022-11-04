@@ -58,7 +58,6 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding20
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.Padding.Padding40
-import com.fitnest.android.style.SecondaryColor1
 import com.fitnest.android.style.TitleMediumOnBackground
 import com.fitnest.android.view.ui_elements.DividerWithChild
 import com.fitnest.android.view.ui_elements.FitnestTextField
@@ -109,7 +108,7 @@ internal fun CreateAccountRegistrationScreen(navController: NavController) {
         val endIndex = startIndex + loginSpan.length
         append(str)
         addStyle(
-            style = SpanStyle(color = SecondaryColor1),
+            style = SpanStyle(color = MaterialTheme.colorScheme.tertiary),
             start = startIndex,
             end = endIndex
         )

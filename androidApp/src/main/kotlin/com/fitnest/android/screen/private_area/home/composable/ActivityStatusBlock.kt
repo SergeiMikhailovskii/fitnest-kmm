@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
+import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.*
@@ -138,10 +140,9 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                     )
                 ) {
                     Column {
-                        val now = Clock.System.now()
                         val lastHeartRateInstant =
                             heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault()) ?: return
-                        val diff = now - lastHeartRateInstant
+                        val diff = Clock.System.now() - lastHeartRateInstant
                         val minutesDiff = diff.inWholeMinutes
                         DrawTooltip(minutesDiff)
                     }
@@ -376,7 +377,7 @@ private fun WaterIntakeBlock(
                         ),
                         style = PoppinsMediumStyle8,
                         modifier = Modifier
-                            .textBrush(brush = Brush.horizontalGradient(SecondaryGradient))
+                            .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.tertiaryGradient))
                             .padding(top = Padding.Padding3)
                     )
                     Box(Modifier.height(Dimen.Dimen10))
@@ -389,9 +390,10 @@ private fun WaterIntakeBlock(
 
 @Composable
 private fun DrawActivityRing() {
+    val circleGradient = MaterialTheme.colorScheme.tertiaryGradient
     Canvas(modifier = Modifier) {
         drawCircle(
-            brush = Brush.horizontalGradient(SecondaryGradient),
+            brush = Brush.horizontalGradient(circleGradient),
             radius = Dimen.Dimen4.toPx(),
         )
         drawCircle(
@@ -407,6 +409,7 @@ private fun DrawTooltip(lastHeartRate: Long) {
         id = R.string.private_area_dashboard_tooltip_minutes_left,
         lastHeartRate
     )
+    val shaderGradient = MaterialTheme.colorScheme.tertiaryGradient
     Canvas(modifier = Modifier) {
         val nativeCanvas = this.drawContext.canvas.nativeCanvas
 
@@ -462,7 +465,7 @@ private fun DrawTooltip(lastHeartRate: Long) {
                     tooltipWidth,
                     0F
                 ),
-                colors = SecondaryGradient
+                colors = shaderGradient
             )
         })
 

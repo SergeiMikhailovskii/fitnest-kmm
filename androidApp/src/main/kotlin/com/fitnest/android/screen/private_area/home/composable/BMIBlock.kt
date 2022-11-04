@@ -3,10 +3,20 @@ package com.fitnest.android.screen.private_area.home.composable
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,8 +31,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
+import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.*
+import com.fitnest.android.style.BrandColor
+import com.fitnest.android.style.Padding
+import com.fitnest.android.style.PoppinsMediumStyle14White
+import com.fitnest.android.style.PoppinsNormalStyle12White
+import com.fitnest.android.style.TextSize
 
 @Composable
 internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
@@ -67,7 +82,7 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
                 ) {
                     Box(
                         modifier = Modifier
-                            .background(brush = Brush.horizontalGradient(SecondaryGradient))
+                            .background(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.tertiaryGradient))
                     ) {
                         Text(
                             stringResource(id = R.string.private_area_dashboard_bmi_view_more),
@@ -96,6 +111,7 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
 
 @Composable
 fun PieChart(modifier: Modifier, progress: Double) {
+    val arcGradient = MaterialTheme.colorScheme.tertiaryGradient
     Box(
         modifier = modifier
             .width(300.pxToDp())
@@ -108,7 +124,7 @@ fun PieChart(modifier: Modifier, progress: Double) {
                 center = Offset(150F, 150F)
             )
             drawArc(
-                brush = Brush.horizontalGradient(SecondaryGradient),
+                brush = Brush.horizontalGradient(arcGradient),
                 startAngle = -90F,
                 sweepAngle = (360 * progress / 100).toFloat(),
                 useCenter = false,

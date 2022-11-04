@@ -8,8 +8,6 @@ val BrandColor1 = Color(0xFF9DCEFF)
 val BrandGradient = listOf(BrandColor, BrandColor1)
 
 val SecondaryColor = Color(0xFFC58BF2)
-val SecondaryColor1 = Color(0xFFEEA4CE)
-val SecondaryGradient = listOf(SecondaryColor, SecondaryColor1)
 
 val ErrorColor = Color(0xFFB00020)
 
@@ -31,7 +29,7 @@ object LightColors {
     private val OnSecondaryColor = Color(0xFFFFFFFF)
     private val SecondaryContainerColor = Color(0xFFFFFFFF)
     private val OnSecondaryContainerColor = Color(0xFF92A3FD)
-    private val TertiaryColor = Color(0xFF76546E)
+    private val TertiaryColor = Color(0xFFC58BF2)
     private val OnTertiaryColor = Color(0xFFFFFFFF)
     private val TertiaryContainerColor = Color(0xFFFFD7F2)
     private val OnTertiaryContainerColor = Color(0xFF2D1228)

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -22,10 +23,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.fitnest.android.R
-import com.fitnest.android.style.PoppinsNormalStyle14
-import com.fitnest.android.style.SecondaryGradient
+import com.fitnest.android.extension.tertiaryGradient
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
 import com.fitnest.android.view.ui_elements.FitnestTextField
 
 @ExperimentalMaterial3Api
@@ -66,7 +67,7 @@ fun AnthropometryTextField(
             value = value,
             modifier = Modifier
                 .weight(1F)
-                .padding(end = 15.dp),
+                .padding(end = Padding.Padding15),
             onValueChange = {},
             interactionSource = interactionSource,
             leadingIcon = {
@@ -78,7 +79,7 @@ fun AnthropometryTextField(
             label = {
                 Text(
                     label,
-                    style = PoppinsNormalStyle14
+                    style = MaterialTheme.typography.bodyMedium
                 )
             },
             readOnly = true,
@@ -86,11 +87,11 @@ fun AnthropometryTextField(
         )
         Box(
             modifier = Modifier
-                .width(50.dp)
+                .width(Dimen.Dimen50)
                 .aspectRatio(1F)
                 .align(Alignment.Bottom)
-                .clip(RoundedCornerShape(14.dp))
-                .background(Brush.horizontalGradient(SecondaryGradient))
+                .clip(RoundedCornerShape(Dimen.Dimen14))
+                .background(Brush.horizontalGradient(MaterialTheme.colorScheme.tertiaryGradient))
         ) {
             Text(optionLabel, modifier = Modifier.align(Alignment.Center), color = Color.White)
         }
