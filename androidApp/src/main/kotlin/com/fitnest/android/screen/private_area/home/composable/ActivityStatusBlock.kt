@@ -7,13 +7,28 @@ import android.graphics.RectF
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,11 +48,25 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import com.fitnest.android.R
+import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.*
+import com.fitnest.android.style.BorderColor
+import com.fitnest.android.style.BrandColor
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
+import com.fitnest.android.style.PoppinsBoldStyle16Black
+import com.fitnest.android.style.PoppinsMediumStyle10Gray1
+import com.fitnest.android.style.PoppinsMediumStyle12
+import com.fitnest.android.style.PoppinsMediumStyle12Black
+import com.fitnest.android.style.PoppinsMediumStyle14
+import com.fitnest.android.style.PoppinsMediumStyle8
+import com.fitnest.android.style.PoppinsMediumStyle8White
+import com.fitnest.android.style.PoppinsNormalStyle8Gray2
+import com.fitnest.android.style.PoppinsSemiBoldStyle14
+import com.fitnest.android.style.TextSize
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -91,7 +120,7 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
             .fillMaxWidth()
             .padding(top = Padding.Padding15)
             .background(
-                brush = Brush.horizontalGradient(BrandGradient),
+                brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient),
                 shape = RoundedCornerShape(Dimen.Dimen16),
                 alpha = 0.2F
             )
@@ -115,7 +144,7 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                     ),
                     modifier = Modifier
                         .padding(start = Padding.Padding20, top = Padding.Padding5)
-                        .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
+                        .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient)),
                     style = PoppinsSemiBoldStyle14
                 )
                 Image(
@@ -141,7 +170,8 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                 ) {
                     Column {
                         val lastHeartRateInstant =
-                            heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault()) ?: return
+                            heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault())
+                                ?: return
                         val diff = Clock.System.now() - lastHeartRateInstant
                         val minutesDiff = diff.inWholeMinutes
                         DrawTooltip(minutesDiff)
@@ -191,7 +221,7 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
                         start = Padding.Padding20,
                         top = Padding.Padding5
                     )
-                    .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
+                    .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient)),
                 style = PoppinsMediumStyle12
             )
             Image(
@@ -256,7 +286,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                         start = Padding.Padding20,
                         top = Padding.Padding5
                     )
-                    .textBrush(brush = Brush.horizontalGradient(BrandGradient))
+                    .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                     .fillMaxWidth(),
                 style = PoppinsMediumStyle14
             )
@@ -279,7 +309,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                     modifier = Modifier
                         .padding(all = Padding.Padding9)
                         .background(
-                            brush = Brush.horizontalGradient(BrandGradient),
+                            brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient),
                             shape = CircleShape
                         )
                         .aspectRatio(1F),
@@ -339,7 +369,7 @@ private fun WaterIntakeBlock(
                 Box(
                     modifier = Modifier
                         .weight(0.5F)
-                        .background(brush = Brush.verticalGradient(BrandGradient))
+                        .background(brush = Brush.verticalGradient(MaterialTheme.colorScheme.brandGradient))
                         .fillMaxWidth()
                 )
             }
@@ -358,7 +388,7 @@ private fun WaterIntakeBlock(
                         waterIntakeSubWidget.amount ?: .0
                     ),
                     modifier = Modifier
-                        .textBrush(brush = Brush.horizontalGradient(BrandGradient))
+                        .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                         .padding(top = Padding.Padding5),
                     style = PoppinsMediumStyle14
                 )

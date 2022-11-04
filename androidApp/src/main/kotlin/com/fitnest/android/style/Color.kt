@@ -4,8 +4,6 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 
 val BrandColor = Color(0xFF4758AC)
-val BrandColor1 = Color(0xFF9DCEFF)
-val BrandGradient = listOf(BrandColor, BrandColor1)
 
 val SecondaryColor = Color(0xFFC58BF2)
 

@@ -13,22 +13,21 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import com.fitnest.android.R
+import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.screen.private_area.home.HomeViewModel
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.BrandGradient
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.PoppinsMediumStyle14Black
 
 @Composable
 internal fun TodayTargetBlock(
-    todayTargetWidget: HomeScreenData.TodayTargetWidget,
     viewModel: HomeViewModel
 ) {
     Box(
@@ -36,7 +35,7 @@ internal fun TodayTargetBlock(
             .fillMaxWidth()
             .padding(top = Padding.Padding30)
             .background(
-                brush = Brush.horizontalGradient(BrandGradient),
+                brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient),
                 shape = RoundedCornerShape(Dimen.Dimen16),
                 alpha = 0.2F
             )
@@ -64,7 +63,7 @@ internal fun TodayTargetBlock(
                     .wrapContentWidth(),
             ) {
                 Box(
-                    modifier = Modifier.background(brush = Brush.horizontalGradient(BrandGradient))
+                    modifier = Modifier.background(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                 ) {
                     Text(
                         stringResource(id = R.string.private_area_dashboard_today_target_check),

@@ -15,9 +15,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -28,23 +29,18 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.util.lerp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.BrandGradient
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsBoldStyle16
-import com.fitnest.android.style.PoppinsBoldStyle20Black
-import com.fitnest.android.style.PoppinsNormalStyle12Gray1
-import com.fitnest.android.style.PoppinsNormalStyle12White
-import com.fitnest.android.style.PoppinsSemiBoldStyle14White
-import com.fitnest.android.style.WhiteColor
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
@@ -96,12 +92,14 @@ fun GoalRegistrationScreen(navController: NavController) {
         Text(
             stringResource(id = R.string.registration_goal_title),
             modifier = Modifier.padding(top = Padding.Padding40),
-            style = PoppinsBoldStyle20Black
+            style = MaterialTheme.typography.titleMedium
         )
         Text(
             stringResource(id = R.string.registration_goal_description),
             modifier = Modifier.padding(top = Padding.Padding5),
-            style = PoppinsNormalStyle12Gray1
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = MaterialTheme.colorScheme.onSurface
+            )
         )
         CompositionLocalProvider(LocalOverscrollConfiguration provides null) {
             HorizontalPager(
@@ -135,7 +133,7 @@ fun GoalRegistrationScreen(navController: NavController) {
                 ) {
                     Column(
                         modifier = Modifier
-                            .background(brush = Brush.horizontalGradient(BrandGradient))
+                            .background(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                             .padding(top = Padding.Padding40)
                             .fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -147,7 +145,10 @@ fun GoalRegistrationScreen(navController: NavController) {
                         Spacer(modifier = Modifier.weight(1F))
                         Text(
                             stringResource(id = pagerItemModel.title),
-                            style = PoppinsSemiBoldStyle14White,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontWeight = FontWeight.SemiBold
+                            ),
                             textAlign = TextAlign.Center
                         )
                         Box(
@@ -155,7 +156,7 @@ fun GoalRegistrationScreen(navController: NavController) {
                                 .padding(top = Padding.Padding3)
                                 .width(Dimen.Dimen50)
                                 .height(Dimen.Dimen1)
-                                .background(WhiteColor)
+                                .background(MaterialTheme.colorScheme.onPrimary)
                         )
                         Text(
                             stringResource(id = pagerItemModel.description),
@@ -165,7 +166,9 @@ fun GoalRegistrationScreen(navController: NavController) {
                                 end = Padding.Padding30,
                                 bottom = Padding.Padding30
                             ),
-                            style = PoppinsNormalStyle12White,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                            ),
                             textAlign = TextAlign.Center
                         )
                     }
@@ -186,7 +189,9 @@ fun GoalRegistrationScreen(navController: NavController) {
         ) {
             Text(
                 text = stringResource(id = R.string.registration_goal_next_button_label),
-                style = PoppinsBoldStyle16
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
             )
         }
     }

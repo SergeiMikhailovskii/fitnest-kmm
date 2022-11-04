@@ -26,9 +26,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.BrandGradient
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
@@ -65,7 +65,7 @@ internal fun SplashScreen(navController: NavController) {
 
     Box(
         modifier = Modifier
-            .background(brush = Brush.verticalGradient(colors = BrandGradient))
+            .background(brush = Brush.verticalGradient(colors = MaterialTheme.colorScheme.brandGradient))
             .fillMaxSize()
     ) {
         Image(
