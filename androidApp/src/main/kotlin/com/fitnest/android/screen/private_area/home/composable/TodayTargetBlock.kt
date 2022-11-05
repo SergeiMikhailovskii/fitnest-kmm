@@ -11,20 +11,20 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.fitnest.android.R
 import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsMediumStyle14Black
 
 @Composable
 internal fun TodayTargetBlock(
@@ -49,13 +49,13 @@ internal fun TodayTargetBlock(
         ) {
             Text(
                 stringResource(id = R.string.private_area_dashboard_today_target_title),
-                style = PoppinsMediumStyle14Black
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Spacer(modifier = Modifier.weight(1F))
             Button(
-                onClick = {
-                    viewModel.navigateToActivityTracker()
-                },
+                onClick = viewModel::navigateToActivityTracker,
                 shape = CircleShape,
                 contentPadding = PaddingValues(),
                 modifier = Modifier
@@ -63,7 +63,9 @@ internal fun TodayTargetBlock(
                     .wrapContentWidth(),
             ) {
                 Box(
-                    modifier = Modifier.background(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
+                    modifier = Modifier.background(
+                        brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient)
+                    )
                 ) {
                     Text(
                         stringResource(id = R.string.private_area_dashboard_today_target_check),
