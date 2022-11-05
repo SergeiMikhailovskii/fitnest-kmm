@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.localizedNames
-import com.fitnest.android.style.PoppinsNormalStyle12Gray2
 import com.fitnest.android.view.ui_elements.FitnestTextField
 import com.fitnest.domain.enum.SexType
 
@@ -53,7 +52,9 @@ fun SexDropdown(
     ) {
         FitnestTextField(
             value = value,
-            modifier = Modifier.fillMaxWidth().menuAnchor(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(),
             leadingIcon = {
                 Image(
                     painter = painterResource(id = R.drawable.ic_complete_registration_sex),
@@ -90,7 +91,12 @@ fun SexDropdown(
                         expanded = false
                     },
                     text = {
-                        Text(it, style = PoppinsNormalStyle12Gray2)
+                        Text(
+                            it,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        )
                     }
                 )
             }

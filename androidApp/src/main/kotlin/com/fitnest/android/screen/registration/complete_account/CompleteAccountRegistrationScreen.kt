@@ -20,6 +20,7 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -59,7 +60,6 @@ import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.android.style.PoppinsBoldStyle16
 import com.fitnest.android.style.PoppinsBoldStyle20Black
-import com.fitnest.android.style.PoppinsNormalStyle12Gray1
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
@@ -186,7 +186,9 @@ internal fun CompleteAccountRegistrationScreen(
             )
             Text(
                 context.getString(R.string.registration_complete_account_screen_description),
-                style = PoppinsNormalStyle12Gray1,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
                 modifier = Modifier.constrainAs(textStepDescription) {
                     bottom.linkTo(sexDropdown.top, Padding30)
                     start.linkTo(parent.start)
