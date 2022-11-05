@@ -5,14 +5,29 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissValue
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PushPin
 import androidx.compose.material.icons.outlined.PushPin
+import androidx.compose.material.rememberDismissState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -25,7 +40,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.vibrate
-import com.fitnest.android.style.*
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
 import kotlin.math.absoluteValue
 
 @ExperimentalMaterialApi
@@ -75,8 +91,8 @@ internal fun NotificationItem(
             val color by animateColorAsState(
                 when (dismissState.targetValue) {
                     DismissValue.Default -> Color.Transparent
-                    DismissValue.DismissedToEnd -> Color.Green
-                    DismissValue.DismissedToStart -> Color.Red
+                    DismissValue.DismissedToEnd -> MaterialTheme.colorScheme.primary
+                    DismissValue.DismissedToStart -> MaterialTheme.colorScheme.error
                 }
             )
             val alignment = when (direction) {
@@ -136,8 +152,12 @@ internal fun NotificationItem(
                     .weight(1F),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(title, style = PoppinsMediumStyle12Black)
-                Text(description, style = PoppinsMediumStyle10Gray1)
+                Text(title, style = MaterialTheme.typography.bodySmall)
+                Text(
+                    description, style = MaterialTheme.typography.labelLarge.copy(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                )
             }
             if (isPinned) Icon(
                 Icons.Default.PushPin,
@@ -146,7 +166,11 @@ internal fun NotificationItem(
                     .padding(end = Padding.Padding16)
                     .size(Dimen.Dimen12)
             )
-            Icon(Icons.Default.MoreVert, contentDescription = null, tint = GrayColor2)
+            Icon(
+                Icons.Default.MoreVert,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
