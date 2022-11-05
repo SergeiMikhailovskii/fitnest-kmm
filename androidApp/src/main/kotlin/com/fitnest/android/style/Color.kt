@@ -3,16 +3,7 @@ package com.fitnest.android.style
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 
-val ErrorColor = Color(0xFFB00020)
-
-val BlackColor = Color(0xFF1D1617)
-
-val GrayColor1 = Color(0xFF7B6F72)
-val GrayColor2 = Color(0xFFADA4A5)
-
-val BorderColor = Color(0xFFF7F8F8)
-
-object LightColors {
+internal object LightColors {
     private val PrimaryColor = Color(0xFF92A3FD)
     private val OnPrimaryColor = Color(0xFFFFFFFF)
     private val PrimaryContainerColor = Color(0xFFDEE1FF)
@@ -74,7 +65,7 @@ object LightColors {
     )
 }
 
-object DarkColors {
+internal object DarkColors {
     private val PrimaryColor = Color(0xFFB9C3FF)
     private val OnPrimaryColor = Color(0xFF12277B)
     private val PrimaryContainerColor = Color(0xFF2D3F93)

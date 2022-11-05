@@ -55,7 +55,6 @@ import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.BorderColor
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import com.fitnest.android.style.TextSize
@@ -373,7 +372,7 @@ private fun WaterIntakeBlock(
                 Box(
                     modifier = Modifier
                         .weight(0.5F)
-                        .background(BorderColor)
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
                 )
                 Box(
                     modifier = Modifier

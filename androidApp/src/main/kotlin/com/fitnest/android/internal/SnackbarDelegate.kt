@@ -1,12 +1,12 @@
 package com.fitnest.android.internal
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.fitnest.android.enum.SnackbarState
-import com.fitnest.android.style.ErrorColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -21,7 +21,7 @@ internal class SnackbarDelegate(
         @Composable
         get() = when (snackbarState) {
             SnackbarState.DEFAULT -> SnackbarDefaults.color
-            SnackbarState.ERROR -> ErrorColor
+            SnackbarState.ERROR -> MaterialTheme.colorScheme.error
         }
 
     fun showSnackbar(
