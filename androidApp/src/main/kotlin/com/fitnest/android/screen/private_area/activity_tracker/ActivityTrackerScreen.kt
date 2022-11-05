@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,16 +29,16 @@ import com.fitnest.android.screen.private_area.activity_tracker.composable.Activ
 import com.fitnest.android.screen.private_area.activity_tracker.composable.LatestActivityBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
 import com.fitnest.android.style.Padding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
-@ExperimentalMaterialApi
 internal fun ActivityTrackerScreen() {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
+    val viewMapper: ActivityTrackerViewMapper by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -102,13 +102,14 @@ internal fun ActivityTrackerScreen() {
                     )
                 }
                 screenData.activityProgressWidget?.let {
+                    val progresses = viewMapper.mapActivityProgressesColors(it.progresses)
                     ActivityProgressBlock(
                         modifier = Modifier.padding(
                             top = Padding.Padding30,
                             start = Padding.Padding30,
                             end = Padding.Padding30
                         ),
-                        sections = it.progresses
+                        sections = progresses
                     )
                 }
                 screenData.latestActivityWidget?.let {

@@ -9,8 +9,12 @@ class LoginPageValidationUseCase {
         fields: LoginPageResponse.LoginPageFields,
         validationSchema: LoginPageResponse.LoginPageValidationSchema?
     ) = runCatching<Unit> {
-        val loginError = validationSchema?.login?.firstOrNull { !it.isValid(fields.login) }
-        val passwordError = validationSchema?.login?.firstOrNull { !it.isValid(fields.login) }
+        val loginError = validationSchema?.login?.firstOrNull {
+            !it.isValid("login", fields.login)
+        }
+        val passwordError = validationSchema?.login?.firstOrNull {
+            !it.isValid("password", fields.login)
+        }
 
         if (loginError != null || passwordError != null) {
             throw LoginPageValidationException(

@@ -1,16 +1,25 @@
 package com.fitnest.android.screen.registration.welcome_back
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -18,13 +27,13 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.*
-import kotlinx.coroutines.flow.collect
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Composable
-fun WelcomeBackRegistrationScreen(navController: NavController) {
+internal fun WelcomeBackRegistrationScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -65,7 +74,7 @@ fun WelcomeBackRegistrationScreen(navController: NavController) {
                 id = R.string.registration_welcome_back_title,
                 screenData.name.orEmpty()
             ),
-            style = PoppinsBoldStyle20Black,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(
                 top = Padding.Padding44,
                 start = Padding.Padding50,
@@ -74,7 +83,9 @@ fun WelcomeBackRegistrationScreen(navController: NavController) {
         )
         Text(
             text = stringResource(id = R.string.registration_welcome_back_description),
-            style = PoppinsNormalStyle12Gray1,
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            ),
             modifier = Modifier.padding(
                 top = Padding.Padding5,
                 start = Padding.Padding50,
@@ -97,7 +108,9 @@ fun WelcomeBackRegistrationScreen(navController: NavController) {
         ) {
             Text(
                 text = stringResource(id = R.string.registration_welcome_back_next_button_label),
-                style = PoppinsBoldStyle16
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
             )
         }
     }

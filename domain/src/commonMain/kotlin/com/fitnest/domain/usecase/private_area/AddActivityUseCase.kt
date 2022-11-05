@@ -35,5 +35,4 @@ class AddActivityUseCase internal constructor(
         }.map {
             it?.widgets
         }.mapError(exceptionHandler::getError)
-
 }

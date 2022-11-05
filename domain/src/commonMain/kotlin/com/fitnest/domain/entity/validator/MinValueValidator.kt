@@ -6,15 +6,18 @@ import kotlinx.serialization.Serializable
 @Serializable
 @SerialName("minValue")
 class MinValueValidator(private val validation: Int) : Validator() {
-    override fun isValid(field: Any?) = when (field) {
-        null -> {
-            false
-        }
-        is Int -> {
-            field > validation
-        }
-        else -> {
-            throw RuntimeException("MinValueValidator cannot validate ${field::class.simpleName}")
+    override fun isValid(fieldName: String, field: Any?): Boolean {
+        super.field = fieldName
+        return when (field) {
+            null -> {
+                false
+            }
+            is Int -> {
+                field > validation
+            }
+            else -> {
+                throw RuntimeException("MinValueValidator cannot validate ${field::class.simpleName}")
+            }
         }
     }
 }

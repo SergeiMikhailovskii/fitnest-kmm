@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @SerialName("required")
 class RequiredValidator : Validator() {
-    override fun isValid(field: Any?) = when (field) {
+    override fun isValid(fieldName: String, field: Any?) = when (field) {
         null -> {
             false
         }

@@ -7,12 +7,28 @@ import android.graphics.RectF
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,19 +39,25 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.LinearGradientShader
 import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import com.fitnest.android.R
+import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.extension.pxToDp
+import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.*
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
+import com.fitnest.android.style.TextSize
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -47,7 +69,9 @@ internal fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivitySt
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Text(
             stringResource(id = R.string.private_area_dashboard_activity_status_title),
-            style = PoppinsBoldStyle16Black
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.Bold
+            )
         )
 
         activityStatusWidget.heartRateSubWidget?.let {
@@ -89,7 +113,7 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
             .fillMaxWidth()
             .padding(top = Padding.Padding15)
             .background(
-                brush = Brush.horizontalGradient(BrandGradient),
+                brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient),
                 shape = RoundedCornerShape(Dimen.Dimen16),
                 alpha = 0.2F
             )
@@ -104,7 +128,9 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                 Text(
                     stringResource(id = R.string.private_area_dashboard_heart_rate_title),
                     modifier = Modifier.padding(start = Padding.Padding20),
-                    style = PoppinsMediumStyle12Black
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Medium
+                    )
                 )
                 Text(
                     stringResource(
@@ -113,8 +139,10 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                     ),
                     modifier = Modifier
                         .padding(start = Padding.Padding20, top = Padding.Padding5)
-                        .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
-                    style = PoppinsSemiBoldStyle14
+                        .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient)),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.SemiBold
+                    )
                 )
                 Image(
                     painter = painterResource(id = R.drawable.ic_private_area_heart_rate_graph),
@@ -138,10 +166,10 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                     )
                 ) {
                     Column {
-                        val now = Clock.System.now()
                         val lastHeartRateInstant =
-                            heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault()) ?: return
-                        val diff = now - lastHeartRateInstant
+                            heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault())
+                                ?: return
+                        val diff = Clock.System.now() - lastHeartRateInstant
                         val minutesDiff = diff.inWholeMinutes
                         DrawTooltip(minutesDiff)
                     }
@@ -168,7 +196,7 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
         modifier = Modifier
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .aspectRatio(1F)
     ) {
         Column {
@@ -178,7 +206,9 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
                     start = Padding.Padding20,
                     top = Padding.Padding20
                 ),
-                style = PoppinsMediumStyle12Black
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Text(
                 buildSleepDurationAnnotatedString(
@@ -190,8 +220,10 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
                         start = Padding.Padding20,
                         top = Padding.Padding5
                     )
-                    .textBrush(brush = Brush.horizontalGradient(BrandGradient)),
-                style = PoppinsMediumStyle12
+                    .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient)),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_private_area_sleep_graph),
@@ -231,7 +263,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
             .fillMaxWidth()
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .aspectRatio(1F)
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -243,7 +275,9 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                         top = Padding.Padding20
                     )
                     .fillMaxWidth(),
-                style = PoppinsMediumStyle12Black
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Text(
                 stringResource(
@@ -255,9 +289,11 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                         start = Padding.Padding20,
                         top = Padding.Padding5
                     )
-                    .textBrush(brush = Brush.horizontalGradient(BrandGradient))
+                    .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                     .fillMaxWidth(),
-                style = PoppinsMediumStyle14
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Box(
                 modifier = Modifier
@@ -272,13 +308,13 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                     progress = ((caloriesSubWidget.consumed?.toDouble()
                         ?: .0) / ((caloriesSubWidget.consumed
                         ?: 0) + (caloriesSubWidget.left ?: 0))).toFloat(),
-                    color = BrandColor,
+                    color = MaterialTheme.colorScheme.primary,
                 )
                 Box(
                     modifier = Modifier
                         .padding(all = Padding.Padding9)
                         .background(
-                            brush = Brush.horizontalGradient(BrandGradient),
+                            brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient),
                             shape = CircleShape
                         )
                         .aspectRatio(1F),
@@ -291,7 +327,10 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                         ),
                         modifier = Modifier.padding(all = Padding.Padding6),
                         textAlign = TextAlign.Center,
-                        style = PoppinsMediumStyle8White
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
                     )
                 }
             }
@@ -309,7 +348,7 @@ private fun WaterIntakeBlock(
             .fillMaxHeight()
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .padding(end = Padding.Padding8)
     ) {
         Row(
@@ -327,18 +366,18 @@ private fun WaterIntakeBlock(
                     .fillMaxHeight()
                     .width(Dimen.Dimen20)
                     .clip(RoundedCornerShape(size = Dimen.Dimen30))
-                    .background(BorderColor),
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
                 verticalArrangement = Arrangement.Bottom
             ) {
                 Box(
                     modifier = Modifier
                         .weight(0.5F)
-                        .background(BorderColor)
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
                 )
                 Box(
                     modifier = Modifier
                         .weight(0.5F)
-                        .background(brush = Brush.verticalGradient(BrandGradient))
+                        .background(brush = Brush.verticalGradient(MaterialTheme.colorScheme.brandGradient))
                         .fillMaxWidth()
                 )
             }
@@ -349,7 +388,9 @@ private fun WaterIntakeBlock(
             ) {
                 Text(
                     stringResource(id = R.string.private_area_dashboard_water_intake_title),
-                    style = PoppinsMediumStyle12Black
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Medium
+                    )
                 )
                 Text(
                     stringResource(
@@ -357,41 +398,53 @@ private fun WaterIntakeBlock(
                         waterIntakeSubWidget.amount ?: .0
                     ),
                     modifier = Modifier
-                        .textBrush(brush = Brush.horizontalGradient(BrandGradient))
+                        .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                         .padding(top = Padding.Padding5),
-                    style = PoppinsMediumStyle14
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Medium
+                    )
                 )
                 Text(
                     stringResource(id = R.string.private_area_dashboard_water_intake_realtime_updates),
                     modifier = Modifier.padding(top = Padding.Padding10),
-                    style = PoppinsMediumStyle10Gray1
+                    style = MaterialTheme.typography.labelLarge.copy(
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 )
                 Box(Modifier.height(Dimen.Dimen10))
                 waterIntakeSubWidget.intakes?.forEach {
-                    Text(it.timeDiapason.orEmpty(), style = PoppinsNormalStyle8Gray2)
+                    Text(
+                        it.timeDiapason.orEmpty(),
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    )
                     Text(
                         stringResource(
                             id = R.string.private_area_dashboard_water_intake_millis,
                             it.amountInMillis ?: 0
                         ),
-                        style = PoppinsMediumStyle8,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontWeight = FontWeight.Medium
+                        ),
                         modifier = Modifier
-                            .textBrush(brush = Brush.horizontalGradient(SecondaryGradient))
+                            .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.tertiaryGradient))
                             .padding(top = Padding.Padding3)
                     )
                     Box(Modifier.height(Dimen.Dimen10))
                 }
             }
         }
-
     }
 }
 
 @Composable
 private fun DrawActivityRing() {
+    val circleGradient = MaterialTheme.colorScheme.tertiaryGradient
     Canvas(modifier = Modifier) {
         drawCircle(
-            brush = Brush.horizontalGradient(SecondaryGradient),
+            brush = Brush.horizontalGradient(circleGradient),
             radius = Dimen.Dimen4.toPx(),
         )
         drawCircle(
@@ -407,12 +460,14 @@ private fun DrawTooltip(lastHeartRate: Long) {
         id = R.string.private_area_dashboard_tooltip_minutes_left,
         lastHeartRate
     )
+    val paintColor = MaterialTheme.colorScheme.onPrimary.toArgb()
+    val shaderGradient = MaterialTheme.colorScheme.tertiaryGradient
     Canvas(modifier = Modifier) {
         val nativeCanvas = this.drawContext.canvas.nativeCanvas
 
         val textPaint = Paint().apply {
             textSize = TextSize.Size10.toPx()
-            color = android.graphics.Color.WHITE
+            color = paintColor
         }
         val textBounds = Rect()
 
@@ -462,7 +517,7 @@ private fun DrawTooltip(lastHeartRate: Long) {
                     tooltipWidth,
                     0F
                 ),
-                colors = SecondaryGradient
+                colors = shaderGradient
             )
         })
 

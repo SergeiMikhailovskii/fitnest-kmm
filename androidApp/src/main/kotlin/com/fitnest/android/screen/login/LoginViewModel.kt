@@ -76,20 +76,6 @@ internal class LoginViewModel(
         updateScreenData()
     }
 
-    internal fun updateLoginFocus(isFocused: Boolean) {
-        screenData = screenData.copy(
-            hasLoginFocus = isFocused
-        )
-        updateScreenData()
-    }
-
-    internal fun updatePasswordFocus(isFocused: Boolean) {
-        screenData = screenData.copy(
-            hasPasswordFocus = isFocused
-        )
-        updateScreenData()
-    }
-
     internal fun changePasswordVisibility() {
         screenData = screenData.copy(
             isPasswordVisible = !screenData.isPasswordVisible

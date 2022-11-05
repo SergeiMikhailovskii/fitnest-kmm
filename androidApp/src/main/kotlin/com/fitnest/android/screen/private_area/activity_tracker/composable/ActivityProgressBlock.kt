@@ -11,25 +11,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
-import com.fitnest.android.style.BorderColor
-import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsNormalStyle12Gray1
-import com.fitnest.android.style.PoppinsSemiBoldStyle16Black
-import com.fitnest.android.style.SecondaryColor
-import com.fitnest.android.style.WhiteColor
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -41,37 +37,37 @@ internal fun ActivityProgressBlockPreview() {
             ActivityTrackerScreenData.Progress(
                 day = "Mon",
                 progress = 0.1F,
-                color = BrandColor.toArgb()
+                color = MaterialTheme.colorScheme.primary.toArgb()
             ),
             ActivityTrackerScreenData.Progress(
                 day = "Tue",
                 progress = 0.2F,
-                color = SecondaryColor.toArgb()
+                color = MaterialTheme.colorScheme.tertiary.toArgb()
             ),
             ActivityTrackerScreenData.Progress(
                 day = "Wed",
                 progress = 0.3F,
-                color = BrandColor.toArgb()
+                color = MaterialTheme.colorScheme.primary.toArgb()
             ),
             ActivityTrackerScreenData.Progress(
                 day = "Thu",
                 progress = 0.4F,
-                color = SecondaryColor.toArgb()
+                color = MaterialTheme.colorScheme.tertiary.toArgb()
             ),
             ActivityTrackerScreenData.Progress(
                 day = "Fri",
                 progress = 0.5F,
-                color = BrandColor.toArgb()
+                color = MaterialTheme.colorScheme.primary.toArgb()
             ),
             ActivityTrackerScreenData.Progress(
                 day = "Sat",
                 progress = 0.6F,
-                color = SecondaryColor.toArgb()
+                color = MaterialTheme.colorScheme.tertiary.toArgb()
             ),
             ActivityTrackerScreenData.Progress(
                 day = "Sun",
                 progress = 0.7F,
-                color = BrandColor.toArgb()
+                color = MaterialTheme.colorScheme.primary.toArgb()
             )
         )
     )
@@ -85,7 +81,9 @@ internal fun ActivityProgressBlock(
     Column(modifier = modifier) {
         Text(
             stringResource(id = R.string.private_area_activity_tracker_screen_activity_progress_title),
-            style = PoppinsSemiBoldStyle16Black
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.SemiBold
+            )
         )
         Card(
             modifier = Modifier
@@ -95,7 +93,7 @@ internal fun ActivityProgressBlock(
         ) {
             Row(
                 modifier = Modifier
-                    .background(WhiteColor)
+                    .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(Padding.Padding20)
             ) {
                 sections?.forEach {
@@ -103,6 +101,7 @@ internal fun ActivityProgressBlock(
                         modifier = Modifier.weight(1F),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        val pathColor = MaterialTheme.colorScheme.surfaceVariant.toArgb()
                         Canvas(modifier = Modifier.height(Dimen.Dimen135)) {
                             val corners = floatArrayOf(
                                 Dimen.Dimen10.toPx(), Dimen.Dimen10.toPx(),
@@ -122,7 +121,7 @@ internal fun ActivityProgressBlock(
                                 Path.Direction.CW
                             )
                             drawContext.canvas.nativeCanvas.drawPath(path, Paint().apply {
-                                color = BorderColor.toArgb()
+                                color = pathColor
                             })
 
                             val newPath = Path()
@@ -137,13 +136,15 @@ internal fun ActivityProgressBlock(
                                 Path.Direction.CW
                             )
                             drawContext.canvas.nativeCanvas.drawPath(newPath, Paint().apply {
-                                color = it.color
+                                it.color?.let(::setColor)
                             })
                         }
                         Text(
                             text = it.day,
                             modifier = Modifier.padding(top = Padding.Padding7),
-                            style = PoppinsNormalStyle12Gray1
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
                         )
                     }
                 }

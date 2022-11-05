@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.di.androidModule
 import com.fitnest.android.di.privateAreaModule
@@ -29,6 +30,7 @@ import org.kodein.di.diContext
 import org.kodein.di.instance
 import kotlin.time.ExperimentalTime
 
+@ExperimentalMaterial3Api
 @ExperimentalTime
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi

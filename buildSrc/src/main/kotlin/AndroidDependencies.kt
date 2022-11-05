@@ -1,7 +1,7 @@
 object AndroidDependencies : Dependencies {
 
     private object Versions {
-        const val MATERIAL_VERSION = "1.4.0"
+        const val MATERIAL_VERSION = "1.7.0"
         const val APPCOMPAT_VERSION = "1.3.1"
         const val CONSTRAINT_LAYOUT_VERSION = "2.1.1"
         const val PLAY_SERVICES_AUTH_VERSION = "19.2.0"

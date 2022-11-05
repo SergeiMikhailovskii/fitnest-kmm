@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -26,19 +26,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.BrandGradient
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.TextSize
-import com.fitnest.android.style.poppinsFamily
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Composable
-fun SplashScreen(navController: NavController) {
+internal fun SplashScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
@@ -47,7 +44,7 @@ fun SplashScreen(navController: NavController) {
         modelClass = SplashViewModel::class.java
     )
 
-    var progress: Boolean? by remember { mutableStateOf(null) }
+    var progress by remember { mutableStateOf(true) }
 
     LaunchedEffect(key1 = null) {
         launch {
@@ -68,7 +65,7 @@ fun SplashScreen(navController: NavController) {
 
     Box(
         modifier = Modifier
-            .background(brush = Brush.verticalGradient(colors = BrandGradient))
+            .background(brush = Brush.verticalGradient(colors = MaterialTheme.colorScheme.brandGradient))
             .fillMaxSize()
     ) {
         Image(
@@ -76,12 +73,9 @@ fun SplashScreen(navController: NavController) {
             contentDescription = null,
             modifier = Modifier.align(Alignment.Center)
         )
-        if (progress == false) {
-            OutlinedButton(
-                onClick = {
-                    viewModel.navigateNext()
-                },
-                shape = CircleShape,
+        if (!progress) {
+            FilledTonalButton(
+                onClick = viewModel::navigateNext,
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding30,
@@ -94,9 +88,9 @@ fun SplashScreen(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(id = R.string.splash_button_title),
-                    fontFamily = poppinsFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = TextSize.Size16
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    )
                 )
             }
         }

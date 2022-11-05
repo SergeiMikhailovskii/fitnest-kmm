@@ -86,34 +86,6 @@ internal class CreateAccountRegistrationViewModel(
         updateScreenData()
     }
 
-    internal fun updateFirstNameFocus(isFocused: Boolean) {
-        screenData = screenData.copy(
-            isFirstNameFocused = isFocused,
-        )
-        updateScreenData()
-    }
-
-    internal fun updateLastNameFocus(isFocused: Boolean) {
-        screenData = screenData.copy(
-            isLastNameFocused = isFocused,
-        )
-        updateScreenData()
-    }
-
-    internal fun updateEmailFocus(isFocused: Boolean) {
-        screenData = screenData.copy(
-            isEmailFocused = isFocused,
-        )
-        updateScreenData()
-    }
-
-    internal fun updatePasswordFocus(isFocused: Boolean) {
-        screenData = screenData.copy(
-            isPasswordFocused = isFocused,
-        )
-        updateScreenData()
-    }
-
     internal fun submitRegistration() {
         viewModelScope.launch(exceptionHandler) {
             val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)

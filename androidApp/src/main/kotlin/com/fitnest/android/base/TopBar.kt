@@ -6,19 +6,20 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.fitnest.android.R
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsBoldStyle16
 
 @Composable
 fun TopBar(navController: NavController) {
@@ -35,15 +36,15 @@ fun TopBar(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.ic_top_bar_back),
                 contentDescription = null,
-                modifier = Modifier.clickable {
-                    navController.navigateUp()
-                }
+                modifier = Modifier.clickable(onClick = navController::navigateUp)
             )
             Text(
                 topBarScreenName(currentRoute),
                 modifier = Modifier.weight(1F),
                 textAlign = TextAlign.Center,
-                style = PoppinsBoldStyle16
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_top_bar_options),
