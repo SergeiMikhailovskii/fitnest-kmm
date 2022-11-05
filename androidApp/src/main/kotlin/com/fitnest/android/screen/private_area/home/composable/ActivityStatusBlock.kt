@@ -58,7 +58,6 @@ import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.BorderColor
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsMediumStyle8
 import com.fitnest.android.style.TextSize
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -427,7 +426,9 @@ private fun WaterIntakeBlock(
                             id = R.string.private_area_dashboard_water_intake_millis,
                             it.amountInMillis ?: 0
                         ),
-                        style = PoppinsMediumStyle8,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontWeight = FontWeight.Medium
+                        ),
                         modifier = Modifier
                             .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.tertiaryGradient))
                             .padding(top = Padding.Padding3)

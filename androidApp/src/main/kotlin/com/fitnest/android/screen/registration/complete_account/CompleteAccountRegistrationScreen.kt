@@ -36,6 +36,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,8 +59,6 @@ import com.fitnest.android.style.Padding
 import com.fitnest.android.style.Padding.Padding10
 import com.fitnest.android.style.Padding.Padding15
 import com.fitnest.android.style.Padding.Padding30
-import com.fitnest.android.style.PoppinsBoldStyle16
-import com.fitnest.android.style.PoppinsBoldStyle20Black
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
@@ -177,7 +176,7 @@ internal fun CompleteAccountRegistrationScreen(
             )
             Text(
                 context.getString(R.string.registration_complete_account_title),
-                style = PoppinsBoldStyle20Black,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.constrainAs(textStepTitle) {
                     bottom.linkTo(textStepDescription.top, Padding10)
                     start.linkTo(parent.start)
@@ -282,7 +281,9 @@ internal fun CompleteAccountRegistrationScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.registration_complete_account_next_button_label),
-                    style = PoppinsBoldStyle16
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    )
                 )
                 Icon(imageVector = Icons.Filled.ChevronRight, contentDescription = null)
             }
