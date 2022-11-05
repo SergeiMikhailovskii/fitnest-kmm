@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    kotlin("plugin.serialization") version "1.5.30"
+    kotlin("plugin.serialization") version "1.7.20"
     id("com.android.library")
 }
 
