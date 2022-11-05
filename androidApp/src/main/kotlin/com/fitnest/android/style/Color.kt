@@ -9,7 +9,6 @@ val BlackColor = Color(0xFF1D1617)
 
 val GrayColor1 = Color(0xFF7B6F72)
 val GrayColor2 = Color(0xFFADA4A5)
-val GrayColor3 = Color(0xFFDDDADA)
 
 val BorderColor = Color(0xFFF7F8F8)
 
