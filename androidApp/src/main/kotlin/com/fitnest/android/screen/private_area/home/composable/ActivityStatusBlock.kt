@@ -21,9 +21,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,12 +39,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.LinearGradientShader
 import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import com.fitnest.android.R
@@ -54,18 +56,9 @@ import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.BorderColor
-import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsBoldStyle16Black
-import com.fitnest.android.style.PoppinsMediumStyle10Gray1
-import com.fitnest.android.style.PoppinsMediumStyle12
-import com.fitnest.android.style.PoppinsMediumStyle12Black
-import com.fitnest.android.style.PoppinsMediumStyle14
 import com.fitnest.android.style.PoppinsMediumStyle8
-import com.fitnest.android.style.PoppinsMediumStyle8White
-import com.fitnest.android.style.PoppinsNormalStyle8Gray2
-import com.fitnest.android.style.PoppinsSemiBoldStyle14
 import com.fitnest.android.style.TextSize
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -78,7 +71,9 @@ internal fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivitySt
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Text(
             stringResource(id = R.string.private_area_dashboard_activity_status_title),
-            style = PoppinsBoldStyle16Black
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.Bold
+            )
         )
 
         activityStatusWidget.heartRateSubWidget?.let {
@@ -135,7 +130,9 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                 Text(
                     stringResource(id = R.string.private_area_dashboard_heart_rate_title),
                     modifier = Modifier.padding(start = Padding.Padding20),
-                    style = PoppinsMediumStyle12Black
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Medium
+                    )
                 )
                 Text(
                     stringResource(
@@ -145,7 +142,9 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                     modifier = Modifier
                         .padding(start = Padding.Padding20, top = Padding.Padding5)
                         .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient)),
-                    style = PoppinsSemiBoldStyle14
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.SemiBold
+                    )
                 )
                 Image(
                     painter = painterResource(id = R.drawable.ic_private_area_heart_rate_graph),
@@ -199,7 +198,7 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
         modifier = Modifier
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .aspectRatio(1F)
     ) {
         Column {
@@ -209,7 +208,9 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
                     start = Padding.Padding20,
                     top = Padding.Padding20
                 ),
-                style = PoppinsMediumStyle12Black
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Text(
                 buildSleepDurationAnnotatedString(
@@ -222,7 +223,9 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
                         top = Padding.Padding5
                     )
                     .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient)),
-                style = PoppinsMediumStyle12
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_private_area_sleep_graph),
@@ -262,7 +265,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
             .fillMaxWidth()
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .aspectRatio(1F)
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -274,7 +277,9 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                         top = Padding.Padding20
                     )
                     .fillMaxWidth(),
-                style = PoppinsMediumStyle12Black
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Text(
                 stringResource(
@@ -288,7 +293,9 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                     )
                     .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                     .fillMaxWidth(),
-                style = PoppinsMediumStyle14
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Medium
+                )
             )
             Box(
                 modifier = Modifier
@@ -303,7 +310,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                     progress = ((caloriesSubWidget.consumed?.toDouble()
                         ?: .0) / ((caloriesSubWidget.consumed
                         ?: 0) + (caloriesSubWidget.left ?: 0))).toFloat(),
-                    color = BrandColor,
+                    color = MaterialTheme.colorScheme.primary,
                 )
                 Box(
                     modifier = Modifier
@@ -322,7 +329,10 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                         ),
                         modifier = Modifier.padding(all = Padding.Padding6),
                         textAlign = TextAlign.Center,
-                        style = PoppinsMediumStyle8White
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
                     )
                 }
             }
@@ -340,7 +350,7 @@ private fun WaterIntakeBlock(
             .fillMaxHeight()
             .shadow(elevation = Dimen.Dimen40)
             .clip(RoundedCornerShape(size = Dimen.Dimen20))
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .padding(end = Padding.Padding8)
     ) {
         Row(
@@ -358,7 +368,7 @@ private fun WaterIntakeBlock(
                     .fillMaxHeight()
                     .width(Dimen.Dimen20)
                     .clip(RoundedCornerShape(size = Dimen.Dimen30))
-                    .background(BorderColor),
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
                 verticalArrangement = Arrangement.Bottom
             ) {
                 Box(
@@ -380,7 +390,9 @@ private fun WaterIntakeBlock(
             ) {
                 Text(
                     stringResource(id = R.string.private_area_dashboard_water_intake_title),
-                    style = PoppinsMediumStyle12Black
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Medium
+                    )
                 )
                 Text(
                     stringResource(
@@ -390,16 +402,26 @@ private fun WaterIntakeBlock(
                     modifier = Modifier
                         .textBrush(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient))
                         .padding(top = Padding.Padding5),
-                    style = PoppinsMediumStyle14
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Medium
+                    )
                 )
                 Text(
                     stringResource(id = R.string.private_area_dashboard_water_intake_realtime_updates),
                     modifier = Modifier.padding(top = Padding.Padding10),
-                    style = PoppinsMediumStyle10Gray1
+                    style = MaterialTheme.typography.labelLarge.copy(
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 )
                 Box(Modifier.height(Dimen.Dimen10))
                 waterIntakeSubWidget.intakes?.forEach {
-                    Text(it.timeDiapason.orEmpty(), style = PoppinsNormalStyle8Gray2)
+                    Text(
+                        it.timeDiapason.orEmpty(),
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    )
                     Text(
                         stringResource(
                             id = R.string.private_area_dashboard_water_intake_millis,
@@ -414,7 +436,6 @@ private fun WaterIntakeBlock(
                 }
             }
         }
-
     }
 }
 
@@ -439,13 +460,14 @@ private fun DrawTooltip(lastHeartRate: Long) {
         id = R.string.private_area_dashboard_tooltip_minutes_left,
         lastHeartRate
     )
+    val paintColor = MaterialTheme.colorScheme.onPrimary.toArgb()
     val shaderGradient = MaterialTheme.colorScheme.tertiaryGradient
     Canvas(modifier = Modifier) {
         val nativeCanvas = this.drawContext.canvas.nativeCanvas
 
         val textPaint = Paint().apply {
             textSize = TextSize.Size10.toPx()
-            color = android.graphics.Color.WHITE
+            color = paintColor
         }
         val textBounds = Rect()
 

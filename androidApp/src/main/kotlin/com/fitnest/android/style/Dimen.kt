@@ -22,6 +22,7 @@ object Dimen {
     val Dimen50 = 50.dp
     val Dimen60 = 60.dp
     val Dimen135 = 135.dp
+    val Dimen200 = 200.dp
 }
 
 object Padding {
