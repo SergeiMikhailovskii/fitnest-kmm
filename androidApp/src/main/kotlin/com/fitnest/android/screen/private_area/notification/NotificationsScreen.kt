@@ -8,14 +8,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.zIndex
@@ -25,7 +32,6 @@ import com.fitnest.android.extension.vibrate
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.extension.move
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -56,10 +62,12 @@ internal fun NotificationsScreen() {
 
     val view = LocalView.current
 
-    val indexWithOffset by derivedStateOf {
-        draggedItem
-            ?.let { listState.layoutInfo.visibleItemsInfo.getOrNull(it - listState.firstVisibleItemIndex) }
-            ?.let { Pair(it.index, (position ?: 0f) - it.offset - it.size / 2f) }
+    val indexWithOffset by remember {
+        derivedStateOf {
+            draggedItem
+                ?.let { listState.layoutInfo.visibleItemsInfo.getOrNull(it - listState.firstVisibleItemIndex) }
+                ?.let { Pair(it.index, (position ?: 0f) - it.offset - it.size / 2f) }
+        }
     }
 
     LaunchedEffect(listState) {
@@ -107,7 +115,7 @@ internal fun NotificationsScreen() {
                                 }
                         },
                         onDrag = { change, dragAmount ->
-                            change.consumeAllChanges()
+                            change.consume()
                             position = position?.plus(dragAmount.y)
                         },
                         onDragEnd = {
