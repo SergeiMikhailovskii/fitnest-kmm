@@ -3,20 +3,27 @@ package com.fitnest.android.screen.private_area.home.composable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.*
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
 
 @Composable
 internal fun HeaderBlock(
@@ -32,12 +39,14 @@ internal fun HeaderBlock(
         Column {
             Text(
                 text = stringResource(id = R.string.private_area_dashboard_header_welcome_back),
-                style = PoppinsNormalStyle12Gray2
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             )
             Text(
                 text = headerWidget.name.orEmpty(),
                 modifier = Modifier.padding(top = Padding.Padding5),
-                style = PoppinsBoldStyle20Black
+                style = MaterialTheme.typography.titleMedium
             )
         }
         Spacer(modifier = Modifier.weight(1F))
@@ -46,10 +55,8 @@ internal fun HeaderBlock(
                 .width(Dimen.Dimen40)
                 .height(Dimen.Dimen40)
                 .clip(RoundedCornerShape(Dimen.Dimen8))
-                .background(BorderColor)
-                .clickable {
-                    viewModel.navigateToNotifications()
-                },
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .clickable(onClick = viewModel::navigateToNotifications),
             contentAlignment = Alignment.Center
         ) {
             val notificationRes = if (headerWidget.hasNotifications == true)
