@@ -2,11 +2,18 @@ package com.fitnest.android.screen.private_area.home.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,9 +21,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.*
+import com.fitnest.android.style.Dimen
+import com.fitnest.android.style.Padding
 
 @Composable
 internal fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkoutWidget) {
@@ -24,12 +33,16 @@ internal fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkou
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 stringResource(id = R.string.private_area_dashboard_latest_workout_title),
-                style = PoppinsSemiBoldStyle16Black
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.SemiBold
+                )
             )
             Spacer(modifier = Modifier.weight(1F))
             Text(
                 stringResource(id = R.string.private_area_dashboard_latest_workout_see_more),
-                style = PoppinsMediumStyle12Gray2
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    color = MaterialTheme.colorScheme.outline
+                )
             )
         }
         latestWorkoutWidget.workouts?.forEach {
@@ -38,7 +51,7 @@ internal fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkou
                     .padding(bottom = Padding.Padding15)
                     .shadow(Dimen.Dimen40)
                     .background(
-                        color = WhiteColor,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         shape = RoundedCornerShape(size = Dimen.Dimen16)
                     ),
                 model = it
@@ -69,14 +82,21 @@ private fun LatestWorkoutItem(modifier: Modifier, model: HomeScreenData.Workout)
                 )
                 .weight(1F)
         ) {
-            Text(model.name.orEmpty(), style = PoppinsMediumStyle12Black)
+            Text(
+                model.name.orEmpty(),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Medium
+                )
+            )
             Text(
                 stringResource(
                     id = R.string.private_area_dashboard_latest_workout_calories_burn,
                     model.calories ?: 0,
                     model.minutes ?: 0
                 ),
-                style = PoppinsNormalStyle10Gray2,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    color = MaterialTheme.colorScheme.outline
+                ),
                 modifier = Modifier.padding(top = Padding.Padding5)
             )
             LinearProgressIndicator(
@@ -84,8 +104,8 @@ private fun LatestWorkoutItem(modifier: Modifier, model: HomeScreenData.Workout)
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = Padding.Padding15),
-                color = SecondaryColor,
-                backgroundColor = BorderColor
+                color = MaterialTheme.colorScheme.tertiary,
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant
             )
         }
         Image(
