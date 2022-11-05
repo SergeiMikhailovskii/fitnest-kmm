@@ -337,6 +337,6 @@ internal fun CreateAccountRegistrationScreen(navController: NavController) {
     }
 }
 
-object CreateAccountRegistrationScreenUtils {
+private object CreateAccountRegistrationScreenUtils {
     const val LOGIN_SPAN_TAG = "LOGIN"
 }

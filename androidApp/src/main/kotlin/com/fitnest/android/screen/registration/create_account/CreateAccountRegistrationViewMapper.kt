@@ -3,7 +3,7 @@ package com.fitnest.android.screen.registration.create_account
 import com.fitnest.android.base.BaseViewMapper
 import com.fitnest.domain.entity.request.CreateAccountStepRequest
 
-class CreateAccountRegistrationViewMapper :
+internal class CreateAccountRegistrationViewMapper :
     BaseViewMapper<CreateAccountRegistrationScreenData, CreateAccountStepRequest> {
     override fun mapScreenDataToStepRequestModel(
         data: CreateAccountRegistrationScreenData

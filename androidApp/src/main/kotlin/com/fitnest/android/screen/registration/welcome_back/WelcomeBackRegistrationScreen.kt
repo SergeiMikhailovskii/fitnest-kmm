@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @Composable
-fun WelcomeBackRegistrationScreen(navController: NavController) {
+internal fun WelcomeBackRegistrationScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val viewModel = viewModel(
         factory = viewModelFactory,

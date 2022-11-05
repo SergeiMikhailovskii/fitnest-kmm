@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,13 +18,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,9 +33,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.lifecycle.ViewModelProvider
@@ -45,15 +49,7 @@ import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.GrayColor3
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsBoldStyle16
-import com.fitnest.android.style.PoppinsBoldStyle20Black
-import com.fitnest.android.style.PoppinsMediumStyle12Gray2
-import com.fitnest.android.style.PoppinsNormalStyle12Black
-import com.fitnest.android.style.PoppinsNormalStyle14
-import com.fitnest.android.style.PoppinsNormalStyle14Black
-import com.fitnest.android.style.PoppinsNormalStyle16Black
 import com.fitnest.android.view.dialog.ForgetPasswordSuccessDialog
 import com.fitnest.android.view.ui_elements.DividerWithChild
 import com.fitnest.android.view.ui_elements.FitnestTextField
@@ -101,19 +97,21 @@ internal fun LoginScreen(navController: NavController) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
+                .padding(it)
                 .fillMaxSize()
-                .clickable {
-                    focusManager.clearFocus()
-                }) {
+                .pointerInput(Unit) {
+                    detectTapGestures { focusManager.clearFocus() }
+                }
+        ) {
             Text(
                 modifier = Modifier.padding(top = Padding.Padding40),
                 text = stringResource(id = R.string.login_title),
-                style = PoppinsNormalStyle16Black
+                style = MaterialTheme.typography.bodyLarge
             )
             Text(
                 modifier = Modifier.padding(top = Padding.Padding5),
                 text = stringResource(id = R.string.login_description),
-                style = PoppinsBoldStyle20Black
+                style = MaterialTheme.typography.titleMedium
             )
             FitnestTextField(
                 value = screenData.login.orEmpty(),
@@ -131,7 +129,7 @@ internal fun LoginScreen(navController: NavController) {
                 label = {
                     Text(
                         stringResource(id = R.string.login_email_hint),
-                        style = PoppinsNormalStyle14
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 },
                 onValueChange = viewModel::updateLogin,
@@ -153,7 +151,7 @@ internal fun LoginScreen(navController: NavController) {
                 label = {
                     Text(
                         stringResource(id = R.string.login_password_hint),
-                        style = PoppinsNormalStyle14
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 },
                 trailingIcon = {
@@ -171,8 +169,10 @@ internal fun LoginScreen(navController: NavController) {
             )
             Text(
                 text = stringResource(id = R.string.login_forgot_password),
-                style = PoppinsMediumStyle12Gray2.copy(
-                    textDecoration = TextDecoration.Underline
+                style = MaterialTheme.typography.bodySmall.copy(
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.outline
                 ),
                 modifier = Modifier
                     .padding(top = Padding.Padding10)
@@ -201,7 +201,9 @@ internal fun LoginScreen(navController: NavController) {
                     )
                     Text(
                         text = stringResource(id = R.string.login_login_button),
-                        style = PoppinsBoldStyle16
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Bold
+                        )
                     )
                 }
             }
@@ -216,7 +218,7 @@ internal fun LoginScreen(navController: NavController) {
                 Text(
                     text = stringResource(id = R.string.login_footer_divider),
                     modifier = Modifier.padding(horizontal = Padding.Padding15),
-                    style = PoppinsNormalStyle12Black
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
             Row {
@@ -224,13 +226,9 @@ internal fun LoginScreen(navController: NavController) {
                     modifier = Modifier
                         .height(Dimen.Dimen50)
                         .width(Dimen.Dimen50)
-                        .clickable {
-                            googleSignInService.login {
-                                viewModel.handleGoogleSignIn(it)
-                            }
-                        },
+                        .clickable { googleSignInService.login(viewModel::handleGoogleSignIn) },
                     shape = RoundedCornerShape(Dimen.Dimen14),
-                    border = BorderStroke(Dimen.Dimen1, GrayColor3),
+                    border = BorderStroke(Dimen.Dimen1, MaterialTheme.colorScheme.surfaceVariant),
                 ) {
                     Box(
                         modifier = Modifier
@@ -252,17 +250,13 @@ internal fun LoginScreen(navController: NavController) {
                         .height(Dimen.Dimen50)
                         .width(Dimen.Dimen50),
                     shape = RoundedCornerShape(Dimen.Dimen14),
-                    border = BorderStroke(Dimen.Dimen1, GrayColor3),
+                    border = BorderStroke(Dimen.Dimen1, MaterialTheme.colorScheme.surfaceVariant),
                 ) {
                     Box(
                         modifier = Modifier
                             .background(Color.White)
                             .size(Dimen.Dimen20)
-                            .clickable {
-                                facebookService.login {
-                                    viewModel.handleFacebookLogin(it)
-                                }
-                            },
+                            .clickable { facebookService.login(viewModel::handleFacebookLogin) },
                         contentAlignment = Alignment.Center,
                     ) {
                         Image(
@@ -274,7 +268,7 @@ internal fun LoginScreen(navController: NavController) {
             }
             ClickableText(
                 text = registrationAnnotatedString,
-                style = PoppinsNormalStyle14Black,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(
                     bottom = Padding.Padding40,
                     top = Padding.Padding30
@@ -300,9 +294,7 @@ internal fun LoginScreen(navController: NavController) {
         }
 
         if (screenState == LoginScreenState.FORGET_PASSWORD_SUCCESS) {
-            ForgetPasswordSuccessDialog {
-                viewModel.dismissForgetPasswordDialog()
-            }
+            ForgetPasswordSuccessDialog(viewModel::dismissForgetPasswordDialog)
         }
     }
 }
