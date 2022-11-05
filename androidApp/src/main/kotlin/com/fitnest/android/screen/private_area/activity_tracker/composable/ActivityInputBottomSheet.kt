@@ -14,8 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
@@ -34,10 +36,7 @@ import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNames
 import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.GrayColor1
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsBoldStyle16
-import com.fitnest.android.style.PoppinsSemiBoldStyle14White
 import com.fitnest.domain.enum.ActivityType
 
 @Preview
@@ -67,7 +66,7 @@ internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
                 .width(Dimen.Dimen60)
                 .height(Dimen.Dimen8)
                 .clip(CircleShape)
-                .background(GrayColor1)
+                .background(MaterialTheme.colorScheme.onSurfaceVariant)
         )
         Row(
             modifier = Modifier
@@ -75,12 +74,14 @@ internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
                 .fillMaxWidth()
                 .padding(horizontal = Padding.Padding30)
                 .clip(CircleShape)
-                .background(Color.Red),
+                .background(MaterialTheme.colorScheme.error),
             verticalAlignment = Alignment.CenterVertically
         ) {
             items.forEach {
                 val background by animateColorAsState(
-                    targetValue = if (it == currentActive) Color.Blue else Color.Transparent,
+                    targetValue =
+                    if (it == currentActive) MaterialTheme.colorScheme.primary
+                    else Color.Transparent,
                     animationSpec = tween(AnimationConstants.DefaultDurationMillis)
                 )
                 Text(
@@ -89,16 +90,16 @@ internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
                         .clip(CircleShape)
                         .weight(1F)
                         .background(background)
-                        .clickable {
-                            currentActive = it
-                        }
+                        .clickable { currentActive = it }
                         .padding(
                             vertical = Padding.Padding8,
                             horizontal = Padding.Padding16
                         ),
-                    color = Color.White,
                     textAlign = TextAlign.Center,
-                    style = PoppinsSemiBoldStyle14White
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
                 )
             }
         }
@@ -137,7 +138,9 @@ internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
         ) {
             Text(
                 text = stringResource(id = R.string.private_area_activity_tracker_screen_latest_activity_save),
-                style = PoppinsBoldStyle16
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
             )
         }
     }
