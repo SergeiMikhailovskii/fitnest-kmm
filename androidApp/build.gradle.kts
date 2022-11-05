@@ -12,7 +12,7 @@ dependencies {
     implementation(AndroidDependencies.dependencies)
     implementation(ComposeDependencies.dependencies)
     implementation(KodeinDependencies.Android.dependencies)
-    implementation(platform("com.google.firebase:firebase-bom:30.1.0"))
+    implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
 }
 
 android {
