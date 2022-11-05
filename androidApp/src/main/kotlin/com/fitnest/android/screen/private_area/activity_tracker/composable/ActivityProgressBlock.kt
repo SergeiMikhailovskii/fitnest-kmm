@@ -136,7 +136,7 @@ internal fun ActivityProgressBlock(
                                 Path.Direction.CW
                             )
                             drawContext.canvas.nativeCanvas.drawPath(newPath, Paint().apply {
-                                color = it.color
+                                it.color?.let(::setColor)
                             })
                         }
                         Text(

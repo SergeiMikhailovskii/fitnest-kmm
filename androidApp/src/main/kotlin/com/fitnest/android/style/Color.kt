@@ -5,8 +5,6 @@ import androidx.compose.ui.graphics.Color
 
 val BrandColor = Color(0xFF4758AC)
 
-val SecondaryColor = Color(0xFFC58BF2)
-
 val ErrorColor = Color(0xFFB00020)
 
 val BlackColor = Color(0xFF1D1617)

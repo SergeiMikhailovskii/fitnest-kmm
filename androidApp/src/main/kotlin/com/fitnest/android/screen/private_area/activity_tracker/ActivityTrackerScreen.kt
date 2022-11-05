@@ -38,6 +38,7 @@ import org.kodein.di.compose.rememberInstance
 internal fun ActivityTrackerScreen() {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
+    val viewMapper: ActivityTrackerViewMapper by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -101,13 +102,14 @@ internal fun ActivityTrackerScreen() {
                     )
                 }
                 screenData.activityProgressWidget?.let {
+                    val progresses = viewMapper.mapActivityProgressesColors(it.progresses)
                     ActivityProgressBlock(
                         modifier = Modifier.padding(
                             top = Padding.Padding30,
                             start = Padding.Padding30,
                             end = Padding.Padding30
                         ),
-                        sections = it.progresses
+                        sections = progresses
                     )
                 }
                 screenData.latestActivityWidget?.let {

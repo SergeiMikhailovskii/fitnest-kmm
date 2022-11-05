@@ -1,17 +1,18 @@
 package com.fitnest.android.screen.private_area.activity_tracker
 
 import android.content.Context
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.toArgb
 import com.fitnest.android.R
 import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.BrandColor
-import com.fitnest.android.style.SecondaryColor
 import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.enum.ActivityType
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.DayOfWeek
 
@@ -20,7 +21,16 @@ internal class ActivityTrackerViewMapper(
     private val dateMapper: DateMapper
 ) {
 
-    internal fun mapWidgetsToScreenData(widgets: ActivityTrackerPageResponse.ActivityTrackerWidgets?): ActivityTrackerScreenData =
+    @Composable
+    fun mapActivityProgressesColors(progresses: ImmutableList<ActivityTrackerScreenData.Progress>?) =
+        progresses?.mapIndexed { index, it ->
+            it.copy(
+                color = if (index % 2 == 0) MaterialTheme.colorScheme.primary.toArgb()
+                else MaterialTheme.colorScheme.tertiary.toArgb()
+            )
+        }?.toImmutableList()
+
+    fun mapWidgetsToScreenData(widgets: ActivityTrackerPageResponse.ActivityTrackerWidgets?): ActivityTrackerScreenData =
         run {
             var screenData = ActivityTrackerScreenData()
 
@@ -57,10 +67,10 @@ internal class ActivityTrackerViewMapper(
             screenData
         }
 
-    internal fun mapActivityToDeleteActivityRequest(activity: ActivityTrackerScreenData.Activity) =
+    fun mapActivityToDeleteActivityRequest(activity: ActivityTrackerScreenData.Activity) =
         DeleteActivityRequest(id = activity.id, type = activity.type)
 
-    internal fun mapAddActivityInfoToRequest(activityType: ActivityType, amount: Int) =
+    fun mapAddActivityInfoToRequest(activityType: ActivityType, amount: Int) =
         AddActivityRequest(amount = amount, type = activityType)
 
     private fun mapActivitiesResponseModelToUIModel(activities: List<ActivityTrackerPageResponse.Activity>?) =
@@ -75,11 +85,10 @@ internal class ActivityTrackerViewMapper(
         }
 
     private fun mapProgressesResponseModelToUIModel(progresses: List<ActivityTrackerPageResponse.Progress>?) =
-        progresses?.mapIndexed { index, it ->
+        progresses?.map { it ->
             ActivityTrackerScreenData.Progress(
                 day = it.date?.dayOfWeek?.let(::mapDayOfWeekToShortName) ?: "",
                 progress = (it.total?.toFloat() ?: 0F) / 10_000,
-                color = if (index % 2 == 0) BrandColor.toArgb() else SecondaryColor.toArgb()
             )
         }
 

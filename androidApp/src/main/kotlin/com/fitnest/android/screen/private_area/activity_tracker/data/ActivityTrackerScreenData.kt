@@ -27,10 +27,10 @@ internal data class ActivityTrackerScreenData(
         @DrawableRes val icon: Int
     )
 
-    class Progress(
+    data class Progress(
         val day: String,
         val progress: Float,
-        val color: Int
+        val color: Int? = null
     )
 
 
