@@ -25,7 +25,6 @@ object Dimen {
 }
 
 object Padding {
-    val Padding0 = 0.dp
     val Padding3 = 3.dp
     val Small = 4.dp
     val Padding5 = 5.dp
