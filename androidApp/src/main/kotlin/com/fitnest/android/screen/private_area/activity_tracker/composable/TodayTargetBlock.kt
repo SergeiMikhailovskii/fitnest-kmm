@@ -13,12 +13,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,16 +26,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsMediumStyle14Brand
-import com.fitnest.android.style.PoppinsNormalStyle12Gray1
-import com.fitnest.android.style.PoppinsSemiBoldStyle14Black
-import com.fitnest.android.style.WhiteColor
 
 @Preview
 @Composable
@@ -65,7 +62,9 @@ internal fun TodayTargetBlock(
         Row {
             Text(
                 stringResource(id = R.string.private_area_activity_tracker_screen_today_target_title),
-                style = PoppinsSemiBoldStyle14Black
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.SemiBold
+                )
             )
             Box(modifier = Modifier.weight(1F))
             Button(
@@ -90,9 +89,7 @@ internal fun TodayTargetBlock(
         Row {
             TargetViewBlock(
                 modifier = Modifier
-                    .padding(
-                        top = Padding.Padding15,
-                    )
+                    .padding(top = Padding.Padding15)
                     .weight(1F),
                 icon = R.drawable.ic_activity_tracker_water,
                 amountText = data.waterIntake,
@@ -135,13 +132,24 @@ private fun TargetViewBlock(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clip(RoundedCornerShape(Dimen.Dimen12))
-            .background(WhiteColor)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .padding(all = Padding.Padding10)
     ) {
         Image(painter = painterResource(id = icon), contentDescription = null)
         Column(modifier = Modifier.padding(start = Padding.Padding8)) {
-            Text(amountText, style = PoppinsMediumStyle14Brand)
-            Text(stringResource(id = indexTitle), style = PoppinsNormalStyle12Gray1)
+            Text(
+                amountText,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.primary
+                )
+            )
+            Text(
+                stringResource(id = indexTitle),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            )
         }
     }
 }
