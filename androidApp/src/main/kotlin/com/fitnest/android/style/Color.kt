@@ -10,7 +10,6 @@ val SecondaryColor = Color(0xFFC58BF2)
 val ErrorColor = Color(0xFFB00020)
 
 val BlackColor = Color(0xFF1D1617)
-val WhiteColor = Color(0xFFFFFFFF)
 
 val GrayColor1 = Color(0xFF7B6F72)
 val GrayColor2 = Color(0xFFADA4A5)
