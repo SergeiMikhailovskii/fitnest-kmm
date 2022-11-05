@@ -3,8 +3,6 @@ package com.fitnest.android.style
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 
-val BrandColor = Color(0xFF4758AC)
-
 val ErrorColor = Color(0xFFB00020)
 
 val BlackColor = Color(0xFF1D1617)

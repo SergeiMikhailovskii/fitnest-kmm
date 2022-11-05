@@ -33,10 +33,6 @@ val PoppinsBoldStyle16 = PoppinsBoldStyle.copy(
     fontSize = TextSize.Size16
 )
 
-val PoppinsBoldStyle16Brand = PoppinsBoldStyle.copy(
-    color = BrandColor
-)
-
 val PoppinsNormalStyle = PoppinsStyle.copy(
     fontWeight = FontWeight.Normal
 )
@@ -53,14 +49,10 @@ val PoppinsNormalStyle12Gray2 = PoppinsNormalStyle12.copy(
     color = GrayColor2
 )
 
-val PoppinsNormalStyle16 = PoppinsNormalStyle.copy(
-    fontSize = TextSize.Size16
-)
-
 val ErrorStyle
     @Composable
     get() = MaterialTheme.typography.bodySmall.copy(
-        color = ErrorColor
+        color = MaterialTheme.colorScheme.error
     )
 
 val BodyLargeOnBackground
