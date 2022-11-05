@@ -14,16 +14,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
@@ -33,11 +32,7 @@ import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.BrandColor
 import com.fitnest.android.style.Padding
-import com.fitnest.android.style.PoppinsMediumStyle14White
-import com.fitnest.android.style.PoppinsNormalStyle12White
-import com.fitnest.android.style.TextSize
 
 @Composable
 internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
@@ -61,13 +56,17 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
             ) {
                 Text(
                     stringResource(id = R.string.private_area_dashboard_bmi_title),
-                    style = PoppinsMediumStyle14White
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
                 )
 
                 bmiWidget.result?.let {
                     Text(
                         stringResource(id = it),
-                        style = PoppinsNormalStyle12White
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
                     )
                 }
 
@@ -117,9 +116,10 @@ fun PieChart(modifier: Modifier, progress: Double) {
             .width(300.pxToDp())
             .height(300.pxToDp()),
     ) {
+        val circleColor = MaterialTheme.colorScheme.onPrimary
         Canvas(modifier = Modifier) {
             drawCircle(
-                color = Color.White,
+                color = circleColor,
                 radius = 150F,
                 center = Offset(150F, 150F)
             )
@@ -138,8 +138,9 @@ fun PieChart(modifier: Modifier, progress: Double) {
                 progress.toInt()
             ),
             modifier = Modifier.align(Alignment.Center),
-            fontSize = TextSize.Size18,
-            color = BrandColor
+            style = MaterialTheme.typography.titleSmall.copy(
+                color = MaterialTheme.colorScheme.primary
+            )
         )
     }
 }
