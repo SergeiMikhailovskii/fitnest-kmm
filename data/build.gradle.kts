@@ -65,7 +65,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(KtorDependencies.Android.KTOR_ANDROID)
-                implementation("com.squareup.sqldelight:android-driver:1.5.3")
+                implementation("com.squareup.sqldelight:android-driver:1.5.4")
             }
         }
         val androidTest by getting {
