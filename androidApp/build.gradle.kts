@@ -8,22 +8,22 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(AndroidDependencies.dependencies)
-    implementation(ComposeDependencies.dependencies)
-    implementation(KodeinDependencies.Android.dependencies)
-    implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
-    implementation(platform("androidx.compose:compose-bom:2022.10.00"))
+    implementation(projects.data)
+    implementation(libs.bundles.android)
+    implementation(libs.bundles.compose)
+    implementation(libs.bundles.kodeinAndroid)
+    implementation(platform(libs.firebaseBom))
+    implementation(platform(libs.composeBom))
 }
 
 android {
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         applicationId = "com.fitnest.android"
-        minSdk = 21
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
 
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${googleClientId}\"")
         resValue("string", "facebook_app_id", facebookAppId)
