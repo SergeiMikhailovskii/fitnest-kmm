@@ -2,12 +2,11 @@ package com.fitnest.cookie
 
 import com.fitnest.domain.cookie.CookieStorageImpl
 import com.fitnest.domain.entity.base.Cookie
-import io.ktor.client.features.cookies.CookiesStorage
 import io.ktor.http.Url
 import org.kodein.di.DI
 import org.kodein.di.instance
 
-class CookiesStorage(val di: DI) : CookiesStorage {
+class CookiesStorage(val di: DI) : io.ktor.client.plugins.cookies.CookiesStorage {
 
     private val cookiesStorageImpl: CookieStorageImpl by di.instance()
 

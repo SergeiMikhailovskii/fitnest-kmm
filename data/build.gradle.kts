@@ -53,6 +53,8 @@ kotlin {
                 implementation(KtorDependencies.Common.KTOR_CORE)
                 implementation(KtorDependencies.Common.KTOR_LOGGING)
                 implementation(KtorDependencies.Common.KTOR_SERIALIZATION)
+                implementation(KtorDependencies.Common.KTOR_CONTENT_NEGOTIATION)
+                implementation(KtorDependencies.Common.KTOR_SERIALIZATION_JSON)
                 implementation(KtorDependencies.Common.LOGBACK)
             }
         }

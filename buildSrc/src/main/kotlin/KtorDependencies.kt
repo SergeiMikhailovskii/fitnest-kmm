@@ -3,25 +3,30 @@ import KtorDependencies.Versions.KTOR_VERSION
 object KtorDependencies {
 
     object Versions {
-        const val KTOR_VERSION = "1.6.3"
+        const val KTOR_VERSION = "2.1.3"
     }
 
     object Common : Dependencies {
         private object Versions {
-            const val LOGBACK_VERSION = "1.2.6"
+            const val LOGBACK_VERSION = "1.3.4"
         }
 
         const val KTOR_CORE = "io.ktor:ktor-client-core:$KTOR_VERSION"
         const val KTOR_LOGGING = "io.ktor:ktor-client-logging:$KTOR_VERSION"
         const val KTOR_SERIALIZATION =
             "io.ktor:ktor-client-serialization:$KTOR_VERSION"
+        const val KTOR_CONTENT_NEGOTIATION =
+            "io.ktor:ktor-client-content-negotiation:$KTOR_VERSION"
+        const val KTOR_SERIALIZATION_JSON =
+            "io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION"
         const val LOGBACK = "ch.qos.logback:logback-classic:${Versions.LOGBACK_VERSION}"
 
         override val dependencies = mutableListOf(
             KTOR_CORE,
             KTOR_LOGGING,
             KTOR_SERIALIZATION,
-            LOGBACK
+            KTOR_CONTENT_NEGOTIATION,
+            KTOR_SERIALIZATION_JSON
         )
     }
 

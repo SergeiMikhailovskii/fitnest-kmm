@@ -94,16 +94,16 @@ fun FitnestApp() {
                 composable(
                     route = "onboardingStep/{stepName}",
                     arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
-                    enterTransition = { _, _ ->
+                    enterTransition = {
                         slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
                     },
-                    exitTransition = { _, _ ->
+                    exitTransition = {
                         slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
                     },
-                    popEnterTransition = { _, _ ->
+                    popEnterTransition = {
                         slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
                     },
-                    popExitTransition = { _, _ ->
+                    popExitTransition = {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {
@@ -117,16 +117,16 @@ fun FitnestApp() {
                     arguments = listOf(
                         navArgument("stepName") { type = NavType.StringType },
                     ),
-                    enterTransition = { _, _ ->
+                    enterTransition = {
                         slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
                     },
-                    exitTransition = { _, _ ->
+                    exitTransition = {
                         slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
                     },
-                    popEnterTransition = { _, _ ->
+                    popEnterTransition = {
                         slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
                     },
-                    popExitTransition = { _, _ ->
+                    popExitTransition = {
                         slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
                     },
                 ) {

@@ -13,6 +13,7 @@ dependencies {
     implementation(ComposeDependencies.dependencies)
     implementation(KodeinDependencies.Android.dependencies)
     implementation(platform("com.google.firebase:firebase-bom:31.0.2"))
+    implementation(platform("androidx.compose:compose-bom:2022.10.00"))
 }
 
 android {
@@ -51,6 +52,9 @@ android {
         kotlinCompilerExtensionVersion = "1.3.2"
     }
     namespace = "com.fitnest.android"
+    packagingOptions {
+        resources.excludes.add("META-INF/INDEX.LIST")
+    }
 }
 
 val properties: Properties

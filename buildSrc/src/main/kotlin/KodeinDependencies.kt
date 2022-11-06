@@ -1,7 +1,7 @@
 object KodeinDependencies {
 
     private object Versions {
-        const val KODEIN_VERSION = "7.8.0"
+        const val KODEIN_VERSION = "7.15.1"
     }
 
     object Android : Dependencies {
