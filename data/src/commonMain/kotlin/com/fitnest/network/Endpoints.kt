@@ -1,6 +1,6 @@
 package com.fitnest.network
 
-internal object Endpoints {
+object Endpoints {
     const val BASE_URL = "https://fitnestappgo.herokuapp.com/"
 
     object Flow : Group {

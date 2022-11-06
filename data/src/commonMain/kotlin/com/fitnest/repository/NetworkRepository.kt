@@ -28,7 +28,7 @@ class NetworkRepository(
     }
 
     override suspend fun submitOnboardingStep() {
-        networkService.sendData<Unit>(Endpoints.Onboarding.name)
+        networkService.sendData(Endpoints.Onboarding.name)
     }
 
     override suspend fun getDashboardData() =
