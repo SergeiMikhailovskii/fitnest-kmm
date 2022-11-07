@@ -23,19 +23,16 @@ kotlin {
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
-        frameworkName = "domain"
+        ios.deploymentTarget = libs.versions.deploymentTarget.get()
+        framework {
+            baseName = "domain"
+        }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(KotlinDependencies.SERIALIZATION)
-                api(KotlinDependencies.SERIALIZATION_JSON)
-                api(KotlinDependencies.COROUTINES)
-                api(KotlinDependencies.DATETIME)
-                api(KotlinDependencies.IMMUTABLE_COLLECTIONS)
-                api(KodeinDependencies.Common.KODEIN_COMMON)
+                api(libs.bundles.domain)
             }
         }
         val commonTest by getting
@@ -51,11 +48,11 @@ kotlin {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = libs.versions.targetSdk.get().toInt()
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.idfinance.domain"
 }

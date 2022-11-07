@@ -4,6 +4,7 @@ minSdk = "21"
 targetSdk = "33"
 versionCode = "1"
 versionName = "1.0"
+deploymentTarget = "14.1"
 
 material = "1.8.0-alpha02"
 appcompat = "1.5.1"
@@ -24,6 +25,10 @@ firebaseBom = "31.0.2"
 composeBom = "2022.10.00"
 
 kodein = "7.15.1"
+serialization = "1.4.1"
+coroutines = "1.6.4"
+dateTime = "0.4.0"
+immutableCollections = "0.3.5"
 
 [libraries]
 material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -59,6 +64,13 @@ composeBom = { module = "androidx.compose:compose-bom", version.ref = "composeBo
 
 kodeinAndroid = { module = "org.kodein.di:kodein-di-framework-android-x", version.ref = "kodein" }
 kodeinCompose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
+kodeinDi = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
+
+serializationCore = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
+serializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "dateTime" }
+immutableCollections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutableCollections" }
 
 [bundles]
 android = [
@@ -95,4 +107,13 @@ compose = [
 kodeinAndroid = [
     "kodeinAndroid",
     "kodeinCompose"
+]
+
+domain = [
+    "serializationCore",
+    "serializationJson",
+    "coroutinesCore",
+    "dateTime",
+    "immutableCollections",
+    "kodeinDi"
 ]
