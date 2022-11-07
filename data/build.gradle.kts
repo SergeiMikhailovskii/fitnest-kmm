@@ -7,14 +7,14 @@ plugins {
     id("com.squareup.sqldelight")
 }
 
-version = "1.0"
+version = libs.versions.data.get()
 
 android {
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.fitnest"
     configurations {
@@ -41,45 +41,30 @@ kotlin {
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
-        frameworkName = "shared"
+        ios.deploymentTarget = libs.versions.deploymentTarget.get()
+        framework {
+            baseName = "shared"
+        }
         podfile = project.file("../iosApp/Podfile")
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":domain"))
-                implementation(KtorDependencies.Common.KTOR_CORE)
-                implementation(KtorDependencies.Common.KTOR_LOGGING)
-                implementation(KtorDependencies.Common.KTOR_SERIALIZATION)
-                implementation(KtorDependencies.Common.KTOR_CONTENT_NEGOTIATION)
-                implementation(KtorDependencies.Common.KTOR_SERIALIZATION_JSON)
-                implementation(KtorDependencies.Common.LOGBACK)
+                api(projects.domain)
+                implementation(libs.bundles.ktorCommon)
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
+        val commonTest by getting
         val androidMain by getting {
             dependencies {
-                implementation(KtorDependencies.Android.KTOR_ANDROID)
-                implementation("com.squareup.sqldelight:android-driver:1.5.4")
+                implementation(libs.bundles.dataAndroid)
             }
         }
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-            }
-        }
+        val androidTest by getting
         val iosMain by getting {
             dependencies {
-                implementation(KtorDependencies.IOS.KTOR_IOS)
-                implementation("com.squareup.sqldelight:native-driver:1.5.4")
+                implementation(libs.bundles.dataIOS)
             }
         }
         val iosTest by getting
