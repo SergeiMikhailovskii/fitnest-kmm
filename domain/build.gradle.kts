@@ -7,7 +7,7 @@ plugins {
     id("com.android.library")
 }
 
-version = "1.0"
+version = libs.versions.domain.get()
 
 kotlin {
     android()

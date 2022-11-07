@@ -46,10 +46,10 @@ android {
         compose = true
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = libs.versions.composeCompilerExtension.get()
     }
     namespace = "com.fitnest.android"
     packagingOptions {
