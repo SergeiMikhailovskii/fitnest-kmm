@@ -53,6 +53,7 @@ kotlin {
             dependencies {
                 api(projects.domain)
                 implementation(libs.bundles.ktorCommon)
+                implementation(libs.bundles.dataCommon)
             }
         }
         val commonTest by getting

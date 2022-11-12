@@ -1,30 +1,30 @@
 package com.fitnest.cookie
 
-import com.fitnest.domain.cookie.CookieStorageImpl
-import com.fitnest.domain.entity.base.Cookie
+import com.fitnest.domain.cookie.CookieType
+import com.fitnest.domain.repository.DataStoreRepository
+import io.ktor.http.Cookie
 import io.ktor.http.Url
 import org.kodein.di.DI
 import org.kodein.di.instance
 
 class CookiesStorage(val di: DI) : io.ktor.client.plugins.cookies.CookiesStorage {
 
-    private val cookiesStorageImpl: CookieStorageImpl by di.instance()
+    private val localStorageRepository: DataStoreRepository by di.instance()
 
-    override suspend fun addCookie(requestUrl: Url, cookie: io.ktor.http.Cookie) {
-        val localCookie = Cookie(cookie.name, cookie.value)
-        cookiesStorageImpl.addCookie(localCookie)
-    }
-
-    override fun close() {
-    }
-
-    override suspend fun get(requestUrl: Url) =
-        cookiesStorageImpl.getCookies().map {
-            io.ktor.http.Cookie(name = it.name, value = it.value)
+    override suspend fun addCookie(requestUrl: Url, cookie: Cookie) {
+        if (CookieType.values().any { it.value == cookie.name }) {
+            localStorageRepository.saveString(cookie.name, cookie.value)
         }
-}
+    }
 
-expect class CookiesStorageImpl(di: DI) : CookieStorageImpl {
-    override fun addCookie(cookie: Cookie)
-    override fun getCookies(): MutableList<Cookie>
+    override fun close() {}
+
+    override suspend fun get(requestUrl: Url) = mutableListOf<Cookie>().apply {
+        CookieType.values().forEach { cookie ->
+            localStorageRepository.getString(cookie.value)?.let {
+                println("Loaded: ${cookie.value}=$it")
+                add(Cookie(cookie.value, it))
+            }
+        }
+    }
 }

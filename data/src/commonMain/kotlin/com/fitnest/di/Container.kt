@@ -1,7 +1,6 @@
 package com.fitnest.di
 
 import com.fitnest.FitnestDatabase
-import com.fitnest.cookie.CookiesStorageImpl
 import com.fitnest.db.SQLDelightDriverFactory
 import com.fitnest.domain.entity.validator.EnumValidator
 import com.fitnest.domain.entity.validator.MaxAgeValidator
@@ -16,7 +15,10 @@ import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.exception.GeneralExceptionHandler
 import com.fitnest.repository.DatabaseRepository
 import com.fitnest.repository.NetworkRepository
-import com.fitnest.repository.PreferencesRepository
+import com.fitnest.repository.datastore.DataStoreRepository
+import com.fitnest.repository.datastore.createMigrations
+import com.fitnest.repository.datastore.getDataStore
+import com.fitnest.repository.datastore.producePath
 import com.fitnest.service.NetworkService
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
@@ -40,11 +42,11 @@ val databaseModule = DI.Module("Database module") {
 }
 
 val repositoryModule = DI.Module("Repository module") {
+    bindSingleton<com.fitnest.domain.repository.DataStoreRepository> {
+        DataStoreRepository(getDataStore(producePath(di), createMigrations(di)))
+    }
     bindSingleton<com.fitnest.domain.repository.NetworkRepository> {
         NetworkRepository(instance())
-    }
-    bindSingleton {
-        PreferencesRepository(di)
     }
     bindSingleton<com.fitnest.domain.repository.DatabaseRepository> {
         DatabaseRepository(instance())
@@ -54,12 +56,6 @@ val repositoryModule = DI.Module("Repository module") {
 val serviceModule = DI.Module("Service module") {
     bindSingleton<com.fitnest.domain.service.NetworkService> {
         NetworkService(di)
-    }
-}
-
-val cookieModule = DI.Module("Cookie module") {
-    bindSingleton<com.fitnest.domain.cookie.CookieStorageImpl> {
-        CookiesStorageImpl(di)
     }
 }
 
