@@ -15,7 +15,6 @@ import com.fitnest.android.di.registrationModule
 import com.fitnest.android.di.serviceModule
 import com.fitnest.android.di.viewModelModule
 import com.fitnest.android.internal.GoogleSignInService
-import com.fitnest.di.cookieModule
 import com.fitnest.di.dataExceptionHandlerModule
 import com.fitnest.di.databaseModule
 import com.fitnest.di.repositoryModule
@@ -49,7 +48,6 @@ class MainActivity : AppCompatActivity(), DIAware {
         import(viewModelModule)
         import(repositoryModule)
         import(serviceModule)
-        import(cookieModule)
         import(mapperModule)
         import(serializationModule)
         import(androidModule)
