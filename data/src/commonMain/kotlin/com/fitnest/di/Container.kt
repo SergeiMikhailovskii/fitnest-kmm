@@ -1,6 +1,7 @@
 package com.fitnest.di
 
 import com.fitnest.FitnestDatabase
+import com.fitnest.cookie.CookiesStorage
 import com.fitnest.db.SQLDelightDriverFactory
 import com.fitnest.domain.entity.validator.EnumValidator
 import com.fitnest.domain.entity.validator.MaxAgeValidator
@@ -54,8 +55,9 @@ val repositoryModule = DI.Module("Repository module") {
 }
 
 val serviceModule = DI.Module("Service module") {
+    bindSingleton { CookiesStorage(instance()) }
     bindSingleton<com.fitnest.domain.service.NetworkService> {
-        NetworkService(di)
+        NetworkService(instance())
     }
 }
 
