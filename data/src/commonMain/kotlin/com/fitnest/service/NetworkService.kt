@@ -17,13 +17,12 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
-import org.kodein.di.DI
 
-class NetworkService(val di: DI) : NetworkService {
+class NetworkService(private val cookiesStorage: CookiesStorage) : NetworkService {
 
     private val httpClient = HttpClient {
         install(HttpCookies) {
-            storage = CookiesStorage(di)
+            storage = cookiesStorage
         }
         install(ContentNegotiation) {
             json(kotlinx.serialization.json.Json {
