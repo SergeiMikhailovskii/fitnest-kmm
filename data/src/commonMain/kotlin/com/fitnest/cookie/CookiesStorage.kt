@@ -2,6 +2,7 @@ package com.fitnest.cookie
 
 import com.fitnest.domain.cookie.CookieType
 import com.fitnest.domain.repository.DataStoreRepository
+import io.github.aakira.napier.Napier
 import io.ktor.http.Cookie
 import io.ktor.http.Url
 
@@ -19,7 +20,7 @@ class CookiesStorage(private val localStorageRepository: DataStoreRepository) :
     override suspend fun get(requestUrl: Url) = mutableListOf<Cookie>().apply {
         CookieType.values().forEach { cookie ->
             localStorageRepository.getString(cookie.value)?.let {
-                println("Loaded: ${cookie.value}=$it")
+                Napier.i("Loaded: ${cookie.value}=$it")
                 add(Cookie(cookie.value, it))
             }
         }

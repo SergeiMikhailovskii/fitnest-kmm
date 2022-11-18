@@ -21,6 +21,8 @@ import com.fitnest.di.repositoryModule
 import com.fitnest.di.serializationModule
 import com.fitnest.domain.di.mapperModule
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.DIContext
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity(), DIAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Napier.base(DebugAntilog("Napier"))
         initServices()
         setContent {
             FitnestApp()

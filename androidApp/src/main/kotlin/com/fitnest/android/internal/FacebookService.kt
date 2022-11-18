@@ -10,6 +10,7 @@ import com.facebook.GraphRequest
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.fitnest.domain.entity.response.FacebookLoginResponse
+import io.github.aakira.napier.Napier
 
 
 internal class FacebookService(
@@ -24,7 +25,7 @@ internal class FacebookService(
                 }
 
                 override fun onError(error: FacebookException) {
-                    error.printStackTrace()
+                    Napier.e("FB error", error)
                 }
 
                 override fun onSuccess(result: LoginResult) {
