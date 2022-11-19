@@ -1,8 +1,5 @@
 name: android-ci
 on:
-  push:
-    branches:
-      - '**'
   pull_request:
     branches:
       - 'master'
@@ -28,8 +25,8 @@ jobs:
       - name: Clean
         run: ./gradlew clean
 
-#      - name: Lint check
-#        run: ./gradlew ktlintCheck
+      - name: Lint check
+        run: ./gradlew ktlintCheck
 
       - name: Build
         run: ./gradlew :androidApp:assembleDebug

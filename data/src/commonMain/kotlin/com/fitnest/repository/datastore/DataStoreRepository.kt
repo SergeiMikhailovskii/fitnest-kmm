@@ -18,5 +18,4 @@ class DataStoreRepository internal constructor(
     override suspend fun getString(key: String) = dataStore.data.map {
         it[stringPreferencesKey(key)]
     }.first()
-
 }

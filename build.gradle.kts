@@ -46,6 +46,11 @@ subprojects {
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         debug.set(true)
+        filter {
+            exclude {
+                it.file.path.contains("build/generated")
+            }
+        }
     }
 
     tasks.withType(KotlinCompile::class).configureEach {

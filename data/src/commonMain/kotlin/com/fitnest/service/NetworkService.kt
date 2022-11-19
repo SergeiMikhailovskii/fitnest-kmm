@@ -27,10 +27,12 @@ class NetworkService(private val cookiesStorage: CookiesStorage) : NetworkServic
             storage = cookiesStorage
         }
         install(ContentNegotiation) {
-            json(kotlinx.serialization.json.Json {
-                ignoreUnknownKeys = true
-                prettyPrint = true
-            })
+            json(
+                kotlinx.serialization.json.Json {
+                    ignoreUnknownKeys = true
+                    prettyPrint = true
+                }
+            )
         }
         install(Logging) {
             logger = object : Logger {
