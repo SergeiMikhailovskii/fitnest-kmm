@@ -14,6 +14,7 @@ material = "1.8.0-alpha02"
 appcompat = "1.5.1"
 constraintLayout = "2.1.4"
 playServicesAuth = "20.3.0"
+work = "2.7.1"
 facebook = "15.1.0"
 
 acompanist = "0.27.0"
@@ -47,6 +48,7 @@ appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat"
 constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
 analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 playServicesAuth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 facebook = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebook" }
 
 acompanistNavigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "acompanist" }
@@ -163,7 +165,8 @@ dataCommon = [
 dataAndroid = [
     "ktorAndroid",
     "sqldelightAndroidDriver",
-    "dataStoreAndroid"
+    "dataStoreAndroid",
+    "work"
 ]
 
 dataIOS = [

@@ -9,7 +9,11 @@ interface DatabaseRepository {
 
     fun saveDashboardResponse(response: DashboardCacheModel)
 
+    fun deleteDashboard()
+
     fun getActivityTracker(): ActivityTrackerCacheModel?
 
     fun saveActivityTrackerResponse(response: ActivityTrackerCacheModel)
+
+    fun deleteActivityTrackerResponse()
 }
