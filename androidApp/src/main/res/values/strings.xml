@@ -11,4 +11,6 @@
         <item>Sat</item>
         <item>Sun</item>
     </string-array>
+
+    <string name="default_channel_name">Default channel</string>
 </resources>

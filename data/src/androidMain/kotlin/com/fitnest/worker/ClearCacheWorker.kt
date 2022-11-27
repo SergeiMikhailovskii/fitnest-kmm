@@ -13,11 +13,11 @@ import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 class ClearCacheWorker(
-    context: Context,
+    applicationContext: Context,
     workerParams: WorkerParameters,
     private val clearCacheUseCase: ClearCacheUseCase,
     private val ioDispatcher: CoroutineDispatcher
-) : CoroutineWorker(context, workerParams) {
+) : CoroutineWorker(applicationContext, workerParams) {
 
     override suspend fun doWork(): Result {
         return withContext(ioDispatcher) {
@@ -35,10 +35,6 @@ class ClearCacheWorker(
     }
 
     private fun enqueueNextRequest() {
-        val dueDate = Calendar.getInstance()
-        dueDate.set(Calendar.HOUR_OF_DAY, 0)
-        dueDate.set(Calendar.MINUTE, 0)
-        dueDate.set(Calendar.SECOND, 0)
         WorkManager.getInstance(applicationContext).enqueue(startUpClearCacheWork())
     }
 

@@ -60,6 +60,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.bundles.dataAndroid)
+                api(libs.work)
             }
         }
         val androidTest by getting

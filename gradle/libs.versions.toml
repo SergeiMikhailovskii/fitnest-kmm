@@ -165,8 +165,7 @@ dataCommon = [
 dataAndroid = [
     "ktorAndroid",
     "sqldelightAndroidDriver",
-    "dataStoreAndroid",
-    "work"
+    "dataStoreAndroid"
 ]
 
 dataIOS = [

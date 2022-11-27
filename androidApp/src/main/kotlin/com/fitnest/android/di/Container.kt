@@ -148,7 +148,7 @@ val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area 
 
 val serviceModule = DI.Module("service module") {
     bindSingleton {
-        GoogleSignInService(instance())
+        GoogleSignInService()
     }
     bindSingleton {
         FacebookService(instance())
