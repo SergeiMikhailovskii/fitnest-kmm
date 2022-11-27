@@ -55,4 +55,6 @@
     <string name="private_area_activity_tracker_screen_latest_activity_delete">Delete</string>
     <string name="private_area_activity_tracker_screen_activity_steps">Steps</string>
     <string name="private_area_activity_tracker_screen_activity_water">Water</string>
+
+    <string name="private_area_profile_screen_title">Profile</string>
 </resources>
