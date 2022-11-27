@@ -12,6 +12,7 @@ object Dimen {
     val Dimen10 = 10.dp
     val Dimen12 = 12.dp
     val Dimen14 = 14.dp
+    val Dimen15 = 15.dp
     val Dimen16 = 16.dp
     val Dimen20 = 20.dp
     val Dimen22 = 22.dp
@@ -20,6 +21,7 @@ object Dimen {
     val Dimen40 = 40.dp
     val Dimen48 = 48.dp
     val Dimen50 = 50.dp
+    val Dimen55 = 55.dp
     val Dimen60 = 60.dp
     val Dimen135 = 135.dp
     val Dimen200 = 200.dp
@@ -49,10 +51,6 @@ object Padding {
 }
 
 object TextSize {
-    val Size8 = 8.sp
     val Size10 = 10.sp
-    val Size12 = 12.sp
     val Size14 = 14.sp
-    val Size16 = 16.sp
-    val Size20 = 20.sp
 }
