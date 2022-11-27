@@ -33,6 +33,10 @@ class DatabaseRepository(private val database: FitnestDatabase) : DatabaseReposi
         )
     }
 
+    override fun deleteDashboard() {
+        database.dashboardQueries.deleteDashboard()
+    }
+
     override fun getActivityTracker() = run {
         val row = database.activityTrackerQueries.getActivityTracker().executeAsOneOrNull()
 
@@ -54,5 +58,9 @@ class DatabaseRepository(private val database: FitnestDatabase) : DatabaseReposi
             response.todayTargetWidget,
             response.timeAt
         )
+    }
+
+    override fun deleteActivityTrackerResponse() {
+        database.activityTrackerQueries.deleteActivityTracker()
     }
 }

@@ -12,14 +12,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
-internal class GoogleSignInService(private val context: Context) {
+internal class GoogleSignInService {
 
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     private var onSuccess: ((GoogleSignInAccount) -> Unit)? = null
+    private var activity: ComponentActivity? = null
 
-    internal fun init() {
+    internal fun init(activity: ComponentActivity) {
+        this.activity = activity
         startForResult =
-            (context as ComponentActivity).registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
                     val intent = result.data
                     if (result.data != null) {
@@ -32,8 +34,10 @@ internal class GoogleSignInService(private val context: Context) {
 
     internal fun login(onSuccess: (GoogleSignInAccount) -> Unit) {
         this.onSuccess = onSuccess
-        val intent = getSignInClient(context).signInIntent
-        startForResult.launch(intent)
+        activity?.let {
+            val intent = getSignInClient(it).signInIntent
+            startForResult.launch(intent)
+        }
     }
 
     private fun getSignInClient(context: Context): GoogleSignInClient {

@@ -12,6 +12,7 @@ import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.private_area.AddActivityUseCase
+import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
 import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
 import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
@@ -114,6 +115,9 @@ val useCaseModule = DI.Module("use case module") {
     }
     bindProvider {
         AddActivityUseCase(instance(), instance(), instance(), instance(), instance())
+    }
+    bindProvider {
+        ClearCacheUseCase(instance())
     }
 }
 
