@@ -26,8 +26,8 @@ private fun ProfileInfoBlockPreview() {
 
 @Composable
 internal fun ProfileInfoBlock(modifier: Modifier) {
-    Column {
-        Row(modifier = modifier) {
+    Column(modifier = modifier) {
+        Row {
             Image(
                 painter = painterResource(id = R.drawable.ic_private_area_activity_water),
                 contentDescription = null,
@@ -55,11 +55,23 @@ internal fun ProfileInfoBlock(modifier: Modifier) {
                 top = Padding.Padding15,
             )
         ) {
-            ProfileUserInfoCard(modifier = Modifier.weight(1F))
+            ProfileUserInfoCard(
+                modifier = Modifier.weight(1F),
+                value = "180cm",
+                description = "Height"
+            )
             Box(modifier = Modifier.width(Dimen.Dimen15))
-            ProfileUserInfoCard(modifier = Modifier.weight(1F))
+            ProfileUserInfoCard(
+                modifier = Modifier.weight(1F),
+                value = "65kg",
+                description = "Weight"
+            )
             Box(modifier = Modifier.width(Dimen.Dimen15))
-            ProfileUserInfoCard(modifier = Modifier.weight(1F))
+            ProfileUserInfoCard(
+                modifier = Modifier.weight(1F),
+                value = "22yo",
+                description = "Age"
+            )
         }
     }
 }
