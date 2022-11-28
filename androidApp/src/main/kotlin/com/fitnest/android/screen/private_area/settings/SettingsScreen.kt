@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,7 +19,7 @@ import com.fitnest.android.style.Padding
 @Preview
 @Composable
 fun SettingsScreen() {
-    Column {
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         ProfileInfoBlock(
             modifier = Modifier.padding(
                 top = Padding.Padding30,
