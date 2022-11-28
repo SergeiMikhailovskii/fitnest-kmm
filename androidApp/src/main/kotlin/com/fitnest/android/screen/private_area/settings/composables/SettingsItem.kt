@@ -35,7 +35,8 @@ private fun SettingsItemPreview() {
 internal fun SettingsItem(
     @DrawableRes icon: Int,
     @StringRes title: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    trailing: (@Composable () -> Unit)? = null,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -55,7 +56,7 @@ internal fun SettingsItem(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
-        Image(
+        trailing?.invoke() ?: Image(
             imageVector = Icons.Filled.ChevronRight,
             contentDescription = null,
             colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurfaceVariant)

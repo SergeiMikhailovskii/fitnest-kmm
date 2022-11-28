@@ -17,12 +17,12 @@ import com.fitnest.android.style.Padding
 
 @Preview
 @Composable
-private fun AccountSettingsBlockPreview() {
-    AccountSettingsBlock(modifier = Modifier)
+private fun OtherSettingsBlockPreview() {
+    OtherSettingsBlock(modifier = Modifier)
 }
 
 @Composable
-internal fun AccountSettingsBlock(modifier: Modifier) {
+internal fun OtherSettingsBlock(modifier: Modifier) {
     Card(
         modifier,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface),
@@ -30,30 +30,25 @@ internal fun AccountSettingsBlock(modifier: Modifier) {
     ) {
         Column(modifier = Modifier.padding(Padding.Padding20)) {
             Text(
-                text = stringResource(id = R.string.private_area_profile_screen_account_title),
+                text = stringResource(id = R.string.private_area_profile_screen_other_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_profile,
-                title = R.string.private_area_profile_screen_account_personal_data_item,
+                icon = R.drawable.ic_private_area_profile_contact_us,
+                title = R.string.private_area_profile_screen_other_contact_us_item,
                 modifier = Modifier.padding(top = Padding.Padding15)
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_document,
-                title = R.string.private_area_profile_screen_account_achievement_item,
+                icon = R.drawable.ic_private_area_profile_privacy_policy,
+                title = R.string.private_area_profile_screen_other_privacy_policy_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_activity,
-                title = R.string.private_area_profile_screen_account_activity_history_item,
-                modifier = Modifier.padding(top = Padding.Padding10)
-            )
-            SettingsItem(
-                icon = R.drawable.ic_private_area_profile_chart,
-                title = R.string.private_area_profile_screen_account_workout_progress_item,
+                icon = R.drawable.ic_private_area_profile_settings,
+                title = R.string.private_area_profile_screen_other_settings_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
         }

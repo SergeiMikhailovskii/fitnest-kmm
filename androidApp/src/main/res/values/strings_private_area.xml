@@ -57,8 +57,18 @@
     <string name="private_area_activity_tracker_screen_activity_water">Water</string>
 
     <string name="private_area_profile_screen_title">Profile</string>
+
+    <string name="private_area_profile_screen_account_title">Account</string>
     <string name="private_area_profile_screen_account_personal_data_item">Personal Data</string>
     <string name="private_area_profile_screen_account_achievement_item">Achievement</string>
     <string name="private_area_profile_screen_account_activity_history_item">Activity History</string>
     <string name="private_area_profile_screen_account_workout_progress_item">Workout Progress</string>
+
+    <string name="private_area_profile_screen_notification_title">Notification</string>
+    <string name="private_area_profile_screen_notification_item">Pop-up Notification</string>
+
+    <string name="private_area_profile_screen_other_title">Other</string>
+    <string name="private_area_profile_screen_other_contact_us_item">Contact Us</string>
+    <string name="private_area_profile_screen_other_privacy_policy_item">Privacy Policy</string>
+    <string name="private_area_profile_screen_other_settings_item">Settings</string>
 </resources>

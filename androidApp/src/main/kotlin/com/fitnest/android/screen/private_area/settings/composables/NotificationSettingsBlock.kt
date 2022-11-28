@@ -5,8 +5,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -17,12 +22,15 @@ import com.fitnest.android.style.Padding
 
 @Preview
 @Composable
-private fun AccountSettingsBlockPreview() {
-    AccountSettingsBlock(modifier = Modifier)
+private fun NotificationSettingsBlockPreview() {
+    NotificationSettingsBlock(modifier = Modifier)
 }
 
 @Composable
-internal fun AccountSettingsBlock(modifier: Modifier) {
+internal fun NotificationSettingsBlock(modifier: Modifier) {
+    var isChecked by remember {
+        mutableStateOf(false)
+    }
     Card(
         modifier,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface),
@@ -30,31 +38,24 @@ internal fun AccountSettingsBlock(modifier: Modifier) {
     ) {
         Column(modifier = Modifier.padding(Padding.Padding20)) {
             Text(
-                text = stringResource(id = R.string.private_area_profile_screen_account_title),
+                text = stringResource(id = R.string.private_area_profile_screen_notification_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_profile,
-                title = R.string.private_area_profile_screen_account_personal_data_item,
-                modifier = Modifier.padding(top = Padding.Padding15)
-            )
-            SettingsItem(
-                icon = R.drawable.ic_private_area_profile_document,
-                title = R.string.private_area_profile_screen_account_achievement_item,
-                modifier = Modifier.padding(top = Padding.Padding10)
-            )
-            SettingsItem(
-                icon = R.drawable.ic_private_area_profile_activity,
-                title = R.string.private_area_profile_screen_account_activity_history_item,
-                modifier = Modifier.padding(top = Padding.Padding10)
-            )
-            SettingsItem(
-                icon = R.drawable.ic_private_area_profile_chart,
-                title = R.string.private_area_profile_screen_account_workout_progress_item,
-                modifier = Modifier.padding(top = Padding.Padding10)
+                icon = R.drawable.ic_private_area_profile_notification,
+                title = R.string.private_area_profile_screen_notification_item,
+                modifier = Modifier.padding(top = Padding.Padding15),
+                trailing = {
+                    Switch(
+                        checked = isChecked,
+                        onCheckedChange = {
+                            isChecked = it
+                        }
+                    )
+                }
             )
         }
     }
