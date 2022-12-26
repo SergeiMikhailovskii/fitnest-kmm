@@ -3,7 +3,6 @@ package com.fitnest.domain.usecase.private_area
 import com.fitnest.domain.entity.response.DashboardResponse
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.domain.extension.flatMap
-import com.fitnest.domain.extension.isToday
 import com.fitnest.domain.extension.mapError
 import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
@@ -27,8 +26,7 @@ class GetDashboardDataUseCase internal constructor(
     suspend operator fun invoke() = runCatching {
         dbRepository.getDashboard()
     }.flatMap {
-        val timeAt = it?.timeAt ?: 0
-        if (it != null && timeAt.isToday) {
+        if (it != null) {
             Result.success(cacheToResponseMapper.map(it))
         } else {
             runCatching {

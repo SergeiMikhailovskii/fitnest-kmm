@@ -26,6 +26,7 @@ object Endpoints {
         override val name = "private-area/"
 
         val DASHBOARD = "${name}dashboard"
+        val PROFILE = "${name}profile"
 
         object Notifications : Group {
 
