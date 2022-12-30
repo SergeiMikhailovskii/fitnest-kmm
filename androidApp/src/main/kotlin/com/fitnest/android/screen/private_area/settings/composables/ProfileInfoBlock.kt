@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
@@ -47,7 +48,10 @@ internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData
                 )
             }
             Button(onClick = { }) {
-                Text(text = "Edit", style = MaterialTheme.typography.bodySmall)
+                Text(
+                    text = stringResource(id = R.string.private_area_profile_screen_profile_edit),
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
 
@@ -58,20 +62,29 @@ internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData
         ) {
             ProfileUserInfoCard(
                 modifier = Modifier.weight(1F),
-                value = "180cm",
-                description = "Height"
+                value = stringResource(
+                    R.string.private_area_profile_screen_profile_height_value,
+                    screenData.height ?: 0
+                ),
+                description = stringResource(id = R.string.private_area_profile_screen_profile_height_label)
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
                 modifier = Modifier.weight(1F),
-                value = "65kg",
-                description = "Weight"
+                value = stringResource(
+                    id = R.string.private_area_profile_screen_profile_weight_value,
+                    screenData.weight ?: 0
+                ),
+                description = stringResource(id = R.string.private_area_profile_screen_profile_weight_label)
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
                 modifier = Modifier.weight(1F),
-                value = "22yo",
-                description = "Age"
+                value = stringResource(
+                    id = R.string.private_area_profile_screen_profile_age_value,
+                    screenData.age ?: 0
+                ),
+                description = stringResource(id = R.string.private_area_profile_screen_profile_age_label)
             )
         }
     }

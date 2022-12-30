@@ -72,4 +72,11 @@
     <string name="private_area_profile_screen_other_privacy_policy_item">Privacy Policy</string>
     <string name="private_area_profile_screen_other_settings_item">Settings</string>
     <string name="private_area_profile_screen_program_description">%1$s Program</string>
+    <string name="private_area_profile_screen_profile_edit">Edit</string>
+    <string name="private_area_profile_screen_profile_height_value">%1$dcm</string>
+    <string name="private_area_profile_screen_profile_height_label">Height</string>
+    <string name="private_area_profile_screen_profile_weight_value">%1$dkg</string>
+    <string name="private_area_profile_screen_profile_weight_label">Weight</string>
+    <string name="private_area_profile_screen_profile_age_value">%1$dyo</string>
+    <string name="private_area_profile_screen_profile_age_label">Age</string>
 </resources>
