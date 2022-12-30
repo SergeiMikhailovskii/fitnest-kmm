@@ -16,6 +16,7 @@ import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
 import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
+import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
 import com.fitnest.android.screen.private_area.settings.SettingsViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
@@ -149,9 +150,8 @@ val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area 
 }
 
 val settingsPrivateAreaModule = DI.Module("settings private area module") {
-    bindProvider {
-        SettingsViewModel(instance())
-    }
+    bindProvider { SettingsViewModel(instance(), instance()) }
+    bindProvider { SettingsViewMapper(instance()) }
 }
 
 val serviceModule = DI.Module("service module") {

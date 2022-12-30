@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.private_area.settings
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
@@ -8,23 +9,35 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.fitnest.android.internal.ErrorHandlerDelegate
+import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.private_area.settings.composables.AccountSettingsBlock
 import com.fitnest.android.screen.private_area.settings.composables.NotificationSettingsBlock
 import com.fitnest.android.screen.private_area.settings.composables.OtherSettingsBlock
 import com.fitnest.android.screen.private_area.settings.composables.ProfileInfoBlock
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
+import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
+@OptIn(ExperimentalAnimationApi::class)
 @Preview
 @Composable
-internal fun SettingsScreen() {
+private fun SettingsScreenPreview() {
+    SettingsScreen(navController = rememberAnimatedNavController(AnimatedComposeNavigator()))
+}
+
+@Composable
+internal fun SettingsScreen(navController: NavController) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
@@ -32,11 +45,12 @@ internal fun SettingsScreen() {
         factory = viewModelFactory,
         modelClass = SettingsViewModel::class.java
     )
+    val screenData by viewModel.screenDataFlow.collectAsState()
 
     LaunchedEffect(null) {
         launch {
             viewModel.routeSharedFlow.collect {
-//                handleNavigation(it, navController)
+                handleNavigation(it, navController)
             }
         }
         launch {
@@ -51,7 +65,8 @@ internal fun SettingsScreen() {
                 top = Padding.Padding30,
                 start = Padding.Padding30,
                 end = Padding.Padding30
-            )
+            ),
+            screenData
         )
         AccountSettingsBlock(
             modifier = Modifier.padding(

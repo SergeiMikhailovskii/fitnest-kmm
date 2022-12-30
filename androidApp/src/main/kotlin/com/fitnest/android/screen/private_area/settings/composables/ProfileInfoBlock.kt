@@ -15,17 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
+import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 
 @Preview
 @Composable
 private fun ProfileInfoBlockPreview() {
-    ProfileInfoBlock(modifier = Modifier)
+    ProfileInfoBlock(modifier = Modifier, screenData = SettingsScreenData())
 }
 
 @Composable
-internal fun ProfileInfoBlock(modifier: Modifier) {
+internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData) {
     Column(modifier = modifier) {
         Row {
             Image(
@@ -38,9 +39,9 @@ internal fun ProfileInfoBlock(modifier: Modifier) {
                     .weight(1F)
                     .padding(start = Padding.Padding15)
             ) {
-                Text("Stefani Wong", style = MaterialTheme.typography.bodyMedium)
+                Text(screenData.name.orEmpty(), style = MaterialTheme.typography.bodyMedium)
                 Text(
-                    "Lose a Fat Program", style = MaterialTheme.typography.bodySmall.copy(
+                    screenData.program.orEmpty(), style = MaterialTheme.typography.bodySmall.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 )

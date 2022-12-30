@@ -149,7 +149,7 @@ fun FitnestApp() {
                     HomeScreen(navController = navController)
                 }
                 composable(route = Route.PrivateAreaSettings.screenName) {
-                    SettingsScreen()
+                    SettingsScreen(navController = navController)
                 }
                 composable(route = Route.PrivateAreaPhoto.screenName) {
                     PhotoScreen()

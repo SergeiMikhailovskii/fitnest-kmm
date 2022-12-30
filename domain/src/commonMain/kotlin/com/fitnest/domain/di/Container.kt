@@ -118,7 +118,7 @@ val useCaseModule = DI.Module("use case module") {
         AddActivityUseCase(instance(), instance(), instance(), instance(), instance())
     }
     bindProvider {
-        GetProfilePageUseCase(instance())
+        GetProfilePageUseCase(instance(), instance(), instance())
     }
     bindProvider {
         ClearCacheUseCase(instance())

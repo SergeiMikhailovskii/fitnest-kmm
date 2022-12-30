@@ -71,4 +71,5 @@
     <string name="private_area_profile_screen_other_contact_us_item">Contact Us</string>
     <string name="private_area_profile_screen_other_privacy_policy_item">Privacy Policy</string>
     <string name="private_area_profile_screen_other_settings_item">Settings</string>
+    <string name="private_area_profile_screen_program_description">%1$s Program</string>
 </resources>
