@@ -65,4 +65,7 @@ class NetworkRepository(
 
     override suspend fun addActivity(request: AddActivityRequest) =
         networkService.sendData(Endpoints.PrivateArea.ActivityTracker.ADD_ACTIVITY, request)
+
+    override suspend fun getProfilePage() =
+        networkService.getData(Endpoints.PrivateArea.PROFILE)
 }

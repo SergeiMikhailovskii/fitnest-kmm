@@ -1,0 +1,5 @@
+CREATE TABLE profile (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profileInfoWidget TEXT,
+    timeAt INTEGER NOT NULL
+);
