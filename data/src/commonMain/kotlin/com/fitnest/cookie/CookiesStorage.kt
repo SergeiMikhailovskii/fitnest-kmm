@@ -11,7 +11,7 @@ class CookiesStorage(private val localStorageRepository: DataStoreRepository) :
 
     override suspend fun addCookie(requestUrl: Url, cookie: Cookie) {
         if (CookieType.values().any { it.value == cookie.name }) {
-            localStorageRepository.saveString(cookie.name, cookie.value)
+            localStorageRepository.saveCookie(cookie.name, cookie.value)
         }
     }
 
@@ -19,7 +19,7 @@ class CookiesStorage(private val localStorageRepository: DataStoreRepository) :
 
     override suspend fun get(requestUrl: Url) = mutableListOf<Cookie>().apply {
         CookieType.values().forEach { cookie ->
-            localStorageRepository.getString(cookie.value)?.let {
+            localStorageRepository.getCookie(cookie.value)?.let {
                 Napier.i("Loaded: ${cookie.value}=$it")
                 add(Cookie(cookie.value, it))
             }

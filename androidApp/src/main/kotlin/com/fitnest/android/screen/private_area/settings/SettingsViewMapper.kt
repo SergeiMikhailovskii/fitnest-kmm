@@ -3,18 +3,19 @@ package com.fitnest.android.screen.private_area.settings
 import android.content.Context
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
-import com.fitnest.domain.entity.response.ProfilePageResponse
 import com.fitnest.domain.enum.GoalType
+import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
 
 internal class SettingsViewMapper(private val context: Context) {
-    fun mapProfileWidgetIntoScreenData(
-        widget: ProfilePageResponse.ProfileInfoWidget
+    fun mapProfileModelIntoScreenData(
+        model: GetProfilePageUseCase.Model
     ) = SettingsScreenData(
-        name = "${widget.firstName} ${widget.lastName}",
-        program = getLocalizedProgram(widget.program),
-        height = widget.height,
-        weight = widget.weight,
-        age = widget.age
+        name = "${model.widget?.firstName} ${model.widget?.lastName}",
+        program = getLocalizedProgram(model.widget?.program),
+        height = model.widget?.height,
+        weight = model.widget?.weight,
+        age = model.widget?.age,
+        areNotificationsEnabled = model.areNotificationsEnabled
     )
 
     private fun getLocalizedProgram(program: GoalType?): String {

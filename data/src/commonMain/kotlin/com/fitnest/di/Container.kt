@@ -30,9 +30,7 @@ import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 val dataExceptionHandlerModule = DI.Module("Exception handler module") {
-    bindSingleton<ExceptionHandler> {
-        GeneralExceptionHandler()
-    }
+    bindSingleton<ExceptionHandler> { GeneralExceptionHandler() }
 }
 
 val databaseModule = DI.Module("Database module") {
@@ -46,19 +44,13 @@ val repositoryModule = DI.Module("Repository module") {
     bindSingleton<com.fitnest.domain.repository.DataStoreRepository> {
         DataStoreRepository(getDataStore(producePath(di), createMigrations(di)))
     }
-    bindSingleton<com.fitnest.domain.repository.NetworkRepository> {
-        NetworkRepository(instance())
-    }
-    bindSingleton<com.fitnest.domain.repository.DatabaseRepository> {
-        DatabaseRepository(instance())
-    }
+    bindSingleton<com.fitnest.domain.repository.NetworkRepository> { NetworkRepository(instance()) }
+    bindSingleton<com.fitnest.domain.repository.DatabaseRepository> { DatabaseRepository(instance()) }
 }
 
 val serviceModule = DI.Module("Service module") {
     bindSingleton { CookiesStorage(instance()) }
-    bindSingleton<com.fitnest.domain.service.NetworkService> {
-        NetworkService(instance())
-    }
+    bindSingleton<com.fitnest.domain.service.NetworkService> { NetworkService(instance()) }
 }
 
 val serializationModule = DI.Module("Serialization module") {

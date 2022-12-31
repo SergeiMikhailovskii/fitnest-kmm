@@ -23,6 +23,7 @@ import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
+import com.fitnest.domain.usecase.private_area.SetNotificationsEnabledUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
@@ -102,10 +103,12 @@ val useCaseModule = DI.Module("use case module") {
             instance(),
             instance(),
             instance(),
+            instance(),
             instance()
         )
     }
     bindProvider { ClearCacheUseCase(instance()) }
+    bindProvider { SetNotificationsEnabledUseCase(instance()) }
 }
 
 val mapperModule = DI.Module("Mapper module") {

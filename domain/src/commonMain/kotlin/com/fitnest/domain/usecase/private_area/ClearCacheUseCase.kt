@@ -9,5 +9,6 @@ class ClearCacheUseCase internal constructor(
     operator fun invoke() = runCatching {
         databaseRepository.deleteDashboard()
         databaseRepository.deleteActivityTrackerResponse()
+        databaseRepository.deleteProfileResponse()
     }
 }

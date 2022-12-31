@@ -6,6 +6,7 @@ import com.fitnest.domain.extension.flatMap
 import com.fitnest.domain.extension.mapError
 import com.fitnest.domain.mapper.db.ProfileCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ProfileResponseToCacheMapper
+import com.fitnest.domain.repository.DataStoreRepository
 import com.fitnest.domain.repository.DatabaseRepository
 import com.fitnest.domain.repository.NetworkRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import kotlinx.serialization.json.decodeFromJsonElement
 class GetProfilePageUseCase internal constructor(
     private val networkRepository: NetworkRepository,
     private val dbRepository: DatabaseRepository,
+    private val dataStoreRepository: DataStoreRepository,
     private val json: Json,
     private val exceptionHandler: ExceptionHandler,
     private val responseToCacheMapper: ProfileResponseToCacheMapper,
@@ -40,5 +42,15 @@ class GetProfilePageUseCase internal constructor(
                 decoded?.widgets?.profileInfoWidget
             }
         }
+    }.flatMap {
+        runCatching {
+            val areNotificationsEnabled = dataStoreRepository.getNotificationsEnabled()
+            Model(it, areNotificationsEnabled)
+        }
     }.mapError(exceptionHandler::getError)
+
+    class Model(
+        val widget: ProfilePageResponse.ProfileInfoWidget?,
+        val areNotificationsEnabled: Boolean
+    )
 }
