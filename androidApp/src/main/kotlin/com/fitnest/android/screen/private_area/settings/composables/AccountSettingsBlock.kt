@@ -1,5 +1,6 @@
 package com.fitnest.android.screen.private_area.settings.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -18,11 +19,14 @@ import com.fitnest.android.style.Padding
 @Preview
 @Composable
 private fun AccountSettingsBlockPreview() {
-    AccountSettingsBlock(modifier = Modifier)
+    AccountSettingsBlock(modifier = Modifier, onActivityHistoryClicked = {})
 }
 
 @Composable
-internal fun AccountSettingsBlock(modifier: Modifier) {
+internal fun AccountSettingsBlock(
+    modifier: Modifier,
+    onActivityHistoryClicked: () -> Unit
+) {
     Card(
         modifier,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface),
@@ -49,7 +53,9 @@ internal fun AccountSettingsBlock(modifier: Modifier) {
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_activity,
                 title = R.string.private_area_profile_screen_account_activity_history_item,
-                modifier = Modifier.padding(top = Padding.Padding10)
+                modifier = Modifier
+                    .padding(top = Padding.Padding10)
+                    .clickable { onActivityHistoryClicked() }
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_chart,

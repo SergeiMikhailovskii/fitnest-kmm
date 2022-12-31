@@ -96,7 +96,8 @@ internal fun SettingsScreen(navController: NavController) {
                     top = Padding.Padding30,
                     start = Padding.Padding30,
                     end = Padding.Padding30
-                )
+                ),
+                onActivityHistoryClicked = viewModel::onActivityHistoryClicked
             )
             NotificationSettingsBlock(
                 modifier = Modifier.padding(
