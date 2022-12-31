@@ -8,5 +8,4 @@ class SetNotificationsEnabledUseCase internal constructor(
 
     suspend operator fun invoke(areEnabled: Boolean) =
         dataStoreRepository.saveNotificationsEnabled(areEnabled)
-
 }
