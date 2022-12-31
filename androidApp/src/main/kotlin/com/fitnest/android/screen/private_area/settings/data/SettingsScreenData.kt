@@ -5,5 +5,6 @@ data class SettingsScreenData(
     val program: String? = null,
     val height: Int? = null,
     val weight: Int? = null,
-    val age: Int? = null
+    val age: Int? = null,
+    val areNotificationsEnabled: Boolean = false
 )

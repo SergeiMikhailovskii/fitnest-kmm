@@ -8,29 +8,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
+import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 
 @Preview
 @Composable
 private fun NotificationSettingsBlockPreview() {
-    NotificationSettingsBlock(modifier = Modifier)
+    NotificationSettingsBlock(modifier = Modifier, screenData = SettingsScreenData()) {}
 }
 
 @Composable
-internal fun NotificationSettingsBlock(modifier: Modifier) {
-    var isChecked by remember {
-        mutableStateOf(false)
-    }
+internal fun NotificationSettingsBlock(
+    modifier: Modifier,
+    screenData: SettingsScreenData,
+    onNotificationCheckedChange: (Boolean) -> Unit
+) {
     Card(
         modifier,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface),
@@ -50,10 +48,8 @@ internal fun NotificationSettingsBlock(modifier: Modifier) {
                 modifier = Modifier.padding(top = Padding.Padding15),
                 trailing = {
                     Switch(
-                        checked = isChecked,
-                        onCheckedChange = {
-                            isChecked = it
-                        }
+                        checked = screenData.areNotificationsEnabled,
+                        onCheckedChange = onNotificationCheckedChange
                     )
                 }
             )

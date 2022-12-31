@@ -28,6 +28,11 @@ internal class SettingsViewModel(
         }
     }
 
+    fun setNotificationsEnabled(areNotificationsEnabled: Boolean) {
+        screenData = screenData.copy(areNotificationsEnabled = areNotificationsEnabled)
+        updateScreenData()
+    }
+
     private fun updateScreenData() {
         viewModelScope.launch(exceptionHandler) {
             _screenDataFlow.emit(screenData.copy())
