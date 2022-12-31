@@ -20,9 +20,11 @@ internal class SettingsViewModel(
 
     fun getProfilePage() {
         viewModelScope.launch(exceptionHandler) {
+            handleProgress(true)
             val profileInfoWidget = getProfilePageUseCase().getOrThrow() ?: return@launch
             screenData = viewMapper.mapProfileWidgetIntoScreenData(profileInfoWidget)
             updateScreenData()
+            handleProgress()
         }
     }
 

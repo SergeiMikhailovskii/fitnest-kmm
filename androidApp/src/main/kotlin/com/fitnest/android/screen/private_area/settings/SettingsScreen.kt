@@ -3,14 +3,17 @@ package com.fitnest.android.screen.private_area.settings
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +49,7 @@ internal fun SettingsScreen(navController: NavController) {
         modelClass = SettingsViewModel::class.java
     )
     val screenData by viewModel.screenDataFlow.collectAsState()
+    val progress by viewModel.progressStateFlow.collectAsState()
 
     LaunchedEffect(null) {
         launch {
@@ -59,36 +63,42 @@ internal fun SettingsScreen(navController: NavController) {
         viewModel.getProfilePage()
     }
 
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        ProfileInfoBlock(
-            modifier = Modifier.padding(
-                top = Padding.Padding30,
-                start = Padding.Padding30,
-                end = Padding.Padding30
-            ),
-            screenData
-        )
-        AccountSettingsBlock(
-            modifier = Modifier.padding(
-                top = Padding.Padding30,
-                start = Padding.Padding30,
-                end = Padding.Padding30
+    if (progress) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator()
+        }
+    } else {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            ProfileInfoBlock(
+                modifier = Modifier.padding(
+                    top = Padding.Padding30,
+                    start = Padding.Padding30,
+                    end = Padding.Padding30
+                ),
+                screenData
             )
-        )
-        NotificationSettingsBlock(
-            modifier = Modifier.padding(
-                top = Padding.Padding15,
-                start = Padding.Padding30,
-                end = Padding.Padding30
+            AccountSettingsBlock(
+                modifier = Modifier.padding(
+                    top = Padding.Padding30,
+                    start = Padding.Padding30,
+                    end = Padding.Padding30
+                )
             )
-        )
-        OtherSettingsBlock(
-            modifier = Modifier.padding(
-                top = Padding.Padding15,
-                start = Padding.Padding30,
-                end = Padding.Padding30
+            NotificationSettingsBlock(
+                modifier = Modifier.padding(
+                    top = Padding.Padding15,
+                    start = Padding.Padding30,
+                    end = Padding.Padding30
+                )
             )
-        )
-        Box(modifier = Modifier.height(Dimen.Dimen20))
+            OtherSettingsBlock(
+                modifier = Modifier.padding(
+                    top = Padding.Padding15,
+                    start = Padding.Padding30,
+                    end = Padding.Padding30
+                )
+            )
+            Box(modifier = Modifier.height(Dimen.Dimen20))
+        }
     }
 }
