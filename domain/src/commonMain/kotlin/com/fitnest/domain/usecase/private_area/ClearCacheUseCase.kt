@@ -10,5 +10,4 @@ class ClearCacheUseCase internal constructor(
         databaseRepository.deleteDashboard()
         databaseRepository.deleteActivityTrackerResponse()
     }
-
 }
