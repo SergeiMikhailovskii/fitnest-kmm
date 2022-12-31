@@ -5,6 +5,8 @@ import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
 import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
+import com.fitnest.domain.mapper.db.ProfileCacheToResponseMapper
+import com.fitnest.domain.mapper.db.ProfileResponseToCacheMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
@@ -34,47 +36,27 @@ val useCaseModule = DI.Module("use case module") {
     /**
      * Auth
      */
-    bindProvider {
-        GetLoginPageUseCase(instance(), instance(), instance())
-    }
-    bindProvider {
-        GenerateTokenUseCase(instance(), instance())
-    }
-    bindProvider {
-        LoginPageValidationUseCase()
-    }
-    bindProvider {
-        LoginUserUseCase(instance(), instance())
-    }
-    bindProvider {
-        ForgetPasswordUseCase(instance(), instance())
-    }
+    bindProvider { GetLoginPageUseCase(instance(), instance(), instance()) }
+    bindProvider { GenerateTokenUseCase(instance(), instance()) }
+    bindProvider { LoginPageValidationUseCase() }
+    bindProvider { LoginUserUseCase(instance(), instance()) }
+    bindProvider { ForgetPasswordUseCase(instance(), instance()) }
 
     /**
      * Onboarding
      */
-    bindProvider {
-        GetOnboardingStepUseCase(instance(), instance(), instance())
-    }
-    bindProvider {
-        SubmitOnboardingStepUseCase(instance(), instance())
-    }
+    bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
+    bindProvider { SubmitOnboardingStepUseCase(instance(), instance()) }
 
     /**
      * Registration
      */
-    bindProvider {
-        GetRegistrationStepData(instance(), instance(), instance(), instance())
-    }
+    bindProvider { GetRegistrationStepData(instance(), instance(), instance(), instance()) }
     bindProvider {
         SubmitRegistrationStepAndGetNextUseCase(instance(), instance(), instance(), instance())
     }
-    bindProvider {
-        CompleteAccountRegistrationValidationUseCase()
-    }
-    bindProvider {
-        CreateAccountRegistrationValidationUseCase()
-    }
+    bindProvider { CompleteAccountRegistrationValidationUseCase() }
+    bindProvider { CreateAccountRegistrationValidationUseCase() }
 
     /**
      * Private area
@@ -89,18 +71,10 @@ val useCaseModule = DI.Module("use case module") {
             instance()
         )
     }
-    bindProvider {
-        GetNotificationsPageUseCase(instance(), instance(), instance())
-    }
-    bindProvider {
-        DeactivateNotificationsUseCase(instance(), instance())
-    }
-    bindProvider {
-        PinNotificationUseCase(instance(), instance())
-    }
-    bindProvider {
-        DeleteNotificationUseCase(instance(), instance())
-    }
+    bindProvider { GetNotificationsPageUseCase(instance(), instance(), instance()) }
+    bindProvider { DeactivateNotificationsUseCase(instance(), instance()) }
+    bindProvider { PinNotificationUseCase(instance(), instance()) }
+    bindProvider { DeleteNotificationUseCase(instance(), instance()) }
     bindProvider {
         GetActivityTrackerPageUseCase(
             instance(),
@@ -112,33 +86,34 @@ val useCaseModule = DI.Module("use case module") {
         )
     }
     bindProvider {
-        DeleteActivityUseCase(instance(), instance(), instance(), instance(), instance())
+        DeleteActivityUseCase(
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance()
+        )
     }
+    bindProvider { AddActivityUseCase(instance(), instance(), instance(), instance(), instance()) }
     bindProvider {
-        AddActivityUseCase(instance(), instance(), instance(), instance(), instance())
+        GetProfilePageUseCase(
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance(),
+            instance()
+        )
     }
-    bindProvider {
-        GetProfilePageUseCase(instance(), instance(), instance())
-    }
-    bindProvider {
-        ClearCacheUseCase(instance())
-    }
+    bindProvider { ClearCacheUseCase(instance()) }
 }
 
 val mapperModule = DI.Module("Mapper module") {
-    bindProvider {
-        RegistrationResponseMapper(instance())
-    }
-    bindProvider {
-        DashboardResponseToCacheMapper(instance())
-    }
-    bindProvider {
-        DashboardCacheToResponseMapper(instance())
-    }
-    bindProvider {
-        ActivityTrackerResponseToCacheMapper(instance())
-    }
-    bindProvider {
-        ActivityTrackerCacheToResponseMapper(instance())
-    }
+    bindProvider { RegistrationResponseMapper(instance()) }
+    bindProvider { DashboardResponseToCacheMapper(instance()) }
+    bindProvider { DashboardCacheToResponseMapper(instance()) }
+    bindProvider { ActivityTrackerResponseToCacheMapper(instance()) }
+    bindProvider { ActivityTrackerCacheToResponseMapper(instance()) }
+    bindProvider { ProfileResponseToCacheMapper(instance()) }
+    bindProvider { ProfileCacheToResponseMapper(instance()) }
 }
