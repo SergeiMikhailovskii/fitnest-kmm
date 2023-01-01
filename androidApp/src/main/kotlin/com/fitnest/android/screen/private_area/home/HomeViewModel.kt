@@ -5,7 +5,6 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -23,8 +22,6 @@ internal class HomeViewModel(
     init {
         viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
-
-            delay(10000)
 
             val dashboardData = getDashboardDataUseCase().getOrThrow()
             dashboardData?.let {
