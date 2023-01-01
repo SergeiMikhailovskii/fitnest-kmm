@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,15 +21,22 @@ import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 
 @Preview
 @Composable
 private fun ProfileInfoBlockPreview() {
-    ProfileInfoBlock(modifier = Modifier, screenData = SettingsScreenData())
+    ProfileInfoBlock(modifier = Modifier, screenData = SettingsScreenData(), false)
 }
 
 @Composable
-internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData) {
+internal fun ProfileInfoBlock(
+    modifier: Modifier,
+    screenData: SettingsScreenData,
+    progress: Boolean
+) {
     Column(modifier = modifier) {
         Row {
             Image(
@@ -40,14 +49,44 @@ internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData
                     .weight(1F)
                     .padding(start = Padding.Padding15)
             ) {
-                Text(screenData.name.orEmpty(), style = MaterialTheme.typography.bodyMedium)
                 Text(
-                    screenData.program.orEmpty(), style = MaterialTheme.typography.bodySmall.copy(
+                    screenData.name.orEmpty(), style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.placeholder(
+                        progress,
+                        highlight = PlaceholderHighlight.fade(),
+                        shape = RoundedCornerShape(Dimen.Dimen16)
+                    ).run {
+                        if (progress) width(Dimen.Dimen135)
+                        else this
+                    }
+                )
+                Text(
+                    screenData.program.orEmpty(),
+                    style = MaterialTheme.typography.bodySmall.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    ),
+                    modifier = Modifier.padding(top = Padding.Padding5)
+                        .placeholder(
+                            progress,
+                            highlight = PlaceholderHighlight.fade(),
+                            shape = RoundedCornerShape(Dimen.Dimen16)
+                        ).run {
+                            if (progress) width(Dimen.Dimen135)
+                            else this
+                        }
                 )
             }
-            Button(onClick = { }) {
+            Button(
+                onClick = {
+                    if (!progress) {
+                        // handle click here
+                    }
+                }, modifier = Modifier.placeholder(
+                    progress,
+                    highlight = PlaceholderHighlight.fade(),
+                    shape = CircleShape
+                )
+            ) {
                 Text(
                     text = stringResource(id = R.string.private_area_profile_screen_profile_edit),
                     style = MaterialTheme.typography.bodySmall
@@ -61,7 +100,13 @@ internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData
             )
         ) {
             ProfileUserInfoCard(
-                modifier = Modifier.weight(1F),
+                modifier = Modifier
+                    .weight(1F)
+                    .placeholder(
+                        progress,
+                        highlight = PlaceholderHighlight.fade(),
+                        shape = RoundedCornerShape(Dimen.Dimen16)
+                    ),
                 value = stringResource(
                     R.string.private_area_profile_screen_profile_height_value,
                     screenData.height ?: 0
@@ -70,7 +115,13 @@ internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
-                modifier = Modifier.weight(1F),
+                modifier = Modifier
+                    .weight(1F)
+                    .placeholder(
+                        progress,
+                        highlight = PlaceholderHighlight.fade(),
+                        shape = RoundedCornerShape(Dimen.Dimen16)
+                    ),
                 value = stringResource(
                     id = R.string.private_area_profile_screen_profile_weight_value,
                     screenData.weight ?: 0
@@ -79,7 +130,13 @@ internal fun ProfileInfoBlock(modifier: Modifier, screenData: SettingsScreenData
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
-                modifier = Modifier.weight(1F),
+                modifier = Modifier
+                    .weight(1F)
+                    .placeholder(
+                        progress,
+                        highlight = PlaceholderHighlight.fade(),
+                        shape = RoundedCornerShape(Dimen.Dimen16)
+                    ),
                 value = stringResource(
                     id = R.string.private_area_profile_screen_profile_age_value,
                     screenData.age ?: 0

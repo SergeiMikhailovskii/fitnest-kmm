@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,14 +33,23 @@ import com.fitnest.android.R
 import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 
 @Composable
-internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
+internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget?, progress: Boolean) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = Padding.Padding30)
+            .placeholder(
+                progress,
+                highlight = PlaceholderHighlight.fade(),
+                shape = RoundedCornerShape(Dimen.Dimen16)
+            )
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_private_area_bmi_background),
@@ -61,7 +71,7 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
                     )
                 )
 
-                bmiWidget.result?.let {
+                bmiWidget?.result?.let {
                     Text(
                         stringResource(id = it),
                         style = MaterialTheme.typography.bodySmall.copy(
@@ -94,7 +104,7 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget) {
                 }
             }
 
-            bmiWidget.index?.let {
+            bmiWidget?.index?.let {
                 PieChart(
                     modifier = Modifier.padding(
                         top = Padding.Padding26,

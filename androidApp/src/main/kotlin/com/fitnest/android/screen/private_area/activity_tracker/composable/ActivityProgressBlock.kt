@@ -26,6 +26,9 @@ import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -69,26 +72,39 @@ internal fun ActivityProgressBlockPreview() {
                 progress = 0.7F,
                 color = MaterialTheme.colorScheme.primary.toArgb()
             )
-        )
+        ),
+        progress = false
     )
 }
 
 @Composable
 internal fun ActivityProgressBlock(
     modifier: Modifier,
-    sections: ImmutableList<ActivityTrackerScreenData.Progress>?
+    sections: ImmutableList<ActivityTrackerScreenData.Progress>?,
+    progress: Boolean
 ) {
     Column(modifier = modifier) {
         Text(
             stringResource(id = R.string.private_area_activity_tracker_screen_activity_progress_title),
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontWeight = FontWeight.SemiBold
-            )
+            ),
+            modifier = Modifier.placeholder(progress, highlight = PlaceholderHighlight.fade())
         )
         Card(
             modifier = Modifier
                 .padding(top = Padding.Padding15)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .placeholder(
+                    progress,
+                    highlight = PlaceholderHighlight.fade(),
+                    shape = RoundedCornerShape(Dimen.Dimen20)
+                )
+                .run {
+                    if (progress) {
+                        height(Dimen.Dimen160)
+                    } else this
+                },
             shape = RoundedCornerShape(Dimen.Dimen20),
         ) {
             Row(

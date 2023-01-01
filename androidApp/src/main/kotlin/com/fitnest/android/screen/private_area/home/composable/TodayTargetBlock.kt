@@ -25,10 +25,14 @@ import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 
 @Composable
 internal fun TodayTargetBlock(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    progress: Boolean
 ) {
     Box(
         modifier = Modifier
@@ -38,6 +42,11 @@ internal fun TodayTargetBlock(
                 brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient),
                 shape = RoundedCornerShape(Dimen.Dimen16),
                 alpha = 0.2F
+            )
+            .placeholder(
+                progress,
+                highlight = PlaceholderHighlight.fade(),
+                shape = RoundedCornerShape(Dimen.Dimen16)
             )
     ) {
         Row(
