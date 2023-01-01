@@ -16,6 +16,8 @@ import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
 import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
+import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
+import com.fitnest.android.screen.private_area.settings.SettingsViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
@@ -39,18 +41,12 @@ val androidModule = DI.Module("android module") {
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
 
-    bindSingleton<ViewModelProvider.Factory>() {
+    bindSingleton<ViewModelProvider.Factory> {
         ViewModelFactory(di)
     }
-    bindProvider {
-        SplashViewModel(instance())
-    }
-    bindProvider {
-        OnboardingViewModel(instance(), instance())
-    }
-    bindProvider {
-        ProxyViewModel(instance(), instance(), instance())
-    }
+    bindProvider { SplashViewModel(instance()) }
+    bindProvider { OnboardingViewModel(instance(), instance()) }
+    bindProvider { ProxyViewModel(instance(), instance(), instance()) }
 }
 
 val registrationModule = DI.Module("registration module") {
@@ -60,18 +56,14 @@ val registrationModule = DI.Module("registration module") {
     import(welcomeBackRegistrationScreenModule)
     import(loginScreenModule)
 
-    bindSingleton {
-        RegistrationScreenState()
-    }
+    bindSingleton { RegistrationScreenState() }
 }
 
 val createAccountRegistrationScreenModule = DI.Module("create account registration screen module") {
     bindProvider {
         CreateAccountRegistrationViewModel(instance(), instance(), instance(), instance())
     }
-    bindProvider {
-        CreateAccountRegistrationViewMapper()
-    }
+    bindProvider { CreateAccountRegistrationViewMapper() }
 }
 
 val completeAccountRegistrationScreenModule =
@@ -84,80 +76,56 @@ val completeAccountRegistrationScreenModule =
                 instance(),
             )
         }
-        bindProvider {
-            CompleteAccountRegistrationViewMapper()
-        }
+        bindProvider { CompleteAccountRegistrationViewMapper() }
     }
 
 val goalRegistrationScreenModule = DI.Module("goal registration screen module") {
-    bindProvider {
-        GoalRegistrationViewMapper()
-    }
-    bindProvider {
-        GoalRegistrationViewModel(instance(), instance())
-    }
+    bindProvider { GoalRegistrationViewMapper() }
+    bindProvider { GoalRegistrationViewModel(instance(), instance()) }
 }
 
 val loginScreenModule = DI.Module("login screen module") {
-    bindProvider {
-        LoginViewModel(instance(), instance(), instance(), instance(), instance())
-    }
-    bindProvider {
-        LoginViewMapper(instance())
-    }
+    bindProvider { LoginViewModel(instance(), instance(), instance(), instance(), instance()) }
+    bindProvider { LoginViewMapper(instance()) }
 }
 
 val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
-    bindProvider {
-        WelcomeBackRegistrationViewModel(instance(), instance())
-    }
+    bindProvider { WelcomeBackRegistrationViewModel(instance(), instance()) }
 }
 
 val privateAreaModule = DI.Module("private area module") {
     import(dashboardPrivateAreaModule)
     import(notificationsPrivateAreaModule)
     import(activityTrackerPrivateAreaModule)
+    import(settingsPrivateAreaModule)
 }
 
 val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
-    bindProvider {
-        HomeViewModel(instance(), instance())
-    }
-    bindProvider {
-        HomeViewMapper(instance())
-    }
+    bindProvider { HomeViewModel(instance(), instance()) }
+    bindProvider { HomeViewMapper(instance()) }
 }
 
 val notificationsPrivateAreaModule = DI.Module("notifications private area module") {
     bindProvider {
         NotificationsViewModel(instance(), instance(), instance(), instance(), instance())
     }
-    bindProvider {
-        NotificationsViewMapper(instance())
-    }
+    bindProvider { NotificationsViewMapper(instance()) }
 }
 
 val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area module") {
-    bindProvider {
-        ActivityTrackerViewModel(instance(), instance(), instance(), instance())
-    }
-    bindProvider {
-        ActivityTrackerViewMapper(instance(), instance())
-    }
+    bindProvider { ActivityTrackerViewModel(instance(), instance(), instance(), instance()) }
+    bindProvider { ActivityTrackerViewMapper(instance(), instance()) }
+}
+
+val settingsPrivateAreaModule = DI.Module("settings private area module") {
+    bindProvider { SettingsViewModel(instance(), instance(), instance()) }
+    bindProvider { SettingsViewMapper(instance()) }
 }
 
 val serviceModule = DI.Module("service module") {
-    bindSingleton {
-        GoogleSignInService()
-    }
-    bindSingleton {
-        FacebookService(instance())
-    }
-    bindSingleton {
-        SnackbarDelegate()
-    }
-    bindSingleton {
-        ErrorHandlerDelegate(instance(), instance())
-    }
+    bindSingleton { GoogleSignInService() }
+    bindSingleton { FacebookService(instance()) }
+    bindSingleton { SnackbarDelegate() }
+    bindSingleton { ErrorHandlerDelegate(instance(), instance()) }
     import(com.fitnest.di.serviceModule)
 }

@@ -3,6 +3,7 @@ package com.fitnest.repository
 import com.fitnest.FitnestDatabase
 import com.fitnest.domain.entity.cache.ActivityTrackerCacheModel
 import com.fitnest.domain.entity.cache.DashboardCacheModel
+import com.fitnest.domain.entity.cache.ProfileCacheModel
 import com.fitnest.domain.repository.DatabaseRepository
 
 class DatabaseRepository(private val database: FitnestDatabase) : DatabaseRepository {
@@ -62,5 +63,28 @@ class DatabaseRepository(private val database: FitnestDatabase) : DatabaseReposi
 
     override fun deleteActivityTrackerResponse() {
         database.activityTrackerQueries.deleteActivityTracker()
+    }
+
+    override fun getProfile() = run {
+        val row = database.profileQueries.getProfile().executeAsOneOrNull()
+
+        row?.let {
+            ProfileCacheModel(
+                profileInfoWidget = it.profileInfoWidget,
+                timeAt = it.timeAt
+            )
+        }
+    }
+
+    override fun saveProfileResponse(response: ProfileCacheModel) {
+        database.profileQueries.deleteProfile()
+        database.profileQueries.saveProfile(
+            response.profileInfoWidget,
+            response.timeAt
+        )
+    }
+
+    override fun deleteProfileResponse() {
+        database.profileQueries.deleteProfile()
     }
 }

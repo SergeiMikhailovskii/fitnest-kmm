@@ -17,7 +17,7 @@ playServicesAuth = "20.3.0"
 work = "2.7.1"
 facebook = "15.1.0"
 
-acompanist = "0.27.0"
+accompanist = "0.28.0"
 
 composeActivity = "1.7.0-alpha02"
 composeConstraint = "1.0.1"
@@ -51,10 +51,11 @@ playServicesAuth = { module = "com.google.android.gms:play-services-auth", versi
 work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 facebook = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebook" }
 
-acompanistNavigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "acompanist" }
-acompanistInsets = { module = "com.google.accompanist:accompanist-insets", version.ref = "acompanist" }
-acompanistPager = { module = "com.google.accompanist:accompanist-pager", version.ref = "acompanist" }
-acompanistPagerIndicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "acompanist" }
+accompanistNavigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+accompanistInsets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
+accompanistPager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
+accompanistPagerIndicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+accompanistPermissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 
 composeActivity = { module = "androidx.activity:activity-compose", version.ref = "composeActivity" }
 composeThemeAdapter = { module = "com.google.android.material:compose-theme-adapter-3", version.ref = "composeThemeAdapter" }
@@ -114,10 +115,11 @@ android = [
 ]
 
 compose = [
-    "acompanistNavigationAnimation",
-    "acompanistInsets",
-    "acompanistPager",
-    "acompanistPagerIndicators",
+    "accompanistNavigationAnimation",
+    "accompanistInsets",
+    "accompanistPager",
+    "accompanistPagerIndicators",
+    "accompanistPermissions",
     "composeActivity",
     "composeThemeAdapter",
     "composeConstraintLayout",

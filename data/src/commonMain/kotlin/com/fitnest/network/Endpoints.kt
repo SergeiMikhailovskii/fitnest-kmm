@@ -1,7 +1,7 @@
 package com.fitnest.network
 
 object Endpoints {
-    const val BASE_URL = "https://fitnestappgo.herokuapp.com/"
+    const val BASE_URL = "https://fitnestapp.onrender.com/"
 
     object Flow : Group {
         override val name = "flow"
@@ -26,6 +26,7 @@ object Endpoints {
         override val name = "private-area/"
 
         val DASHBOARD = "${name}dashboard"
+        val PROFILE = "${name}profile"
 
         object Notifications : Group {
 

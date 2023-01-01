@@ -1,0 +1,15 @@
+CREATE TABLE profile (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    profileInfoWidget TEXT,
+    timeAt INTEGER NOT NULL
+);
+
+getProfile:
+SELECT * FROM profile;
+
+saveProfile:
+INSERT INTO profile(profileInfoWidget, timeAt)
+VALUES (?, ?);
+
+deleteProfile:
+DELETE FROM profile;

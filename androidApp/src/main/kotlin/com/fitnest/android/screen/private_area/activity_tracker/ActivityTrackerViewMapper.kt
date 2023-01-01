@@ -87,7 +87,7 @@ internal class ActivityTrackerViewMapper(
     private fun mapProgressesResponseModelToUIModel(progresses: List<ActivityTrackerPageResponse.Progress>?) =
         progresses?.map { it ->
             ActivityTrackerScreenData.Progress(
-                day = it.date?.dayOfWeek?.let(::mapDayOfWeekToShortName) ?: "",
+                day = it.date?.dayOfWeek?.let(::mapDayOfWeekToShortName).orEmpty(),
                 progress = (it.total?.toFloat() ?: 0F) / 10_000,
             )
         }

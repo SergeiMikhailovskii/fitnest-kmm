@@ -42,4 +42,6 @@ interface NetworkRepository {
     suspend fun deleteActivity(request: DeleteActivityRequest): BaseResponse
 
     suspend fun addActivity(request: AddActivityRequest): BaseResponse
+
+    suspend fun getProfilePage(): BaseResponse
 }
