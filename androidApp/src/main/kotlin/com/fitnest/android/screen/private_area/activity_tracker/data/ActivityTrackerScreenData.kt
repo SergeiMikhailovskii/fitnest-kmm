@@ -6,9 +6,9 @@ import com.fitnest.domain.enum.ActivityType
 import kotlinx.collections.immutable.ImmutableList
 
 internal data class ActivityTrackerScreenData(
-    val activityProgressWidget: ActivityProgressWidget? = null,
+    val activityProgressWidget: ActivityProgressWidget? = ActivityProgressWidget(),
     val latestActivityWidget: LatestActivityWidget? = null,
-    val todayTargetWidget: HomeScreenData.TodayTargetWidget? = null,
+    val todayTargetWidget: HomeScreenData.TodayTargetWidget? = HomeScreenData.TodayTargetWidget()
 ) {
 
     class ActivityProgressWidget(
