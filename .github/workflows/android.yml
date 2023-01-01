@@ -32,7 +32,7 @@ jobs:
         run: ./gradlew :androidApp:assembleDebug
 
       - name: Upload artifact to build info
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: androidApp-debug.apk
           path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
