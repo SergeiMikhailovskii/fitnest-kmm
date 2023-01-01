@@ -76,9 +76,9 @@ fun HomeScreen(navController: NavController) {
                 .padding(bottom = Padding.Padding30)
                 .verticalScroll(rememberScrollState())
         ) {
-            HeaderBlock(screenData.headerWidget, viewModel, loading)
-            BMIBlock(screenData.bmiWidget, loading)
-            TodayTargetBlock(viewModel, loading)
+            screenData.headerWidget?.let { HeaderBlock(it, viewModel, loading) }
+            screenData.bmiWidget?.let { BMIBlock(it, loading) }
+            screenData.todayTargetWidget?.let { TodayTargetBlock(viewModel, loading) }
             screenData.activityStatusWidget?.let { ActivityStatusBlock(it) }
             screenData.latestWorkoutWidget?.let { LatestWorkoutBlock(it) }
             Box(modifier = Modifier.height(Dimen.Dimen200))
