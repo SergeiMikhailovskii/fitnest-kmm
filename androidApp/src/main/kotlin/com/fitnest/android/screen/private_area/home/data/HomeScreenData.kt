@@ -5,9 +5,9 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.LocalDateTime
 
 internal data class HomeScreenData(
-    val headerWidget: HeaderWidget? = null,
-    val bmiWidget: BMIWidget? = null,
-    val todayTargetWidget: TodayTargetWidget? = null,
+    val headerWidget: HeaderWidget? = HeaderWidget(),
+    val bmiWidget: BMIWidget? = BMIWidget(),
+    val todayTargetWidget: TodayTargetWidget? = TodayTargetWidget(),
     val activityStatusWidget: ActivityStatusWidget? = null,
     val latestWorkoutWidget: LatestWorkoutWidget? = null
 ) {

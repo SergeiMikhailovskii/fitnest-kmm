@@ -4,17 +4,15 @@ import android.os.Build
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +31,9 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
@@ -77,55 +78,56 @@ internal fun SettingsScreen(navController: NavController) {
         viewModel.setNotificationsEnabled(true)
     }
 
-    if (progress) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
-        }
-    } else {
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            ProfileInfoBlock(
-                modifier = Modifier.padding(
-                    top = Padding.Padding30,
-                    start = Padding.Padding30,
-                    end = Padding.Padding30
-                ),
-                screenData
-            )
-            AccountSettingsBlock(
-                modifier = Modifier.padding(
-                    top = Padding.Padding30,
-                    start = Padding.Padding30,
-                    end = Padding.Padding30
-                ),
-                onActivityHistoryClicked = viewModel::onActivityHistoryClicked
-            )
-            NotificationSettingsBlock(
-                modifier = Modifier.padding(
-                    top = Padding.Padding15,
-                    start = Padding.Padding30,
-                    end = Padding.Padding30
-                ),
-                screenData = screenData,
-                onNotificationCheckedChange = {
-                    if (it) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            notificationsPermissionState.launchPermissionRequest()
-                        } else {
-                            viewModel.setNotificationsEnabled(true)
-                        }
-                    } else {
-                        viewModel.setNotificationsEnabled(false)
-                    }
-                }
-            )
-            OtherSettingsBlock(
-                modifier = Modifier.padding(
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        ProfileInfoBlock(
+            modifier = Modifier.padding(
+                top = Padding.Padding30,
+                start = Padding.Padding30,
+                end = Padding.Padding30
+            ),
+            screenData = screenData,
+            progress = progress
+        )
+        AccountSettingsBlock(
+            modifier = Modifier.padding(
+                top = Padding.Padding30,
+                start = Padding.Padding30,
+                end = Padding.Padding30
+            ),
+            onActivityHistoryClicked = viewModel::onActivityHistoryClicked
+        )
+        NotificationSettingsBlock(
+            modifier = Modifier
+                .padding(
                     top = Padding.Padding15,
                     start = Padding.Padding30,
                     end = Padding.Padding30
                 )
+                .placeholder(
+                    progress,
+                    highlight = PlaceholderHighlight.fade(),
+                    shape = RoundedCornerShape(Dimen.Dimen16)
+                ),
+            screenData = screenData,
+            onNotificationCheckedChange = {
+                if (it) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        notificationsPermissionState.launchPermissionRequest()
+                    } else {
+                        viewModel.setNotificationsEnabled(true)
+                    }
+                } else {
+                    viewModel.setNotificationsEnabled(false)
+                }
+            }
+        )
+        OtherSettingsBlock(
+            modifier = Modifier.padding(
+                top = Padding.Padding15,
+                start = Padding.Padding30,
+                end = Padding.Padding30
             )
-            Box(modifier = Modifier.height(Dimen.Dimen20))
-        }
+        )
+        Box(modifier = Modifier.height(Dimen.Dimen20))
     }
 }

@@ -24,11 +24,15 @@ import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 
 @Composable
 internal fun HeaderBlock(
-    headerWidget: HomeScreenData.HeaderWidget,
-    viewModel: HomeViewModel
+    headerWidget: HomeScreenData.HeaderWidget?,
+    viewModel: HomeViewModel,
+    progress: Boolean
 ) {
     Row(
         modifier = Modifier.padding(
@@ -41,11 +45,21 @@ internal fun HeaderBlock(
                 text = stringResource(id = R.string.private_area_dashboard_header_welcome_back),
                 style = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                ),
+                modifier = Modifier.placeholder(progress, highlight = PlaceholderHighlight.fade())
             )
             Text(
-                text = headerWidget.name.orEmpty(),
-                modifier = Modifier.padding(top = Padding.Padding5),
+                text = headerWidget?.name.orEmpty(),
+                modifier = Modifier
+                    .padding(top = Padding.Padding5)
+                    .placeholder(progress, highlight = PlaceholderHighlight.fade())
+                    .run {
+                        if (progress) {
+                            width(Dimen.Dimen135)
+                        } else {
+                            this
+                        }
+                    },
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -55,11 +69,12 @@ internal fun HeaderBlock(
                 .width(Dimen.Dimen40)
                 .height(Dimen.Dimen40)
                 .clip(RoundedCornerShape(Dimen.Dimen8))
+                .placeholder(progress, highlight = PlaceholderHighlight.fade())
                 .background(MaterialTheme.colorScheme.surfaceVariant)
-                .clickable(onClick = viewModel::navigateToNotifications),
+                .clickable { if (!progress) viewModel.navigateToNotifications() },
             contentAlignment = Alignment.Center
         ) {
-            val notificationRes = if (headerWidget.hasNotifications == true)
+            val notificationRes = if (headerWidget?.hasNotifications == true)
                 R.drawable.ic_private_area_has_notifications
             else R.drawable.ic_private_area_no_notifications
 

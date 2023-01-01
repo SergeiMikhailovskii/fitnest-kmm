@@ -33,6 +33,9 @@ import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
 
 @Preview
 @Composable
@@ -40,7 +43,8 @@ internal fun TodayTargetBlockPreview() {
     TodayTargetBlock(
         modifier = Modifier,
         data = HomeScreenData.TodayTargetWidget(waterIntake = "8L", steps = "2400"),
-        onAddActivityClicked = {}
+        onAddActivityClicked = {},
+        progress = false
     )
 }
 
@@ -48,13 +52,19 @@ internal fun TodayTargetBlockPreview() {
 internal fun TodayTargetBlock(
     modifier: Modifier,
     data: HomeScreenData.TodayTargetWidget,
-    onAddActivityClicked: () -> Unit
+    onAddActivityClicked: () -> Unit,
+    progress: Boolean
 ) {
     Column(
         modifier = modifier
             .background(
                 brush = Brush.horizontalGradient(MaterialTheme.colorScheme.brandGradient),
                 alpha = 0.2F,
+                shape = RoundedCornerShape(Dimen.Dimen22)
+            )
+            .placeholder(
+                progress,
+                highlight = PlaceholderHighlight.fade(),
                 shape = RoundedCornerShape(Dimen.Dimen22)
             )
             .padding(Padding.Padding20)
