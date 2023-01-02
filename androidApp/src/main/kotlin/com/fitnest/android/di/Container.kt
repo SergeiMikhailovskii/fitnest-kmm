@@ -59,13 +59,7 @@ val viewModelModule = DI.Module("view model module") {
 }
 
 val registrationModule = DI.Module("registration module") {
-    import(welcomeBackRegistrationScreenModule)
-
     bindSingleton { RegistrationScreenState() }
-}
-
-val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
-    bindProvider { WelcomeBackRegistrationViewModel(instance(), instance()) }
 }
 
 val privateAreaModule = DI.Module("private area module") {
@@ -186,6 +180,18 @@ object RegistrationModule {
                     instance()
                 )
             }
+        }
+    }
+
+    val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
+        bindProvider { WelcomeBackRegistrationViewModel(instance(), instance()) }
+        bindProvider {
+            SubmitRegistrationStepAndGetNextUseCase(
+                instance(),
+                instance(),
+                instance(),
+                instance()
+            )
         }
     }
 }
