@@ -29,7 +29,9 @@ import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrat
 import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
+import com.fitnest.domain.usecase.GenerateTokenUseCase
 import org.kodein.di.DI
+import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
@@ -41,10 +43,9 @@ val androidModule = DI.Module("android module") {
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
 
-    bindSingleton<ViewModelProvider.Factory> {
+    bindFactory<DI, ViewModelProvider.Factory> { di ->
         ViewModelFactory(di)
     }
-    bindProvider { SplashViewModel(instance()) }
     bindProvider { OnboardingViewModel(instance(), instance()) }
     bindProvider { ProxyViewModel(instance(), instance(), instance()) }
 }
@@ -128,4 +129,9 @@ val serviceModule = DI.Module("service module") {
     bindSingleton { SnackbarDelegate() }
     bindSingleton { ErrorHandlerDelegate(instance(), instance()) }
     import(com.fitnest.di.serviceModule)
+}
+
+val splashModule = DI.Module("splash module", allowSilentOverride = true) {
+    bindProvider { SplashViewModel(instance()) }
+    bindProvider { GenerateTokenUseCase(instance(), instance()) }
 }
