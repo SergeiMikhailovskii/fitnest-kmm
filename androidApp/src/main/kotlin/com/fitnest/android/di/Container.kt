@@ -31,6 +31,7 @@ import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
+import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import org.kodein.di.DI
 import org.kodein.di.bindFactory
@@ -48,7 +49,6 @@ val viewModelModule = DI.Module("view model module") {
     bindFactory<DI, ViewModelProvider.Factory> { di ->
         ViewModelFactory(di)
     }
-    bindProvider { OnboardingViewModel(instance(), instance()) }
 }
 
 val registrationModule = DI.Module("registration module") {
@@ -142,4 +142,10 @@ val proxyModule = DI.Module("proxy module", allowSilentOverride = true) {
     bindProvider { GenerateTokenUseCase(instance(), instance()) }
     bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
     bindProvider { GetRegistrationStepData(instance(), instance(), instance(), instance()) }
+}
+
+val onboardingModule = DI.Module("onboarding module") {
+    bindProvider { OnboardingViewModel(instance(), instance()) }
+    bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
+    bindProvider { SubmitOnboardingStepUseCase(instance(), instance()) }
 }

@@ -10,8 +10,6 @@ import com.fitnest.domain.mapper.db.ProfileResponseToCacheMapper
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
-import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
-import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.private_area.AddActivityUseCase
 import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
 import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
@@ -39,12 +37,6 @@ val useCaseModule = DI.Module("use case module") {
     bindProvider { LoginPageValidationUseCase() }
     bindProvider { LoginUserUseCase(instance(), instance()) }
     bindProvider { ForgetPasswordUseCase(instance(), instance()) }
-
-    /**
-     * Onboarding
-     */
-    bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
-    bindProvider { SubmitOnboardingStepUseCase(instance(), instance()) }
 
     /**
      * Registration
