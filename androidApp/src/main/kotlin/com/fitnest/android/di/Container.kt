@@ -30,6 +30,8 @@ import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.usecase.GenerateTokenUseCase
+import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
+import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import org.kodein.di.DI
 import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
@@ -47,7 +49,6 @@ val viewModelModule = DI.Module("view model module") {
         ViewModelFactory(di)
     }
     bindProvider { OnboardingViewModel(instance(), instance()) }
-    bindProvider { ProxyViewModel(instance(), instance(), instance()) }
 }
 
 val registrationModule = DI.Module("registration module") {
@@ -134,4 +135,11 @@ val serviceModule = DI.Module("service module") {
 val splashModule = DI.Module("splash module", allowSilentOverride = true) {
     bindProvider { SplashViewModel(instance()) }
     bindProvider { GenerateTokenUseCase(instance(), instance()) }
+}
+
+val proxyModule = DI.Module("proxy module", allowSilentOverride = true) {
+    bindProvider { ProxyViewModel(instance(), instance(), instance()) }
+    bindProvider { GenerateTokenUseCase(instance(), instance()) }
+    bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
+    bindProvider { GetRegistrationStepData(instance(), instance(), instance(), instance()) }
 }
