@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityInputBottomSheet
 import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityProgressBlock
@@ -28,13 +29,18 @@ import com.fitnest.android.screen.private_area.activity_tracker.composable.Lates
 import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 
 @ExperimentalMaterialApi
 @Preview
 @Composable
-internal fun ActivityTrackerScreen() {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+internal fun ActivityTrackerScreen() = subDI(diBuilder = {
+    import(PrivateAreaModule.activityTrackerPrivateAreaModule)
+}) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
     val viewMapper: ActivityTrackerViewMapper by rememberInstance()
 

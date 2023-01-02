@@ -7,7 +7,6 @@ import android.content.Context
 import android.os.Build
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import com.fitnest.android.di.androidModule
 import com.fitnest.android.di.privateAreaModule
 import com.fitnest.android.di.registrationModule
 import com.fitnest.android.di.serviceModule
@@ -56,7 +55,6 @@ class FitnestApplication : Application(), Configuration.Provider, DIAware {
         import(serviceModule)
         import(mapperModule)
         import(serializationModule)
-        import(androidModule)
     }
 
     private fun createNotificationChannel() {

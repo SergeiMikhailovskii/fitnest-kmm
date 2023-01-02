@@ -29,6 +29,8 @@ import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrat
 import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
+import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
 import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
@@ -37,6 +39,9 @@ import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
+import com.fitnest.domain.usecase.private_area.AddActivityUseCase
+import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
+import com.fitnest.domain.usecase.private_area.GetActivityTrackerPageUseCase
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
@@ -48,10 +53,6 @@ import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
-
-val androidModule = DI.Module("android module") {
-    bindSingleton { DateMapper() }
-}
 
 val viewModelModule = DI.Module("view model module") {
     import(useCaseModule)
@@ -67,7 +68,6 @@ val registrationModule = DI.Module("registration module") {
 
 val privateAreaModule = DI.Module("private area module") {
     import(notificationsPrivateAreaModule)
-    import(activityTrackerPrivateAreaModule)
     import(settingsPrivateAreaModule)
 }
 
@@ -76,11 +76,6 @@ val notificationsPrivateAreaModule = DI.Module("notifications private area modul
         NotificationsViewModel(instance(), instance(), instance(), instance(), instance())
     }
     bindProvider { NotificationsViewMapper(instance()) }
-}
-
-val activityTrackerPrivateAreaModule = DI.Module("activity tracker private area module") {
-    bindProvider { ActivityTrackerViewModel(instance(), instance(), instance(), instance()) }
-    bindProvider { ActivityTrackerViewMapper(instance(), instance()) }
 }
 
 val settingsPrivateAreaModule = DI.Module("settings private area module") {
@@ -223,6 +218,52 @@ object PrivateAreaModule {
                     instance()
                 )
             }
+        }
+    }
+
+    val activityTrackerPrivateAreaModule by lazy {
+        DI.Module("activity tracker private area module") {
+            bindProvider {
+                ActivityTrackerViewModel(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+            bindProvider { ActivityTrackerViewMapper(instance(), instance()) }
+            bindProvider {
+                GetActivityTrackerPageUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+            bindProvider { ActivityTrackerResponseToCacheMapper(instance()) }
+            bindProvider { ActivityTrackerCacheToResponseMapper(instance()) }
+            bindProvider { DateMapper() }
+            bindProvider {
+                DeleteActivityUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+            bindProvider {
+                AddActivityUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+
         }
     }
 }

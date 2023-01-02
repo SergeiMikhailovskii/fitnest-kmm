@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 
-class AddActivityUseCase internal constructor(
+class AddActivityUseCase(
     private val repository: NetworkRepository,
     private val dbRepository: DatabaseRepository,
     private val json: Json,
