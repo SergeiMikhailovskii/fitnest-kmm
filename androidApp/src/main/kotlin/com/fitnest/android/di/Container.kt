@@ -59,15 +59,9 @@ val viewModelModule = DI.Module("view model module") {
 }
 
 val registrationModule = DI.Module("registration module") {
-    import(goalRegistrationScreenModule)
     import(welcomeBackRegistrationScreenModule)
 
     bindSingleton { RegistrationScreenState() }
-}
-
-val goalRegistrationScreenModule = DI.Module("goal registration screen module") {
-    bindProvider { GoalRegistrationViewMapper() }
-    bindProvider { GoalRegistrationViewModel(instance(), instance()) }
 }
 
 val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
@@ -169,6 +163,21 @@ object RegistrationModule {
             }
             bindProvider { CompleteAccountRegistrationViewMapper() }
             bindProvider { CompleteAccountRegistrationValidationUseCase() }
+            bindProvider {
+                SubmitRegistrationStepAndGetNextUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+        }
+    }
+
+    val goalRegistrationScreenModule by lazy {
+        DI.Module("goal registration screen module") {
+            bindProvider { GoalRegistrationViewMapper() }
+            bindProvider { GoalRegistrationViewModel(instance(), instance()) }
             bindProvider {
                 SubmitRegistrationStepAndGetNextUseCase(
                     instance(),
