@@ -33,6 +33,8 @@ import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
+import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
+import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import org.kodein.di.DI
 import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
@@ -52,20 +54,12 @@ val viewModelModule = DI.Module("view model module") {
 }
 
 val registrationModule = DI.Module("registration module") {
-    import(createAccountRegistrationScreenModule)
     import(completeAccountRegistrationScreenModule)
     import(goalRegistrationScreenModule)
     import(welcomeBackRegistrationScreenModule)
     import(loginScreenModule)
 
     bindSingleton { RegistrationScreenState() }
-}
-
-val createAccountRegistrationScreenModule = DI.Module("create account registration screen module") {
-    bindProvider {
-        CreateAccountRegistrationViewModel(instance(), instance(), instance(), instance())
-    }
-    bindProvider { CreateAccountRegistrationViewMapper() }
 }
 
 val completeAccountRegistrationScreenModule =
@@ -137,15 +131,44 @@ val splashModule = DI.Module("splash module", allowSilentOverride = true) {
     bindProvider { GenerateTokenUseCase(instance(), instance()) }
 }
 
-val proxyModule = DI.Module("proxy module", allowSilentOverride = true) {
-    bindProvider { ProxyViewModel(instance(), instance(), instance()) }
-    bindProvider { GenerateTokenUseCase(instance(), instance()) }
-    bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
-    bindProvider { GetRegistrationStepData(instance(), instance(), instance(), instance()) }
+val proxyModule by lazy {
+    DI.Module("proxy module", allowSilentOverride = true) {
+        bindProvider { ProxyViewModel(instance(), instance(), instance()) }
+        bindProvider { GenerateTokenUseCase(instance(), instance()) }
+        bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
+        bindProvider { GetRegistrationStepData(instance(), instance(), instance(), instance()) }
+    }
 }
 
-val onboardingModule = DI.Module("onboarding module") {
-    bindProvider { OnboardingViewModel(instance(), instance()) }
-    bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
-    bindProvider { SubmitOnboardingStepUseCase(instance(), instance()) }
+val onboardingModule by lazy {
+    DI.Module("onboarding module") {
+        bindProvider { OnboardingViewModel(instance(), instance()) }
+        bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
+        bindProvider { SubmitOnboardingStepUseCase(instance(), instance()) }
+    }
+}
+
+object RegistrationModule {
+    val createAccountRegistrationScreenModule by lazy {
+        DI.Module("create account registration module") {
+            bindProvider {
+                CreateAccountRegistrationViewModel(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+            bindProvider { CreateAccountRegistrationViewMapper() }
+            bindProvider { CreateAccountRegistrationValidationUseCase() }
+            bindProvider {
+                SubmitRegistrationStepAndGetNextUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+        }
+    }
 }
