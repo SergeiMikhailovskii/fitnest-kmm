@@ -7,8 +7,6 @@ import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.mapper.db.ProfileCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ProfileResponseToCacheMapper
-import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
-import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.private_area.AddActivityUseCase
 import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
@@ -21,9 +19,7 @@ import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import com.fitnest.domain.usecase.private_area.SetNotificationsEnabledUseCase
-import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
-import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.instance
@@ -32,10 +28,7 @@ val useCaseModule = DI.Module("use case module") {
     /**
      * Auth
      */
-    bindProvider { GetLoginPageUseCase(instance(), instance(), instance()) }
-    bindProvider { LoginPageValidationUseCase() }
     bindProvider { LoginUserUseCase(instance(), instance()) }
-    bindProvider { ForgetPasswordUseCase(instance(), instance()) }
 
     /**
      * Registration

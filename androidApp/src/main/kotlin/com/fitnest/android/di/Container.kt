@@ -30,11 +30,14 @@ import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.usecase.GenerateTokenUseCase
+import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
+import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
+import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import org.kodein.di.DI
 import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
@@ -57,7 +60,6 @@ val registrationModule = DI.Module("registration module") {
     import(completeAccountRegistrationScreenModule)
     import(goalRegistrationScreenModule)
     import(welcomeBackRegistrationScreenModule)
-    import(loginScreenModule)
 
     bindSingleton { RegistrationScreenState() }
 }
@@ -78,11 +80,6 @@ val completeAccountRegistrationScreenModule =
 val goalRegistrationScreenModule = DI.Module("goal registration screen module") {
     bindProvider { GoalRegistrationViewMapper() }
     bindProvider { GoalRegistrationViewModel(instance(), instance()) }
-}
-
-val loginScreenModule = DI.Module("login screen module") {
-    bindProvider { LoginViewModel(instance(), instance(), instance(), instance(), instance()) }
-    bindProvider { LoginViewMapper(instance()) }
 }
 
 val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
@@ -171,4 +168,12 @@ object RegistrationModule {
             }
         }
     }
+}
+
+val loginScreenModule = DI.Module("login screen module") {
+    bindProvider { LoginViewModel(instance(), instance(), instance(), instance(), instance()) }
+    bindProvider { LoginViewMapper(instance()) }
+    bindProvider { GetLoginPageUseCase(instance(), instance(), instance()) }
+    bindProvider { LoginPageValidationUseCase() }
+    bindProvider { ForgetPasswordUseCase(instance(), instance()) }
 }
