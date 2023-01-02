@@ -32,10 +32,12 @@ import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
+import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
+import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import org.kodein.di.DI
@@ -57,25 +59,11 @@ val viewModelModule = DI.Module("view model module") {
 }
 
 val registrationModule = DI.Module("registration module") {
-    import(completeAccountRegistrationScreenModule)
     import(goalRegistrationScreenModule)
     import(welcomeBackRegistrationScreenModule)
 
     bindSingleton { RegistrationScreenState() }
 }
-
-val completeAccountRegistrationScreenModule =
-    DI.Module("complete account registration screen module") {
-        bindProvider {
-            CompleteAccountRegistrationViewModel(
-                instance(),
-                instance(),
-                instance(),
-                instance(),
-            )
-        }
-        bindProvider { CompleteAccountRegistrationViewMapper() }
-    }
 
 val goalRegistrationScreenModule = DI.Module("goal registration screen module") {
     bindProvider { GoalRegistrationViewMapper() }
@@ -168,12 +156,38 @@ object RegistrationModule {
             }
         }
     }
+
+    val completeAccountRegistrationScreenModule by lazy {
+        DI.Module("complete account registration screen module") {
+            bindProvider {
+                CompleteAccountRegistrationViewModel(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                )
+            }
+            bindProvider { CompleteAccountRegistrationViewMapper() }
+            bindProvider { CompleteAccountRegistrationValidationUseCase() }
+            bindProvider {
+                SubmitRegistrationStepAndGetNextUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+        }
+    }
 }
 
-val loginScreenModule = DI.Module("login screen module") {
-    bindProvider { LoginViewModel(instance(), instance(), instance(), instance(), instance()) }
-    bindProvider { LoginViewMapper(instance()) }
-    bindProvider { GetLoginPageUseCase(instance(), instance(), instance()) }
-    bindProvider { LoginPageValidationUseCase() }
-    bindProvider { ForgetPasswordUseCase(instance(), instance()) }
+val loginScreenModule by lazy {
+    DI.Module("login screen module") {
+        bindProvider { LoginViewModel(instance(), instance(), instance(), instance(), instance()) }
+        bindProvider { LoginViewMapper(instance()) }
+        bindProvider { GetLoginPageUseCase(instance(), instance(), instance()) }
+        bindProvider { LoginPageValidationUseCase() }
+        bindProvider { ForgetPasswordUseCase(instance(), instance()) }
+        bindProvider { LoginUserUseCase(instance(), instance()) }
+    }
 }
