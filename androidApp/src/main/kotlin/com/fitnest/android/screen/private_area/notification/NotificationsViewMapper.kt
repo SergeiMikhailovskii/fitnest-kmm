@@ -17,9 +17,7 @@ import kotlinx.datetime.toInstant
 import java.text.SimpleDateFormat
 import java.util.*
 
-internal class NotificationsViewMapper(
-    private val context: Context
-) {
+internal class NotificationsViewMapper(private val context: Context) {
 
     internal fun mapServerNotificationsToUIModel(notifications: List<NotificationsPageResponse.Notification>?) =
         notifications?.map {

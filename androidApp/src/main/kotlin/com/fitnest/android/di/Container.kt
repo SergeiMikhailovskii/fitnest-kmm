@@ -40,9 +40,13 @@ import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.private_area.AddActivityUseCase
+import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
+import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
 import com.fitnest.domain.usecase.private_area.GetActivityTrackerPageUseCase
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
+import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
+import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
@@ -67,15 +71,7 @@ val registrationModule = DI.Module("registration module") {
 }
 
 val privateAreaModule = DI.Module("private area module") {
-    import(notificationsPrivateAreaModule)
     import(settingsPrivateAreaModule)
-}
-
-val notificationsPrivateAreaModule = DI.Module("notifications private area module") {
-    bindProvider {
-        NotificationsViewModel(instance(), instance(), instance(), instance(), instance())
-    }
-    bindProvider { NotificationsViewMapper(instance()) }
 }
 
 val settingsPrivateAreaModule = DI.Module("settings private area module") {
@@ -263,7 +259,19 @@ object PrivateAreaModule {
                     instance()
                 )
             }
+        }
+    }
 
+    val notificationsPrivateAreaModule by lazy {
+        DI.Module("notifications private area module") {
+            bindProvider {
+                NotificationsViewModel(instance(), instance(), instance(), instance(), instance())
+            }
+            bindProvider { NotificationsViewMapper(instance()) }
+            bindProvider { GetNotificationsPageUseCase(instance(), instance(), instance()) }
+            bindProvider { DeactivateNotificationsUseCase(instance(), instance()) }
+            bindProvider { PinNotificationUseCase(instance(), instance()) }
+            bindProvider { DeleteNotificationUseCase(instance(), instance()) }
         }
     }
 }
