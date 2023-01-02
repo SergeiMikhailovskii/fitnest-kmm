@@ -29,12 +29,15 @@ import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrat
 import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
+import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
+import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
+import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
@@ -63,15 +66,9 @@ val registrationModule = DI.Module("registration module") {
 }
 
 val privateAreaModule = DI.Module("private area module") {
-    import(dashboardPrivateAreaModule)
     import(notificationsPrivateAreaModule)
     import(activityTrackerPrivateAreaModule)
     import(settingsPrivateAreaModule)
-}
-
-val dashboardPrivateAreaModule = DI.Module("dashboard private area module") {
-    bindProvider { HomeViewModel(instance(), instance()) }
-    bindProvider { HomeViewMapper(instance()) }
 }
 
 val notificationsPrivateAreaModule = DI.Module("notifications private area module") {
@@ -118,6 +115,17 @@ val onboardingModule by lazy {
         bindProvider { OnboardingViewModel(instance(), instance()) }
         bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
         bindProvider { SubmitOnboardingStepUseCase(instance(), instance()) }
+    }
+}
+
+val loginScreenModule by lazy {
+    DI.Module("login screen module") {
+        bindProvider { LoginViewModel(instance(), instance(), instance(), instance(), instance()) }
+        bindProvider { LoginViewMapper(instance()) }
+        bindProvider { GetLoginPageUseCase(instance(), instance(), instance()) }
+        bindProvider { LoginPageValidationUseCase() }
+        bindProvider { ForgetPasswordUseCase(instance(), instance()) }
+        bindProvider { LoginUserUseCase(instance(), instance()) }
     }
 }
 
@@ -183,26 +191,38 @@ object RegistrationModule {
         }
     }
 
-    val welcomeBackRegistrationScreenModule = DI.Module("welcome back registration screen module") {
-        bindProvider { WelcomeBackRegistrationViewModel(instance(), instance()) }
-        bindProvider {
-            SubmitRegistrationStepAndGetNextUseCase(
-                instance(),
-                instance(),
-                instance(),
-                instance()
-            )
+    val welcomeBackRegistrationScreenModule by lazy {
+        DI.Module("welcome back registration screen module") {
+            bindProvider { WelcomeBackRegistrationViewModel(instance(), instance()) }
+            bindProvider {
+                SubmitRegistrationStepAndGetNextUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
         }
     }
 }
 
-val loginScreenModule by lazy {
-    DI.Module("login screen module") {
-        bindProvider { LoginViewModel(instance(), instance(), instance(), instance(), instance()) }
-        bindProvider { LoginViewMapper(instance()) }
-        bindProvider { GetLoginPageUseCase(instance(), instance(), instance()) }
-        bindProvider { LoginPageValidationUseCase() }
-        bindProvider { ForgetPasswordUseCase(instance(), instance()) }
-        bindProvider { LoginUserUseCase(instance(), instance()) }
+object PrivateAreaModule {
+    val dashboardPrivateAreaModule by lazy {
+        DI.Module("dashboard private area module") {
+            bindProvider { HomeViewModel(instance(), instance()) }
+            bindProvider { HomeViewMapper(instance()) }
+            bindProvider { DashboardResponseToCacheMapper(instance()) }
+            bindProvider { DashboardCacheToResponseMapper(instance()) }
+            bindProvider {
+                GetDashboardDataUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+        }
     }
 }

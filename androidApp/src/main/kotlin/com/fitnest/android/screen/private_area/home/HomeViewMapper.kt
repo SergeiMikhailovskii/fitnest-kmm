@@ -7,9 +7,7 @@ import com.fitnest.domain.entity.response.DashboardResponse
 import com.fitnest.domain.enum.BMIType
 import kotlinx.collections.immutable.toImmutableList
 
-class HomeViewMapper(
-    private val context: Context
-) {
+class HomeViewMapper(private val context: Context) {
 
     internal fun mapDashboardResponseToScreenData(response: DashboardResponse): HomeScreenData {
         val headerResponse = response.widgets?.headerWidget
@@ -161,5 +159,4 @@ class HomeViewMapper(
         }
 
     private fun isBeforeMidDay(hours: Int?) = hours in 0..12
-
 }

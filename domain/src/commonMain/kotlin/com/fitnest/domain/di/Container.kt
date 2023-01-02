@@ -3,8 +3,6 @@ package com.fitnest.domain.di
 import com.fitnest.domain.mapper.RegistrationResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
-import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
-import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.mapper.db.ProfileCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ProfileResponseToCacheMapper
 import com.fitnest.domain.usecase.private_area.AddActivityUseCase
@@ -13,7 +11,6 @@ import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
 import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
 import com.fitnest.domain.usecase.private_area.GetActivityTrackerPageUseCase
-import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
@@ -26,16 +23,6 @@ val useCaseModule = DI.Module("use case module") {
     /**
      * Private area
      */
-    bindProvider {
-        GetDashboardDataUseCase(
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance(),
-            instance()
-        )
-    }
     bindProvider { GetNotificationsPageUseCase(instance(), instance(), instance()) }
     bindProvider { DeactivateNotificationsUseCase(instance(), instance()) }
     bindProvider { PinNotificationUseCase(instance(), instance()) }
@@ -77,8 +64,6 @@ val useCaseModule = DI.Module("use case module") {
 
 val mapperModule = DI.Module("Mapper module") {
     bindProvider { RegistrationResponseMapper(instance()) }
-    bindProvider { DashboardResponseToCacheMapper(instance()) }
-    bindProvider { DashboardCacheToResponseMapper(instance()) }
     bindProvider { ActivityTrackerResponseToCacheMapper(instance()) }
     bindProvider { ActivityTrackerCacheToResponseMapper(instance()) }
     bindProvider { ProfileResponseToCacheMapper(instance()) }
