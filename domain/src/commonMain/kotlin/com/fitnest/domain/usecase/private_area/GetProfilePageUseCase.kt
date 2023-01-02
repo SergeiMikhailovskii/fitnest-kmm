@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 
-class GetProfilePageUseCase internal constructor(
+class GetProfilePageUseCase(
     private val networkRepository: NetworkRepository,
     private val dbRepository: DatabaseRepository,
     private val dataStoreRepository: DataStoreRepository,

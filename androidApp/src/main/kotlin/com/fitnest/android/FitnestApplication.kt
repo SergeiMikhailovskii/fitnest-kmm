@@ -7,7 +7,6 @@ import android.content.Context
 import android.os.Build
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import com.fitnest.android.di.privateAreaModule
 import com.fitnest.android.di.registrationModule
 import com.fitnest.android.di.serviceModule
 import com.fitnest.android.di.viewModelModule
@@ -16,6 +15,7 @@ import com.fitnest.di.databaseModule
 import com.fitnest.di.repositoryModule
 import com.fitnest.di.serializationModule
 import com.fitnest.domain.di.mapperModule
+import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
 import com.fitnest.worker.ClearCacheWorker
 import com.fitnest.worker.ClearCacheWorkerFactory
@@ -49,12 +49,12 @@ class FitnestApplication : Application(), Configuration.Provider, DIAware {
         import(dataExceptionHandlerModule)
         import(databaseModule)
         import(registrationModule)
-        import(privateAreaModule)
         import(viewModelModule)
         import(repositoryModule)
         import(serviceModule)
         import(mapperModule)
         import(serializationModule)
+        import(useCaseModule)
     }
 
     private fun createNotificationChannel() {

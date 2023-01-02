@@ -27,12 +27,13 @@ import com.fitnest.android.screen.registration.goal.GoalRegistrationViewMapper
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewModel
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationViewModel
 import com.fitnest.android.screen.splash.SplashViewModel
-import com.fitnest.domain.di.useCaseModule
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
 import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
+import com.fitnest.domain.mapper.db.ProfileCacheToResponseMapper
+import com.fitnest.domain.mapper.db.ProfileResponseToCacheMapper
 import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
@@ -46,7 +47,9 @@ import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
 import com.fitnest.domain.usecase.private_area.GetActivityTrackerPageUseCase
 import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
 import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
+import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
+import com.fitnest.domain.usecase.private_area.SetNotificationsEnabledUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
@@ -59,8 +62,6 @@ import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 val viewModelModule = DI.Module("view model module") {
-    import(useCaseModule)
-
     bindFactory<DI, ViewModelProvider.Factory> { di ->
         ViewModelFactory(di)
     }
@@ -68,15 +69,6 @@ val viewModelModule = DI.Module("view model module") {
 
 val registrationModule = DI.Module("registration module") {
     bindSingleton { RegistrationScreenState() }
-}
-
-val privateAreaModule = DI.Module("private area module") {
-    import(settingsPrivateAreaModule)
-}
-
-val settingsPrivateAreaModule = DI.Module("settings private area module") {
-    bindProvider { SettingsViewModel(instance(), instance(), instance()) }
-    bindProvider { SettingsViewMapper(instance()) }
 }
 
 val serviceModule = DI.Module("service module") {
@@ -265,13 +257,40 @@ object PrivateAreaModule {
     val notificationsPrivateAreaModule by lazy {
         DI.Module("notifications private area module") {
             bindProvider {
-                NotificationsViewModel(instance(), instance(), instance(), instance(), instance())
+                NotificationsViewModel(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
             }
             bindProvider { NotificationsViewMapper(instance()) }
             bindProvider { GetNotificationsPageUseCase(instance(), instance(), instance()) }
             bindProvider { DeactivateNotificationsUseCase(instance(), instance()) }
             bindProvider { PinNotificationUseCase(instance(), instance()) }
             bindProvider { DeleteNotificationUseCase(instance(), instance()) }
+        }
+    }
+
+    val settingsPrivateAreaModule by lazy {
+        DI.Module("settings private area module") {
+            bindProvider { SettingsViewModel(instance(), instance(), instance()) }
+            bindProvider { SettingsViewMapper(instance()) }
+            bindProvider {
+                GetProfilePageUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+            bindProvider { SetNotificationsEnabledUseCase(instance()) }
+            bindProvider { ProfileResponseToCacheMapper(instance()) }
+            bindProvider { ProfileCacheToResponseMapper(instance()) }
         }
     }
 }
