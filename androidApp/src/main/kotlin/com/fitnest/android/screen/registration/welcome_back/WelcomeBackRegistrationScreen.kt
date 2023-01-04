@@ -25,16 +25,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 
 @Composable
-internal fun WelcomeBackRegistrationScreen(navController: NavController) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+internal fun WelcomeBackRegistrationScreen(navController: NavController) = subDI(diBuilder = {
+    import(RegistrationModule.welcomeBackRegistrationScreenModule)
+}) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val viewModel = viewModel(
         factory = viewModelFactory,
         modelClass = WelcomeBackRegistrationViewModel::class.java
@@ -44,14 +50,8 @@ internal fun WelcomeBackRegistrationScreen(navController: NavController) {
     val screenData by viewModel.screenDataFlow.collectAsState()
 
     LaunchedEffect(null) {
-        launch {
-            viewModel.routeSharedFlow.collect {
-                handleNavigation(it, navController)
-            }
-        }
-        launch {
-            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
-        }
+        launch { viewModel.routeSharedFlow.collect { handleNavigation(it, navController) } }
+        launch { viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure) }
     }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {

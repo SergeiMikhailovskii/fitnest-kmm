@@ -45,6 +45,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
@@ -63,7 +64,9 @@ import com.fitnest.android.view.ui_elements.DividerWithChild
 import com.fitnest.android.view.ui_elements.FitnestTextField
 import com.fitnest.android.view.ui_elements.getPasswordVisualTransformation
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 
 @ExperimentalMaterial3Api
 @Composable
@@ -74,8 +77,12 @@ internal fun CreateAccountRegistrationScreenPreview() {
 
 @ExperimentalMaterial3Api
 @Composable
-internal fun CreateAccountRegistrationScreen(navController: NavController) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+internal fun CreateAccountRegistrationScreen(navController: NavController) = subDI(diBuilder = {
+    import(RegistrationModule.createAccountRegistrationScreenModule)
+}) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+
     val googleSignInService: GoogleSignInService by rememberInstance()
     val facebookSignInService: FacebookService by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()

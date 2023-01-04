@@ -7,7 +7,7 @@ import kotlinx.datetime.Clock
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-internal class ProfileResponseToCacheMapper(
+class ProfileResponseToCacheMapper(
     private val json: Json
 ) : Mapper<ProfilePageResponse, ProfileCacheModel> {
     override fun map(source: ProfilePageResponse?): ProfileCacheModel {

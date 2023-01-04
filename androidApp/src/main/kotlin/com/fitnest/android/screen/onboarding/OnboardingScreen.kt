@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.di.onboardingModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.Dimen
@@ -28,12 +29,17 @@ import com.fitnest.android.style.Padding
 import com.fitnest.android.view.ui_elements.ButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 
 @ExperimentalMaterial3Api
 @Composable
-fun OnboardingScreen(navController: NavController, stepName: String) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+fun OnboardingScreen(navController: NavController, stepName: String) = subDI(diBuilder = {
+    import(module = onboardingModule, allowOverride = true)
+}) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
 
     val viewModel = viewModel(
         factory = viewModelFactory,

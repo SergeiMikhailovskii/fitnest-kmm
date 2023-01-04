@@ -7,7 +7,7 @@ import com.fitnest.domain.mapper.Mapper
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-internal class ActivityTrackerCacheToResponseMapper(
+class ActivityTrackerCacheToResponseMapper(
     private val json: Json
 ) : Mapper<ActivityTrackerCacheModel, ActivityTrackerPageResponse> {
     override fun map(source: ActivityTrackerCacheModel?): ActivityTrackerPageResponse {

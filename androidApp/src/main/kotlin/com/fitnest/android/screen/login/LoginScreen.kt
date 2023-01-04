@@ -44,6 +44,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.di.loginScreenModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
@@ -55,7 +56,9 @@ import com.fitnest.android.view.ui_elements.DividerWithChild
 import com.fitnest.android.view.ui_elements.FitnestTextField
 import com.fitnest.android.view.ui_elements.getPasswordVisualTransformation
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 
 internal object LoginScreenConsts {
     internal const val LOGIN_SPAN_TAG = "1000"
@@ -63,10 +66,13 @@ internal object LoginScreenConsts {
 
 @ExperimentalMaterial3Api
 @Composable
-internal fun LoginScreen(navController: NavController) {
+internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
+    import(loginScreenModule)
+}) {
+    val di = localDI()
     val focusManager = LocalFocusManager.current
 
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val viewMapper: LoginViewMapper by rememberInstance()
     val registrationAnnotatedString = viewMapper.getLoginAnnotatedString()
     val googleSignInService: GoogleSignInService by rememberInstance()

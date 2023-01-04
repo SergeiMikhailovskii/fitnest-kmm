@@ -46,6 +46,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
 import com.fitnest.android.internal.ErrorHandlerDelegate
@@ -62,7 +63,9 @@ import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 import java.util.Date
 
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
@@ -78,8 +81,11 @@ internal fun CompleteAccountRegistrationScreenPreview() {
 @Composable
 internal fun CompleteAccountRegistrationScreen(
     navController: NavController
-) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+) = subDI(diBuilder = {
+    import(RegistrationModule.completeAccountRegistrationScreenModule)
+}) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(

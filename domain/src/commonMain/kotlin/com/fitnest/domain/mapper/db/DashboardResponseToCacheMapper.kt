@@ -7,7 +7,7 @@ import kotlinx.datetime.Clock
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-internal class DashboardResponseToCacheMapper(
+class DashboardResponseToCacheMapper(
     private val json: Json
 ) : Mapper<DashboardResponse, DashboardCacheModel> {
     override fun map(source: DashboardResponse?): DashboardCacheModel {

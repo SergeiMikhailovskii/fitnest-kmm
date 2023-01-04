@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.private_area.home.composable.ActivityStatusBlock
@@ -30,7 +31,9 @@ import com.fitnest.android.style.Padding
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 import kotlin.time.ExperimentalTime
 
 @Preview
@@ -45,8 +48,11 @@ fun HomeScreenPreview() {
 @ExperimentalMaterial3Api
 @ExperimentalTime
 @Composable
-fun HomeScreen(navController: NavController) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+fun HomeScreen(navController: NavController) = subDI(diBuilder = {
+    import(PrivateAreaModule.dashboardPrivateAreaModule)
+}) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(

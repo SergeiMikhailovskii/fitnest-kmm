@@ -4,7 +4,7 @@ import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.entity.request.CreateAccountStepRequest
 import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
 
-class CreateAccountRegistrationValidationUseCase internal constructor() {
+class CreateAccountRegistrationValidationUseCase {
 
     operator fun invoke(
         fields: CreateAccountStepRequest,
