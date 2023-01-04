@@ -41,6 +41,7 @@ import com.fitnest.domain.usecase.auth.LoginUserUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
 import com.fitnest.domain.usecase.private_area.AddActivityUseCase
+import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
 import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
 import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
@@ -55,6 +56,7 @@ import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextU
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
+import com.fitnest.worker.ClearCacheWorkerFactory
 import org.kodein.di.DI
 import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
@@ -292,5 +294,12 @@ object PrivateAreaModule {
             bindProvider { ProfileResponseToCacheMapper(instance()) }
             bindProvider { ProfileCacheToResponseMapper(instance()) }
         }
+    }
+}
+
+val workerModule by lazy {
+    DI.Module("worker module") {
+        bindProvider { ClearCacheWorkerFactory(instance()) }
+        bindProvider { ClearCacheUseCase(instance()) }
     }
 }

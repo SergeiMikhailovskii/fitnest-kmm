@@ -5,33 +5,36 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.fitnest.android.di.registrationModule
 import com.fitnest.android.di.serviceModule
 import com.fitnest.android.di.viewModelModule
+import com.fitnest.android.di.workerModule
 import com.fitnest.di.dataExceptionHandlerModule
 import com.fitnest.di.databaseModule
 import com.fitnest.di.repositoryModule
 import com.fitnest.di.serializationModule
 import com.fitnest.domain.di.mapperModule
-import com.fitnest.domain.di.useCaseModule
-import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
 import com.fitnest.worker.ClearCacheWorker
 import com.fitnest.worker.ClearCacheWorkerFactory
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.DIContext
+import org.kodein.di.android.closestDI
+import org.kodein.di.android.subDI
 import org.kodein.di.bind
 import org.kodein.di.diContext
 import org.kodein.di.instance
 
 class FitnestApplication : Application(), Configuration.Provider, DIAware {
     override fun getWorkManagerConfiguration(): Configuration {
-        val clearCacheUseCase by instance<ClearCacheUseCase>()
+        val di = subDI(closestDI()) { import(workerModule) }
+        val workerFactory by di.instance<ClearCacheWorkerFactory>()
         return Configuration.Builder()
-            .setMinimumLoggingLevel(android.util.Log.INFO)
-            .setWorkerFactory(ClearCacheWorkerFactory(clearCacheUseCase))
+            .setMinimumLoggingLevel(Log.INFO)
+            .setWorkerFactory(workerFactory)
             .build()
     }
 
@@ -54,7 +57,6 @@ class FitnestApplication : Application(), Configuration.Provider, DIAware {
         import(serviceModule)
         import(mapperModule)
         import(serializationModule)
-        import(useCaseModule)
     }
 
     private fun createNotificationChannel() {
