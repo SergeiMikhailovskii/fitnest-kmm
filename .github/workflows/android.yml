@@ -31,6 +31,11 @@ jobs:
       - name: Build
         run: ./gradlew :androidApp:assembleDebug
 
+      - name: Restart adb
+        run: |
+          adb kill-server
+          adb start-server
+
       - name: Run tests
         uses: ReactiveCircus/android-emulator-runner@v2.27.0
         with:
