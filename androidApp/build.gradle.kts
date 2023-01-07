@@ -14,6 +14,8 @@ dependencies {
     implementation(libs.bundles.kodeinAndroid)
     implementation(platform(libs.firebaseBom))
     implementation(platform(libs.composeBom))
+    androidTestImplementation(libs.bundles.test)
+    debugImplementation(libs.uiTestManifest)
 }
 
 android {
@@ -28,6 +30,8 @@ android {
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${googleClientId}\"")
         resValue("string", "facebook_app_id", facebookAppId)
         resValue("string", "facebook_client_token", facebookClientToken)
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         getByName("debug") {
