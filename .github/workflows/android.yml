@@ -33,7 +33,6 @@ jobs:
 
       - name: Restart adb
         run: |
-          adb kill-server
           adb reconnect
 
       - name: Run tests
