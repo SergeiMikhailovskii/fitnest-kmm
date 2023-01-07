@@ -42,9 +42,8 @@ immutableCollections = "0.3.5"
 napier = "2.6.1"
 
 ktor = "2.2.2"
-logback = "1.4.5"
 sqldelight = "1.5.4"
-dataStoreCore = "1.1.0-alpha01"
+dataStoreCore = "1.1.0-dev01"
 dataStoreAndroid = "1.1.0-alpha01"
 
 [libraries]
@@ -103,7 +102,6 @@ ktorLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktorSerialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktorContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktorSerializationJson = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 dataStorePreferencesCore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "dataStoreCore" }
 dataStoreAndroid = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStoreAndroid" }
@@ -173,8 +171,7 @@ ktorCommon = [
     "ktorLogging",
     "ktorSerialization",
     "ktorContentNegotiation",
-    "ktorSerializationJson",
-    "logback"
+    "ktorSerializationJson"
 ]
 
 dataCommon = [
