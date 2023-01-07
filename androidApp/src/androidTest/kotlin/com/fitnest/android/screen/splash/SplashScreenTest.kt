@@ -22,10 +22,10 @@ class SplashScreenTest {
         composeTestRule.setContent {
             SplashScreen(navController = NavController(LocalContext.current))
         }
-        composeTestRule.waitUntil(60_000) {
-            composeTestRule.onAllNodes(hasText(context.getString(R.string.splash_button_title)))
-                .fetchSemanticsNodes().size == 1
-        }
+        composeTestRule.waitUntilExists(
+            matcher = hasText(context.getString(R.string.splash_button_title)),
+            timeoutMillis = 60_000
+        )
         composeTestRule.onNodeWithText(
             context.getString(R.string.splash_button_title),
             ignoreCase = true
