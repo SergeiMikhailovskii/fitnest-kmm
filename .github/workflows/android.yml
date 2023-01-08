@@ -38,12 +38,9 @@ jobs:
       - name: Run tests
         uses: ReactiveCircus/android-emulator-runner@v2.27.0
         with:
-          force-avd-creation: false
           api-level: 31
           profile: pixel_6_pro
           script: ./gradlew connectedCheck
-          target: default
-          arch: x86_64
 
       - name: Upload Reports
         uses: actions/upload-artifact@v3.1.1
