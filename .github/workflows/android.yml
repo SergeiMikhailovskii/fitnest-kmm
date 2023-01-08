@@ -39,7 +39,7 @@ jobs:
         uses: ReactiveCircus/android-emulator-runner@v2.27.0
         with:
           emulator-build: 7425822
-          api-level: 33
+          api-level: 29
           profile: pixel_6_pro
           script: ./gradlew connectedCheck
           target: default
