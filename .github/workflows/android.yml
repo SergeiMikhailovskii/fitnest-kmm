@@ -22,18 +22,14 @@ jobs:
           echo -e facebook_app_id=${{ secrets.facebook_app_id }} >> local.properties
           echo -e facebook_client_token=${{ secrets.facebook_client_token }} >> local.properties
 
-#      - name: Clean
-#        run: ./gradlew clean
+      - name: Clean
+        run: ./gradlew clean
 
-#      - name: Lint check
-#        run: ./gradlew ktlintCheck
+      - name: Lint check
+        run: ./gradlew ktlintCheck
 
-#      - name: Build
-#        run: ./gradlew :androidApp:assembleDebug
-
-#      - name: Restart adb
-#        run: |
-#          adb reconnect
+      - name: Build
+        run: ./gradlew :androidApp:assembleDebug
 
       - name: Run tests
         uses: ReactiveCircus/android-emulator-runner@v2.27.0
