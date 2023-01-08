@@ -42,6 +42,7 @@ jobs:
           profile: pixel_6_pro
           script: ./gradlew connectedCheck
           arch: x86_64
+          target: google_apis
 
       - name: Upload Reports
         uses: actions/upload-artifact@v3.1.1
