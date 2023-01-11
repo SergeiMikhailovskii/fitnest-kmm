@@ -27,7 +27,7 @@ composeCompiler = "1.3.2"
 composeConstraintLayout = "1.0.1"
 
 firebaseBom = "31.1.1"
-composeBom = "2022.12.00"
+composeBom = "2023.01.00"
 
 kodein = "7.15.1"
 serialization = "1.4.1"
