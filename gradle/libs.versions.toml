@@ -28,6 +28,7 @@ composeConstraintLayout = "1.0.1"
 
 composeJUnit = "1.3.2"
 testCore = "1.5.0"
+mockk = "1.13.3"
 
 uiTestManifest = "1.4.0-alpha03"
 
@@ -70,6 +71,7 @@ composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref =
 
 composeJUnit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeJUnit" }
 testCore = { module = "androidx.test:core", version.ref = "testCore" }
+mockk = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 
 uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
 
@@ -153,7 +155,8 @@ kodeinAndroid = [
 
 test = [
     "composeJUnit",
-    "testCore"
+    "testCore",
+    "mockk"
 ]
 
 domain = [

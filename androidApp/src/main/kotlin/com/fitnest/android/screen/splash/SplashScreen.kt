@@ -26,21 +26,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
-import com.fitnest.android.di.splashModule
 import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
+import org.kodein.di.DI
 import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
 @Composable
-internal fun SplashScreen(navController: NavController) = subDI(
-    allowSilentOverride = true,
-    diBuilder = { import(splashModule, allowOverride = true) }
+internal fun SplashScreen(navController: NavController, diSubModule: DI.Module) = subDI(
+    diBuilder = { import(diSubModule) }
 ) {
     val di = localDI()
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
