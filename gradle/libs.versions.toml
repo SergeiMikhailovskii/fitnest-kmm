@@ -38,7 +38,7 @@ napier = "2.6.1"
 
 ktor = "2.2.2"
 logback = "1.4.5"
-sqldelight = "1.5.4"
+sqldelight = "1.5.5"
 dataStoreCore = "1.1.0-alpha01"
 dataStoreAndroid = "1.1.0-alpha01"
 
