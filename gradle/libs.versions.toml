@@ -72,6 +72,7 @@ composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref =
 composeJUnit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeJUnit" }
 testCore = { module = "androidx.test:core", version.ref = "testCore" }
 mockk = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+navigationTesting = { module = "androidx.navigation:navigation-testing", version.ref = "composeNavigation" }
 
 uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
 
@@ -156,7 +157,8 @@ kodeinAndroid = [
 test = [
     "composeJUnit",
     "testCore",
-    "mockk"
+    "mockk",
+    "navigationTesting"
 ]
 
 domain = [

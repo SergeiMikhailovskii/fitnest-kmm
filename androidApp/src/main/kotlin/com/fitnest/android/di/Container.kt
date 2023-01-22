@@ -34,7 +34,6 @@ import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.mapper.db.ProfileCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ProfileResponseToCacheMapper
-import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.auth.ForgetPasswordUseCase
 import com.fitnest.domain.usecase.auth.GetLoginPageUseCase
 import com.fitnest.domain.usecase.auth.LoginUserUseCase
@@ -51,8 +50,10 @@ import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
 import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
 import com.fitnest.domain.usecase.private_area.SetNotificationsEnabledUseCase
+import com.fitnest.domain.usecase.proxy.GetFlowUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
+import com.fitnest.domain.usecase.splash.GenerateTokenUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
@@ -89,7 +90,7 @@ val splashModule = DI.Module("splash module", allowSilentOverride = true) {
 val proxyModule by lazy {
     DI.Module("proxy module", allowSilentOverride = true) {
         bindProvider { ProxyViewModel(instance(), instance(), instance()) }
-        bindProvider { GenerateTokenUseCase(instance(), instance()) }
+        bindProvider { GetFlowUseCase(instance(), instance()) }
         bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
         bindProvider { GetRegistrationStepData(instance(), instance(), instance(), instance()) }
     }

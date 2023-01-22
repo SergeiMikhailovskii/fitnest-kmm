@@ -17,8 +17,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.fitnest.android.extension.navigate
 import com.fitnest.android.internal.SnackbarDelegate
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
@@ -51,8 +53,10 @@ import kotlin.time.ExperimentalTime
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
-fun FitnestApp(startDestination: String = Route.Splash.screenName) {
-    val navController = rememberAnimatedNavController(AnimatedComposeNavigator())
+fun FitnestApp(
+    startDestination: String = Route.Splash.screenName,
+    navController: NavHostController = rememberAnimatedNavController(AnimatedComposeNavigator())
+) {
     val snackbarDelegate: SnackbarDelegate by rememberInstance()
 
     val snackbarHostState = remember {
@@ -85,7 +89,7 @@ fun FitnestApp(startDestination: String = Route.Splash.screenName) {
                 modifier = Modifier.padding(it)
             ) {
                 composable(route = Route.Splash.screenName) {
-                    SplashScreen(navController = navController)
+                    SplashScreen(navController::navigate)
                 }
                 composable(route = Route.Login.screenName) {
                     LoginScreen(navController = navController)

@@ -12,24 +12,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.android.base.Route
 import com.fitnest.android.di.splashModule
 import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.internal.ErrorHandlerDelegate
-import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
@@ -38,9 +36,7 @@ import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
 @Composable
-internal fun SplashScreen(navController: NavController) = subDI(
-    diBuilder = { import(splashModule) }
-) {
+internal fun SplashScreen(navigate: (Route) -> Unit) = subDI(diBuilder = { import(splashModule) }) {
     val di = localDI()
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
@@ -50,17 +46,12 @@ internal fun SplashScreen(navController: NavController) = subDI(
         modelClass = SplashViewModel::class.java
     )
 
-    var progress by remember { mutableStateOf(true) }
+    val progress by viewModel.progressStateFlow.collectAsState()
 
     LaunchedEffect(key1 = null) {
         launch {
             viewModel.routeSharedFlow.collect {
-                handleNavigation(route = it, navController = navController)
-            }
-        }
-        launch {
-            viewModel.progressStateFlow.collect {
-                progress = it
+                navigate(it)
             }
         }
         launch {
@@ -90,7 +81,8 @@ internal fun SplashScreen(navController: NavController) = subDI(
                     )
                     .height(Dimen.Dimen60)
                     .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
+                    .align(Alignment.BottomCenter)
+                    .testTag("splash_btn_next"),
             ) {
                 Text(
                     text = stringResource(id = R.string.splash_button_title),
