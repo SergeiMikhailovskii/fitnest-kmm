@@ -29,7 +29,7 @@ composeConstraintLayout = "1.0.1"
 firebaseBom = "31.2.0"
 composeBom = "2023.01.00"
 
-kodein = "7.15.1"
+kodein = "7.18.0"
 serialization = "1.4.1"
 coroutines = "1.6.4"
 dateTime = "0.4.0"
