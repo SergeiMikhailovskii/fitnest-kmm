@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.fitnest.android.di.splashModule
 import com.fitnest.android.internal.SnackbarDelegate
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
@@ -86,10 +85,7 @@ fun FitnestApp(startDestination: String = Route.Splash.screenName) {
                 modifier = Modifier.padding(it)
             ) {
                 composable(route = Route.Splash.screenName) {
-                    SplashScreen(
-                        navController = navController,
-                        diSubModule = splashModule
-                    )
+                    SplashScreen(navController = navController)
                 }
                 composable(route = Route.Login.screenName) {
                     LoginScreen(navController = navController)

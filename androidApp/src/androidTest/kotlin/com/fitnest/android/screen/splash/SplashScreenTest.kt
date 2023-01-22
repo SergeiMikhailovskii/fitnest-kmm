@@ -37,10 +37,7 @@ class SplashScreenTest {
     fun splashScreenLoadedSuccess() {
         val context = composeTestRule.activity
         composeTestRule.setContent {
-            SplashScreen(
-                navController = NavController(LocalContext.current),
-                diSubModule = splashModule
-            )
+            SplashScreen(navController = NavController(LocalContext.current))
         }
         composeTestRule.waitUntilExists(
             matcher = hasText(context.getString(R.string.splash_button_title)),
@@ -68,9 +65,7 @@ class SplashScreenTest {
         }
         composeTestRule.setContent { FitnestApp() }
         composeTestRule.onNodeWithTag("snackbarError").assertIsDisplayed()
-        composeTestRule.onNodeWithText(
-            context.getString(R.string.splash_button_title),
-            ignoreCase = true
-        ).assertIsDisplayed()
+        composeTestRule.onNodeWithText(context.getString(R.string.splash_button_title))
+            .assertIsDisplayed()
     }
 }
