@@ -14,7 +14,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 
-class GetDashboardDataUseCase internal constructor(
+class GetDashboardDataUseCase(
     private val networkRepository: NetworkRepository,
     private val dbRepository: DatabaseRepository,
     private val json: Json,

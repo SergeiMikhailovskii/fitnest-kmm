@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.private_area.settings.composables.AccountSettingsBlock
@@ -35,7 +36,9 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 
 @OptIn(ExperimentalAnimationApi::class)
 @Preview
@@ -46,8 +49,11 @@ private fun SettingsScreenPreview() {
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-internal fun SettingsScreen(navController: NavController) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+internal fun SettingsScreen(navController: NavController) = subDI(diBuilder = {
+    import(PrivateAreaModule.settingsPrivateAreaModule)
+}) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
     val notificationsPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         rememberPermissionState(android.Manifest.permission.POST_NOTIFICATIONS)

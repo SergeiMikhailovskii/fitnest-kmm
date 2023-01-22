@@ -6,7 +6,7 @@ import com.fitnest.domain.mapper.Mapper
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-internal class DashboardCacheToResponseMapper(
+class DashboardCacheToResponseMapper(
     private val json: Json
 ) : Mapper<DashboardCacheModel, DashboardResponse> {
     override fun map(source: DashboardCacheModel?): DashboardResponse {

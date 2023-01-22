@@ -13,11 +13,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.rememberNavController
+import com.fitnest.android.di.proxyModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.domain.enum.FlowType
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
+import org.kodein.di.compose.subDI
 
 @Preview
 @Composable
@@ -29,8 +32,12 @@ internal fun ProxyScreenPreview() {
 }
 
 @Composable
-internal fun ProxyScreen(navController: NavController, flowType: FlowType) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+internal fun ProxyScreen(navController: NavController, flowType: FlowType) = subDI(
+    diBuilder = { import(proxyModule, allowOverride = true) },
+    allowSilentOverride = true
+) {
+    val di = localDI()
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(

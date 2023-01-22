@@ -6,7 +6,7 @@ import com.fitnest.domain.mapper.Mapper
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-internal class ProfileCacheToResponseMapper(
+class ProfileCacheToResponseMapper(
     private val json: Json
 ) : Mapper<ProfileCacheModel, ProfilePageResponse> {
     override fun map(source: ProfileCacheModel?): ProfilePageResponse {
