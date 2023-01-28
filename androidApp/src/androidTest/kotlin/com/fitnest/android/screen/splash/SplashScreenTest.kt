@@ -14,18 +14,24 @@ import androidx.compose.ui.test.performClick
 import androidx.navigation.testing.TestNavHostController
 import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
+import com.fitnest.android.base.Route
 import com.fitnest.android.di.splashModule
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.splash.GenerateTokenUseCase
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
+import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.kodein.di.DI
@@ -42,18 +48,65 @@ class SplashScreenTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    @MockK(relaxed = true)
+    internal lateinit var viewModel: SplashViewModel
+
+    @Before
+    fun setUp() = MockKAnnotations.init(this)
+
     @Test
     fun splashScreenLoadedSuccess() {
         val context = composeTestRule.activity
+        val progressFlow = MutableStateFlow(false)
+        val routeFlow = MutableSharedFlow<Route>()
+        val failureFlow = MutableSharedFlow<Failure>()
 
         val navController = TestNavHostController(context)
         navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
 
-        val mockGenerateToken = mockk<GenerateTokenUseCase>()
+        every { viewModel.progressStateFlow } returns progressFlow
+        every { viewModel.routeSharedFlow } returns routeFlow
+        every { viewModel.failureSharedFlow } returns failureFlow
+        every { viewModel.generateToken() } coAnswers {
+            progressFlow.emit(true)
+            progressFlow.emit(false)
+        }
         mockkStatic(::splashModule)
-        coEvery { mockGenerateToken() } returns Result.success(Unit)
         every { splashModule } returns DI.Module(name = "mock splash module") {
-            bindProvider { SplashViewModel(generateTokenUseCase = mockGenerateToken) }
+            bindProvider { viewModel }
+        }
+        composeTestRule.setContent {
+            FitnestApp(navController = navController)
+        }
+        composeTestRule.waitUntilExists(
+            matcher = hasText(context.getString(R.string.splash_button_title)),
+            timeoutMillis = 60_000
+        )
+    }
+
+    @Test
+    fun splashScreenLoadedSuccessAndRedirectNext() {
+        val context = composeTestRule.activity
+        val progressFlow = MutableStateFlow(false)
+        val routeFlow = MutableSharedFlow<Route>()
+        val failureFlow = MutableSharedFlow<Failure>()
+
+        val navController = TestNavHostController(context)
+        navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
+
+        every { viewModel.progressStateFlow } returns progressFlow
+        every { viewModel.routeSharedFlow } returns routeFlow
+        every { viewModel.failureSharedFlow } returns failureFlow
+        every { viewModel.generateToken() } coAnswers {
+            progressFlow.emit(true)
+            progressFlow.emit(false)
+        }
+        every { viewModel.navigateNext() } coAnswers {
+            routeFlow.emit(Route.Proxy())
+        }
+        mockkStatic(::splashModule)
+        every { splashModule } returns DI.Module(name = "mock splash module") {
+            bindProvider { viewModel }
         }
         composeTestRule.setContent {
             FitnestApp(navController = navController)
@@ -64,7 +117,10 @@ class SplashScreenTest {
         )
         composeTestRule.onNodeWithTag("splash_btn_next").performClick()
         composeTestRule.waitForIdle()
-        assertEquals("proxy/{flowType}", navController.currentBackStackEntry?.destination?.route)
+        assertEquals(
+            "proxy/{flowType}",
+            navController.currentBackStackEntry?.destination?.route
+        )
         assertTrue(navController.currentBackStackEntry?.arguments?.containsKey("flowType") == true)
 
         val flow = navController.currentBackStackEntry?.arguments?.getSerializable("flowType")
