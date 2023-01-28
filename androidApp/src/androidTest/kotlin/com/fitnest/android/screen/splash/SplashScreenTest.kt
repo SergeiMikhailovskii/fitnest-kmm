@@ -18,14 +18,11 @@ import com.fitnest.android.base.Route
 import com.fitnest.android.di.splashModule
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
-import com.fitnest.domain.usecase.splash.GenerateTokenUseCase
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import io.mockk.mockkStatic
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
@@ -46,38 +43,37 @@ import kotlin.time.ExperimentalTime
 class SplashScreenTest {
 
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+    val composeTestRule by lazy { createAndroidComposeRule<ComponentActivity>() }
 
     @MockK(relaxed = true)
     internal lateinit var viewModel: SplashViewModel
 
+    private val progressFlow by lazy { MutableStateFlow(false) }
+    private val routeFlow by lazy { MutableSharedFlow<Route>() }
+    private val failureFlow by lazy { MutableSharedFlow<Failure>() }
+    private val context by lazy { composeTestRule.activity }
+
     @Before
-    fun setUp() = MockKAnnotations.init(this)
+    fun setUpMocks() = MockKAnnotations.init(this)
 
-    @Test
-    fun splashScreenLoadedSuccess() {
-        val context = composeTestRule.activity
-        val progressFlow = MutableStateFlow(false)
-        val routeFlow = MutableSharedFlow<Route>()
-        val failureFlow = MutableSharedFlow<Failure>()
-
-        val navController = TestNavHostController(context)
-        navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
-
+    @Before
+    fun setUpFlows() {
+        mockkStatic(::splashModule)
         every { viewModel.progressStateFlow } returns progressFlow
         every { viewModel.routeSharedFlow } returns routeFlow
         every { viewModel.failureSharedFlow } returns failureFlow
+        every { splashModule } returns DI.Module(name = "mock splash module") {
+            bindProvider { viewModel }
+        }
+    }
+
+    @Test
+    fun splashScreenLoadedSuccess() {
         every { viewModel.generateToken() } coAnswers {
             progressFlow.emit(true)
             progressFlow.emit(false)
         }
-        mockkStatic(::splashModule)
-        every { splashModule } returns DI.Module(name = "mock splash module") {
-            bindProvider { viewModel }
-        }
-        composeTestRule.setContent {
-            FitnestApp(navController = navController)
-        }
+        composeTestRule.setContent { FitnestApp() }
         composeTestRule.waitUntilExists(
             matcher = hasText(context.getString(R.string.splash_button_title)),
             timeoutMillis = 60_000
@@ -86,27 +82,15 @@ class SplashScreenTest {
 
     @Test
     fun splashScreenLoadedSuccessAndRedirectNext() {
-        val context = composeTestRule.activity
-        val progressFlow = MutableStateFlow(false)
-        val routeFlow = MutableSharedFlow<Route>()
-        val failureFlow = MutableSharedFlow<Failure>()
-
         val navController = TestNavHostController(context)
         navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
 
-        every { viewModel.progressStateFlow } returns progressFlow
-        every { viewModel.routeSharedFlow } returns routeFlow
-        every { viewModel.failureSharedFlow } returns failureFlow
         every { viewModel.generateToken() } coAnswers {
             progressFlow.emit(true)
             progressFlow.emit(false)
         }
         every { viewModel.navigateNext() } coAnswers {
             routeFlow.emit(Route.Proxy())
-        }
-        mockkStatic(::splashModule)
-        every { splashModule } returns DI.Module(name = "mock splash module") {
-            bindProvider { viewModel }
         }
         composeTestRule.setContent {
             FitnestApp(navController = navController)
@@ -129,12 +113,10 @@ class SplashScreenTest {
 
     @Test
     fun splashScreenLoadedFailure() {
-        val context = composeTestRule.activity
-        val mockGenerateToken = mockk<GenerateTokenUseCase>()
-        mockkStatic(::splashModule)
-        coEvery { mockGenerateToken() } returns Result.failure(Failure.ServerError(500))
-        every { splashModule } returns DI.Module(name = "mock splash module") {
-            bindProvider { SplashViewModel(generateTokenUseCase = mockGenerateToken) }
+        every { viewModel.generateToken() } coAnswers {
+            progressFlow.emit(true)
+            failureFlow.emit(Failure.ServerError(500))
+            progressFlow.emit(false)
         }
         composeTestRule.setContent { FitnestApp() }
         composeTestRule.onNodeWithTag("snackbarError").assertIsDisplayed()
