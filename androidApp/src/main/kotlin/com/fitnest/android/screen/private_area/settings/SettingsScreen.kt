@@ -66,7 +66,7 @@ internal fun SettingsScreen(navController: NavController) = subDI(diBuilder = {
         modelClass = SettingsViewModel::class.java
     )
     val screenData by viewModel.screenDataFlow.collectAsState()
-    val progress by viewModel.progressStateFlow.collectAsState()
+    val progress by viewModel.progressSharedFlow.collectAsState(false)
 
     LaunchedEffect(null) {
         launch {

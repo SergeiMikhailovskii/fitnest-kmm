@@ -46,7 +46,7 @@ internal fun SplashScreen(navigate: (Route) -> Unit) = subDI(diBuilder = { impor
         modelClass = SplashViewModel::class.java
     )
 
-    val progress by viewModel.progressStateFlow.collectAsState()
+    val progress by viewModel.progressSharedFlow.collectAsState(false)
 
     LaunchedEffect(key1 = null) {
         launch {

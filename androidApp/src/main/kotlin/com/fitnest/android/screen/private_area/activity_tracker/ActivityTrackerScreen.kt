@@ -50,7 +50,7 @@ internal fun ActivityTrackerScreen() = subDI(diBuilder = {
     )
 
     val screenData by viewModel.screenDataFlow.collectAsState()
-    val progress by viewModel.progressStateFlow.collectAsState()
+    val progress by viewModel.progressSharedFlow.collectAsState(false)
 
     val modalBottomSheetState = rememberModalBottomSheetState(
         ModalBottomSheetValue.Hidden

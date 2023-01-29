@@ -31,7 +31,10 @@ jobs:
       - name: Build
         run: ./gradlew :androidApp:assembleDebug
 
-      - name: Run tests
+      - name: Run unit tests
+        run: ./gradlew :androidApp:testDebugUnitTest
+
+      - name: Run instrumented tests
         uses: ReactiveCircus/android-emulator-runner@v2.27.0
         with:
           api-level: 33

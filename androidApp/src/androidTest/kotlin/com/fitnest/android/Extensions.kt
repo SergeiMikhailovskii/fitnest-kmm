@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.splash
+package com.fitnest.android
 
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.junit4.ComposeContentTestRule

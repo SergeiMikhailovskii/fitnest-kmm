@@ -14,7 +14,8 @@ dependencies {
     implementation(libs.bundles.kodeinAndroid)
     implementation(platform(libs.firebaseBom))
     implementation(platform(libs.composeBom))
-    androidTestImplementation(libs.bundles.test)
+    androidTestImplementation(libs.bundles.androidTest)
+    testImplementation(libs.bundles.test)
     debugImplementation(libs.uiTestManifest)
 }
 
@@ -42,7 +43,7 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = false
         }
     }
@@ -61,6 +62,11 @@ android {
             add("META-INF/INDEX.LIST")
             add("META-INF/LICENSE.md")
             add("META-INF/LICENSE-notice.md")
+        }
+    }
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
         }
     }
 }

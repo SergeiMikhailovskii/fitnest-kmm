@@ -5,10 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.fitnest.domain.functional.Failure
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
@@ -25,8 +23,8 @@ abstract class BaseViewModel : ViewModel() {
     private val _routeSharedFlow = MutableSharedFlow<Route>()
     internal val routeSharedFlow = _routeSharedFlow.asSharedFlow()
 
-    private val _progressStateFlow = MutableStateFlow(false)
-    internal val progressStateFlow = _progressStateFlow.asStateFlow()
+    private val _progressSharedFlow = MutableSharedFlow<Boolean>()
+    internal val progressSharedFlow = _progressSharedFlow.asSharedFlow()
 
     protected fun handleRoute(route: Route) {
         viewModelScope.launch(exceptionHandler) {
@@ -36,14 +34,14 @@ abstract class BaseViewModel : ViewModel() {
 
     protected fun handleProgress(progress: Boolean = false) {
         viewModelScope.launch(exceptionHandler) {
-            _progressStateFlow.emit(progress)
+            _progressSharedFlow.emit(progress)
         }
     }
 
     protected fun handleFailure(failure: Failure) {
         viewModelScope.launch(exceptionHandler) {
             _failureSharedFlow.emit(failure)
-            _progressStateFlow.emit(false)
+            _progressSharedFlow.emit(false)
         }
     }
 }

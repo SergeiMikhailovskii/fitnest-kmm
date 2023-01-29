@@ -16,6 +16,7 @@ import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.base.Route
 import com.fitnest.android.di.splashModule
+import com.fitnest.android.waitUntilExists
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
@@ -59,7 +60,7 @@ class SplashScreenTest {
     @Before
     fun setUpFlows() {
         mockkStatic(::splashModule)
-        every { viewModel.progressStateFlow } returns progressFlow
+        every { viewModel.progressSharedFlow } returns progressFlow
         every { viewModel.routeSharedFlow } returns routeFlow
         every { viewModel.failureSharedFlow } returns failureFlow
         every { splashModule } returns DI.Module(name = "mock splash module") {

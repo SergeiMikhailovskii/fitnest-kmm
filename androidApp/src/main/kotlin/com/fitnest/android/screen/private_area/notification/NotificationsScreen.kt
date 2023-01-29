@@ -64,7 +64,7 @@ internal fun NotificationsScreen() = subDI(diBuilder = {
     var position by remember { mutableStateOf<Float?>(null) }
     var draggedItem by remember { mutableStateOf<Int?>(null) }
 
-    val progress by viewModel.progressStateFlow.collectAsState()
+    val progress by viewModel.progressSharedFlow.collectAsState(false)
 
     val view = LocalView.current
 
