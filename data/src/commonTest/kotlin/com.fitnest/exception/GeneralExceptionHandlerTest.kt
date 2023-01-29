@@ -32,4 +32,10 @@ class GeneralExceptionHandlerTest {
         val output = exceptionHandler.getError(testInput)
         assertEquals(testInput, output)
     }
+
+    @Test
+    fun mapUnsupportedError() {
+        val output = exceptionHandler.getError(IllegalStateException("test"))
+        assertEquals(Failure.Unknown, output)
+    }
 }
