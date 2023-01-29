@@ -32,7 +32,9 @@ jobs:
         run: ./gradlew :androidApp:assembleDebug
 
       - name: Run unit tests
-        run: ./gradlew :androidApp:testDebugUnitTest
+        run: |
+          ./gradlew :androidApp:testDebugUnitTest
+          ./gradlew :domain:testDebugUnitTest
 
       - name: Run instrumented tests
         uses: ReactiveCircus/android-emulator-runner@v2.27.0
