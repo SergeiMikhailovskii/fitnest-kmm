@@ -56,7 +56,12 @@ kotlin {
                 implementation(libs.bundles.dataCommon)
             }
         }
-        val commonTest by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.bundles.dataTest)
+                implementation(kotlin("test"))
+            }
+        }
         val androidMain by getting {
             dependencies {
                 implementation(libs.bundles.dataAndroid)
