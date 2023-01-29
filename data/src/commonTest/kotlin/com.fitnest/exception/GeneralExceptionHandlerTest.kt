@@ -23,4 +23,13 @@ class GeneralExceptionHandlerTest {
         )
         assertEquals(Failure.ServerError(500), output)
     }
+
+    @Test
+    fun mapValidationError() {
+        val testInput = Failure.ValidationErrors(
+            listOf(Failure.ValidationError("testField", "testMessage"))
+        )
+        val output = exceptionHandler.getError(testInput)
+        assertEquals(testInput, output)
+    }
 }
