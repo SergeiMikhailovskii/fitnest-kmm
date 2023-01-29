@@ -1,5 +1,6 @@
 package com.fitnest.exception
 
+import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.domain.functional.Failure
 import com.fitnest.util.Util
 import io.ktor.client.plugins.ResponseException
@@ -9,9 +10,7 @@ import kotlin.test.assertEquals
 
 class GeneralExceptionHandlerTest {
 
-    private val exceptionHandler by lazy {
-        GeneralExceptionHandler()
-    }
+    private val exceptionHandler by lazy<ExceptionHandler>(::GeneralExceptionHandler)
 
     @Test
     fun mapResponseException() {
