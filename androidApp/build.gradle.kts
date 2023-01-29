@@ -14,8 +14,8 @@ dependencies {
     implementation(libs.bundles.kodeinAndroid)
     implementation(platform(libs.firebaseBom))
     implementation(platform(libs.composeBom))
-    androidTestImplementation(libs.bundles.androidTest)
-    testImplementation(libs.bundles.test)
+    androidTestImplementation(libs.bundles.androidInstrumentedTest)
+    testImplementation(libs.bundles.androidTest)
     debugImplementation(libs.uiTestManifest)
 }
 

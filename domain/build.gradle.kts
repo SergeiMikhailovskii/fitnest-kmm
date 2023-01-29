@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization") version "1.7.21"
+    id("org.kodein.mock.mockmp") version "1.11.0"
     id("com.android.library")
 }
 
@@ -35,7 +36,12 @@ kotlin {
                 api(libs.bundles.domain)
             }
         }
-        val commonTest by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.bundles.domainTest)
+                implementation(kotlin("test"))
+            }
+        }
         val androidMain by getting
         val androidTest by getting
         val iosMain by getting {
@@ -55,4 +61,8 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.idfinance.domain"
+}
+
+mockmp {
+    usesHelper = true
 }

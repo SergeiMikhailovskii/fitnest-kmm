@@ -7,9 +7,9 @@ import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class BaseResponse(
-    val data: JsonElement?,
-    val errors: List<Failure.ValidationError>?,
-    private val flow: String?
+    val data: JsonElement? = null,
+    val errors: List<Failure.ValidationError>? = null,
+    private val flow: String? = null
 ) {
 
     fun getFlow() = FlowType.fromName(flow)

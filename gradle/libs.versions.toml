@@ -74,7 +74,7 @@ composeJUnit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "c
 jUnit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jUnit" }
 coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 testCore = { module = "androidx.test:core", version.ref = "testCore" }
-mockk = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+mockkAndroid = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 navigationTesting = { module = "androidx.navigation:navigation-testing", version.ref = "composeNavigation" }
 
 uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
@@ -157,16 +157,20 @@ kodeinAndroid = [
     "kodeinCompose"
 ]
 
-androidTest = [
+androidInstrumentedTest = [
     "composeJUnit",
     "testCore",
-    "mockk",
+    "mockkAndroid",
     "navigationTesting"
 ]
 
-test = [
-    "mockk",
+androidTest = [
+    "mockkAndroid",
     "jUnit",
+    "coroutinesTest"
+]
+
+domainTest = [
     "coroutinesTest"
 ]
 
