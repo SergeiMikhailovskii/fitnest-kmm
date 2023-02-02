@@ -108,6 +108,7 @@ ktorLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktorSerialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktorContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktorSerializationJson = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktorTest = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 
 dataStorePreferencesCore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "dataStoreCore" }
 dataStoreAndroid = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStoreAndroid" }
@@ -175,7 +176,8 @@ domainTest = [
 ]
 
 dataTest = [
-    "coroutinesTest"
+    "coroutinesTest",
+    "ktorTest"
 ]
 
 domain = [

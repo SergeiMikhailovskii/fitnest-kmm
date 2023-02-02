@@ -21,6 +21,14 @@ import com.fitnest.repository.datastore.createMigrations
 import com.fitnest.repository.datastore.getDataStore
 import com.fitnest.repository.datastore.producePath
 import com.fitnest.service.NetworkService
+import io.github.aakira.napier.Napier
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.cookies.HttpCookies
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -51,6 +59,31 @@ val repositoryModule = DI.Module("Repository module") {
 val serviceModule = DI.Module("Service module") {
     bindSingleton { CookiesStorage(instance()) }
     bindSingleton<com.fitnest.domain.service.NetworkService> { NetworkService(instance()) }
+    bindSingleton {
+        val cookiesStorage = instance<CookiesStorage>()
+        HttpClient {
+            expectSuccess = true
+            install(HttpCookies) {
+                storage = cookiesStorage
+            }
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                        prettyPrint = true
+                    }
+                )
+            }
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Napier.i(message)
+                    }
+                }
+                level = LogLevel.ALL
+            }
+        }
+    }
 }
 
 val serializationModule = DI.Module("Serialization module") {
