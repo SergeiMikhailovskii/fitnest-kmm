@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "11.1.0"
 }
 
 repositories {
@@ -16,9 +16,9 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
-        classpath("com.android.tools.build:gradle:7.3.1")
-        classpath("com.google.gms:google-services:4.3.14")
-        classpath("com.squareup.sqldelight:gradle-plugin:1.5.4")
+        classpath("com.android.tools.build:gradle:7.4.1")
+        classpath("com.google.gms:google-services:4.3.15")
+        classpath("com.squareup.sqldelight:gradle-plugin:1.5.5")
     }
 }
 

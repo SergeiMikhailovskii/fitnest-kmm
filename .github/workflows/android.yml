@@ -54,7 +54,7 @@ jobs:
         if: always()
 
       - name: Upload artifact to build info
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: androidApp-debug.apk
           path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
@@ -69,7 +69,7 @@ jobs:
           name: androidApp-debug.apk
 
       - name: Upload artifact to FAD
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.5.0
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
