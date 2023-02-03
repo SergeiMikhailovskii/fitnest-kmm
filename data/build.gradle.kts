@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("org.kodein.mock.mockmp") version "1.11.0"
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
@@ -56,7 +57,12 @@ kotlin {
                 implementation(libs.bundles.dataCommon)
             }
         }
-        val commonTest by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.bundles.dataTest)
+                implementation(kotlin("test"))
+            }
+        }
         val androidMain by getting {
             dependencies {
                 implementation(libs.bundles.dataAndroid)
@@ -77,4 +83,8 @@ sqldelight {
     database("FitnestDatabase") {
         packageName = "com.fitnest"
     }
+}
+
+mockmp {
+    usesHelper = true
 }

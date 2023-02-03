@@ -85,7 +85,7 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val screenData: LoginScreenData by viewModel.screenDataFlow.collectAsState()
-    val progress: Boolean by viewModel.progressStateFlow.collectAsState()
+    val progress: Boolean by viewModel.progressSharedFlow.collectAsState(false)
     val screenState: LoginScreenState by viewModel.screenStateFlow.collectAsState()
 
     LaunchedEffect(key1 = null) {

@@ -24,13 +24,18 @@ internal class SnackbarDelegate(
             SnackbarState.ERROR -> MaterialTheme.colorScheme.error
         }
 
+    var snackbarTestTag: String = ""
+        private set
+
     fun showSnackbar(
         state: SnackbarState,
         message: String,
+        testTag: String? = null,
         actionLabel: String? = null,
         withDismissAction: Boolean = false,
         duration: SnackbarDuration = SnackbarDuration.Short
     ) {
+        testTag?.let { snackbarTestTag = it }
         this.snackbarState = state
         coroutineScope?.launch {
             snackbarHostState?.showSnackbar(message, actionLabel, withDismissAction, duration)

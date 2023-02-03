@@ -4,13 +4,13 @@ import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.domain.enum.FlowType
-import com.fitnest.domain.usecase.GenerateTokenUseCase
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
+import com.fitnest.domain.usecase.proxy.GetFlowUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
 import kotlinx.coroutines.launch
 
 internal class ProxyViewModel(
-    private val generateTokenUseCase: GenerateTokenUseCase,
+    private val getFlowUseCase: GetFlowUseCase,
     private val getOnboardingStepUseCase: GetOnboardingStepUseCase,
     private val getRegistrationStepDataUseCase: GetRegistrationStepData,
 ) : BaseViewModel() {
@@ -18,8 +18,8 @@ internal class ProxyViewModel(
     internal fun getNextFlow(flow: FlowType) {
         if (flow == FlowType.UNKNOWN) {
             viewModelScope.launch(exceptionHandler) {
-                val response = generateTokenUseCase().getOrThrow()
-                showNextScreen(response.getFlow())
+                val flowResponse = getFlowUseCase().getOrThrow()
+                showNextScreen(flowResponse)
             }
         } else {
             showNextScreen(flow)

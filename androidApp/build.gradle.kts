@@ -14,6 +14,9 @@ dependencies {
     implementation(libs.bundles.kodeinAndroid)
     implementation(platform(libs.firebaseBom))
     implementation(platform(libs.composeBom))
+    androidTestImplementation(libs.bundles.androidInstrumentedTest)
+    testImplementation(libs.bundles.androidTest)
+    debugImplementation(libs.uiTestManifest)
 }
 
 android {
@@ -28,6 +31,8 @@ android {
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${googleClientId}\"")
         resValue("string", "facebook_app_id", facebookAppId)
         resValue("string", "facebook_client_token", facebookClientToken)
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         getByName("debug") {
@@ -38,7 +43,7 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = false
         }
     }
@@ -53,7 +58,16 @@ android {
     }
     namespace = "com.fitnest.android"
     packagingOptions {
-        resources.excludes.add("META-INF/INDEX.LIST")
+        resources.excludes.apply {
+            add("META-INF/INDEX.LIST")
+            add("META-INF/LICENSE.md")
+            add("META-INF/LICENSE-notice.md")
+        }
+    }
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
     }
 }
 

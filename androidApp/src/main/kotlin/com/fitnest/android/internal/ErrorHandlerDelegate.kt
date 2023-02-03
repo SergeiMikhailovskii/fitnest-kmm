@@ -14,7 +14,8 @@ internal class ErrorHandlerDelegate(
         when (failure) {
             is Failure.ServerError -> snackbarService.showSnackbar(
                 SnackbarState.ERROR,
-                context.getString(R.string.error_server_error)
+                context.getString(R.string.error_server_error),
+                testTag = "snackbarError"
             )
             else -> {}
         }

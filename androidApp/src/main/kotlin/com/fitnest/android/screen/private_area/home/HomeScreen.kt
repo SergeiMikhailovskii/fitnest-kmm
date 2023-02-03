@@ -61,7 +61,7 @@ fun HomeScreen(navController: NavController) = subDI(diBuilder = {
     )
 
     val screenData by viewModel.screenDataFlow.collectAsState()
-    val loading by viewModel.progressStateFlow.collectAsState()
+    val loading by viewModel.progressSharedFlow.collectAsState(false)
 
     LaunchedEffect(null) {
         launch {

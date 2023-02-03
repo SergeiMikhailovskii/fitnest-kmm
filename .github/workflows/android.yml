@@ -31,6 +31,28 @@ jobs:
       - name: Build
         run: ./gradlew :androidApp:assembleDebug
 
+      - name: Run unit tests
+        run: |
+          ./gradlew :androidApp:testDebugUnitTest
+          ./gradlew :domain:testDebugUnitTest
+          ./gradlew :data:testDebugUnitTest
+
+      - name: Run instrumented tests
+        uses: ReactiveCircus/android-emulator-runner@v2.27.0
+        with:
+          api-level: 33
+          profile: pixel_6_pro
+          script: ./gradlew connectedCheck
+          arch: x86_64
+          target: playstore
+
+      - name: Upload Reports
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: Test-Reports
+          path: androidApp/build/reports
+        if: always()
+
       - name: Upload artifact to build info
         uses: actions/upload-artifact@v3.1.2
         with:

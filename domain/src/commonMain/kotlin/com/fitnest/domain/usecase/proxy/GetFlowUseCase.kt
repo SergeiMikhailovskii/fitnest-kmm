@@ -1,14 +1,16 @@
-package com.fitnest.domain.usecase
+package com.fitnest.domain.usecase.proxy
 
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.domain.extension.mapError
 import com.fitnest.domain.repository.NetworkRepository
 
-class GenerateTokenUseCase(
+class GetFlowUseCase(
     private val repository: NetworkRepository,
     private val exceptionHandler: ExceptionHandler
 ) {
 
-    suspend operator fun invoke() = runCatching { repository.generateToken() }
-        .mapError(exceptionHandler::getError)
+    suspend operator fun invoke() = runCatching {
+        val response = repository.generateToken()
+        response.getFlow()
+    }.mapError(exceptionHandler::getError)
 }
