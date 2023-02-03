@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    kotlin("plugin.serialization") version "1.7.21"
     id("org.kodein.mock.mockmp") version "1.11.0"
+    kotlin("plugin.serialization") version "1.8.0"
     id("com.android.library")
 }
 
