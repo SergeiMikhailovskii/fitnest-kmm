@@ -34,11 +34,15 @@ internal class CompleteAccountRegistrationViewModel(
 
     init {
         viewModelScope.launch {
-            anthropometryEventsBus.subscribe {
-                if (it is AnthropometryEvent.Submit) {
-                    saveWeight(it.value)
-                }
-            }
+            anthropometryEventsBus.subscribe(::handleEvent)
+        }
+    }
+
+    private fun handleEvent(event: AnthropometryEvent) {
+        if (event is AnthropometryEvent.Submit) {
+            if (screenData.currentAnthropometryType == CompleteAccountRegistrationScreenBottomSheetType.WEIGHT)
+                saveWeight(event.value)
+            else saveHeight(event.value)
         }
     }
 
@@ -72,22 +76,6 @@ internal class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
-    fun saveWeight(weight: Int) {
-        screenData = screenData.copy(
-            exception = screenData.exception.copy(weightError = null),
-            weight = weight
-        )
-        updateScreen()
-    }
-
-    fun saveHeight(height: Int) {
-        screenData = screenData.copy(
-            exception = screenData.exception.copy(heightError = null),
-            height = height
-        )
-        updateScreen()
-    }
-
     fun submitRegistration() {
         viewModelScope.launch(exceptionHandler) {
             val request = viewMapper.mapScreenDataToStepRequestModel(screenData)
@@ -103,6 +91,9 @@ internal class CompleteAccountRegistrationViewModel(
     }
 
     fun openWeightBottomSheet() {
+        screenData = screenData.copy(
+            currentAnthropometryType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
+        )
         handleRoute(
             Route.Registration.AnthropometryBottomSheet(
                 minValue = 0,
@@ -110,6 +101,35 @@ internal class CompleteAccountRegistrationViewModel(
                 initialValue = 70
             )
         )
+    }
+
+    fun openHeightBottomSheet() {
+        screenData = screenData.copy(
+            currentAnthropometryType = CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
+        )
+        handleRoute(
+            Route.Registration.AnthropometryBottomSheet(
+                minValue = 0,
+                maxValue = 220,
+                initialValue = 188
+            )
+        )
+    }
+
+    private fun saveWeight(weight: Int) {
+        screenData = screenData.copy(
+            exception = screenData.exception.copy(weightError = null),
+            weight = weight
+        )
+        updateScreen()
+    }
+
+    private fun saveHeight(height: Int) {
+        screenData = screenData.copy(
+            exception = screenData.exception.copy(heightError = null),
+            height = height
+        )
+        updateScreen()
     }
 
     private fun updateScreen() {
