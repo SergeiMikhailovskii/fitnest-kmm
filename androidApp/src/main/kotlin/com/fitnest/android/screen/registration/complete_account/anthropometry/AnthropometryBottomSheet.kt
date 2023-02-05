@@ -22,7 +22,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.R
 import com.fitnest.android.base.Route
 import com.fitnest.android.di.RegistrationModule
-import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.localDI
@@ -31,17 +30,16 @@ import org.kodein.di.compose.subDI
 
 @Preview
 @Composable
-fun AnthropometryBottomSheetPreview() {
-//    AnthropometryBottomSheet(
-//        coroutineScope = rememberCoroutineScope(),
-//        modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded),
-//        minValue = 0,
-//        maxValue = 100,
-//    ) {}
+private fun AnthropometryBottomSheetPreview() {
+    AnthropometryBottomSheet(
+        minValue = 0,
+        maxValue = 100,
+        initialValue = 50
+    ) {}
 }
 
 @Composable
-fun AnthropometryBottomSheet(
+internal fun AnthropometryBottomSheet(
     minValue: Int,
     maxValue: Int,
     initialValue: Int = 0,
