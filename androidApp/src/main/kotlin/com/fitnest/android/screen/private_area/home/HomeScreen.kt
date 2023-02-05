@@ -46,7 +46,6 @@ fun HomeScreenPreview() {
 }
 
 @ExperimentalMaterial3Api
-@ExperimentalTime
 @Composable
 fun HomeScreen(navController: NavController) = subDI(diBuilder = {
     import(PrivateAreaModule.dashboardPrivateAreaModule)

@@ -40,7 +40,7 @@ internal class SettingsViewModel(
     }
 
     fun onActivityHistoryClicked() {
-        handleRoute(Route.PrivateAreaActivityTracker)
+        handleRoute(Route.PrivateArea.ActivityTracker)
     }
 
     private fun updateScreenData() {

@@ -33,7 +33,7 @@ import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 internal fun ActivityTrackerScreen() = subDI(diBuilder = {

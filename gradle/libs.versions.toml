@@ -58,6 +58,7 @@ work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 facebook = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebook" }
 
 accompanistNavigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+accompanistNavigationMaterial = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
 accompanistInsets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 accompanistPager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
 accompanistPagerIndicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
@@ -132,6 +133,7 @@ android = [
 
 compose = [
     "accompanistNavigationAnimation",
+    "accompanistNavigationMaterial",
     "accompanistInsets",
     "accompanistPager",
     "accompanistPagerIndicators",

@@ -19,8 +19,11 @@ import com.fitnest.android.screen.private_area.notification.NotificationsViewMod
 import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
 import com.fitnest.android.screen.private_area.settings.SettingsViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBusImpl
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryViewModel
+import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewMapper
+import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewMapper
@@ -72,6 +75,7 @@ val viewModelModule = DI.Module("view model module") {
 
 val registrationModule = DI.Module("registration module") {
     bindSingleton { RegistrationScreenState() }
+    bindSingleton<AnthropometryEventsBus> { AnthropometryEventsBusImpl() }
 }
 
 val serviceModule = DI.Module("service module") {
@@ -147,6 +151,7 @@ object RegistrationModule {
                     instance(),
                     instance(),
                     instance(),
+                    instance()
                 )
             }
             bindProvider { CompleteAccountRegistrationViewMapper() }
@@ -188,6 +193,12 @@ object RegistrationModule {
                     instance()
                 )
             }
+        }
+    }
+
+    val anthropometryBottomSheetModule by lazy {
+        DI.Module("anthropometry bottom sheet module") {
+            bindProvider { AnthropometryViewModel(instance()) }
         }
     }
 }

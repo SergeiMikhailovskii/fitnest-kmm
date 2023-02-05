@@ -45,7 +45,7 @@ class WelcomeBackRegistrationViewModel(
         viewModelScope.launch(exceptionHandler) {
             val response =
                 submitRegistrationStepAndGetNextUseCase(WelcomeBackStepRequest()).getOrThrow()
-            response.step?.let { handleRoute(Route.RegistrationStep(it)) }
+            response.step?.let { handleRoute(Route.Registration.Step(it)) }
         }
     }
 

@@ -4,9 +4,11 @@ import androidx.navigation.NavHostController
 import com.fitnest.android.base.Route
 
 internal fun NavHostController.navigate(route: Route) {
-    if (arrayOf(
-            Route.PrivateAreaNotifications,
-            Route.PrivateAreaActivityTracker
+    if (route == Route.DismissBottomSheet) {
+        popBackStack()
+    } else if (arrayOf(
+            Route.PrivateArea.Notifications,
+            Route.PrivateArea.ActivityTracker
         ).contains(route)
     ) {
         navigate(route.screenName)

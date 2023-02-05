@@ -1,8 +1,10 @@
-package com.fitnest.android.screen.registration.complete_account
+package com.fitnest.android.screen.registration.complete_account.screen
 
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEvent
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBusSubscriber
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.enum.SexType
@@ -17,17 +19,28 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Date
 
-class CompleteAccountRegistrationViewModel(
+internal class CompleteAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val viewMapper: CompleteAccountRegistrationViewMapper,
     private val validator: CompleteAccountRegistrationValidationUseCase,
-    private val submitRegistrationStepAndGetNextUseCase: SubmitRegistrationStepAndGetNextUseCase
+    private val submitRegistrationStepAndGetNextUseCase: SubmitRegistrationStepAndGetNextUseCase,
+    private val anthropometryEventsBus: AnthropometryEventsBusSubscriber
 ) : BaseViewModel() {
 
     private var screenData = CompleteAccountRegistrationScreenData()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
-    internal val screenDataFlow = _screenDataFlow.asStateFlow()
+    val screenDataFlow = _screenDataFlow.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            anthropometryEventsBus.subscribe {
+                if (it is AnthropometryEvent.Submit) {
+                    saveWeight(it.value)
+                }
+            }
+        }
+    }
 
     override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is CompleteAccountRegistrationScreenException) {
@@ -38,7 +51,7 @@ class CompleteAccountRegistrationViewModel(
         }
     }
 
-    internal fun saveSex(sex: SexType) {
+    fun saveSex(sex: SexType) {
         screenData = screenData.copy(
             exception = screenData.exception.copy(genderError = null),
             sex = sex
@@ -46,12 +59,12 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
-    internal fun updateSexFocus(isFocused: Boolean) {
+    fun updateSexFocus(isFocused: Boolean) {
         screenData = screenData.copy(isSexFocused = isFocused)
         updateScreen()
     }
 
-    internal fun saveBirthDate(date: Date) {
+    fun saveBirthDate(date: Date) {
         screenData = screenData.copy(
             exception = screenData.exception.copy(birthDateError = null),
             dateOfBirth = date
@@ -59,7 +72,7 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
-    internal fun saveWeight(weight: Int) {
+    fun saveWeight(weight: Int) {
         screenData = screenData.copy(
             exception = screenData.exception.copy(weightError = null),
             weight = weight
@@ -67,7 +80,7 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
-    internal fun saveHeight(height: Int) {
+    fun saveHeight(height: Int) {
         screenData = screenData.copy(
             exception = screenData.exception.copy(heightError = null),
             height = height
@@ -75,7 +88,7 @@ class CompleteAccountRegistrationViewModel(
         updateScreen()
     }
 
-    internal fun submitRegistration() {
+    fun submitRegistration() {
         viewModelScope.launch(exceptionHandler) {
             val request = viewMapper.mapScreenDataToStepRequestModel(screenData)
 
@@ -85,8 +98,18 @@ class CompleteAccountRegistrationViewModel(
             }
 
             val response = submitRegistrationStepAndGetNextUseCase(request).getOrThrow()
-            response.step?.let { handleRoute(Route.RegistrationStep(it)) }
+            response.step?.let { handleRoute(Route.Registration.Step(it)) }
         }
+    }
+
+    fun openWeightBottomSheet() {
+        handleRoute(
+            Route.Registration.AnthropometryBottomSheet(
+                minValue = 0,
+                maxValue = 200,
+                initialValue = 70
+            )
+        )
     }
 
     private fun updateScreen() {

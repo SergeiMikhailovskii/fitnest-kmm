@@ -37,11 +37,11 @@ internal class ProxyViewModel(
             FlowType.REGISTRATION -> {
                 viewModelScope.launch(exceptionHandler) {
                     val response = getRegistrationStepDataUseCase().getOrThrow()
-                    handleRoute(Route.RegistrationStep(stepName = response.step.orEmpty()))
+                    handleRoute(Route.Registration.Step(stepName = response.step.orEmpty()))
                 }
             }
             FlowType.MAIN -> {
-                handleRoute(Route.PrivateAreaHome)
+                handleRoute(Route.PrivateArea.Home)
             }
             else -> {
             }

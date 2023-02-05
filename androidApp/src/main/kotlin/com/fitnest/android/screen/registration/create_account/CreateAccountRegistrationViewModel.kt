@@ -96,7 +96,7 @@ internal class CreateAccountRegistrationViewModel(
             }
 
             val response = submitRegistrationStepAndGetNextUseCase(requestData).getOrThrow()
-            response.step?.let { handleRoute(Route.RegistrationStep(it)) }
+            response.step?.let { handleRoute(Route.Registration.Step(it)) }
         }
     }
 

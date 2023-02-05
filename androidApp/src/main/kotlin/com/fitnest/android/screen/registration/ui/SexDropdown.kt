@@ -27,7 +27,7 @@ import com.fitnest.android.extension.enum.localizedNames
 import com.fitnest.android.view.ui_elements.FitnestTextField
 import com.fitnest.domain.enum.SexType
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SexDropdown(
     modifier: Modifier = Modifier,

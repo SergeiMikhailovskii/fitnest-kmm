@@ -44,7 +44,6 @@ import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import kotlin.math.absoluteValue
 
-@ExperimentalMaterialApi
 @Preview
 @Composable
 private fun NotificationItemPreview() {
@@ -57,7 +56,7 @@ private fun NotificationItemPreview() {
     )
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun NotificationItem(
     modifier: Modifier = Modifier,

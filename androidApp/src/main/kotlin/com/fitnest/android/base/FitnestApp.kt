@@ -4,9 +4,8 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
@@ -17,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -31,31 +31,35 @@ import com.fitnest.android.screen.private_area.photo.PhotoScreen
 import com.fitnest.android.screen.private_area.settings.SettingsScreen
 import com.fitnest.android.screen.private_area.tracker.TrackerScreen
 import com.fitnest.android.screen.proxy.ProxyScreen
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationScreen
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryBottomSheet
+import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationScreen
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationScreen
 import com.fitnest.android.screen.registration.goal.GoalRegistrationScreen
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
 import com.fitnest.android.style.FitnestTheme
 import com.fitnest.domain.enum.FlowType
-import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
+import com.fitnest.domain.extension.orZero
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.navigation.material.BottomSheetNavigator
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.ModalBottomSheetLayout
+import com.google.accompanist.navigation.material.bottomSheet
+import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import org.kodein.di.compose.rememberInstance
-import kotlin.time.ExperimentalTime
 
-@ExperimentalMaterial3Api
-@ExperimentalTime
-@ExperimentalPagerApi
-@ExperimentalMaterialApi
-@ExperimentalAnimationApi
-@ExperimentalFoundationApi
+@OptIn(
+    ExperimentalMaterialNavigationApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalAnimationApi::class
+)
 @Composable
 fun FitnestApp(
-    startDestination: String = Route.Splash.screenName,
-    navController: NavHostController = rememberAnimatedNavController(AnimatedComposeNavigator())
+    startDestination: String = Route.Splash.pattern,
+    bottomSheetNavigator: BottomSheetNavigator = rememberBottomSheetNavigator(),
+    navController: NavHostController = rememberAnimatedNavController(bottomSheetNavigator)
 ) {
     val snackbarDelegate: SnackbarDelegate by rememberInstance()
 
@@ -83,94 +87,119 @@ fun FitnestApp(
                 }
             }
         ) {
-            AnimatedNavHost(
-                navController = navController,
-                startDestination = startDestination,
-                modifier = Modifier.padding(it)
+            ModalBottomSheetLayout(
+                bottomSheetNavigator = bottomSheetNavigator,
+                sheetShape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)
             ) {
-                composable(route = Route.Splash.screenName) {
-                    SplashScreen(navController::navigate)
-                }
-                composable(route = Route.Login.screenName) {
-                    LoginScreen(navController = navController)
-                }
-                composable(route = "proxy/{flowType}", arguments = listOf(navArgument("flowType") {
-                    type = NavType.EnumType(type = FlowType::class.java)
-                })) {
-                    val flowType = it.arguments?.getSerializable("flowType") as FlowType
-                    ProxyScreen(navController = navController, flowType)
-                }
-                composable(
-                    route = "onboardingStep/{stepName}",
-                    arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
-                    enterTransition = {
-                        slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
-                    },
-                    exitTransition = {
-                        slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
-                    },
-                    popEnterTransition = {
-                        slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
-                    },
-                    popExitTransition = {
-                        slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
-                    },
+                AnimatedNavHost(
+                    navController = navController,
+                    startDestination = startDestination,
+                    modifier = Modifier.padding(it)
                 ) {
-                    OnboardingScreen(
-                        navController = navController,
-                        stepName = it.arguments?.getString("stepName").orEmpty()
-                    )
-                }
-                composable(
-                    route = "registrationStep/{stepName}",
-                    arguments = listOf(
-                        navArgument("stepName") { type = NavType.StringType },
-                    ),
-                    enterTransition = {
-                        slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
-                    },
-                    exitTransition = {
-                        slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
-                    },
-                    popEnterTransition = {
-                        slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
-                    },
-                    popExitTransition = {
-                        slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
-                    },
-                ) {
-                    when (it.arguments?.getString("stepName").orEmpty()) {
-                        "STEP_CREATE_ACCOUNT" -> {
-                            CreateAccountRegistrationScreen(navController = navController)
-                        }
-                        "STEP_COMPLETE_ACCOUNT" -> {
-                            CompleteAccountRegistrationScreen(navController = navController)
-                        }
-                        "STEP_GOAL" -> {
-                            GoalRegistrationScreen(navController = navController)
-                        }
-                        "STEP_WELCOME_BACK" -> {
-                            WelcomeBackRegistrationScreen(navController = navController)
+                    composable(route = Route.Splash.pattern) {
+                        SplashScreen(navController::navigate)
+                    }
+                    composable(route = Route.Login.pattern) {
+                        LoginScreen(navController = navController)
+                    }
+                    composable(
+                        route = Route.Proxy().pattern,
+                        arguments = listOf(navArgument("flowType") {
+                            type = NavType.EnumType(type = FlowType::class.java)
+                        })
+                    ) {
+                        val flowType = it.arguments?.getSerializable("flowType") as FlowType
+                        ProxyScreen(navController = navController, flowType)
+                    }
+                    composable(
+                        route = Route.OnboardingStep().pattern,
+                        arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
+                        enterTransition = {
+                            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
+                        },
+                        exitTransition = {
+                            slideOutHorizontally(
+                                targetOffsetX = { -it },
+                                animationSpec = tween(300)
+                            )
+                        },
+                        popEnterTransition = {
+                            slideInHorizontally(
+                                initialOffsetX = { -it },
+                                animationSpec = tween(300)
+                            )
+                        },
+                        popExitTransition = {
+                            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
+                        },
+                    ) {
+                        OnboardingScreen(
+                            navController = navController,
+                            stepName = it.arguments?.getString("stepName").orEmpty()
+                        )
+                    }
+                    composable(
+                        route = Route.Registration.Step().pattern,
+                        arguments = listOf(
+                            navArgument("stepName") { type = NavType.StringType },
+                        ),
+                        enterTransition = {
+                            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
+                        },
+                        exitTransition = {
+                            slideOutHorizontally(
+                                targetOffsetX = { -it },
+                                animationSpec = tween(300)
+                            )
+                        },
+                        popEnterTransition = {
+                            slideInHorizontally(
+                                initialOffsetX = { -it },
+                                animationSpec = tween(300)
+                            )
+                        },
+                        popExitTransition = {
+                            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
+                        },
+                    ) {
+                        when (it.arguments?.getString("stepName").orEmpty()) {
+                            "STEP_CREATE_ACCOUNT" -> CreateAccountRegistrationScreen(navController = navController)
+                            "STEP_COMPLETE_ACCOUNT" ->
+                                CompleteAccountRegistrationScreen(navController = navController)
+                            "STEP_GOAL" -> GoalRegistrationScreen(navController = navController)
+                            "STEP_WELCOME_BACK" -> WelcomeBackRegistrationScreen(navController = navController)
                         }
                     }
-                }
-                composable(route = Route.PrivateAreaHome.screenName) {
-                    HomeScreen(navController = navController)
-                }
-                composable(route = Route.PrivateAreaSettings.screenName) {
-                    SettingsScreen(navController = navController)
-                }
-                composable(route = Route.PrivateAreaPhoto.screenName) {
-                    PhotoScreen()
-                }
-                composable(route = Route.PrivateAreaTracker.screenName) {
-                    TrackerScreen()
-                }
-                composable(route = Route.PrivateAreaNotifications.screenName) {
-                    NotificationsScreen()
-                }
-                composable(route = Route.PrivateAreaActivityTracker.screenName) {
-                    ActivityTrackerScreen()
+                    bottomSheet(route = Route.Registration.AnthropometryBottomSheet().pattern) {
+                        val minValue = it.arguments?.getString("minValue")?.toIntOrNull().orZero
+                        val maxValue = it.arguments?.getString("maxValue")?.toIntOrNull().orZero
+                        val initialValue =
+                            it.arguments?.getString("initialValue")?.toIntOrNull().orZero
+                        AnthropometryBottomSheet(
+                            minValue = minValue,
+                            maxValue = maxValue,
+                            initialValue = initialValue,
+                            navigate = navController::navigate
+                        )
+                    }
+                    composable(route = Route.PrivateArea.Home.pattern) {
+                        HomeScreen(navController = navController)
+                    }
+                    composable(route = Route.PrivateArea.Settings.pattern) {
+                        SettingsScreen(navController = navController)
+                    }
+                    composable(route = Route.PrivateArea.Photo.pattern) {
+                        PhotoScreen()
+                    }
+                    composable(route = Route.PrivateArea.Tracker.pattern) {
+                        TrackerScreen()
+                    }
+                    composable(route = Route.PrivateArea.Notifications.pattern) {
+                        NotificationsScreen()
+                    }
+                    composable(route = Route.PrivateArea.ActivityTracker.pattern) {
+                        ActivityTrackerScreen()
+                    }
                 }
             }
         }

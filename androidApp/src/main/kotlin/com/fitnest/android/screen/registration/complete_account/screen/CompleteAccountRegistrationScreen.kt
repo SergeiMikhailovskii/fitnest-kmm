@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration.complete_account
+package com.fitnest.android.screen.registration.complete_account.screen
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -51,7 +50,6 @@ import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.screen.registration.ui.AnthropometryBottomSheet
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
 import com.fitnest.android.screen.registration.ui.DateOfBirthTextField
 import com.fitnest.android.screen.registration.ui.SexDropdown
@@ -70,14 +68,11 @@ import java.util.Date
 
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
 @Composable
-@ExperimentalMaterialApi
-@ExperimentalMaterial3Api
 internal fun CompleteAccountRegistrationScreenPreview() {
     CompleteAccountRegistrationScreen(NavController(LocalContext.current))
 }
 
-@ExperimentalMaterialApi
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun CompleteAccountRegistrationScreen(
     navController: NavController
@@ -88,9 +83,8 @@ internal fun CompleteAccountRegistrationScreen(
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
-    val viewModel = viewModel(
-        factory = viewModelFactory,
-        modelClass = CompleteAccountRegistrationViewModel::class.java,
+    val viewModel = viewModel<CompleteAccountRegistrationViewModel>(
+        factory = viewModelFactory
     )
 
     val focusManager = LocalFocusManager.current
@@ -123,24 +117,24 @@ internal fun CompleteAccountRegistrationScreen(
         sheetContent = {
             when (modalBottomSheetType) {
                 CompleteAccountRegistrationScreenBottomSheetType.WEIGHT -> {
-                    AnthropometryBottomSheet(
-                        coroutineScope = coroutineScope,
-                        modalBottomSheetState = modalBottomSheetState,
-                        minValue = 0,
-                        maxValue = 200,
-                        initialValue = 70,
-                        onSubmit = viewModel::saveWeight
-                    )
+//                    AnthropometryBottomSheet(
+//                        coroutineScope = coroutineScope,
+//                        modalBottomSheetState = modalBottomSheetState,
+//                        minValue = 0,
+//                        maxValue = 200,
+//                        initialValue = 70,
+//                        onSubmit = viewModel::saveWeight
+//                    )
                 }
                 CompleteAccountRegistrationScreenBottomSheetType.HEIGHT -> {
-                    AnthropometryBottomSheet(
-                        coroutineScope = coroutineScope,
-                        modalBottomSheetState = modalBottomSheetState,
-                        minValue = 0,
-                        maxValue = 220,
-                        initialValue = 188,
-                        onSubmit = viewModel::saveHeight
-                    )
+//                    AnthropometryBottomSheet(
+//                        coroutineScope = coroutineScope,
+//                        modalBottomSheetState = modalBottomSheetState,
+//                        minValue = 0,
+//                        maxValue = 220,
+//                        initialValue = 188,
+//                        onSubmit = viewModel::saveHeight
+//                    )
                 }
                 else -> {
                     Box(Modifier.height(1.dp))
@@ -244,8 +238,9 @@ internal fun CompleteAccountRegistrationScreen(
                 optionLabel = context.getString(R.string.registration_complete_account_weight_kg),
                 error = screenData.exception.weightError
             ) {
-                modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
-                coroutineScope.launch { modalBottomSheetState.show() }
+//                modalBottomSheetType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
+//                coroutineScope.launch { modalBottomSheetState.show() }
+                viewModel.openWeightBottomSheet()
             }
             AnthropometryTextField(
                 modifier = Modifier

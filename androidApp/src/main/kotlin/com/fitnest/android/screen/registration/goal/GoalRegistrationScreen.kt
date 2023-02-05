@@ -53,8 +53,7 @@ import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 import kotlin.math.absoluteValue
 
-@ExperimentalPagerApi
-@ExperimentalFoundationApi
+@OptIn(ExperimentalPagerApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun GoalRegistrationScreen(navController: NavController) = subDI(diBuilder = {
     import(RegistrationModule.goalRegistrationScreenModule)

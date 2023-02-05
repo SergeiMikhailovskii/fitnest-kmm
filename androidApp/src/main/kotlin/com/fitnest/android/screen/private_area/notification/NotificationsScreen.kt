@@ -1,6 +1,5 @@
 package com.fitnest.android.screen.private_area.notification
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
@@ -40,11 +38,7 @@ import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 import kotlin.math.absoluteValue
-import kotlin.time.ExperimentalTime
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalTime
 @Composable
 internal fun NotificationsScreen() = subDI(diBuilder = {
     import(PrivateAreaModule.notificationsPrivateAreaModule)

@@ -6,8 +6,8 @@ import com.fitnest.android.base.Route
 internal fun handleNavigation(route: Route, navController: NavController) {
     if (
         arrayOf(
-            Route.PrivateAreaNotifications,
-            Route.PrivateAreaActivityTracker
+            Route.PrivateArea.Notifications,
+            Route.PrivateArea.ActivityTracker
         ).contains(route)
     ) {
         navController.navigate(route.screenName)
