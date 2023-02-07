@@ -14,13 +14,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.fromLocalizedName
@@ -38,15 +44,20 @@ import com.fitnest.android.extension.enum.localizedNames
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.enum.ActivityType
+import kotlinx.coroutines.launch
 
 @Preview
 @Composable
 internal fun ActivityInputBottomSheetPreview() {
-    ActivityInputBottomSheet { _, _ -> }
+//    ActivityInputBottomSheet()
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
+internal fun ActivityInputBottomSheet(
+    sheetState: ModalBottomSheetState,
+    onSubmit: (ActivityType, Int) -> Unit = { _, _ -> }
+) {
     val context = LocalContext.current
     val items = ActivityType.localizedNames(context)
     var currentActive by remember {
@@ -54,6 +65,11 @@ internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
     }
     var picker: NumberPicker? by remember {
         mutableStateOf(null)
+    }
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = null) {
+        coroutineScope.launch { sheetState.animateTo(ModalBottomSheetValue.Expanded) }
     }
 
     Column(
@@ -143,5 +159,6 @@ internal fun ActivityInputBottomSheet(onSubmit: (ActivityType, Int) -> Unit) {
                 )
             )
         }
+        Box(modifier = Modifier.height(20.dp))
     }
 }

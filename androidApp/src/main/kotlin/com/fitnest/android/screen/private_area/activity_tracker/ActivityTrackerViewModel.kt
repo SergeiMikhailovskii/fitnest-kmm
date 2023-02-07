@@ -2,6 +2,7 @@ package com.fitnest.android.screen.private_area.activity_tracker
 
 import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
+import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.enum.ActivityType
@@ -22,7 +23,7 @@ internal class ActivityTrackerViewModel(
     private var screenData = ActivityTrackerScreenData()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
-    internal val screenDataFlow: StateFlow<ActivityTrackerScreenData> = _screenDataFlow
+    val screenDataFlow: StateFlow<ActivityTrackerScreenData> = _screenDataFlow
 
     init {
         viewModelScope.launch(exceptionHandler) {
@@ -33,7 +34,7 @@ internal class ActivityTrackerViewModel(
         }
     }
 
-    internal fun deleteActivity(activity: ActivityTrackerScreenData.Activity) {
+    fun deleteActivity(activity: ActivityTrackerScreenData.Activity) {
         viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
             val request = viewMapper.mapActivityToDeleteActivityRequest(activity)
@@ -43,7 +44,7 @@ internal class ActivityTrackerViewModel(
         }
     }
 
-    internal fun saveActivity(activityType: ActivityType, value: Int) {
+    fun saveActivity(activityType: ActivityType, value: Int) {
         if (value == 0) return
         viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
@@ -52,6 +53,10 @@ internal class ActivityTrackerViewModel(
             handlePageResponse(response)
             handleProgress()
         }
+    }
+
+    fun openActivityInputBottomSheet() {
+        handleRoute(Route.PrivateArea.Tracker.ActivityInputBottomSheet)
     }
 
     private fun handlePageResponse(widgets: ActivityTrackerPageResponse.ActivityTrackerWidgets?) {

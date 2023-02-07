@@ -6,12 +6,18 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.SwipeableDefaults
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -25,6 +31,7 @@ import com.fitnest.android.internal.SnackbarDelegate
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerScreen
+import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityInputBottomSheet
 import com.fitnest.android.screen.private_area.home.HomeScreen
 import com.fitnest.android.screen.private_area.notification.NotificationsScreen
 import com.fitnest.android.screen.private_area.photo.PhotoScreen
@@ -47,18 +54,24 @@ import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
+import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @OptIn(
     ExperimentalMaterialNavigationApi::class,
     ExperimentalMaterial3Api::class,
-    ExperimentalAnimationApi::class
+    ExperimentalAnimationApi::class, ExperimentalMaterialApi::class
 )
 @Composable
 fun FitnestApp(
     startDestination: String = Route.Splash.pattern,
-    bottomSheetNavigator: BottomSheetNavigator = rememberBottomSheetNavigator(),
+    sheetState: ModalBottomSheetState = rememberModalBottomSheetState(
+        ModalBottomSheetValue.Hidden,
+        SwipeableDefaults.AnimationSpec
+    ),
+    bottomSheetNavigator: BottomSheetNavigator = remember(sheetState) {
+        BottomSheetNavigator(sheetState = sheetState)
+    },
     navController: NavHostController = rememberAnimatedNavController(bottomSheetNavigator)
 ) {
     val snackbarDelegate: SnackbarDelegate by rememberInstance()
@@ -191,14 +204,17 @@ fun FitnestApp(
                     composable(route = Route.PrivateArea.Photo.pattern) {
                         PhotoScreen()
                     }
-                    composable(route = Route.PrivateArea.Tracker.pattern) {
+                    composable(route = Route.PrivateArea.Tracker.Screen.pattern) {
                         TrackerScreen()
+                    }
+                    bottomSheet(route = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern) {
+                        ActivityInputBottomSheet(sheetState)
                     }
                     composable(route = Route.PrivateArea.Notifications.pattern) {
                         NotificationsScreen()
                     }
                     composable(route = Route.PrivateArea.ActivityTracker.pattern) {
-                        ActivityTrackerScreen()
+                        ActivityTrackerScreen(navController::navigate)
                     }
                 }
             }

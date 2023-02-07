@@ -41,7 +41,11 @@ sealed class Route(val screenName: String) {
         object Home : PrivateArea("privateAreaHome")
         object Notifications : PrivateArea("privateAreaNotifications")
         object ActivityTracker : PrivateArea("privateAreaActivityTracker")
-        object Tracker : PrivateArea("privateAreaTracker")
+        sealed class Tracker(screenName: String) : PrivateArea(screenName) {
+            object Screen : Tracker("privateAreaTracker")
+            object ActivityInputBottomSheet : Tracker("privateAreaTrackerActivityInput")
+        }
+
         object Photo : PrivateArea("privateAreaPhoto")
         object Settings : PrivateArea("privateAreaSettings")
     }

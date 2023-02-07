@@ -8,7 +8,8 @@ internal fun NavHostController.navigate(route: Route) {
         popBackStack()
     } else if (arrayOf(
             Route.PrivateArea.Notifications,
-            Route.PrivateArea.ActivityTracker
+            Route.PrivateArea.ActivityTracker,
+            Route.PrivateArea.Tracker.ActivityInputBottomSheet
         ).contains(route)
     ) {
         navigate(route.screenName)

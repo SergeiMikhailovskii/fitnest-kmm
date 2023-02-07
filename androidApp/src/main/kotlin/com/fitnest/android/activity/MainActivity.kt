@@ -3,6 +3,7 @@ package com.fitnest.android.activity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.ExperimentalMaterialApi
 import com.fitnest.android.FitnestApplication
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.internal.GoogleSignInService
@@ -14,7 +15,7 @@ import org.kodein.di.instance
 
 class MainActivity : AppCompatActivity(), DIAware {
 
-    @OptIn(ExperimentalMaterialNavigationApi::class)
+    @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Napier.base(DebugAntilog("Napier"))

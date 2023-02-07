@@ -21,7 +21,7 @@ enum class BottomNavigationType(
         title = R.string.private_area_tracker_tab_name,
         activeIcon = R.drawable.ic_private_area_progress_filled_tab,
         inactiveIcon = R.drawable.ic_private_area_progress_unfilled_tab,
-        route = Route.PrivateArea.Tracker
+        route = Route.PrivateArea.Tracker.Screen
     ),
     PHOTO(
         title = R.string.private_area_photo_tab_name,
