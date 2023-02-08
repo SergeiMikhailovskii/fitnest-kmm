@@ -14,7 +14,7 @@ material = "1.8.0"
 appcompat = "1.6.0"
 constraintLayout = "2.1.4"
 playServicesAuth = "20.4.1"
-work = "2.7.1"
+work = "2.8.0"
 facebook = "15.2.0"
 
 accompanist = "0.28.0"
