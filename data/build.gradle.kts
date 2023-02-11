@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("org.kodein.mock.mockmp") version "1.11.0"
+    id("org.kodein.mock.mockmp") version "1.12.0"
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
