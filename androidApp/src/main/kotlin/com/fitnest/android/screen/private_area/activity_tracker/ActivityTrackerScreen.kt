@@ -4,17 +4,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.fitnest.android.base.Route
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
@@ -23,13 +20,14 @@ import com.fitnest.android.screen.private_area.activity_tracker.composable.Lates
 import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun ActivityTrackerScreen(navigate: (Route) -> Unit) = subDI(diBuilder = {
+internal fun ActivityTrackerScreen(
+    navController: NavController,
+    navigate: (Route) -> Unit
+) = subDI(diBuilder = {
     import(PrivateAreaModule.activityTrackerPrivateAreaModule)
 }) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
@@ -44,11 +42,6 @@ internal fun ActivityTrackerScreen(navigate: (Route) -> Unit) = subDI(diBuilder 
     val screenData by viewModel.screenDataFlow.collectAsState()
     val progress by viewModel.progressSharedFlow.collectAsState(false)
 
-    val modalBottomSheetState = rememberModalBottomSheetState(
-        ModalBottomSheetValue.Hidden
-    )
-    val coroutineScope = rememberCoroutineScope()
-
     LaunchedEffect(null) {
         launch {
             viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
@@ -56,6 +49,9 @@ internal fun ActivityTrackerScreen(navigate: (Route) -> Unit) = subDI(diBuilder 
         launch {
             viewModel.routeSharedFlow.collect { navigate(it) }
         }
+    }
+    LaunchedEffect(key1 = navController.currentBackStackEntry) {
+        viewModel.getInitialInfo()
     }
     Column(
         modifier = Modifier
@@ -70,12 +66,7 @@ internal fun ActivityTrackerScreen(navigate: (Route) -> Unit) = subDI(diBuilder 
                     top = Padding.Padding24
                 ),
                 data = it,
-                onAddActivityClicked = {
-                    coroutineScope.launch {
-                        viewModel.openActivityInputBottomSheet()
-                        modalBottomSheetState.show()
-                    }
-                },
+                onAddActivityClicked = viewModel::openActivityInputBottomSheet,
                 progress = progress
             )
         }

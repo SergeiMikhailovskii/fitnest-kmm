@@ -212,7 +212,7 @@ fun FitnestApp(
                         NotificationsScreen()
                     }
                     composable(route = Route.PrivateArea.ActivityTracker.pattern) {
-                        ActivityTrackerScreen(navController::navigate)
+                        ActivityTrackerScreen(navController, navController::navigate)
                     }
                 }
             }
