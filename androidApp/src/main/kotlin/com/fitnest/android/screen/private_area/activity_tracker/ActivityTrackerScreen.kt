@@ -32,8 +32,7 @@ import org.kodein.di.compose.subDI
 internal fun ActivityTrackerScreen(navigate: (Route) -> Unit) = subDI(diBuilder = {
     import(PrivateAreaModule.activityTrackerPrivateAreaModule)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
     val viewMapper: ActivityTrackerViewMapper by rememberInstance()
 
@@ -58,21 +57,6 @@ internal fun ActivityTrackerScreen(navigate: (Route) -> Unit) = subDI(diBuilder 
             viewModel.routeSharedFlow.collect { navigate(it) }
         }
     }
-
-//    ModalBottomSheetLayout(
-//        sheetContent = {
-//            Box(modifier = Modifier.fillMaxSize()) {
-//                ActivityInputBottomSheet { activityType, value ->
-//                    coroutineScope.launch {
-//                        modalBottomSheetState.hide()
-//                        viewModel.saveActivity(activityType, value)
-//                    }
-//                }
-//            }
-//        },
-//        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-//        sheetState = modalBottomSheetState
-//    ) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -116,4 +100,3 @@ internal fun ActivityTrackerScreen(navigate: (Route) -> Unit) = subDI(diBuilder 
         }
     }
 }
-//}

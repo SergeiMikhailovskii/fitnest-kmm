@@ -24,7 +24,6 @@ import com.fitnest.android.base.Route
 import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
@@ -48,8 +47,7 @@ internal fun AnthropometryBottomSheet(
     import(RegistrationModule.anthropometryBottomSheetModule)
 }) {
     val context = LocalContext.current
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val viewModel = viewModel<AnthropometryViewModel>(factory = viewModelFactory)
 
     LaunchedEffect(key1 = null) {

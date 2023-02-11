@@ -52,8 +52,7 @@ private fun SettingsScreenPreview() {
 internal fun SettingsScreen(navController: NavController) = subDI(diBuilder = {
     import(PrivateAreaModule.settingsPrivateAreaModule)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
     val notificationsPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         rememberPermissionState(android.Manifest.permission.POST_NOTIFICATIONS)

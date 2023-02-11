@@ -17,7 +17,6 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -31,7 +30,7 @@ import com.fitnest.android.internal.SnackbarDelegate
 import com.fitnest.android.screen.login.LoginScreen
 import com.fitnest.android.screen.onboarding.OnboardingScreen
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerScreen
-import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityInputBottomSheet
+import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputBottomSheet
 import com.fitnest.android.screen.private_area.home.HomeScreen
 import com.fitnest.android.screen.private_area.notification.NotificationsScreen
 import com.fitnest.android.screen.private_area.photo.PhotoScreen
@@ -54,7 +53,6 @@ import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
-import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 
 @OptIn(
@@ -208,7 +206,7 @@ fun FitnestApp(
                         TrackerScreen()
                     }
                     bottomSheet(route = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern) {
-                        ActivityInputBottomSheet(sheetState)
+                        ActivityInputBottomSheet(sheetState, navController::navigate)
                     }
                     composable(route = Route.PrivateArea.Notifications.pattern) {
                         NotificationsScreen()

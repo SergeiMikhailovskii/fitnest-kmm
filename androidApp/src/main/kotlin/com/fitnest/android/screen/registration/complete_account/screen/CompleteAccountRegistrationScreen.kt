@@ -50,7 +50,6 @@ import com.fitnest.android.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 import java.util.Date
@@ -67,8 +66,7 @@ internal fun CompleteAccountRegistrationScreen(
 ) = subDI(diBuilder = {
     import(RegistrationModule.completeAccountRegistrationScreenModule)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel<CompleteAccountRegistrationViewModel>(

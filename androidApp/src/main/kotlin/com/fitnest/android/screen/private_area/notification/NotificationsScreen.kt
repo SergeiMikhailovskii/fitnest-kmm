@@ -43,8 +43,7 @@ import kotlin.math.absoluteValue
 internal fun NotificationsScreen() = subDI(diBuilder = {
     import(PrivateAreaModule.notificationsPrivateAreaModule)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(

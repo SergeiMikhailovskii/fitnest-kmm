@@ -31,7 +31,6 @@ import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
@@ -39,8 +38,7 @@ import org.kodein.di.compose.subDI
 internal fun WelcomeBackRegistrationScreen(navController: NavController) = subDI(diBuilder = {
     import(RegistrationModule.welcomeBackRegistrationScreenModule)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val viewModel = viewModel(
         factory = viewModelFactory,
         modelClass = WelcomeBackRegistrationViewModel::class.java

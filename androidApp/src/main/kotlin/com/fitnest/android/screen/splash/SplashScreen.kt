@@ -31,14 +31,12 @@ import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
 @Composable
 internal fun SplashScreen(navigate: (Route) -> Unit) = subDI(diBuilder = { import(splashModule) }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(

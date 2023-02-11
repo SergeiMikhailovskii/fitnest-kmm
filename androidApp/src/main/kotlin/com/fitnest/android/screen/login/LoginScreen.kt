@@ -69,10 +69,9 @@ internal object LoginScreenConsts {
 internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
     import(loginScreenModule)
 }) {
-    val di = localDI()
     val focusManager = LocalFocusManager.current
 
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val viewMapper: LoginViewMapper by rememberInstance()
     val registrationAnnotatedString = viewMapper.getLoginAnnotatedString()
     val googleSignInService: GoogleSignInService by rememberInstance()

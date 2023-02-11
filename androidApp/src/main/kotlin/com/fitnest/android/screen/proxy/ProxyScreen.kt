@@ -36,8 +36,7 @@ internal fun ProxyScreen(navController: NavController, flowType: FlowType) = sub
     diBuilder = { import(proxyModule, allowOverride = true) },
     allowSilentOverride = true
 ) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(

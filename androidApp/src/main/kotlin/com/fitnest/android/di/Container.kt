@@ -12,6 +12,7 @@ import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
+import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
 import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
@@ -62,13 +63,12 @@ import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidation
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import com.fitnest.worker.ClearCacheWorkerFactory
 import org.kodein.di.DI
-import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 val viewModelModule = DI.Module("view model module") {
-    bindFactory<DI, ViewModelProvider.Factory> { di ->
+    bindProvider<ViewModelProvider.Factory> {
         ViewModelFactory(di)
     }
 }
@@ -223,11 +223,29 @@ object PrivateAreaModule {
         }
     }
 
+    val activityInputPrivateAreaModule by lazy {
+        DI.Module("activity input private area module") {
+            bindProvider { ActivityTrackerViewMapper(instance(), instance()) }
+            bindProvider { ActivityInputViewModel(instance(), instance()) }
+            bindProvider {
+                AddActivityUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+            bindProvider { ActivityTrackerResponseToCacheMapper(instance()) }
+            bindProvider { ActivityTrackerCacheToResponseMapper(instance()) }
+            bindProvider { DateMapper() }
+        }
+    }
+
     val activityTrackerPrivateAreaModule by lazy {
         DI.Module("activity tracker private area module") {
             bindProvider {
                 ActivityTrackerViewModel(
-                    instance(),
                     instance(),
                     instance(),
                     instance()
@@ -249,15 +267,6 @@ object PrivateAreaModule {
             bindProvider { DateMapper() }
             bindProvider {
                 DeleteActivityUseCase(
-                    instance(),
-                    instance(),
-                    instance(),
-                    instance(),
-                    instance()
-                )
-            }
-            bindProvider {
-                AddActivityUseCase(
                     instance(),
                     instance(),
                     instance(),
