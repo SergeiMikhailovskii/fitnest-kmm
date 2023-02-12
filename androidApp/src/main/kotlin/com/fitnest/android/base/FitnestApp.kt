@@ -58,7 +58,8 @@ import org.kodein.di.compose.rememberInstance
 @OptIn(
     ExperimentalMaterialNavigationApi::class,
     ExperimentalMaterial3Api::class,
-    ExperimentalAnimationApi::class, ExperimentalMaterialApi::class
+    ExperimentalAnimationApi::class,
+    ExperimentalMaterialApi::class
 )
 @Composable
 fun FitnestApp(

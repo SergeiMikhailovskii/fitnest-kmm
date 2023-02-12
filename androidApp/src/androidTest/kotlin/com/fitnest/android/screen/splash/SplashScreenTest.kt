@@ -2,9 +2,9 @@ package com.fitnest.android.screen.splash
 
 import androidx.activity.ComponentActivity
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -20,7 +20,8 @@ import com.fitnest.android.waitUntilExists
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
-import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.navigation.material.BottomSheetNavigator
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -34,12 +35,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
-import kotlin.time.ExperimentalTime
 
 @OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalTime::class, ExperimentalPagerApi::class,
-    ExperimentalPagerApi::class, ExperimentalPagerApi::class, ExperimentalMaterialApi::class,
-    ExperimentalAnimationApi::class, ExperimentalFoundationApi::class
+    ExperimentalAnimationApi::class,
+    ExperimentalMaterialNavigationApi::class,
+    ExperimentalMaterialApi::class
 )
 class SplashScreenTest {
 
@@ -83,7 +83,10 @@ class SplashScreenTest {
 
     @Test
     fun splashScreenLoadedSuccessAndRedirectNext() {
+        val bottomSheetNavigator =
+            BottomSheetNavigator(sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden))
         val navController = TestNavHostController(context)
+        navController.navigatorProvider.addNavigator(bottomSheetNavigator)
         navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
 
         every { viewModel.generateToken() } coAnswers {
@@ -94,7 +97,10 @@ class SplashScreenTest {
             routeFlow.emit(Route.Proxy())
         }
         composeTestRule.setContent {
-            FitnestApp(navController = navController)
+            FitnestApp(
+                bottomSheetNavigator = bottomSheetNavigator,
+                navController = navController
+            )
         }
         composeTestRule.waitUntilExists(
             matcher = hasText(context.getString(R.string.splash_button_title)),
