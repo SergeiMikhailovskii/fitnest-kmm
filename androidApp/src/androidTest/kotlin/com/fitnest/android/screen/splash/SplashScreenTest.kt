@@ -28,7 +28,6 @@ import io.mockk.mockkStatic
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -49,7 +48,7 @@ class SplashScreenTest {
     @MockK(relaxed = true)
     internal lateinit var viewModel: SplashViewModel
 
-    private val progressFlow by lazy { MutableStateFlow(false) }
+    private val progressFlow by lazy { MutableSharedFlow<Boolean>() }
     private val routeFlow by lazy { MutableSharedFlow<Route>() }
     private val failureFlow by lazy { MutableSharedFlow<Failure>() }
     private val context by lazy { composeTestRule.activity }

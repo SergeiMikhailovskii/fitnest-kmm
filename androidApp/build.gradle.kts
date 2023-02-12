@@ -69,6 +69,10 @@ android {
             it.useJUnitPlatform()
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 
 val properties: Properties
