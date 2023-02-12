@@ -35,11 +35,11 @@ internal class HomeViewModel(
     }
 
     internal fun navigateToNotifications() {
-        handleRoute(Route.PrivateAreaNotifications)
+        handleRoute(Route.PrivateArea.Notifications)
     }
 
     internal fun navigateToActivityTracker() {
-        handleRoute(Route.PrivateAreaActivityTracker)
+        handleRoute(Route.PrivateArea.ActivityTracker)
     }
 
 }

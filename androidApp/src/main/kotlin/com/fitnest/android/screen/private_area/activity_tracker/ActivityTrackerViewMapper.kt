@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.toArgb
 import com.fitnest.android.R
 import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
+import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.entity.request.DeleteActivityRequest
@@ -70,8 +71,8 @@ internal class ActivityTrackerViewMapper(
     fun mapActivityToDeleteActivityRequest(activity: ActivityTrackerScreenData.Activity) =
         DeleteActivityRequest(id = activity.id, type = activity.type)
 
-    fun mapAddActivityInfoToRequest(activityType: ActivityType, amount: Int) =
-        AddActivityRequest(amount = amount, type = activityType)
+    fun mapActivityInputToRequest(screenData: ActivityInputScreenData) =
+        AddActivityRequest(amount = screenData.value, type = screenData.activityType)
 
     private fun mapActivitiesResponseModelToUIModel(activities: List<ActivityTrackerPageResponse.Activity>?) =
         activities?.map {

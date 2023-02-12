@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
 import com.fitnest.android.view.ui_elements.FitnestTextField
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DateOfBirthTextField(
     modifier: Modifier = Modifier,

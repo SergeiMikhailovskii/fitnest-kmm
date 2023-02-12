@@ -88,16 +88,16 @@ private fun TopBarWithTitle(currentRoute: String) {
 }
 
 private fun getTopBarType(route: String) = when (route) {
-    Route.PrivateAreaNotifications.screenName,
-    Route.PrivateAreaActivityTracker.screenName -> TopBarType.WITH_BACK_TITLE_AND_OPTIONS
-    Route.PrivateAreaSettings.screenName -> TopBarType.ONLY_TITLE
+    Route.PrivateArea.Notifications.screenName,
+    Route.PrivateArea.ActivityTracker.screenName -> TopBarType.WITH_BACK_TITLE_AND_OPTIONS
+    Route.PrivateArea.Settings.screenName -> TopBarType.ONLY_TITLE
     else -> TopBarType.NONE
 }
 
 @Composable
 private fun topBarScreenName(route: String) = when (route) {
-    Route.PrivateAreaNotifications.screenName -> stringResource(id = R.string.private_area_notifications_screen_title)
-    Route.PrivateAreaActivityTracker.screenName -> stringResource(id = R.string.private_area_activity_tracker_screen_title)
-    Route.PrivateAreaSettings.screenName -> stringResource(id = R.string.private_area_profile_screen_title)
+    Route.PrivateArea.Notifications.screenName -> stringResource(id = R.string.private_area_notifications_screen_title)
+    Route.PrivateArea.ActivityTracker.screenName -> stringResource(id = R.string.private_area_activity_tracker_screen_title)
+    Route.PrivateArea.Settings.screenName -> stringResource(id = R.string.private_area_profile_screen_title)
     else -> ""
 }

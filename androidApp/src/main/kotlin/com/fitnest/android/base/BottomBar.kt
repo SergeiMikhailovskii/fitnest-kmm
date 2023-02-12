@@ -55,8 +55,8 @@ fun BottomBar(navController: NavController) {
 }
 
 private fun isRouteWithBottomNavigation(route: String) = arrayOf(
-    Route.PrivateAreaHome.screenName,
-    Route.PrivateAreaTracker.screenName,
-    Route.PrivateAreaPhoto.screenName,
-    Route.PrivateAreaSettings.screenName,
+    Route.PrivateArea.Home.screenName,
+    Route.PrivateArea.Tracker.Screen.screenName,
+    Route.PrivateArea.Photo.screenName,
+    Route.PrivateArea.Settings.screenName,
 ).contains(route)

@@ -12,6 +12,7 @@ import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
+import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
 import com.fitnest.android.screen.private_area.home.HomeViewMapper
 import com.fitnest.android.screen.private_area.home.HomeViewModel
 import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
@@ -19,8 +20,11 @@ import com.fitnest.android.screen.private_area.notification.NotificationsViewMod
 import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
 import com.fitnest.android.screen.private_area.settings.SettingsViewModel
 import com.fitnest.android.screen.proxy.ProxyViewModel
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewMapper
-import com.fitnest.android.screen.registration.complete_account.CompleteAccountRegistrationViewModel
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBusImpl
+import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryViewModel
+import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewMapper
+import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewMapper
@@ -59,19 +63,19 @@ import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidation
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import com.fitnest.worker.ClearCacheWorkerFactory
 import org.kodein.di.DI
-import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 val viewModelModule = DI.Module("view model module") {
-    bindFactory<DI, ViewModelProvider.Factory> { di ->
+    bindProvider<ViewModelProvider.Factory> {
         ViewModelFactory(di)
     }
 }
 
 val registrationModule = DI.Module("registration module") {
     bindSingleton { RegistrationScreenState() }
+    bindSingleton<AnthropometryEventsBus> { AnthropometryEventsBusImpl() }
 }
 
 val serviceModule = DI.Module("service module") {
@@ -147,6 +151,7 @@ object RegistrationModule {
                     instance(),
                     instance(),
                     instance(),
+                    instance()
                 )
             }
             bindProvider { CompleteAccountRegistrationViewMapper() }
@@ -190,6 +195,12 @@ object RegistrationModule {
             }
         }
     }
+
+    val anthropometryBottomSheetModule by lazy {
+        DI.Module("anthropometry bottom sheet module") {
+            bindProvider { AnthropometryViewModel(instance()) }
+        }
+    }
 }
 
 object PrivateAreaModule {
@@ -212,11 +223,29 @@ object PrivateAreaModule {
         }
     }
 
+    val activityInputPrivateAreaModule by lazy {
+        DI.Module("activity input private area module") {
+            bindProvider { ActivityTrackerViewMapper(instance(), instance()) }
+            bindProvider { ActivityInputViewModel(instance(), instance()) }
+            bindProvider {
+                AddActivityUseCase(
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance(),
+                    instance()
+                )
+            }
+            bindProvider { ActivityTrackerResponseToCacheMapper(instance()) }
+            bindProvider { ActivityTrackerCacheToResponseMapper(instance()) }
+            bindProvider { DateMapper() }
+        }
+    }
+
     val activityTrackerPrivateAreaModule by lazy {
         DI.Module("activity tracker private area module") {
             bindProvider {
                 ActivityTrackerViewModel(
-                    instance(),
                     instance(),
                     instance(),
                     instance()
@@ -238,15 +267,6 @@ object PrivateAreaModule {
             bindProvider { DateMapper() }
             bindProvider {
                 DeleteActivityUseCase(
-                    instance(),
-                    instance(),
-                    instance(),
-                    instance(),
-                    instance()
-                )
-            }
-            bindProvider {
-                AddActivityUseCase(
                     instance(),
                     instance(),
                     instance(),

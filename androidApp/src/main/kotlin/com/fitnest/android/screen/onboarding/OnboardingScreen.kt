@@ -29,7 +29,6 @@ import com.fitnest.android.style.Padding
 import com.fitnest.android.view.ui_elements.ButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
@@ -38,8 +37,7 @@ import org.kodein.di.compose.subDI
 fun OnboardingScreen(navController: NavController, stepName: String) = subDI(diBuilder = {
     import(module = onboardingModule, allowOverride = true)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,

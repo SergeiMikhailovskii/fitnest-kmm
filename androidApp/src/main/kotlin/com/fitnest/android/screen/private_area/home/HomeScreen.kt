@@ -31,7 +31,6 @@ import com.fitnest.android.style.Padding
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 import kotlin.time.ExperimentalTime
@@ -46,13 +45,11 @@ fun HomeScreenPreview() {
 }
 
 @ExperimentalMaterial3Api
-@ExperimentalTime
 @Composable
 fun HomeScreen(navController: NavController) = subDI(diBuilder = {
     import(PrivateAreaModule.dashboardPrivateAreaModule)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(

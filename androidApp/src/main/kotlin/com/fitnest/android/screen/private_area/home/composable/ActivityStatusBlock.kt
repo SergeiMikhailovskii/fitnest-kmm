@@ -61,9 +61,7 @@ import com.fitnest.android.style.TextSize
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
-import kotlin.time.ExperimentalTime
 
-@ExperimentalTime
 @Composable
 internal fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivityStatusWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
@@ -103,7 +101,6 @@ internal fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivitySt
     }
 }
 
-@ExperimentalTime
 @Composable
 private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
     var chartWidth by remember { mutableStateOf(0) }

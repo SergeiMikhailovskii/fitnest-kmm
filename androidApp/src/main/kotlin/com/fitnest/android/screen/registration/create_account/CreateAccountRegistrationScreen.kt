@@ -80,8 +80,7 @@ internal fun CreateAccountRegistrationScreenPreview() {
 internal fun CreateAccountRegistrationScreen(navController: NavController) = subDI(diBuilder = {
     import(RegistrationModule.createAccountRegistrationScreenModule)
 }) {
-    val di = localDI()
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance { di }
+    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
 
     val googleSignInService: GoogleSignInService by rememberInstance()
     val facebookSignInService: FacebookService by rememberInstance()

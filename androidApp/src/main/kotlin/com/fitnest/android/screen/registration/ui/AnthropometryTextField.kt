@@ -29,7 +29,6 @@ import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import com.fitnest.android.view.ui_elements.FitnestTextField
 
-@ExperimentalMaterial3Api
 @Preview
 @Composable
 fun AnthropometryTextFieldPreview() {
@@ -44,7 +43,7 @@ fun AnthropometryTextFieldPreview() {
     }
 }
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnthropometryTextField(
     value: String,

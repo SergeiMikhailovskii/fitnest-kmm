@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration.complete_account
+package com.fitnest.android.screen.registration.complete_account.screen
 
 import com.fitnest.android.base.BaseViewMapper
 import com.fitnest.android.extension.format
