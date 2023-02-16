@@ -33,7 +33,7 @@ mockk = "1.13.3"
 
 uiTestManifest = "1.4.0-beta01"
 
-firebaseBom = "31.2.1"
+firebaseBom = "31.2.2"
 composeBom = "2023.01.00"
 
 kodein = "7.18.0"
