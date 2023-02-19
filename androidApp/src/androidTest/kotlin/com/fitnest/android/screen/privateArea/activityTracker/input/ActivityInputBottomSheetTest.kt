@@ -1,16 +1,21 @@
 package com.fitnest.android.screen.privateArea.activityTracker.input
 
+import android.widget.NumberPicker
 import androidx.activity.ComponentActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.base.Route
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.enum.localizedName
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
+import com.fitnest.android.scrollDown
+import com.fitnest.android.scrollUp
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.functional.Failure
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -18,8 +23,10 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockkObject
+import io.mockk.slot
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.hamcrest.Matchers
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -58,10 +65,9 @@ class ActivityInputBottomSheetTest {
 
     @Test
     fun clickAllSelectorButtons() {
-        ActivityType.values().forEach { activity ->
-            every { viewModel.setCurrentActiveTab(activity) } coAnswers {
-                screenDataFlow.emit(ActivityInputScreenData(activityType = activity))
-            }
+        val activityType = slot<ActivityType>()
+        every { viewModel.setCurrentActiveTab(capture(activityType)) } coAnswers {
+            screenDataFlow.emit(ActivityInputScreenData(activityType = activityType.captured))
         }
         composeTestRule.setContent {
             FitnestApp(startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern)
@@ -72,5 +78,21 @@ class ActivityInputBottomSheetTest {
 
             assertEquals(it, screenDataFlow.value.activityType)
         }
+    }
+
+    @Test
+    fun scrollPicker() {
+        val value = slot<Int>()
+        every { viewModel.setValue(capture(value)) } coAnswers {
+            screenDataFlow.emit(ActivityInputScreenData(value = value.captured))
+        }
+        composeTestRule.setContent {
+            FitnestApp(startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern)
+        }
+        val picker = Espresso.onView(withClassName(Matchers.equalTo(NumberPicker::class.java.name)))
+        picker.perform(scrollDown())
+        picker.perform(scrollUp())
+        composeTestRule.waitForIdle()
+        assertEquals(0, screenDataFlow.value.value)
     }
 }

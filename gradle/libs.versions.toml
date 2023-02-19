@@ -30,6 +30,8 @@ composeJUnit = "1.3.3"
 jUnit = "5.9.2"
 testCore = "1.5.0"
 mockk = "1.13.3"
+espresso = "3.5.1"
+reflection = "1.8.10"
 
 uiTestManifest = "1.4.0-beta01"
 
@@ -73,6 +75,8 @@ composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref =
 
 composeJUnit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeJUnit" }
 jUnit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jUnit" }
+espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+reflection = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "reflection" }
 coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 testCore = { module = "androidx.test:core", version.ref = "testCore" }
 mockkAndroid = { module = "io.mockk:mockk-android", version.ref = "mockk" }
@@ -164,7 +168,9 @@ androidInstrumentedTest = [
     "composeJUnit",
     "testCore",
     "mockkAndroid",
-    "navigationTesting"
+    "navigationTesting",
+    "espresso",
+    "reflection"
 ]
 
 androidTest = [
