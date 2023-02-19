@@ -23,7 +23,7 @@ class NetworkServiceTest {
                 |    "errors": null,
                 |    "flow": "/onboarding"
                 |}
-            """.trimMargin()
+                    """.trimMargin()
                 )
             )
         )

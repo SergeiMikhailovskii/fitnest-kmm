@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
+import com.fitnest.domain.usecase.privateArea.ClearCacheUseCase
 import kotlinx.coroutines.Dispatchers
 
 class ClearCacheWorkerFactory(

@@ -23,8 +23,11 @@ class RegistrationResponseMapper(
         val stepData = mapStepData(fields, step)
 
         val jsonSchemaElement = source?.get("validation_schema")
-        val validationSchema = if (jsonSchemaElement is JsonNull) null
-        else mapValidationSchema(jsonSchemaElement?.jsonObject, step)
+        val validationSchema = if (jsonSchemaElement is JsonNull) {
+            null
+        } else {
+            mapValidationSchema(jsonSchemaElement?.jsonObject, step)
+        }
 
         return GetRegistrationResponseData(
             step = step,

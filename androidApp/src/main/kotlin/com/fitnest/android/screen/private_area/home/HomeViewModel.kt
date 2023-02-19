@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.domain.usecase.private_area.GetDashboardDataUseCase
+import com.fitnest.domain.usecase.privateArea.GetDashboardDataUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

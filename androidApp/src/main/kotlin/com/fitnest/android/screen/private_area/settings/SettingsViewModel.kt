@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
-import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
-import com.fitnest.domain.usecase.private_area.SetNotificationsEnabledUseCase
+import com.fitnest.domain.usecase.privateArea.GetProfilePageUseCase
+import com.fitnest.domain.usecase.privateArea.SetNotificationsEnabledUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

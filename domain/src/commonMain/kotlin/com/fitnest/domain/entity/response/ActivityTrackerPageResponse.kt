@@ -18,7 +18,7 @@ class ActivityTrackerPageResponse(
         @SerialName("LATEST_ACTIVITY_WIDGET")
         val latestActivityWidget: LatestActivityWidget? = null,
         @SerialName("TODAY_TARGET_WIDGET")
-        val todayTargetWidget: DashboardResponse.TodayTargetWidget? = null,
+        val todayTargetWidget: DashboardResponse.TodayTargetWidget? = null
     )
 
     @Serializable

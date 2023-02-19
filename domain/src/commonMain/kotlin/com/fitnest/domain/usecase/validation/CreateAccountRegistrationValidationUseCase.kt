@@ -28,7 +28,7 @@ class CreateAccountRegistrationValidationUseCase {
                 emailError = emailError?.error,
                 firstNameError = firstNameError?.error,
                 lastNameError = lastNameError?.error,
-                passwordError = passwordError?.error,
+                passwordError = passwordError?.error
             )
         }
     }

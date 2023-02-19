@@ -4,7 +4,7 @@ import android.content.Context
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
 import com.fitnest.domain.enum.GoalType
-import com.fitnest.domain.usecase.private_area.GetProfilePageUseCase
+import com.fitnest.domain.usecase.privateArea.GetProfilePageUseCase
 
 internal class SettingsViewMapper(private val context: Context) {
     fun mapProfileModelIntoScreenData(

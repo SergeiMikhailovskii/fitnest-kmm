@@ -23,6 +23,6 @@ sealed class RegistrationStepValidationSchema {
         @SerialName("date_of_birth")
         val dateOfBirth: List<Validator>? = null,
         val weight: List<Validator>? = null,
-        val height: List<Validator>? = null,
+        val height: List<Validator>? = null
     ) : RegistrationStepValidationSchema()
 }

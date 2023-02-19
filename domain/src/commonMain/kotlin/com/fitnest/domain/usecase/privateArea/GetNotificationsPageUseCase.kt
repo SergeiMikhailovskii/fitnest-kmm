@@ -1,4 +1,4 @@
-package com.fitnest.domain.usecase.private_area
+package com.fitnest.domain.usecase.privateArea
 
 import com.fitnest.domain.entity.response.NotificationsPageResponse
 import com.fitnest.domain.exception.ExceptionHandler

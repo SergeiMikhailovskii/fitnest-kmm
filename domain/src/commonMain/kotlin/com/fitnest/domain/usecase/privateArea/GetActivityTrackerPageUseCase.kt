@@ -1,11 +1,11 @@
-package com.fitnest.domain.usecase.private_area
+package com.fitnest.domain.usecase.privateArea
 
-import com.fitnest.domain.entity.response.DashboardResponse
+import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.domain.extension.flatMap
 import com.fitnest.domain.extension.mapError
-import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
-import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
 import com.fitnest.domain.repository.DatabaseRepository
 import com.fitnest.domain.repository.NetworkRepository
 import kotlinx.coroutines.Dispatchers
@@ -14,28 +14,32 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 
-class GetDashboardDataUseCase(
+class GetActivityTrackerPageUseCase(
     private val networkRepository: NetworkRepository,
     private val dbRepository: DatabaseRepository,
     private val json: Json,
     private val exceptionHandler: ExceptionHandler,
-    private val responseToCacheMapper: DashboardResponseToCacheMapper,
-    private val cacheToResponseMapper: DashboardCacheToResponseMapper
+    private val responseToCacheMapper: ActivityTrackerResponseToCacheMapper,
+    private val cacheToResponseMapper: ActivityTrackerCacheToResponseMapper
 ) {
 
     suspend operator fun invoke() = runCatching {
-        dbRepository.getDashboard()
+        dbRepository.getActivityTracker()
     }.flatMap {
         if (it != null) {
             Result.success(cacheToResponseMapper.map(it))
         } else {
             runCatching {
-                val jsonData = networkRepository.getDashboardData()
-                jsonData.data?.let<JsonElement, DashboardResponse>(json::decodeFromJsonElement)
+                val jsonData = networkRepository.getActivityTrackerPage()
+                jsonData.data?.let<JsonElement, ActivityTrackerPageResponse>(json::decodeFromJsonElement)
             }.onSuccess {
                 val cacheModel = responseToCacheMapper.map(it)
-                withContext(Dispatchers.Default) { dbRepository.saveDashboardResponse(cacheModel) }
+                withContext(Dispatchers.Default) {
+                    dbRepository.saveActivityTrackerResponse(cacheModel)
+                }
             }
         }
+    }.map {
+        it?.widgets
     }.mapError(exceptionHandler::getError)
 }
