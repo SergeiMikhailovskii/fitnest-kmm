@@ -11,7 +11,9 @@ val ActivityType.localizedNameId: Int
     }
 
 fun ActivityType.Companion.localizedNames(context: Context) =
-    ActivityType.values().map { context.getString(it.localizedNameId) }
+    ActivityType.values().map { it.localizedName(context) }
+
+fun ActivityType.localizedName(context: Context) = context.getString(localizedNameId)
 
 fun ActivityType.Companion.fromLocalizedName(activity: String, context: Context) =
     if (context.getString(ActivityType.WATER.localizedNameId) == activity) ActivityType.WATER

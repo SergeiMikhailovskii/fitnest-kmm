@@ -47,14 +47,14 @@ import com.fitnest.android.style.Dimen
 import com.fitnest.android.style.Padding
 import com.fitnest.domain.enum.ActivityType
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
+@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 internal fun ActivityInputBottomSheetPreview() {
-//    ActivityInputBottomSheet()
+    ActivityInputBottomSheet(sheetState = ModalBottomSheetState(ModalBottomSheetValue.Expanded)) {}
 }
 
 @OptIn(ExperimentalMaterialApi::class)
