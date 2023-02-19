@@ -5,7 +5,7 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.domain.enum.ActivityType
-import com.fitnest.domain.usecase.private_area.AddActivityUseCase
+import com.fitnest.domain.usecase.privateArea.AddActivityUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

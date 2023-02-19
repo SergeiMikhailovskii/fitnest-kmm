@@ -53,6 +53,10 @@ android {
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompilerExtension.get()
     }

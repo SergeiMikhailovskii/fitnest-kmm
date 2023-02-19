@@ -25,7 +25,7 @@ data class DashboardResponse(
         val latestWorkoutWidget: LatestWorkoutWidget? = null,
 
         @SerialName("TODAY_TARGET_WIDGET")
-        val todayTargetWidget: TodayTargetWidget? = null,
+        val todayTargetWidget: TodayTargetWidget? = null
     )
 
     @Serializable
@@ -36,7 +36,7 @@ data class DashboardResponse(
         @SerialName("water_intake")
         val waterIntake: WaterIntakeSubWidget? = null,
         val sleep: SleepSubWidget? = null,
-        val calories: CaloriesSubWidget? = null,
+        val calories: CaloriesSubWidget? = null
     )
 
     @Serializable

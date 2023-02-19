@@ -5,8 +5,8 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
-import com.fitnest.domain.usecase.private_area.DeleteActivityUseCase
-import com.fitnest.domain.usecase.private_area.GetActivityTrackerPageUseCase
+import com.fitnest.domain.usecase.privateArea.DeleteActivityUseCase
+import com.fitnest.domain.usecase.privateArea.GetActivityTrackerPageUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

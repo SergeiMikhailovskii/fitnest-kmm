@@ -5,10 +5,10 @@ import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.screen.private_area.notification.data.NotificationScreenData
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.domain.entity.response.NotificationsPageResponse
-import com.fitnest.domain.usecase.private_area.DeactivateNotificationsUseCase
-import com.fitnest.domain.usecase.private_area.DeleteNotificationUseCase
-import com.fitnest.domain.usecase.private_area.GetNotificationsPageUseCase
-import com.fitnest.domain.usecase.private_area.PinNotificationUseCase
+import com.fitnest.domain.usecase.privateArea.DeactivateNotificationsUseCase
+import com.fitnest.domain.usecase.privateArea.DeleteNotificationUseCase
+import com.fitnest.domain.usecase.privateArea.GetNotificationsPageUseCase
+import com.fitnest.domain.usecase.privateArea.PinNotificationUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

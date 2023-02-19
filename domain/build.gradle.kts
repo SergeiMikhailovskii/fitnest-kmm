@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 
 plugins {
     kotlin("multiplatform")
@@ -12,14 +12,9 @@ version = libs.versions.domain.get()
 
 kotlin {
     android()
-
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
-
-    iosTarget("ios") {}
+    ios()
+    iosArm64()
+    iosX64()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -61,6 +56,10 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.idfinance.domain"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
 mockmp {

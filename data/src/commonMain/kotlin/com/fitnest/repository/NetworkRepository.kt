@@ -12,7 +12,7 @@ import com.fitnest.domain.service.NetworkService
 import com.fitnest.network.Endpoints
 
 class NetworkRepository(
-    private val networkService: NetworkService,
+    private val networkService: NetworkService
 ) : NetworkRepository {
 
     override suspend fun generateToken() = networkService.getData(Endpoints.Flow.name)

@@ -5,7 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import com.fitnest.domain.usecase.private_area.ClearCacheUseCase
+import com.fitnest.domain.usecase.privateArea.ClearCacheUseCase
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

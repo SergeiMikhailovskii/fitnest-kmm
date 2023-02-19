@@ -28,7 +28,7 @@ class CompleteAccountRegistrationValidationUseCase {
                 heightError = heightError?.error,
                 genderError = sexError?.error,
                 birthDateError = dateOfBirthError?.error,
-                weightError = weightError?.error,
+                weightError = weightError?.error
             )
         }
     }
