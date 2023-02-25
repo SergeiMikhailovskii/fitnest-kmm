@@ -84,7 +84,6 @@ composeRuntime = { module = "androidx.compose.runtime:runtime" }
 composeUi = { module = "androidx.compose.ui:ui" }
 composeFoundation = { module = "androidx.compose.foundation:foundation" }
 composeFoundationLayout = { module = "androidx.compose.foundation:foundation-layout" }
-composeRuntimeLiveData = { module = "androidx.compose.runtime:runtime-livedata" }
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
 composeUtil = { module = "androidx.compose.ui:ui-util" }
 composeMaterialIcons = { module = "androidx.compose.material:material-icons-extended" }
@@ -148,7 +147,6 @@ compose = [
     "composeUi",
     "composeFoundation",
     "composeFoundationLayout",
-    "composeRuntimeLiveData",
     "composeUiTooling",
     "composeUtil",
     "composeMaterialIcons",
