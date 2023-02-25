@@ -91,6 +91,8 @@ class ActivityInputBottomSheetTest {
         }
         val picker = Espresso.onView(withClassName(Matchers.equalTo(NumberPicker::class.java.name)))
         picker.perform(scrollDown())
+        composeTestRule.waitForIdle()
+        assertEquals(100, screenDataFlow.value.value)
         picker.perform(scrollUp())
         composeTestRule.waitForIdle()
         assertEquals(0, screenDataFlow.value.value)
