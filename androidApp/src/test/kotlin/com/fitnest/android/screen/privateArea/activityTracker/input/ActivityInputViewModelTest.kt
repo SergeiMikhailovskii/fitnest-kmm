@@ -150,4 +150,29 @@ class ActivityInputViewModelTest {
         coVerify(exactly = 1) { addActivityUseCase(request) }
         coVerify(exactly = 1) { addActivityUseCase(any()) }
     }
+
+    @Test
+    fun submitActivityFailure() = runTest {
+        val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
+        val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
+        val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
+
+        val request = AddActivityRequest(0, ActivityType.STEPS)
+
+        every { viewMapper.mapActivityInputToRequest(any()) } returns request
+        coEvery { addActivityUseCase(any()) } answers { Result.failure(Failure.ServerError(500)) }
+
+        viewModel.setValue(100)
+        viewModel.submitActivity()
+        advanceUntilIdle()
+
+        failureJob.cancel()
+        progressesJob.cancel()
+        routesJob.cancel()
+
+        assertEquals(listOf(Failure.ServerError(500)), failures)
+        assertEquals(listOf(true, false), progresses)
+        coVerify(exactly = 1) { addActivityUseCase(request) }
+        coVerify(exactly = 1) { addActivityUseCase(any()) }
+    }
 }
