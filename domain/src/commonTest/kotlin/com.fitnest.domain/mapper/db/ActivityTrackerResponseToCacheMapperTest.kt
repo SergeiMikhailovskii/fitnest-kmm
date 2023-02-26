@@ -52,5 +52,4 @@ class ActivityTrackerResponseToCacheMapperTest {
         )
         assertEquals("{\"water_intake\":1000,\"steps\":1000}", output.todayTargetWidget)
     }
-
 }
