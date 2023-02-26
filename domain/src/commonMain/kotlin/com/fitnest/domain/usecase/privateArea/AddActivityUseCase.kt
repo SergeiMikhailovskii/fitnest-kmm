@@ -4,7 +4,7 @@ import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.exception.ExceptionHandler
 import com.fitnest.domain.extension.mapError
-import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapperAlias
 import com.fitnest.domain.repository.DatabaseRepository
 import com.fitnest.domain.repository.NetworkRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ class AddActivityUseCase(
     private val repository: NetworkRepository,
     private val dbRepository: DatabaseRepository,
     private val json: Json,
-    private val responseToCacheMapper: ActivityTrackerResponseToCacheMapper,
+    private val responseToCacheMapper: ActivityTrackerResponseToCacheMapperAlias,
     private val exceptionHandler: ExceptionHandler
 ) {
 
@@ -32,6 +32,6 @@ class AddActivityUseCase(
             withContext(Dispatchers.Default) {
                 dbRepository.saveActivityTrackerResponse(cacheModel)
             }
-        }.map {}
-            .mapError(exceptionHandler::getError)
+        }.map {
+        }.mapError(exceptionHandler::getError)
 }

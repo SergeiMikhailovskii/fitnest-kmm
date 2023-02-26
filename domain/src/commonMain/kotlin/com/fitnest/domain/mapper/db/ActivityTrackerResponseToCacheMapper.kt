@@ -7,9 +7,12 @@ import kotlinx.datetime.Clock
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
+interface ActivityTrackerResponseToCacheMapperAlias :
+    Mapper<ActivityTrackerPageResponse, ActivityTrackerCacheModel>
+
 class ActivityTrackerResponseToCacheMapper(
     private val json: Json
-) : Mapper<ActivityTrackerPageResponse, ActivityTrackerCacheModel> {
+) : ActivityTrackerResponseToCacheMapperAlias {
     override fun map(source: ActivityTrackerPageResponse?): ActivityTrackerCacheModel {
         val activityProgressWidgetStr =
             source?.widgets?.activityProgressWidget?.let(json::encodeToString)
