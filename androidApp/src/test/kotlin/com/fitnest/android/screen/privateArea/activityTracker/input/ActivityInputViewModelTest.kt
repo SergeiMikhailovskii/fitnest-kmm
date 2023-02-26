@@ -103,4 +103,21 @@ class ActivityInputViewModelTest {
         assertTrue(routes.isEmpty())
     }
 
+    @Test
+    fun submitEmptyActivity() = runTest {
+        val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
+        val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
+        val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
+
+        viewModel.submitActivity()
+        advanceUntilIdle()
+
+        failureJob.cancel()
+        progressesJob.cancel()
+        routesJob.cancel()
+
+        assertTrue(failures.isEmpty())
+        assertEquals(listOf(true, false), progresses)
+        assertEquals(listOf(Route.DismissBottomSheet), routes)
+    }
 }
