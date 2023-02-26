@@ -5,6 +5,7 @@ import com.fitnest.domain.entity.cache.ActivityTrackerCacheModel
 import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.exception.ExceptionHandler
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapperAlias
 import com.fitnest.domain.repository.DatabaseRepository
 import com.fitnest.domain.repository.NetworkRepository
@@ -41,7 +42,7 @@ class AddActivityUseCaseTest : TestsWithMocks() {
     }
 
     @Test
-    fun generateTokenSuccess() = runTest {
+    fun addActivitySuccess() = runTest {
         everySuspending { repository.addActivity(isAny()) } returns BaseResponse()
         everySuspending { repository.getActivityTrackerPage() } returns BaseResponse(
             data = JsonObject(
@@ -61,5 +62,16 @@ class AddActivityUseCaseTest : TestsWithMocks() {
         val useCaseOutput = useCase(AddActivityRequest(0, ActivityType.STEPS)).getOrThrow()
         advanceUntilIdle()
         assertEquals(Unit, useCaseOutput)
+    }
+
+    @Test
+    fun addActivitySendDataFailure() = runTest {
+        everySuspending { repository.addActivity(isAny()) } runs {
+            error("Test failure")
+        }
+        every { exceptionHandler.getError(isAny()) } returns Failure.ServerError(500)
+        val useCaseOutput = useCase(AddActivityRequest(0, ActivityType.STEPS))
+        advanceUntilIdle()
+        assertEquals(Result.failure(Failure.ServerError(500)), useCaseOutput)
     }
 }
