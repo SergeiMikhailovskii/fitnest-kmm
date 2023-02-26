@@ -2,12 +2,17 @@ package com.fitnest.android.screen.privateArea.activityTracker.input
 
 import android.widget.NumberPicker
 import androidx.activity.ComponentActivity
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.navigation.testing.TestNavHostController
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
+import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.base.Route
 import com.fitnest.android.di.PrivateAreaModule
@@ -18,6 +23,8 @@ import com.fitnest.android.scrollDown
 import com.fitnest.android.scrollUp
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.functional.Failure
+import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
+import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -28,13 +35,18 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.hamcrest.Matchers
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialNavigationApi::class)
+@OptIn(
+    ExperimentalMaterialApi::class,
+    ExperimentalMaterialNavigationApi::class,
+    ExperimentalAnimationApi::class
+)
 class ActivityInputBottomSheetTest {
 
     @get:Rule
@@ -96,5 +108,32 @@ class ActivityInputBottomSheetTest {
         picker.perform(scrollUp())
         composeTestRule.waitForIdle()
         assertEquals(0, screenDataFlow.value.value)
+    }
+
+    @Test
+    fun submitData() {
+        val bottomSheetNavigator =
+            BottomSheetNavigator(sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden))
+        val navController = TestNavHostController(context)
+        navController.navigatorProvider.addNavigator(bottomSheetNavigator)
+        navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
+        every { viewModel.submitActivity() } coAnswers {
+            routeFlow.emit(Route.DismissBottomSheet)
+        }
+        composeTestRule.setContent {
+            FitnestApp(
+                startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern,
+                bottomSheetNavigator = bottomSheetNavigator,
+                navController = navController,
+            )
+        }
+        composeTestRule
+            .onNodeWithText(
+                context.getString(R.string.private_area_activity_tracker_screen_latest_activity_save),
+                ignoreCase = true
+            )
+            .performClick()
+        composeTestRule.waitForIdle()
+        assertTrue(navController.currentBackStackEntry == null)
     }
 }
