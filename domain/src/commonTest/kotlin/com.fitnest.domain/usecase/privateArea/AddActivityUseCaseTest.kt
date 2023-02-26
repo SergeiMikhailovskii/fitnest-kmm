@@ -74,4 +74,42 @@ class AddActivityUseCaseTest : TestsWithMocks() {
         advanceUntilIdle()
         assertEquals(Result.failure(Failure.ServerError(500)), useCaseOutput)
     }
+
+    @Test
+    fun addActivityGetDataFailure() = runTest {
+        everySuspending { repository.addActivity(isAny()) } returns BaseResponse()
+        everySuspending { repository.getActivityTrackerPage() } runs {
+            error("Test failure")
+        }
+        every { exceptionHandler.getError(isAny()) } returns Failure.ServerError(500)
+        val useCaseOutput = useCase(AddActivityRequest(0, ActivityType.STEPS))
+        advanceUntilIdle()
+        assertEquals(Result.failure(Failure.ServerError(500)), useCaseOutput)
+    }
+
+    @Test
+    fun addActivitySaveDataFailure() = runTest {
+        everySuspending { repository.addActivity(isAny()) } returns BaseResponse()
+        everySuspending { repository.getActivityTrackerPage() } returns BaseResponse(
+            data = JsonObject(
+                mapOf(
+                    "widgets" to JsonObject(
+                        mapOf(
+                            "ACTIVITY_PROGRESS_WIDGET" to JsonNull,
+                            "LATEST_ACTIVITY_WIDGET" to JsonNull,
+                            "TODAY_TARGET_WIDGET" to JsonNull
+                        )
+                    )
+                )
+            )
+        )
+        every { responseToCacheMapper.map(isAny()) } returns ActivityTrackerCacheModel(timeAt = 0)
+        every { dbRepository.saveActivityTrackerResponse(isAny()) } runs {
+            error("Test failure")
+        }
+        every { exceptionHandler.getError(isAny()) } returns Failure.Unknown
+        val useCaseOutput = useCase(AddActivityRequest(0, ActivityType.STEPS))
+        advanceUntilIdle()
+        assertEquals(Result.failure(Failure.Unknown), useCaseOutput)
+    }
 }

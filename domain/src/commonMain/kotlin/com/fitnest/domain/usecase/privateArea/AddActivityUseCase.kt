@@ -24,14 +24,12 @@ class AddActivityUseCase(
     suspend operator fun invoke(request: AddActivityRequest) =
         runCatching {
             repository.addActivity(request)
-            repository.getActivityTrackerPage()
-        }.map {
-            it.data?.let<JsonElement, ActivityTrackerPageResponse>(json::decodeFromJsonElement)
-        }.onSuccess {
-            val cacheModel = responseToCacheMapper.map(it)
+            val response = repository.getActivityTrackerPage()
+            val data =
+                response.data?.let<JsonElement, ActivityTrackerPageResponse>(json::decodeFromJsonElement)
+            val cacheModel = responseToCacheMapper.map(data)
             withContext(Dispatchers.Default) {
                 dbRepository.saveActivityTrackerResponse(cacheModel)
             }
-        }.map {
         }.mapError(exceptionHandler::getError)
 }
