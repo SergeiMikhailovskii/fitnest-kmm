@@ -4,10 +4,14 @@ import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
+import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.privateArea.AddActivityUseCase
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -119,5 +123,31 @@ class ActivityInputViewModelTest {
         assertTrue(failures.isEmpty())
         assertEquals(listOf(true, false), progresses)
         assertEquals(listOf(Route.DismissBottomSheet), routes)
+    }
+
+    @Test
+    fun submitActivitySuccess() = runTest {
+        val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
+        val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
+        val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
+
+        val request = AddActivityRequest(0, ActivityType.STEPS)
+
+        every { viewMapper.mapActivityInputToRequest(any()) } returns request
+        coEvery { addActivityUseCase(any()) } answers { Result.success(Unit) }
+
+        viewModel.setValue(100)
+        viewModel.submitActivity()
+        advanceUntilIdle()
+
+        failureJob.cancel()
+        progressesJob.cancel()
+        routesJob.cancel()
+
+        assertTrue(failures.isEmpty())
+        assertEquals(listOf(true, false), progresses)
+        assertEquals(listOf(Route.DismissBottomSheet), routes)
+        coVerify(exactly = 1) { addActivityUseCase(request) }
+        coVerify(exactly = 1) { addActivityUseCase(any()) }
     }
 }

@@ -32,7 +32,6 @@ class AddActivityUseCase(
             withContext(Dispatchers.Default) {
                 dbRepository.saveActivityTrackerResponse(cacheModel)
             }
-        }.map {
-            it?.widgets
-        }.mapError(exceptionHandler::getError)
+        }.map {}
+            .mapError(exceptionHandler::getError)
 }
