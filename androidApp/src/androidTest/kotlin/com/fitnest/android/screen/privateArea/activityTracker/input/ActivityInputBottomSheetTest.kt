@@ -6,7 +6,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.testing.TestNavHostController
@@ -111,7 +113,7 @@ class ActivityInputBottomSheetTest {
     }
 
     @Test
-    fun submitData() {
+    fun submitDataSuccess() {
         val bottomSheetNavigator =
             BottomSheetNavigator(sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden))
         val navController = TestNavHostController(context)
@@ -135,5 +137,32 @@ class ActivityInputBottomSheetTest {
             .performClick()
         composeTestRule.waitForIdle()
         assertTrue(navController.currentBackStackEntry == null)
+    }
+
+    @Test
+    fun submitDataFailure() {
+        val bottomSheetNavigator =
+            BottomSheetNavigator(sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden))
+        val navController = TestNavHostController(context)
+        navController.navigatorProvider.addNavigator(bottomSheetNavigator)
+        navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
+        every { viewModel.submitActivity() } coAnswers {
+            failureFlow.emit(Failure.ServerError(500))
+        }
+        composeTestRule.setContent {
+            FitnestApp(
+                startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern,
+                bottomSheetNavigator = bottomSheetNavigator,
+                navController = navController,
+            )
+        }
+        composeTestRule
+            .onNodeWithText(
+                context.getString(R.string.private_area_activity_tracker_screen_latest_activity_save),
+                ignoreCase = true
+            )
+            .performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("snackbarError").assertIsDisplayed()
     }
 }
