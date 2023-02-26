@@ -115,6 +115,8 @@ ktorContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", v
 ktorSerializationJson = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktorTest = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 
+sqldelightDriverTest = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+
 dataStorePreferencesCore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "dataStoreCore" }
 dataStoreAndroid = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStoreAndroid" }
 
@@ -186,6 +188,10 @@ domainTest = [
 dataTest = [
     "coroutinesTest",
     "ktorTest"
+]
+
+dataAndroidTest = [
+    "sqldelightDriverTest"
 ]
 
 domain = [
