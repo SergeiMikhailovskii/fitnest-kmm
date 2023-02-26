@@ -1,6 +1,8 @@
 package com.fitnest.repository
 
 import com.fitnest.domain.entity.base.BaseResponse
+import com.fitnest.domain.entity.request.AddActivityRequest
+import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.service.NetworkService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -36,6 +38,23 @@ class NetworkRepositoryTest : TestsWithMocks() {
         val testMessage = "test failure"
         everySuspending { service.getData("flow") } runs { error(testMessage) }
         val exception = assertFailsWith<IllegalStateException> { repository.generateToken() }
+        assertEquals(testMessage, exception.message)
+    }
+
+    @Test
+    fun addActivitySuccess() = runTest {
+        everySuspending { service.sendData(isAny(), isAny()) } returns BaseResponse()
+        val output = repository.addActivity(AddActivityRequest(0, ActivityType.STEPS))
+        assertEquals(BaseResponse(), output)
+    }
+
+    @Test
+    fun addActivityFailure() = runTest {
+        val testMessage = "test failure"
+        everySuspending { service.sendData(isAny(), isAny()) } runs { error(testMessage) }
+        val exception = assertFailsWith<IllegalStateException> {
+            repository.addActivity(AddActivityRequest(0, ActivityType.STEPS))
+        }
         assertEquals(testMessage, exception.message)
     }
 }
