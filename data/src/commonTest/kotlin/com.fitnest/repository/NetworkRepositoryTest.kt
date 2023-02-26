@@ -6,6 +6,8 @@ import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.service.NetworkService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import org.kodein.mock.Mock
 import org.kodein.mock.tests.TestsWithMocks
@@ -54,6 +56,36 @@ class NetworkRepositoryTest : TestsWithMocks() {
         everySuspending { service.sendData(isAny(), isAny()) } runs { error(testMessage) }
         val exception = assertFailsWith<IllegalStateException> {
             repository.addActivity(AddActivityRequest(0, ActivityType.STEPS))
+        }
+        assertEquals(testMessage, exception.message)
+    }
+
+    @Test
+    fun getActivityTrackerPageSuccess() = runTest {
+        val testResponse = BaseResponse(
+            data = JsonObject(
+                mapOf(
+                    "widgets" to JsonObject(
+                        mapOf(
+                            "ACTIVITY_PROGRESS_WIDGET" to JsonNull,
+                            "LATEST_ACTIVITY_WIDGET" to JsonNull,
+                            "TODAY_TARGET_WIDGET" to JsonNull
+                        )
+                    )
+                )
+            )
+        )
+        everySuspending { service.getData(isAny()) } returns testResponse
+        val output = repository.getActivityTrackerPage()
+        assertEquals(testResponse, output)
+    }
+
+    @Test
+    fun getActivityTrackerPageFailure() = runTest {
+        val testMessage = "test failure"
+        everySuspending { service.getData(isAny()) } runs { error(testMessage) }
+        val exception = assertFailsWith<IllegalStateException> {
+            repository.getActivityTrackerPage()
         }
         assertEquals(testMessage, exception.message)
     }
