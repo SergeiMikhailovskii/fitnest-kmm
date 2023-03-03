@@ -12,6 +12,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.testing.TestNavHostController
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiSelector
 import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.base.Route
@@ -65,6 +68,15 @@ class SplashScreenTest {
         every { viewModel.failureSharedFlow } returns failureFlow
         every { splashModule } returns DI.Module(name = "mock splash module") {
             bindProvider { viewModel }
+        }
+    }
+
+    @Before
+    fun dismissANRSystemDialog() {
+        val device = UiDevice.getInstance(getInstrumentation())
+        val waitButton = device.findObject(UiSelector().textContains("wait"))
+        if (waitButton.exists()) {
+            waitButton.click()
         }
     }
 

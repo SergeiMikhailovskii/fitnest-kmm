@@ -14,6 +14,9 @@ import androidx.compose.ui.test.performClick
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiSelector
 import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.base.Route
@@ -75,6 +78,15 @@ class ActivityInputBottomSheetTest {
                 DI.Module(name = "mock activity input private area module") {
                     bindProvider { viewModel }
                 }
+    }
+
+    @Before
+    fun dismissANRSystemDialog() {
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val waitButton = device.findObject(UiSelector().textContains("wait"))
+        if (waitButton.exists()) {
+            waitButton.click()
+        }
     }
 
     @Test
