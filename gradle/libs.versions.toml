@@ -34,7 +34,6 @@ espresso = "3.5.1"
 reflection = "1.8.10"
 
 uiTestManifest = "1.4.0-beta01"
-uiTestAutomator = "2.3.0-alpha02"
 
 firebaseBom = "31.2.2"
 composeBom = "2023.01.00"
@@ -84,7 +83,6 @@ mockkAndroid = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 navigationTesting = { module = "androidx.navigation:navigation-testing", version.ref = "composeNavigation" }
 
 uiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
-uiTestAutomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiTestAutomator" }
 
 composeRuntime = { module = "androidx.compose.runtime:runtime" }
 composeUi = { module = "androidx.compose.ui:ui" }
@@ -174,8 +172,7 @@ androidInstrumentedTest = [
     "mockkAndroid",
     "navigationTesting",
     "espresso",
-    "reflection",
-    "uiTestAutomator",
+    "reflection"
 ]
 
 androidTest = [
