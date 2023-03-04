@@ -31,10 +31,16 @@ internal class ActivityInputViewModel(
 
     fun submitActivity() {
         viewModelScope.launch(exceptionHandler) {
-            if (screenData.value == 0) return@launch
-            val request = viewMapper.mapActivityInputToRequest(screenData)
-            addActivityUseCase(request).getOrThrow()
-            handleRoute(Route.DismissBottomSheet)
+            handleProgress(true)
+            if (screenData.value == 0) {
+                handleProgress(false)
+                handleRoute(Route.DismissBottomSheet)
+            } else {
+                val request = viewMapper.mapActivityInputToRequest(screenData)
+                addActivityUseCase(request).getOrThrow()
+                handleProgress(false)
+                handleRoute(Route.DismissBottomSheet)
+            }
         }
     }
 

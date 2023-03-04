@@ -34,6 +34,7 @@ import com.fitnest.android.screen.splash.SplashViewModel
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
+import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapperAlias
 import com.fitnest.domain.mapper.db.DashboardCacheToResponseMapper
 import com.fitnest.domain.mapper.db.DashboardResponseToCacheMapper
 import com.fitnest.domain.mapper.db.ProfileCacheToResponseMapper
@@ -236,7 +237,9 @@ object PrivateAreaModule {
                     instance()
                 )
             }
-            bindProvider { ActivityTrackerResponseToCacheMapper(instance()) }
+            bindProvider<ActivityTrackerResponseToCacheMapperAlias> {
+                ActivityTrackerResponseToCacheMapper(instance())
+            }
             bindProvider { ActivityTrackerCacheToResponseMapper(instance()) }
             bindProvider { DateMapper() }
         }

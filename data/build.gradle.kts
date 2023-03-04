@@ -69,7 +69,11 @@ kotlin {
                 api(libs.work)
             }
         }
-        val androidTest by getting
+        val androidTest by getting {
+            dependencies {
+                implementation(libs.bundles.dataAndroidTest)
+            }
+        }
         val iosMain by getting {
             dependencies {
                 implementation(libs.bundles.dataIOS)
