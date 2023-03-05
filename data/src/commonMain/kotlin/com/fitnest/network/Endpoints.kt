@@ -1,7 +1,7 @@
 package com.fitnest.network
 
 object Endpoints {
-    const val BASE_URL = "https://fitnestapp.onrender.com/"
+    const val BASE_URL = "http://10.0.2.2:8080/"
 
     object Flow : Group {
         override val name = "flow"
