@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 internal class ActivityTrackerViewModel(
     private val getActivityTrackerPageUseCase: GetActivityTrackerPageUseCase,
-    private val viewMapper: ActivityTrackerViewMapper,
-    private val deleteActivityUseCase: DeleteActivityUseCase
+    private val deleteActivityUseCase: DeleteActivityUseCase,
+    private val viewMapper: ActivityTrackerViewMapper
 ) : BaseViewModel() {
 
     private var screenData = ActivityTrackerScreenData()
