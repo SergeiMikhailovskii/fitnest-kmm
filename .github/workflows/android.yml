@@ -45,7 +45,7 @@ jobs:
           target: playstore
 
       - name: Upload Reports
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: Test-Reports
           path: androidApp/build/reports
