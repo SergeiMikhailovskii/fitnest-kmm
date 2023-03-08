@@ -8,8 +8,11 @@ class GeneralExceptionHandler : ExceptionHandler {
     override fun getError(throwable: Throwable) = when (throwable) {
         is ResponseException -> Failure.ServerError(throwable.response.status.value)
         is Failure.ValidationErrors -> {
-            if (throwable.fields.any { it.message == "onboarding.finished" }) Failure.OnboardingFinished
-            else throwable
+            if (throwable.fields.any { it.message == "onboarding.finished" }) {
+                Failure.OnboardingFinished
+            } else {
+                throwable
+            }
         }
         else -> Failure.Unknown
     }
