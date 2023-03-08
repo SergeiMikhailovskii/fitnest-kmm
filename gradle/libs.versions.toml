@@ -33,7 +33,7 @@ mockk = "1.13.3"
 espresso = "3.5.1"
 reflection = "1.8.10"
 
-uiTestManifest = "1.4.0-beta01"
+uiTestManifest = "1.4.0-beta02"
 
 firebaseBom = "31.2.3"
 composeBom = "2023.01.00"
@@ -88,7 +88,6 @@ composeRuntime = { module = "androidx.compose.runtime:runtime" }
 composeUi = { module = "androidx.compose.ui:ui" }
 composeFoundation = { module = "androidx.compose.foundation:foundation" }
 composeFoundationLayout = { module = "androidx.compose.foundation:foundation-layout" }
-composeRuntimeLiveData = { module = "androidx.compose.runtime:runtime-livedata" }
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
 composeUtil = { module = "androidx.compose.ui:ui-util" }
 composeMaterialIcons = { module = "androidx.compose.material:material-icons-extended" }
@@ -154,7 +153,6 @@ compose = [
     "composeUi",
     "composeFoundation",
     "composeFoundationLayout",
-    "composeRuntimeLiveData",
     "composeUiTooling",
     "composeUtil",
     "composeMaterialIcons",

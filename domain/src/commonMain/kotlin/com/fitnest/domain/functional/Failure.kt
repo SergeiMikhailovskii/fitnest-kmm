@@ -8,6 +8,7 @@ sealed class Failure(message: String? = null) : Exception(message) {
 
     data class ServerError(val responseCode: Int) : Failure()
     object Unknown : Failure()
+    object OnboardingFinished : Failure()
 
     @Serializable
     data class ValidationError(
