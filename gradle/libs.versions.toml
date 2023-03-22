@@ -19,7 +19,7 @@ facebook = "16.0.0"
 
 accompanist = "0.28.0"
 
-composeActivity = "1.7.0-beta02"
+composeActivity = "1.7.0"
 composeConstraint = "1.0.1"
 composeNavigation = "2.5.3"
 composeThemeAdapter = "1.1.1"
