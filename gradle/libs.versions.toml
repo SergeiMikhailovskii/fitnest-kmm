@@ -33,7 +33,7 @@ mockk = "1.13.3"
 espresso = "3.5.1"
 reflection = "1.8.10"
 
-uiTestManifest = "1.4.0-beta02"
+uiTestManifest = "1.4.0"
 
 firebaseBom = "31.2.3"
 composeBom = "2023.01.00"
