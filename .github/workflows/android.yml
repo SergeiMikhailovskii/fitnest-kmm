@@ -36,7 +36,7 @@ jobs:
           ./gradlew testDebugUnitTest
 
       - name: Run instrumented tests
-        uses: ReactiveCircus/android-emulator-runner@v2.27.0
+        uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
           api-level: 33
           profile: pixel_6_pro
