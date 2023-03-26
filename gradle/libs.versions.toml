@@ -23,7 +23,7 @@ composeActivity = "1.7.0"
 composeConstraint = "1.0.1"
 composeNavigation = "2.5.3"
 composeThemeAdapter = "1.1.1"
-composeCompiler = "1.4.3"
+composeCompiler = "1.4.4"
 composeConstraintLayout = "1.0.1"
 
 composeJUnit = "1.3.3"
