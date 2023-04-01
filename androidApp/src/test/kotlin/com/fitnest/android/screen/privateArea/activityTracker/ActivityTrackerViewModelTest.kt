@@ -98,4 +98,28 @@ class ActivityTrackerViewModelTest {
         Assertions.assertTrue(routes.isEmpty())
     }
 
+    @Test
+    fun getInitialInfoFailure() = runTest {
+        val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
+        val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
+        val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
+        val statesJob = viewModel.screenDataFlow.onEach(states::add).launchIn(this)
+
+        coEvery { getActivityTrackerPageUseCase() } answers {
+            Result.failure(Failure.ServerError(500))
+        }
+
+        viewModel.getInitialInfo()
+        advanceUntilIdle()
+
+        failureJob.cancel()
+        progressesJob.cancel()
+        routesJob.cancel()
+        statesJob.cancel()
+
+        Assertions.assertEquals(listOf(Failure.ServerError(500)), failures)
+        Assertions.assertEquals(listOf(true, false), progresses)
+        Assertions.assertTrue(routes.isEmpty())
+    }
+
 }
