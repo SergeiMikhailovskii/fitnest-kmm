@@ -4,7 +4,9 @@ import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
+import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
+import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.privateArea.DeleteActivityUseCase
 import com.fitnest.domain.usecase.privateArea.GetActivityTrackerPageUseCase
@@ -79,9 +81,7 @@ class ActivityTrackerViewModelTest {
         val screenData = ActivityTrackerScreenData(
             activityProgressWidget = ActivityTrackerScreenData.ActivityProgressWidget()
         )
-        coEvery { getActivityTrackerPageUseCase() } answers {
-            Result.success(response)
-        }
+        coEvery { getActivityTrackerPageUseCase() } returns Result.success(response)
         every { viewMapper.mapWidgetsToScreenData(response) } returns screenData
 
         viewModel.getInitialInfo()
@@ -103,11 +103,8 @@ class ActivityTrackerViewModelTest {
         val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
         val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
         val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
-        val statesJob = viewModel.screenDataFlow.onEach(states::add).launchIn(this)
 
-        coEvery { getActivityTrackerPageUseCase() } answers {
-            Result.failure(Failure.ServerError(500))
-        }
+        coEvery { getActivityTrackerPageUseCase() } returns Result.failure(Failure.ServerError(500))
 
         viewModel.getInitialInfo()
         advanceUntilIdle()
@@ -115,11 +112,97 @@ class ActivityTrackerViewModelTest {
         failureJob.cancel()
         progressesJob.cancel()
         routesJob.cancel()
-        statesJob.cancel()
 
         Assertions.assertEquals(listOf(Failure.ServerError(500)), failures)
         Assertions.assertEquals(listOf(true, false), progresses)
         Assertions.assertTrue(routes.isEmpty())
     }
 
+    @Test
+    fun deleteActivitySuccess() = runTest {
+        val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
+        val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
+        val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
+        val statesJob = viewModel.screenDataFlow.onEach(states::add).launchIn(this)
+
+        val mockActivity = ActivityTrackerScreenData.Activity(
+            0,
+            "",
+            "",
+            ActivityType.STEPS,
+            0
+        )
+        val mockRequest = DeleteActivityRequest(0, ActivityType.STEPS)
+        val mockResponse = ActivityTrackerPageResponse.ActivityTrackerWidgets()
+        val mockScreenData = ActivityTrackerScreenData(
+            activityProgressWidget = ActivityTrackerScreenData.ActivityProgressWidget()
+        )
+
+        every { viewMapper.mapActivityToDeleteActivityRequest(mockActivity) } returns mockRequest
+        coEvery { deleteActivityUseCase(mockRequest) } returns Result.success(mockResponse)
+        every { viewMapper.mapWidgetsToScreenData(mockResponse) } returns mockScreenData
+
+        viewModel.deleteActivity(mockActivity)
+        advanceUntilIdle()
+
+        failureJob.cancel()
+        progressesJob.cancel()
+        routesJob.cancel()
+        statesJob.cancel()
+
+        Assertions.assertEquals(listOf(mockScreenData), states)
+        Assertions.assertTrue(failures.isEmpty())
+        Assertions.assertEquals(listOf(true, false), progresses)
+        Assertions.assertTrue(routes.isEmpty())
+    }
+
+    @Test
+    fun deleteActivityFailure() = runTest {
+        val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
+        val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
+        val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
+
+        val mockActivity = ActivityTrackerScreenData.Activity(
+            0,
+            "",
+            "",
+            ActivityType.STEPS,
+            0
+        )
+        val mockRequest = DeleteActivityRequest(0, ActivityType.STEPS)
+
+        every { viewMapper.mapActivityToDeleteActivityRequest(mockActivity) } returns mockRequest
+        coEvery { deleteActivityUseCase(mockRequest) } returns Result.failure(
+            Failure.ServerError(500)
+        )
+
+        viewModel.deleteActivity(mockActivity)
+        advanceUntilIdle()
+
+        failureJob.cancel()
+        progressesJob.cancel()
+        routesJob.cancel()
+
+        Assertions.assertEquals(listOf(Failure.ServerError(500)), failures)
+        Assertions.assertEquals(listOf(true, false), progresses)
+        Assertions.assertTrue(routes.isEmpty())
+    }
+
+    @Test
+    fun navigateNext() = runTest {
+        val failureJob = viewModel.failureSharedFlow.onEach(failures::add).launchIn(this)
+        val progressesJob = viewModel.progressSharedFlow.onEach(progresses::add).launchIn(this)
+        val routesJob = viewModel.routeSharedFlow.onEach(routes::add).launchIn(this)
+
+        viewModel.openActivityInputBottomSheet()
+        advanceUntilIdle()
+
+        failureJob.cancel()
+        progressesJob.cancel()
+        routesJob.cancel()
+
+        Assertions.assertEquals(emptyList<Failure>(), failures)
+        Assertions.assertEquals(emptyList<Boolean>(), progresses)
+        Assertions.assertEquals(listOf(Route.PrivateArea.Tracker.ActivityInputBottomSheet), routes)
+    }
 }
