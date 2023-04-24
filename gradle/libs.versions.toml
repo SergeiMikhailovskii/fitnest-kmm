@@ -36,7 +36,7 @@ reflection = "1.8.10"
 uiTestManifest = "1.4.0"
 
 firebaseBom = "31.4.0"
-composeBom = "2023.01.00"
+composeBom = "2023.04.01"
 
 kodein = "7.19.1"
 serialization = "1.5.0"
