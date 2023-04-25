@@ -11,15 +11,15 @@ internal data class ActivityTrackerScreenData(
     val todayTargetWidget: HomeScreenData.TodayTargetWidget? = HomeScreenData.TodayTargetWidget()
 ) {
 
-    class ActivityProgressWidget(
+    data class ActivityProgressWidget(
         val progresses: ImmutableList<Progress>? = null
     )
 
-    class LatestActivityWidget(
+    data class LatestActivityWidget(
         val activities: ImmutableList<Activity>? = null,
     )
 
-    class Activity(
+    data class Activity(
         val id: Int,
         val title: String,
         val description: String,
@@ -32,6 +32,4 @@ internal data class ActivityTrackerScreenData(
         val progress: Float,
         val color: Int? = null
     )
-
-
 }

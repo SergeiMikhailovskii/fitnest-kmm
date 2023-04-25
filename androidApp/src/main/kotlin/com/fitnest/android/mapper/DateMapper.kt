@@ -9,7 +9,7 @@ import java.util.Locale
 
 internal class DateMapper {
 
-    internal fun mapLocalDateTimeToString(dateTime: LocalDateTime?, pattern: String) = run {
+    fun mapLocalDateTimeToString(dateTime: LocalDateTime?, pattern: String): String = run {
         val millis =
             dateTime?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: 0
         val date = Date(millis)

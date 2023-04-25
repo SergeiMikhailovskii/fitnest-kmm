@@ -21,7 +21,7 @@ internal data class HomeScreenData(
         @StringRes val result: Int? = null
     )
 
-    class TodayTargetWidget(
+    data class TodayTargetWidget(
         val waterIntake: String = "",
         val steps: String = ""
     )

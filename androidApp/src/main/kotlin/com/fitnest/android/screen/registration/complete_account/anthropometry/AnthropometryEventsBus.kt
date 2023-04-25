@@ -20,8 +20,6 @@ class AnthropometryEventsBusImpl(
     }
 
     override suspend fun subscribe(onEvent: (AnthropometryEvent) -> Unit) {
-        eventsFlow.collect {
-            onEvent(it)
-        }
+        eventsFlow.collect(onEvent)
     }
 }
