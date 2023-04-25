@@ -78,6 +78,7 @@ internal class CompleteAccountRegistrationViewModel(
 
     fun submitRegistration() {
         viewModelScope.launch(exceptionHandler) {
+            handleProgress(true)
             val request = viewMapper.mapScreenDataToStepRequestModel(screenData)
 
             val validationSchema = registrationScreenState.validationSchema
@@ -86,6 +87,7 @@ internal class CompleteAccountRegistrationViewModel(
             }
 
             val response = submitRegistrationStepAndGetNextUseCase(request).getOrThrow()
+            handleProgress()
             response.step?.let { handleRoute(Route.Registration.Step(it)) }
         }
     }

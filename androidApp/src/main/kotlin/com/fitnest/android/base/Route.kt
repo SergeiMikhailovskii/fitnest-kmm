@@ -21,16 +21,16 @@ sealed class Route(val screenName: String) {
     object Login : Route("login")
 
     sealed class Registration(screenName: String) : Route(screenName) {
-        class Step(stepName: String = "") : Registration("registrationStep/$stepName") {
+        data class Step(val stepName: String = "") : Registration("registrationStep/$stepName") {
             override val pattern: String
                 get() = "registrationStep/{stepName}"
         }
 
-        class AnthropometryBottomSheet(
-            minValue: Int = 0,
-            maxValue: Int = 0,
-            initialValue: Int = 0,
-            type: String = ""
+        data class AnthropometryBottomSheet(
+            val minValue: Int = 0,
+            val maxValue: Int = 0,
+            val initialValue: Int = 0,
+            val type: String = ""
         ) : Registration("anthropometry?minValue=$minValue&maxValue=$maxValue&initialValue=$initialValue&type=$type") {
             override val pattern: String
                 get() = "anthropometry?minValue={minValue}&maxValue={maxValue}&initialValue={initialValue}&type={type}"

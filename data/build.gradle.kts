@@ -83,6 +83,16 @@ kotlin {
     }
 }
 
+android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlin {
+        jvmToolchain(11)
+    }
+}
+
 sqldelight {
     database("FitnestDatabase") {
         packageName = "com.fitnest"
