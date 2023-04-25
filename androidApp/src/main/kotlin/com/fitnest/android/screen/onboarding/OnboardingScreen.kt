@@ -11,13 +11,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
@@ -29,6 +28,7 @@ import com.fitnest.android.style.Padding
 import com.fitnest.android.view.ui_elements.ButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.launch
+import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
@@ -37,17 +37,19 @@ import org.kodein.di.compose.subDI
 fun OnboardingScreen(navController: NavController, stepName: String) = subDI(diBuilder = {
     import(module = onboardingModule, allowOverride = true)
 }) {
-    val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
+    val localDi = localDI()
+    val viewModelFactory: OnboardingViewModelFactory by rememberInstance {
+        OnboardingViewModelFactory.Params(stepName, localDi)
+    }
 
     val viewModel = viewModel(
         factory = viewModelFactory,
         modelClass = OnboardingViewModel::class.java
     )
-    val screenState: OnboardingState? by viewModel.stateLiveData.observeAsState(null)
+    val screenState: OnboardingState by viewModel.screenDataFlow.collectAsState()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     LaunchedEffect(key1 = null) {
-        viewModel.updateScreenState(stepName)
         launch {
             viewModel.routeSharedFlow.collect {
                 handleNavigation(route = it, navController = navController)
@@ -60,44 +62,36 @@ fun OnboardingScreen(navController: NavController, stepName: String) = subDI(diB
 
     Scaffold(
         floatingActionButton = {
-            screenState?.let {
-                ButtonWithProgress(
-                    size = Dimen.Dimen50,
-                    previousProgress = it.previousProgress,
-                    progress = it.progress,
-                    onClick = viewModel::navigateToNextScreen
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
-                        contentDescription = null
-                    )
-                }
+            ButtonWithProgress(
+                size = Dimen.Dimen50,
+                previousProgress = screenState.previousProgress,
+                progress = screenState.progress,
+                onClick = viewModel::navigateToNextScreen
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_onboarding_arrow_right),
+                    contentDescription = null
+                )
             }
         },
         floatingActionButtonPosition = FabPosition.End
     ) {
         Column(modifier = Modifier.padding(it)) {
             Image(
-                painter = painterResource(
-                    id = screenState?.imageResId ?: R.drawable.ic_onboarding_first
-                ),
+                painter = painterResource(id = screenState.imageResId),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
-                text = stringResource(
-                    id = screenState?.title ?: R.string.onboarding_first_title
-                ),
+                text = stringResource(id = screenState.title),
                 modifier = Modifier.padding(top = Padding.Padding30, start = Padding.Padding30),
                 style = MaterialTheme.typography.headlineSmall.copy(
                     color = MaterialTheme.colorScheme.onBackground
                 )
             )
             Text(
-                text = stringResource(
-                    id = screenState?.description ?: R.string.onboarding_first_description
-                ),
+                text = stringResource(id = screenState.description),
                 modifier = Modifier.padding(
                     top = Padding.Padding15,
                     start = Padding.Padding30,

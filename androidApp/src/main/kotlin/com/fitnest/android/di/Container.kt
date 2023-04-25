@@ -10,6 +10,7 @@ import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModel
+import com.fitnest.android.screen.onboarding.OnboardingViewModelFactory
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
@@ -64,6 +65,7 @@ import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidation
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import com.fitnest.worker.ClearCacheWorkerFactory
 import org.kodein.di.DI
+import org.kodein.di.bindFactory
 import org.kodein.di.bindProvider
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
@@ -103,7 +105,16 @@ val proxyModule by lazy {
 
 val onboardingModule by lazy {
     DI.Module("onboarding module") {
-        bindProvider { OnboardingViewModel(instance(), instance()) }
+        bindFactory<OnboardingViewModelFactory.Params, OnboardingViewModelFactory> { params ->
+            OnboardingViewModelFactory(params)
+        }
+        bindFactory<String, OnboardingViewModel> { stepName ->
+            OnboardingViewModel(
+                stepName,
+                instance(),
+                instance()
+            )
+        }
         bindProvider { GetOnboardingStepUseCase(instance(), instance(), instance()) }
         bindProvider { SubmitOnboardingStepUseCase(instance(), instance()) }
     }
