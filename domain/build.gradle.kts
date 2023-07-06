@@ -4,14 +4,14 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
 //    id("org.kodein.mock.mockmp") version "1.14.0"
-    kotlin("plugin.serialization") version "1.9.0"
+    kotlin("plugin.serialization") version "1.8.20"
     id("com.android.library")
 }
 
 version = libs.versions.domain.get()
 
 kotlin {
-    androidTarget()
+    android()
     ios()
     iosArm64()
     iosX64()
@@ -38,7 +38,7 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidUnitTest by getting
+        val androidTest by getting
         val iosMain by getting {
             dependsOn(commonMain)
         }

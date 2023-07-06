@@ -31,7 +31,7 @@ android {
 }
 
 kotlin {
-    androidTarget()
+    android()
     ios()
     iosArm64()
     iosX64()
@@ -66,7 +66,7 @@ kotlin {
                 api(libs.work)
             }
         }
-        val androidUnitTest by getting {
+        val androidTest by getting {
             dependencies {
                 implementation(libs.bundles.dataAndroidTest)
             }
