@@ -21,7 +21,7 @@ accompanist = "0.28.0"
 
 composeActivity = "1.7.2"
 composeConstraint = "1.0.1"
-composeNavigation = "2.5.3"
+composeNavigation = "2.6.0"
 composeThemeAdapter = "1.1.1"
 composeCompiler = "1.4.8"
 composeConstraintLayout = "1.0.1"
