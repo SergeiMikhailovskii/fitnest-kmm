@@ -27,7 +27,7 @@ composeCompiler = "1.4.4"
 composeConstraintLayout = "1.0.1"
 
 composeJUnit = "1.4.3"
-jUnit = "5.9.2"
+jUnit = "5.9.3"
 testCore = "1.5.0"
 mockk = "1.13.3"
 espresso = "3.5.1"
