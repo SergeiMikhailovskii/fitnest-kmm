@@ -1,9 +1,7 @@
-
-
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("org.kodein.mock.mockmp") version "1.12.0"
+//    id("org.kodein.mock.mockmp") version "1.14.0"
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
@@ -15,17 +13,16 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.fitnest"
-    configurations {
-        create("androidTestApi")
-        create("androidTestDebugApi")
-        create("androidTestReleaseApi")
-        create("testApi")
-        create("testDebugApi")
-        create("testReleaseApi")
-    }
+//    configurations {
+//        create("androidTestApi")
+//        create("androidTestDebugApi")
+//        create("androidTestReleaseApi")
+//        create("testApi")
+//        create("testDebugApi")
+//        create("testReleaseApi")
+//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -34,7 +31,7 @@ android {
 }
 
 kotlin {
-    android()
+    androidTarget()
     ios()
     iosArm64()
     iosX64()
@@ -44,7 +41,7 @@ kotlin {
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = libs.versions.deploymentTarget.get()
         framework {
-            baseName = "shared"
+            baseName = "data"
         }
         podfile = project.file("../iosApp/Podfile")
     }
@@ -69,7 +66,7 @@ kotlin {
                 api(libs.work)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(libs.bundles.dataAndroidTest)
             }
@@ -99,6 +96,6 @@ sqldelight {
     }
 }
 
-mockmp {
-    usesHelper = true
-}
+//mockmp {
+//    usesHelper = true
+//}

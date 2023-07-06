@@ -37,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		0187F135D5F61750CD24C3E04B6E8B64 /* Pods-iosApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-frameworks.sh"; sourceTree = "<group>"; };
-		308641541B475AD512FADAC6BDA45E5A /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		1641F882373EE12CC315D8B1B83232D4 /* data.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = data.framework; path = build/cocoapods/framework/data.framework; sourceTree = "<group>"; };
 		3F64BADB16C311E9D09DAD0116F684F4 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		54DC7F9924F99FEE67A9AD3BEE09A10C /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
 		5AC974169B09D4545F741E9A2147610E /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
@@ -125,10 +125,10 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		64F822B7528B1D59D2E8A5CF91BD0546 /* Frameworks */ = {
+		81A207F963B1CF9E615AB661F2B2A1BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				308641541B475AD512FADAC6BDA45E5A /* shared.framework */,
+				1641F882373EE12CC315D8B1B83232D4 /* data.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -136,7 +136,7 @@
 		977FED8456566FF84F82B7E812BB22AF /* data */ = {
 			isa = PBXGroup;
 			children = (
-				64F822B7528B1D59D2E8A5CF91BD0546 /* Frameworks */,
+				81A207F963B1CF9E615AB661F2B2A1BB /* Frameworks */,
 				C68E034A8D551C62A847A9049DF5094A /* Pod */,
 				3682B6E9886D91A38FBAC655B679C788 /* Support Files */,
 			);

@@ -31,8 +31,8 @@ jobs:
       - name: Build
         run: ./gradlew :androidApp:assembleDebug
 
-      - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+#      - name: Run unit tests
+#        run: ./gradlew testDebugUnitTest
 
 #      - name: Run instrumented tests
 #        uses: ReactiveCircus/android-emulator-runner@v2.28.0

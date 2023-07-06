@@ -15,8 +15,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
-        classpath("com.android.tools.build:gradle:7.4.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
+        classpath("com.android.tools.build:gradle:8.0.2")
         classpath("com.google.gms:google-services:4.3.15")
         classpath("com.squareup.sqldelight:gradle-plugin:1.5.5")
     }
@@ -26,14 +26,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {
-            url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
-            content {
-                includeGroup("org.kodein")
-            }
-        }
         maven(url = "https://jitpack.io")
-        maven(url = "https://dl.bintray.com/kodein-framework/Kodein-DI")
+        maven(url = "https://androidx.dev/storage/compose-compiler/repository/")
     }
 }
 
