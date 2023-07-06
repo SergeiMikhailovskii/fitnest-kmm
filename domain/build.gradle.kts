@@ -3,15 +3,15 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("org.kodein.mock.mockmp") version "1.12.0"
-    kotlin("plugin.serialization") version "1.8.10"
+//    id("org.kodein.mock.mockmp") version "1.14.0"
+    kotlin("plugin.serialization") version "1.9.0"
     id("com.android.library")
 }
 
 version = libs.versions.domain.get()
 
 kotlin {
-    android()
+    androidTarget()
     ios()
     iosArm64()
     iosX64()
@@ -38,7 +38,7 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidTest by getting
+        val androidUnitTest by getting
         val iosMain by getting {
             dependsOn(commonMain)
         }
@@ -53,7 +53,6 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.idfinance.domain"
     compileOptions {
@@ -65,6 +64,6 @@ android {
     }
 }
 
-mockmp {
-    usesHelper = true
-}
+//mockmp {
+//    usesHelper = true
+//}

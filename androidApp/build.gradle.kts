@@ -28,6 +28,10 @@ android {
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
 
+        buildFeatures {
+            buildConfig = true
+        }
+
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${googleClientId}\"")
         resValue("string", "facebook_app_id", facebookAppId)
         resValue("string", "facebook_client_token", facebookClientToken)
@@ -61,7 +65,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.composeCompilerExtension.get()
     }
     namespace = "com.fitnest.android"
-    packagingOptions {
+    packaging {
         resources.excludes.apply {
             add("META-INF/INDEX.LIST")
             add("META-INF/LICENSE.md")
