@@ -9,7 +9,6 @@ import com.fitnest.android.internal.SnackbarDelegate
 import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
-import com.fitnest.android.screen.onboarding.OnboardingViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModelFactory
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
@@ -62,6 +61,7 @@ import com.fitnest.domain.usecase.splash.GenerateTokenUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
+import com.fitnest.presentation.screen.onboarding.OnboardingViewModel
 import com.fitnest.presentation.screen.splash.SplashViewModel
 import com.fitnest.worker.ClearCacheWorkerFactory
 import org.kodein.di.DI

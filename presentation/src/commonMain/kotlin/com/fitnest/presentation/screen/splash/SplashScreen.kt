@@ -42,14 +42,8 @@ fun SplashScreen(
     val progress by viewModel.progressSharedFlow.collectAsState(false)
 
     LaunchedEffect(key1 = null) {
-        launch {
-            viewModel.routeSharedFlow.collect {
-                navigate(it)
-            }
-        }
-        launch {
-            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
-        }
+        launch { viewModel.routeSharedFlow.collect(navigate) }
+        launch { viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure) }
         viewModel.generateToken()
     }
 

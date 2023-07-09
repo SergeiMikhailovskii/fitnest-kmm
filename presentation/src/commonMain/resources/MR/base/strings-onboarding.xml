@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="splash_button_title">Get Started</string>
+
     <string name="onboarding_first_title">Track Your Goal</string>
     <string name="onboarding_first_description">Don\'t worry if you have trouble determining your goals, We can help you determine your goals and track your goals</string>
     <string name="onboarding_second_title">Get Burn</string>

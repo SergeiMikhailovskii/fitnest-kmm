@@ -146,8 +146,8 @@ fun FitnestApp(
                         },
                     ) {
                         OnboardingScreen(
-                            navController = navController,
-                            stepName = it.arguments?.getString("stepName").orEmpty()
+                            it.arguments?.getString("stepName").orEmpty(),
+                            navController::navigate
                         )
                     }
                     composable(

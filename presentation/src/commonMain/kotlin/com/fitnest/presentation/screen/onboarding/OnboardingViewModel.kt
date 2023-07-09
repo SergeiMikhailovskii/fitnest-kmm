@@ -1,10 +1,9 @@
-package com.fitnest.android.screen.onboarding
+package com.fitnest.presentation.screen.onboarding
 
-import com.fitnest.android.R
-import com.fitnest.domain.entity.OnboardingState
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
+import com.fitnest.presentation.MR
 import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +19,9 @@ class OnboardingViewModel(
     private val screenState = when (currentStep) {
         STEP_FIRST_ONBOARDING -> {
             OnboardingState(
-                imageResId = R.drawable.ic_onboarding_first,
-                title = R.string.onboarding_first_title,
-                description = R.string.onboarding_first_description,
+                imageRes = "ic_onboarding_first.xml",
+                title = MR.strings.onboarding_first_title,
+                description = MR.strings.onboarding_first_description,
                 progress = OnboardingState.FIRST_SCREEN_PROGRESS,
                 previousProgress = OnboardingState.ZERO_SCREEN_PROGRESS
             )
@@ -30,9 +29,9 @@ class OnboardingViewModel(
 
         STEP_SECOND_ONBOARDING -> {
             OnboardingState(
-                imageResId = R.drawable.ic_onboarding_second,
-                title = R.string.onboarding_second_title,
-                description = R.string.onboarding_second_description,
+                imageRes = "ic_onboarding_second.xml",
+                title = MR.strings.onboarding_second_title,
+                description = MR.strings.onboarding_second_description,
                 progress = OnboardingState.SECOND_SCREEN_PROGRESS,
                 previousProgress = OnboardingState.FIRST_SCREEN_PROGRESS
             )
@@ -40,9 +39,9 @@ class OnboardingViewModel(
 
         STEP_THIRD_ONBOARDING -> {
             OnboardingState(
-                imageResId = R.drawable.ic_onboarding_third,
-                title = R.string.onboarding_third_title,
-                description = R.string.onboarding_third_description,
+                imageRes = "ic_onboarding_third.xml",
+                title = MR.strings.onboarding_third_title,
+                description = MR.strings.onboarding_third_description,
                 progress = OnboardingState.THIRD_SCREEN_PROGRESS,
                 previousProgress = OnboardingState.SECOND_SCREEN_PROGRESS
             )
@@ -50,9 +49,9 @@ class OnboardingViewModel(
 
         STEP_FORTH_ONBOARDING -> {
             OnboardingState(
-                imageResId = R.drawable.ic_onboarding_forth,
-                title = R.string.onboarding_forth_title,
-                description = R.string.onboarding_forth_description,
+                imageRes = "ic_onboarding_forth.xml",
+                title = MR.strings.onboarding_forth_title,
+                description = MR.strings.onboarding_forth_description,
                 progress = OnboardingState.FORTH_SCREEN_PROGRESS,
                 previousProgress = OnboardingState.THIRD_SCREEN_PROGRESS
             )
@@ -62,7 +61,7 @@ class OnboardingViewModel(
     }
 
     private val _screenDataFlow = MutableStateFlow(screenState)
-    internal val screenDataFlow = _screenDataFlow.asStateFlow()
+    val screenDataFlow = _screenDataFlow.asStateFlow()
 
     override val exceptionHandler = CoroutineExceptionHandler { _, failure ->
         if (failure is Failure.OnboardingFinished) {
@@ -72,7 +71,7 @@ class OnboardingViewModel(
         }
     }
 
-    internal fun navigateToNextScreen() {
+    fun navigateToNextScreen() {
         viewModelScope.launch(exceptionHandler) {
             submitOnboardingStepUseCase().getOrThrow()
             val nextStep = getOnboardingStepUseCase().getOrThrow()
