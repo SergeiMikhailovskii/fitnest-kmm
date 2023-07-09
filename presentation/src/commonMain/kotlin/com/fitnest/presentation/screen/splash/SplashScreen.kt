@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import com.fitnest.presentation.MR
 import com.fitnest.presentation.extension.brandGradient
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.navigation.Route
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
@@ -28,14 +29,15 @@ import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import org.kodein.di.compose.rememberInstance
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SplashScreen(
     viewModel: SplashViewModel,
     navigate: (Route) -> Unit
-) /*= subDI(diBuilder = { import(splashModule) })*/ {
-//    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
+) {
+    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val progress by viewModel.progressSharedFlow.collectAsState(false)
 
@@ -45,9 +47,9 @@ fun SplashScreen(
                 navigate(it)
             }
         }
-//        launch {
-//            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
-//        }
+        launch {
+            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
+        }
         viewModel.generateToken()
     }
 

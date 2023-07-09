@@ -12,7 +12,6 @@ import org.kodein.di.compose.subDI
 @Composable
 internal fun SplashScreen(navigate: (Route) -> Unit) = subDI(diBuilder = { import(splashModule) }) {
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
-//    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
