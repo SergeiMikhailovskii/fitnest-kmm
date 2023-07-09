@@ -1,12 +1,11 @@
-package com.fitnest.android.screen.splash
+package com.fitnest.presentation.screen.splash
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.domain.usecase.splash.GenerateTokenUseCase
+import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.navigation.Route
 import kotlinx.coroutines.launch
 
-internal class SplashViewModel(
+class SplashViewModel(
     private val generateTokenUseCase: GenerateTokenUseCase
 ) : BaseViewModel() {
 

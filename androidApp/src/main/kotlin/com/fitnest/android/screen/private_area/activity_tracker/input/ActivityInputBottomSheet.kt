@@ -38,13 +38,12 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.R
-import com.fitnest.android.base.Route
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNames
 import com.fitnest.android.internal.ErrorHandlerDelegate
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.fitnest.domain.enum.ActivityType
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
@@ -61,7 +60,7 @@ internal fun ActivityInputBottomSheetPreview() {
 @Composable
 internal fun ActivityInputBottomSheet(
     sheetState: ModalBottomSheetState,
-    navigate: (Route) -> Unit
+    navigate: (com.fitnest.presentation.navigation.Route) -> Unit
 ) = subDI(diBuilder = { import(PrivateAreaModule.activityInputPrivateAreaModule) }) {
 
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()

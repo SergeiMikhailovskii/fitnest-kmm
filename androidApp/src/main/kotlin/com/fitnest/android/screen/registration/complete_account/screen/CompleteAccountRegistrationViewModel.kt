@@ -1,8 +1,5 @@
 package com.fitnest.android.screen.registration.complete_account.screen
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEvent
 import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBusSubscriber
 import com.fitnest.domain.entity.RegistrationScreenState
@@ -12,6 +9,7 @@ import com.fitnest.domain.exception.CompleteAccountRegistrationScreenException
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -88,7 +86,7 @@ internal class CompleteAccountRegistrationViewModel(
 
             val response = submitRegistrationStepAndGetNextUseCase(request).getOrThrow()
             handleProgress()
-            response.step?.let { handleRoute(Route.Registration.Step(it)) }
+            response.step?.let { handleRoute(com.fitnest.presentation.navigation.Route.Registration.Step(it)) }
         }
     }
 
@@ -97,7 +95,7 @@ internal class CompleteAccountRegistrationViewModel(
             currentAnthropometryType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
         )
         handleRoute(
-            Route.Registration.AnthropometryBottomSheet(
+            com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet(
                 minValue = 0,
                 maxValue = 200,
                 initialValue = 70
@@ -110,7 +108,7 @@ internal class CompleteAccountRegistrationViewModel(
             currentAnthropometryType = CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
         )
         handleRoute(
-            Route.Registration.AnthropometryBottomSheet(
+            com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet(
                 minValue = 0,
                 maxValue = 220,
                 initialValue = 188

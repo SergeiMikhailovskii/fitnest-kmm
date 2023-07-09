@@ -1,4 +1,4 @@
-package com.fitnest.android.base
+package com.fitnest.presentation.navigation
 
 import com.fitnest.domain.enum.FlowType
 
@@ -8,7 +8,7 @@ sealed class Route(val screenName: String) {
         get() = screenName
 
     object Splash : Route("splash")
-    data class Proxy(val flow: FlowType = FlowType.UNKNOWN) : Route("proxy/${flow}") {
+    data class Proxy(val flow: FlowType = FlowType.UNKNOWN) : Route("proxy/$flow") {
         override val pattern: String
             get() = "proxy/{flowType}"
     }

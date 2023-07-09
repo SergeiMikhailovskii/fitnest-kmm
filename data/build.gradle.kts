@@ -66,7 +66,7 @@ kotlin {
                 api(libs.work)
             }
         }
-        val androidTest by getting {
+        val androidInstrumentedTest by getting {
             dependencies {
                 implementation(libs.bundles.dataAndroidTest)
             }
@@ -96,6 +96,6 @@ sqldelight {
     }
 }
 
-//mockmp {
+// mockmp {
 //    usesHelper = true
-//}
+// }

@@ -1,13 +1,11 @@
 package com.fitnest.android.screen.onboarding
 
-import androidx.lifecycle.viewModelScope
 import com.fitnest.android.R
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.OnboardingState
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.onboarding.SubmitOnboardingStepUseCase
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,6 +27,7 @@ class OnboardingViewModel(
                 previousProgress = OnboardingState.ZERO_SCREEN_PROGRESS
             )
         }
+
         STEP_SECOND_ONBOARDING -> {
             OnboardingState(
                 imageResId = R.drawable.ic_onboarding_second,
@@ -38,6 +37,7 @@ class OnboardingViewModel(
                 previousProgress = OnboardingState.FIRST_SCREEN_PROGRESS
             )
         }
+
         STEP_THIRD_ONBOARDING -> {
             OnboardingState(
                 imageResId = R.drawable.ic_onboarding_third,
@@ -47,6 +47,7 @@ class OnboardingViewModel(
                 previousProgress = OnboardingState.SECOND_SCREEN_PROGRESS
             )
         }
+
         STEP_FORTH_ONBOARDING -> {
             OnboardingState(
                 imageResId = R.drawable.ic_onboarding_forth,
@@ -56,6 +57,7 @@ class OnboardingViewModel(
                 previousProgress = OnboardingState.THIRD_SCREEN_PROGRESS
             )
         }
+
         else -> error("unknown step $currentStep")
     }
 
@@ -64,7 +66,7 @@ class OnboardingViewModel(
 
     override val exceptionHandler = CoroutineExceptionHandler { _, failure ->
         if (failure is Failure.OnboardingFinished) {
-            handleRoute(Route.Proxy())
+            handleRoute(com.fitnest.presentation.navigation.Route.Proxy())
         } else if (failure is Failure) {
             super.handleFailure(failure)
         }
@@ -74,7 +76,7 @@ class OnboardingViewModel(
         viewModelScope.launch(exceptionHandler) {
             submitOnboardingStepUseCase().getOrThrow()
             val nextStep = getOnboardingStepUseCase().getOrThrow()
-            nextStep?.let { handleRoute(Route.OnboardingStep(it)) }
+            nextStep?.let { handleRoute(com.fitnest.presentation.navigation.Route.OnboardingStep(it)) }
         }
     }
 

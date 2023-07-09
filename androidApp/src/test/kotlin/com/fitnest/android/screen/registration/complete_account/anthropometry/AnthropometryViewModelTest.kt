@@ -1,12 +1,9 @@
 package com.fitnest.android.screen.registration.complete_account.anthropometry
 
-import com.fitnest.android.base.Route
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
-import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.functional.Failure
+import com.fitnest.presentation.navigation.Route
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

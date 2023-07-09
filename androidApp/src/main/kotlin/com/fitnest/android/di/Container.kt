@@ -31,7 +31,7 @@ import com.fitnest.android.screen.registration.create_account.CreateAccountRegis
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewMapper
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewModel
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationViewModel
-import com.fitnest.android.screen.splash.SplashViewModel
+import com.fitnest.presentation.screen.splash.SplashViewModel
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper

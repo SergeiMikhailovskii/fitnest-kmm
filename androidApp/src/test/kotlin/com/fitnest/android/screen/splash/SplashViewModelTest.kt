@@ -1,8 +1,8 @@
 package com.fitnest.android.screen.splash
 
-import com.fitnest.android.base.Route
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.splash.GenerateTokenUseCase
+import com.fitnest.presentation.screen.splash.SplashViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -26,7 +26,7 @@ class SplashViewModelTest {
 
     private val failures = mutableListOf<Failure>()
     private val progresses = mutableListOf<Boolean>()
-    private val routes = mutableListOf<Route>()
+    private val routes = mutableListOf<com.fitnest.presentation.navigation.Route>()
 
     private val testDispatcher = StandardTestDispatcher()
 
@@ -68,7 +68,7 @@ class SplashViewModelTest {
 
         assertEquals(emptyList<Failure>(), failures)
         assertEquals(listOf(true, false), progresses)
-        assertEquals(emptyList<Route>(), routes)
+        assertEquals(emptyList<com.fitnest.presentation.navigation.Route>(), routes)
     }
 
     @Test
@@ -90,7 +90,7 @@ class SplashViewModelTest {
 
         assertEquals(listOf(testFailure), failures)
         assertEquals(listOf(true, false), progresses)
-        assertEquals(emptyList<Route>(), routes)
+        assertEquals(emptyList<com.fitnest.presentation.navigation.Route>(), routes)
     }
 
     @Test
@@ -108,6 +108,6 @@ class SplashViewModelTest {
 
         assertEquals(emptyList<Failure>(), failures)
         assertEquals(emptyList<Boolean>(), progresses)
-        assertEquals(listOf(Route.Proxy()), routes)
+        assertEquals(listOf(com.fitnest.presentation.navigation.Route.Proxy()), routes)
     }
 }

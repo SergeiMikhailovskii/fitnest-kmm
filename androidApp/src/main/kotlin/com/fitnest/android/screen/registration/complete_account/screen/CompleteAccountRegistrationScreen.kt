@@ -42,11 +42,11 @@ import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
 import com.fitnest.android.screen.registration.ui.DateOfBirthTextField
 import com.fitnest.android.screen.registration.ui.SexDropdown
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
-import com.fitnest.android.style.Padding.Padding10
-import com.fitnest.android.style.Padding.Padding15
-import com.fitnest.android.style.Padding.Padding30
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.style.Padding.Padding10
+import com.fitnest.presentation.style.Padding.Padding15
+import com.fitnest.presentation.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch

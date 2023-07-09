@@ -1,7 +1,5 @@
-package com.fitnest.android.base
+package com.fitnest.presentation.base
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.fitnest.domain.functional.Failure
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,15 +16,15 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     private val _failureSharedFlow = MutableSharedFlow<Failure>()
-    internal val failureSharedFlow: SharedFlow<Failure> = _failureSharedFlow.asSharedFlow()
+    val failureSharedFlow: SharedFlow<Failure> = _failureSharedFlow.asSharedFlow()
 
-    private val _routeSharedFlow = MutableSharedFlow<Route>()
-    internal val routeSharedFlow = _routeSharedFlow.asSharedFlow()
+    private val _routeSharedFlow = MutableSharedFlow<com.fitnest.presentation.navigation.Route>()
+    val routeSharedFlow = _routeSharedFlow.asSharedFlow()
 
     private val _progressSharedFlow = MutableSharedFlow<Boolean>()
-    internal val progressSharedFlow = _progressSharedFlow.asSharedFlow()
+    val progressSharedFlow = _progressSharedFlow.asSharedFlow()
 
-    protected fun handleRoute(route: Route) {
+    protected fun handleRoute(route: com.fitnest.presentation.navigation.Route) {
         viewModelScope.launch(exceptionHandler) {
             _routeSharedFlow.emit(route)
         }

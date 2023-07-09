@@ -14,11 +14,11 @@ import androidx.compose.ui.test.performClick
 import androidx.navigation.testing.TestNavHostController
 import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
-import com.fitnest.android.base.Route
 import com.fitnest.android.di.splashModule
 import com.fitnest.android.waitUntilExists
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.functional.Failure
+import com.fitnest.presentation.screen.splash.SplashViewModel
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -50,7 +50,7 @@ class SplashScreenTest {
     internal lateinit var viewModel: SplashViewModel
 
     private val progressFlow by lazy { MutableStateFlow(false) }
-    private val routeFlow by lazy { MutableSharedFlow<Route>() }
+    private val routeFlow by lazy { MutableSharedFlow<com.fitnest.presentation.navigation.Route>() }
     private val failureFlow by lazy { MutableSharedFlow<Failure>() }
     private val context by lazy { composeTestRule.activity }
 
@@ -94,7 +94,7 @@ class SplashScreenTest {
             progressFlow.emit(false)
         }
         every { viewModel.navigateNext() } coAnswers {
-            routeFlow.emit(Route.Proxy())
+            routeFlow.emit(com.fitnest.presentation.navigation.Route.Proxy())
         }
         composeTestRule.setContent {
             FitnestApp(

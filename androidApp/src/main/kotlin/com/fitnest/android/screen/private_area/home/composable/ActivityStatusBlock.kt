@@ -55,9 +55,9 @@ import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.android.extension.textBrush
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
-import com.fitnest.android.style.TextSize
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.style.TextSize
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant

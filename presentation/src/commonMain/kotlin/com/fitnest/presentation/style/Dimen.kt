@@ -1,4 +1,4 @@
-package com.fitnest.android.style
+package com.fitnest.presentation.style
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp

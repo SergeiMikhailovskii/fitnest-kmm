@@ -8,7 +8,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.data)
+    implementation(projects.presentation)
     implementation(libs.bundles.android)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.kodeinAndroid)

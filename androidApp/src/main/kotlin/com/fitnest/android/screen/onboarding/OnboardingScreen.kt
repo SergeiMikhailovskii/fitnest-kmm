@@ -23,8 +23,8 @@ import com.fitnest.android.R
 import com.fitnest.android.di.onboardingModule
 import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.fitnest.android.view.ui_elements.ButtonWithProgress
 import com.fitnest.domain.entity.OnboardingState
 import kotlinx.coroutines.launch

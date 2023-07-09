@@ -49,14 +49,13 @@ import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.fitnest.android.view.dialog.ForgetPasswordSuccessDialog
 import com.fitnest.android.view.ui_elements.DividerWithChild
 import com.fitnest.android.view.ui_elements.FitnestTextField
 import com.fitnest.android.view.ui_elements.getPasswordVisualTransformation
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
@@ -77,7 +76,7 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
     val googleSignInService: GoogleSignInService by rememberInstance()
     val facebookService: FacebookService by rememberInstance()
 
-    val viewModel = viewModel(
+    val viewModel = viewModel<LoginViewModel>(
         factory = viewModelFactory,
         modelClass = LoginViewModel::class.java
     )

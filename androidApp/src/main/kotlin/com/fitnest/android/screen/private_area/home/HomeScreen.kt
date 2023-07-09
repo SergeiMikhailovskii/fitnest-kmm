@@ -26,8 +26,8 @@ import com.fitnest.android.screen.private_area.home.composable.BMIBlock
 import com.fitnest.android.screen.private_area.home.composable.HeaderBlock
 import com.fitnest.android.screen.private_area.home.composable.LatestWorkoutBlock
 import com.fitnest.android.screen.private_area.home.composable.TodayTargetBlock
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.launch

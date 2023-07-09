@@ -38,7 +38,6 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidTest by getting
         val iosMain by getting {
             dependsOn(commonMain)
         }
@@ -54,7 +53,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
     }
-    namespace = "com.idfinance.domain"
+    namespace = "com.fitnest.domain"
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -64,6 +63,6 @@ android {
     }
 }
 
-//mockmp {
+// mockmp {
 //    usesHelper = true
-//}
+// }

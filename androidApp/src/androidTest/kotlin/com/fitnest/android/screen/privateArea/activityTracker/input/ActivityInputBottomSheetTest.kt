@@ -16,7 +16,6 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
-import com.fitnest.android.base.Route
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.enum.localizedName
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
@@ -57,7 +56,7 @@ class ActivityInputBottomSheetTest {
     @MockK(relaxed = true)
     internal lateinit var viewModel: ActivityInputViewModel
 
-    private val routeFlow by lazy { MutableSharedFlow<Route>() }
+    private val routeFlow by lazy { MutableSharedFlow<com.fitnest.presentation.navigation.Route>() }
     private val failureFlow by lazy { MutableSharedFlow<Failure>() }
     private val screenDataFlow by lazy { MutableStateFlow(ActivityInputScreenData()) }
     private val context by lazy { composeTestRule.activity }
@@ -84,7 +83,7 @@ class ActivityInputBottomSheetTest {
             screenDataFlow.emit(ActivityInputScreenData(activityType = activityType.captured))
         }
         composeTestRule.setContent {
-            FitnestApp(startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern)
+            FitnestApp(startDestination = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern)
         }
         ActivityType.values().forEach {
             composeTestRule.onNodeWithText(it.localizedName(context)).performClick()
@@ -101,7 +100,7 @@ class ActivityInputBottomSheetTest {
             screenDataFlow.emit(ActivityInputScreenData(value = value.captured))
         }
         composeTestRule.setContent {
-            FitnestApp(startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern)
+            FitnestApp(startDestination = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern)
         }
         val picker = Espresso.onView(withClassName(Matchers.equalTo(NumberPicker::class.java.name)))
         picker.perform(scrollDown())
@@ -120,11 +119,11 @@ class ActivityInputBottomSheetTest {
         navController.navigatorProvider.addNavigator(bottomSheetNavigator)
         navController.navigatorProvider.addNavigator(AnimatedComposeNavigator())
         every { viewModel.submitActivity() } coAnswers {
-            routeFlow.emit(Route.DismissBottomSheet)
+            routeFlow.emit(com.fitnest.presentation.navigation.Route.DismissBottomSheet)
         }
         composeTestRule.setContent {
             FitnestApp(
-                startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern,
+                startDestination = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern,
                 bottomSheetNavigator = bottomSheetNavigator,
                 navController = navController,
             )
@@ -151,7 +150,7 @@ class ActivityInputBottomSheetTest {
         }
         composeTestRule.setContent {
             FitnestApp(
-                startDestination = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern,
+                startDestination = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern,
                 bottomSheetNavigator = bottomSheetNavigator,
                 navController = navController,
             )

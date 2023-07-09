@@ -1,12 +1,10 @@
 package com.fitnest.android.screen.proxy
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.usecase.onboarding.GetOnboardingStepUseCase
 import com.fitnest.domain.usecase.proxy.GetFlowUseCase
 import com.fitnest.domain.usecase.registration.GetRegistrationStepData
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 internal class ProxyViewModel(
@@ -31,18 +29,21 @@ internal class ProxyViewModel(
             FlowType.ONBOARDING -> {
                 viewModelScope.launch(exceptionHandler) {
                     val response = getOnboardingStepUseCase().getOrThrow()
-                    response?.let { handleRoute(Route.OnboardingStep(it)) }
+                    response?.let { handleRoute(com.fitnest.presentation.navigation.Route.OnboardingStep(it)) }
                 }
             }
+
             FlowType.REGISTRATION -> {
                 viewModelScope.launch(exceptionHandler) {
                     val response = getRegistrationStepDataUseCase().getOrThrow()
-                    handleRoute(Route.Registration.Step(stepName = response.step.orEmpty()))
+                    handleRoute(com.fitnest.presentation.navigation.Route.Registration.Step(stepName = response.step.orEmpty()))
                 }
             }
+
             FlowType.MAIN -> {
-                handleRoute(Route.PrivateArea.Home)
+                handleRoute(com.fitnest.presentation.navigation.Route.PrivateArea.Home)
             }
+
             else -> {
             }
         }

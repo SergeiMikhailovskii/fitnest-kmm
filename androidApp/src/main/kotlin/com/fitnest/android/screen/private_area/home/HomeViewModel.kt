@@ -1,10 +1,8 @@
 package com.fitnest.android.screen.private_area.home
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.usecase.privateArea.GetDashboardDataUseCase
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -35,11 +33,11 @@ internal class HomeViewModel(
     }
 
     internal fun navigateToNotifications() {
-        handleRoute(Route.PrivateArea.Notifications)
+        handleRoute(com.fitnest.presentation.navigation.Route.PrivateArea.Notifications)
     }
 
     internal fun navigateToActivityTracker() {
-        handleRoute(Route.PrivateArea.ActivityTracker)
+        handleRoute(com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker)
     }
 
 }

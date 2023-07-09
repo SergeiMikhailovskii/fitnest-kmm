@@ -25,8 +25,8 @@ import com.fitnest.android.screen.private_area.settings.composables.AccountSetti
 import com.fitnest.android.screen.private_area.settings.composables.NotificationSettingsBlock
 import com.fitnest.android.screen.private_area.settings.composables.OtherSettingsBlock
 import com.fitnest.android.screen.private_area.settings.composables.ProfileInfoBlock
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -36,7 +36,6 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
 import kotlinx.coroutines.launch
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 
