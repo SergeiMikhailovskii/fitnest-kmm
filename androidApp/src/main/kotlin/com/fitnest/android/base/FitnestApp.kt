@@ -121,7 +121,7 @@ fun FitnestApp(
                         })
                     ) {
                         val flowType = it.arguments?.getSerializable("flowType") as FlowType
-                        ProxyScreen(navController = navController, flowType)
+                        ProxyScreen(flowType, navController::navigate)
                     }
                     composable(
                         route = com.fitnest.presentation.navigation.Route.OnboardingStep().pattern,
