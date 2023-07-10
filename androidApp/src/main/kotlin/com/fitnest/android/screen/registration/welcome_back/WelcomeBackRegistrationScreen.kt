@@ -26,8 +26,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.di.RegistrationModule
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import kotlinx.coroutines.launch

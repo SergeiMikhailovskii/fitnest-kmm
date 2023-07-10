@@ -41,10 +41,10 @@ import com.fitnest.android.R
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNames
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.fitnest.domain.enum.ActivityType
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI

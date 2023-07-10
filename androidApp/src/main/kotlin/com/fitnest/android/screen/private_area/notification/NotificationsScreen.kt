@@ -28,9 +28,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.vibrate
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.style.Padding
 import com.fitnest.domain.extension.move
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch

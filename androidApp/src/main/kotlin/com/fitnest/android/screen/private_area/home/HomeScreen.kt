@@ -19,13 +19,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.di.PrivateAreaModule
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.private_area.home.composable.ActivityStatusBlock
 import com.fitnest.android.screen.private_area.home.composable.BMIBlock
 import com.fitnest.android.screen.private_area.home.composable.HeaderBlock
 import com.fitnest.android.screen.private_area.home.composable.LatestWorkoutBlock
 import com.fitnest.android.screen.private_area.home.composable.TodayTargetBlock
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator

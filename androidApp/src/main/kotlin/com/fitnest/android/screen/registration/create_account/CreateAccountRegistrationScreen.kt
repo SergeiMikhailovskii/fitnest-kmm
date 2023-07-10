@@ -46,7 +46,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.di.RegistrationModule
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.navigation.handleNavigation
@@ -63,6 +62,7 @@ import com.fitnest.android.style.TitleMediumOnBackground
 import com.fitnest.android.view.ui_elements.DividerWithChild
 import com.fitnest.android.view.ui_elements.FitnestTextField
 import com.fitnest.android.view.ui_elements.getPasswordVisualTransformation
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI

@@ -37,7 +37,6 @@ import com.fitnest.android.R
 import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
 import com.fitnest.android.screen.registration.ui.DateOfBirthTextField
@@ -48,6 +47,7 @@ import com.fitnest.presentation.style.Padding.Padding10
 import com.fitnest.presentation.style.Padding.Padding15
 import com.fitnest.presentation.style.Padding.Padding30
 import com.fitnest.domain.enum.SexType
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance

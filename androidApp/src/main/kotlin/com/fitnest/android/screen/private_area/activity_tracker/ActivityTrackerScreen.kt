@@ -13,10 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.di.PrivateAreaModule
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.screen.private_area.activity_tracker.composable.ActivityProgressBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.LatestActivityBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.style.Padding
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
