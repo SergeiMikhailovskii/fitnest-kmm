@@ -36,7 +36,7 @@ kotlin = "1.8.20"
 
 uiTestManifest = "1.4.3"
 
-firebaseBom = "31.4.0"
+firebaseBom = "32.1.1"
 composeBom = "2023.01.00"
 
 kodein = "7.20.2"
@@ -46,7 +46,7 @@ dateTime = "0.4.0"
 immutableCollections = "0.3.5"
 napier = "2.6.1"
 
-ktor = "2.2.4"
+ktor = "2.3.2"
 sqldelight = "1.5.5"
 dataStoreCore = "1.1.0-alpha04"
 dataStoreAndroid = "1.1.0-alpha04"
