@@ -38,10 +38,10 @@ import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.extension.brandGradient
-import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage

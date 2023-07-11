@@ -20,8 +20,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.fitnest.android.R
 import com.fitnest.android.enum.TopBarType
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 
 @Composable
 fun TopBar(navController: NavController) {
@@ -88,16 +88,16 @@ private fun TopBarWithTitle(currentRoute: String) {
 }
 
 private fun getTopBarType(route: String) = when (route) {
-    Route.PrivateArea.Notifications.screenName,
-    Route.PrivateArea.ActivityTracker.screenName -> TopBarType.WITH_BACK_TITLE_AND_OPTIONS
-    Route.PrivateArea.Settings.screenName -> TopBarType.ONLY_TITLE
+    com.fitnest.presentation.navigation.Route.PrivateArea.Notifications.screenName,
+    com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker.screenName -> TopBarType.WITH_BACK_TITLE_AND_OPTIONS
+    com.fitnest.presentation.navigation.Route.PrivateArea.Settings.screenName -> TopBarType.ONLY_TITLE
     else -> TopBarType.NONE
 }
 
 @Composable
 private fun topBarScreenName(route: String) = when (route) {
-    Route.PrivateArea.Notifications.screenName -> stringResource(id = R.string.private_area_notifications_screen_title)
-    Route.PrivateArea.ActivityTracker.screenName -> stringResource(id = R.string.private_area_activity_tracker_screen_title)
-    Route.PrivateArea.Settings.screenName -> stringResource(id = R.string.private_area_profile_screen_title)
+    com.fitnest.presentation.navigation.Route.PrivateArea.Notifications.screenName -> stringResource(id = R.string.private_area_notifications_screen_title)
+    com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker.screenName -> stringResource(id = R.string.private_area_activity_tracker_screen_title)
+    com.fitnest.presentation.navigation.Route.PrivateArea.Settings.screenName -> stringResource(id = R.string.private_area_profile_screen_title)
     else -> ""
 }

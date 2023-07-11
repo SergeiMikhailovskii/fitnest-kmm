@@ -1,6 +1,5 @@
 package com.fitnest.android.screen.registration.complete_account.screen
 
-import com.fitnest.android.base.Route
 import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationScreenState
@@ -35,7 +34,7 @@ class CompleteAccountRegistrationViewModelTest {
 
     private val failures = mutableListOf<Failure>()
     private val progresses = mutableListOf<Boolean>()
-    private val routes = mutableListOf<Route>()
+    private val routes = mutableListOf<com.fitnest.presentation.navigation.Route>()
     private val states = mutableListOf<CompleteAccountRegistrationScreenData>()
 
     private val testDispatcher = StandardTestDispatcher()
@@ -169,7 +168,10 @@ class CompleteAccountRegistrationViewModelTest {
         progressesJob.cancel()
 
         Assertions.assertEquals(listOf(true, false), progresses)
-        Assertions.assertEquals(listOf(Route.Registration.Step("NEXT_STEP")), routes)
+        Assertions.assertEquals(
+            listOf(com.fitnest.presentation.navigation.Route.Registration.Step("NEXT_STEP")),
+            routes
+        )
         Assertions.assertTrue(failures.isEmpty())
     }
 
@@ -230,7 +232,15 @@ class CompleteAccountRegistrationViewModelTest {
         advanceUntilIdle()
         routesJob.cancel()
 
-        Assertions.assertEquals(listOf(Route.Registration.AnthropometryBottomSheet(0, 200, 70)), routes)
+        Assertions.assertEquals(
+            listOf(
+                com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet(
+                    0,
+                    200,
+                    70
+                )
+            ), routes
+        )
         Assertions.assertTrue(failures.isEmpty())
         Assertions.assertTrue(progresses.isEmpty())
     }
@@ -242,7 +252,15 @@ class CompleteAccountRegistrationViewModelTest {
         advanceUntilIdle()
         routesJob.cancel()
 
-        Assertions.assertEquals(listOf(Route.Registration.AnthropometryBottomSheet(0, 220, 188)), routes)
+        Assertions.assertEquals(
+            listOf(
+                com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet(
+                    0,
+                    220,
+                    188
+                )
+            ), routes
+        )
         Assertions.assertTrue(failures.isEmpty())
         Assertions.assertTrue(progresses.isEmpty())
     }

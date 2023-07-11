@@ -31,8 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.fitnest.domain.enum.ActivityType
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf

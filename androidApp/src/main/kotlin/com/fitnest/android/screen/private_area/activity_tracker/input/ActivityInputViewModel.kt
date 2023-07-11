@@ -1,11 +1,9 @@
 package com.fitnest.android.screen.private_area.activity_tracker.input
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.usecase.privateArea.AddActivityUseCase
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -34,12 +32,12 @@ internal class ActivityInputViewModel(
             handleProgress(true)
             if (screenData.value == 0) {
                 handleProgress(false)
-                handleRoute(Route.DismissBottomSheet)
+                handleRoute(com.fitnest.presentation.navigation.Route.DismissBottomSheet)
             } else {
                 val request = viewMapper.mapActivityInputToRequest(screenData)
                 addActivityUseCase(request).getOrThrow()
                 handleProgress(false)
-                handleRoute(Route.DismissBottomSheet)
+                handleRoute(com.fitnest.presentation.navigation.Route.DismissBottomSheet)
             }
         }
     }

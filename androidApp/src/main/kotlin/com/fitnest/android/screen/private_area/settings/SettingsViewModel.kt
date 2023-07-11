@@ -1,11 +1,9 @@
 package com.fitnest.android.screen.private_area.settings
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
 import com.fitnest.domain.usecase.privateArea.GetProfilePageUseCase
 import com.fitnest.domain.usecase.privateArea.SetNotificationsEnabledUseCase
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -40,7 +38,7 @@ internal class SettingsViewModel(
     }
 
     fun onActivityHistoryClicked() {
-        handleRoute(Route.PrivateArea.ActivityTracker)
+        handleRoute(com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker)
     }
 
     private fun updateScreenData() {

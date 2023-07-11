@@ -1,13 +1,12 @@
 package com.fitnest.android.navigation
 
 import androidx.navigation.NavController
-import com.fitnest.android.base.Route
 
-internal fun handleNavigation(route: Route, navController: NavController) {
+internal fun handleNavigation(route: com.fitnest.presentation.navigation.Route, navController: NavController) {
     if (
         arrayOf(
-            Route.PrivateArea.Notifications,
-            Route.PrivateArea.ActivityTracker
+            com.fitnest.presentation.navigation.Route.PrivateArea.Notifications,
+            com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker
         ).contains(route)
     ) {
         navController.navigate(route.screenName)

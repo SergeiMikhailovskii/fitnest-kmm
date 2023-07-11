@@ -1,7 +1,5 @@
 package com.fitnest.android.screen.private_area.notification
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
 import com.fitnest.android.screen.private_area.notification.data.NotificationScreenData
 import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.domain.entity.response.NotificationsPageResponse
@@ -9,6 +7,7 @@ import com.fitnest.domain.usecase.privateArea.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.privateArea.DeleteNotificationUseCase
 import com.fitnest.domain.usecase.privateArea.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.privateArea.PinNotificationUseCase
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

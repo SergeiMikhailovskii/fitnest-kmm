@@ -1,8 +1,5 @@
 package com.fitnest.android.screen.registration.create_account
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
@@ -11,6 +8,7 @@ import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
+import com.fitnest.presentation.base.BaseViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -96,12 +94,12 @@ internal class CreateAccountRegistrationViewModel(
             }
 
             val response = submitRegistrationStepAndGetNextUseCase(requestData).getOrThrow()
-            response.step?.let { handleRoute(Route.Registration.Step(it)) }
+            response.step?.let { handleRoute(com.fitnest.presentation.navigation.Route.Registration.Step(it)) }
         }
     }
 
     internal fun navigateToLogin() {
-        handleRoute(Route.Login)
+        handleRoute(com.fitnest.presentation.navigation.Route.Login)
     }
 
     internal fun handleGoogleSignIn(account: GoogleSignInAccount) {

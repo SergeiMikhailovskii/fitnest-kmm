@@ -23,8 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import com.fitnest.android.R
 import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.screen.private_area.home.HomeViewModel
-import com.fitnest.android.style.Dimen
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Dimen
+import com.fitnest.presentation.style.Padding
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder

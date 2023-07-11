@@ -1,6 +1,5 @@
 package com.fitnest.android.screen.privateArea.activityTracker
 
-import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
@@ -34,7 +33,7 @@ class ActivityTrackerViewModelTest {
 
     private val failures = mutableListOf<Failure>()
     private val progresses = mutableListOf<Boolean>()
-    private val routes = mutableListOf<Route>()
+    private val routes = mutableListOf<com.fitnest.presentation.navigation.Route>()
     private val states = mutableListOf<ActivityTrackerScreenData>()
 
     private val testDispatcher = StandardTestDispatcher()
@@ -203,6 +202,9 @@ class ActivityTrackerViewModelTest {
 
         Assertions.assertEquals(emptyList<Failure>(), failures)
         Assertions.assertEquals(emptyList<Boolean>(), progresses)
-        Assertions.assertEquals(listOf(Route.PrivateArea.Tracker.ActivityInputBottomSheet), routes)
+        Assertions.assertEquals(
+            listOf(com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet),
+            routes
+        )
     }
 }

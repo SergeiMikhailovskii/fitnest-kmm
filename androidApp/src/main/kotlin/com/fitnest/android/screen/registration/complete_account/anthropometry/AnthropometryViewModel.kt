@@ -1,8 +1,6 @@
 package com.fitnest.android.screen.registration.complete_account.anthropometry
 
-import androidx.lifecycle.viewModelScope
-import com.fitnest.android.base.BaseViewModel
-import com.fitnest.android.base.Route
+import com.fitnest.presentation.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 internal class AnthropometryViewModel(
@@ -18,11 +16,11 @@ internal class AnthropometryViewModel(
     fun submitValue() {
         viewModelScope.launch {
             anthropometryEventsBus.sendEvent(AnthropometryEvent.Submit(screenData.value))
-            handleRoute(Route.DismissBottomSheet)
+            handleRoute(com.fitnest.presentation.navigation.Route.DismissBottomSheet)
         }
     }
 
     fun dismiss() {
-        handleRoute(Route.DismissBottomSheet)
+        handleRoute(com.fitnest.presentation.navigation.Route.DismissBottomSheet)
     }
 }

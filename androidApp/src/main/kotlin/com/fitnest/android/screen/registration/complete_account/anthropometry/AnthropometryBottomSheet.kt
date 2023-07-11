@@ -20,9 +20,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.R
-import com.fitnest.android.base.Route
 import com.fitnest.android.di.RegistrationModule
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Padding
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
@@ -42,7 +41,7 @@ internal fun AnthropometryBottomSheet(
     minValue: Int,
     maxValue: Int,
     initialValue: Int = 0,
-    navigate: (Route) -> Unit = {}
+    navigate: (com.fitnest.presentation.navigation.Route) -> Unit = {}
 ) = subDI(diBuilder = {
     import(RegistrationModule.anthropometryBottomSheetModule)
 }) {

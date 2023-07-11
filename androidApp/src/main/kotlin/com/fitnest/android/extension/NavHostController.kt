@@ -1,15 +1,14 @@
 package com.fitnest.android.extension
 
 import androidx.navigation.NavHostController
-import com.fitnest.android.base.Route
 
-internal fun NavHostController.navigate(route: Route) {
-    if (route == Route.DismissBottomSheet) {
+internal fun NavHostController.navigate(route: com.fitnest.presentation.navigation.Route) {
+    if (route == com.fitnest.presentation.navigation.Route.DismissBottomSheet) {
         popBackStack()
     } else if (arrayOf(
-            Route.PrivateArea.Notifications,
-            Route.PrivateArea.ActivityTracker,
-            Route.PrivateArea.Tracker.ActivityInputBottomSheet
+            com.fitnest.presentation.navigation.Route.PrivateArea.Notifications,
+            com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker,
+            com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet
         ).contains(route)
     ) {
         navigate(route.screenName)

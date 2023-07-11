@@ -2,6 +2,7 @@ package com.fitnest.android.screen.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.fitnest.presentation.screen.onboarding.OnboardingViewModel
 import org.kodein.di.DI
 import org.kodein.di.instance
 
@@ -18,5 +19,3 @@ class OnboardingViewModelFactory(
         val di: DI
     )
 }
-
-

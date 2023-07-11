@@ -63,7 +63,7 @@ import org.kodein.di.compose.rememberInstance
 )
 @Composable
 fun FitnestApp(
-    startDestination: String = Route.Splash.pattern,
+    startDestination: String = com.fitnest.presentation.navigation.Route.Splash.pattern,
     sheetState: ModalBottomSheetState = rememberModalBottomSheetState(
         ModalBottomSheetValue.Hidden,
         SwipeableDefaults.AnimationSpec
@@ -108,23 +108,23 @@ fun FitnestApp(
                     startDestination = startDestination,
                     modifier = Modifier.padding(it)
                 ) {
-                    composable(route = Route.Splash.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.Splash.pattern) {
                         SplashScreen(navController::navigate)
                     }
-                    composable(route = Route.Login.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.Login.pattern) {
                         LoginScreen(navController = navController)
                     }
                     composable(
-                        route = Route.Proxy().pattern,
+                        route = com.fitnest.presentation.navigation.Route.Proxy().pattern,
                         arguments = listOf(navArgument("flowType") {
                             type = NavType.EnumType(type = FlowType::class.java)
                         })
                     ) {
                         val flowType = it.arguments?.getSerializable("flowType") as FlowType
-                        ProxyScreen(navController = navController, flowType)
+                        ProxyScreen(flowType, navController::navigate)
                     }
                     composable(
-                        route = Route.OnboardingStep().pattern,
+                        route = com.fitnest.presentation.navigation.Route.OnboardingStep().pattern,
                         arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
                         enterTransition = {
                             slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
@@ -146,12 +146,12 @@ fun FitnestApp(
                         },
                     ) {
                         OnboardingScreen(
-                            navController = navController,
-                            stepName = it.arguments?.getString("stepName").orEmpty()
+                            it.arguments?.getString("stepName").orEmpty(),
+                            navController::navigate
                         )
                     }
                     composable(
-                        route = Route.Registration.Step().pattern,
+                        route = com.fitnest.presentation.navigation.Route.Registration.Step().pattern,
                         arguments = listOf(
                             navArgument("stepName") { type = NavType.StringType },
                         ),
@@ -178,11 +178,12 @@ fun FitnestApp(
                             "STEP_CREATE_ACCOUNT" -> CreateAccountRegistrationScreen(navController = navController)
                             "STEP_COMPLETE_ACCOUNT" ->
                                 CompleteAccountRegistrationScreen(navController = navController)
+
                             "STEP_GOAL" -> GoalRegistrationScreen(navController = navController)
                             "STEP_WELCOME_BACK" -> WelcomeBackRegistrationScreen(navController = navController)
                         }
                     }
-                    bottomSheet(route = Route.Registration.AnthropometryBottomSheet().pattern) {
+                    bottomSheet(route = com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet().pattern) {
                         val minValue = it.arguments?.getString("minValue")?.toIntOrNull().orZero
                         val maxValue = it.arguments?.getString("maxValue")?.toIntOrNull().orZero
                         val initialValue =
@@ -194,25 +195,25 @@ fun FitnestApp(
                             navigate = navController::navigate
                         )
                     }
-                    composable(route = Route.PrivateArea.Home.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Home.pattern) {
                         HomeScreen(navController = navController)
                     }
-                    composable(route = Route.PrivateArea.Settings.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Settings.pattern) {
                         SettingsScreen(navController = navController)
                     }
-                    composable(route = Route.PrivateArea.Photo.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Photo.pattern) {
                         PhotoScreen()
                     }
-                    composable(route = Route.PrivateArea.Tracker.Screen.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.Screen.pattern) {
                         TrackerScreen()
                     }
-                    bottomSheet(route = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern) {
+                    bottomSheet(route = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern) {
                         ActivityInputBottomSheet(sheetState, navController::navigate)
                     }
-                    composable(route = Route.PrivateArea.Notifications.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Notifications.pattern) {
                         NotificationsScreen()
                     }
-                    composable(route = Route.PrivateArea.ActivityTracker.pattern) {
+                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker.pattern) {
                         ActivityTrackerScreen(navController, navController::navigate)
                     }
                 }

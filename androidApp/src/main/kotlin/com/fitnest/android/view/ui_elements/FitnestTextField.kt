@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.fitnest.android.extension.stringResourceByIdentifier
 import com.fitnest.android.style.ErrorStyle
-import com.fitnest.android.style.Padding
+import com.fitnest.presentation.style.Padding
 
 @ExperimentalMaterial3Api
 @Composable

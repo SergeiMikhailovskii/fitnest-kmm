@@ -1,6 +1,5 @@
 package com.fitnest.android.screen.privateArea.activityTracker.input
 
-import com.fitnest.android.base.Route
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
@@ -34,7 +33,7 @@ class ActivityInputViewModelTest {
 
     private val failures = mutableListOf<Failure>()
     private val progresses = mutableListOf<Boolean>()
-    private val routes = mutableListOf<Route>()
+    private val routes = mutableListOf<com.fitnest.presentation.navigation.Route>()
     private val states = mutableListOf<ActivityInputScreenData>()
 
     private val testDispatcher = StandardTestDispatcher()
@@ -122,7 +121,7 @@ class ActivityInputViewModelTest {
 
         assertTrue(failures.isEmpty())
         assertEquals(listOf(true, false), progresses)
-        assertEquals(listOf(Route.DismissBottomSheet), routes)
+        assertEquals(listOf(com.fitnest.presentation.navigation.Route.DismissBottomSheet), routes)
     }
 
     @Test
@@ -146,7 +145,7 @@ class ActivityInputViewModelTest {
 
         assertTrue(failures.isEmpty())
         assertEquals(listOf(true, false), progresses)
-        assertEquals(listOf(Route.DismissBottomSheet), routes)
+        assertEquals(listOf(com.fitnest.presentation.navigation.Route.DismissBottomSheet), routes)
         coVerify(exactly = 1) { addActivityUseCase(request) }
         coVerify(exactly = 1) { addActivityUseCase(any()) }
     }
