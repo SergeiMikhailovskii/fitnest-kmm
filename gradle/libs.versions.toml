@@ -36,7 +36,7 @@ kotlin = "1.8.20"
 
 uiTestManifest = "1.4.3"
 
-firebaseBom = "31.4.0"
+firebaseBom = "32.1.1"
 composeBom = "2023.01.00"
 
 kodein = "7.20.2"
