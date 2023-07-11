@@ -96,6 +96,6 @@ sqldelight {
     }
 }
 
-//mockmp {
+// mockmp {
 //    usesHelper = true
-//}
+// }
