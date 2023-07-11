@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_create_account_login">Already have an account? Login</string>
+    <string name="registration_create_account_login_span">Login</string>
+    <string name="registration_create_account_title">Hey there,</string>
+    <string name="registration_create_account_subtitle">Create an Account</string>
+    <string name="registration_create_account_first_name_label">First Name</string>
+    <string name="registration_create_account_last_name_label">Last Name</string>
+    <string name="registration_create_account_email_label">Email</string>
+    <string name="registration_create_account_password_label">Password</string>
+    <string name="registration_create_account_divider_label">Or</string>
+    <string name="registration_create_account_next_button_label">Register</string>
+
+    <string name="registration_complete_account_sex_male">Male</string>
+    <string name="registration_complete_account_sex_female">Female</string>
+    <string name="registration_complete_account_cancel">Cancel</string>
+    <string name="registration_complete_account_save">Save</string>
+    <string name="registration_complete_account_title">Let’s complete your profile</string>
+    <string name="registration_complete_account_screen_description">Let’s complete your profile</string>
+    <string name="registration_complete_account_weight_hint">Your Weight</string>
+    <string name="registration_complete_account_weight_kg">KG</string>>
+    <string name="registration_complete_account_height_hint">Your Height</string>
+    <string name="registration_complete_account_height_cm">CM</string>
+    <string name="registration_complete_account_choose_gender">Choose Gender</string>
+    <string name="registration_complete_account_date_of_birth">Date of Birth</string>
+    <string name="registration_complete_account_next_button_label">Next</string>
+
+    <string name="registration_goal_title">What is your goal?</string>
+    <string name="registration_goal_description">It will help us to choose a best program for you</string>
+    <string name="registration_goal_improve_shape_title">Improve Shape</string>
+    <string name="registration_goal_improve_shape_description">I have a low amount of body fat and need / want to build more muscle</string>
+    <string name="registration_goal_improve_lean_tone_title">Lean &amp; Tone</string>
+    <string name="registration_goal_improve_lean_tone_description">I’m “skinny fat”. look thin but have no shape. I want to add learn muscle in the right way</string>
+    <string name="registration_goal_improve_lose_fat_title">Lose a Fat</string>
+    <string name="registration_goal_improve_lose_fat_description">I have over 20 lbs to lose. I want to drop all this fat and gain muscle mass</string>
+    <string name="registration_goal_next_button_label">Confirm</string>
+
+    <string name="registration_welcome_back_title">Welcome, %1$s</string>
+    <string name="registration_welcome_back_description">You are all set now, let’s reach your goals together with us</string>
+    <string name="registration_welcome_back_next_button_label">Go To Home</string>
+
+    <string name="login_title">Hey there,</string>
+    <string name="login_description">Welcome Back</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_forgot_password">Forgot your password?</string>
+    <string name="login_login_button">Login</string>
+    <string name="login_footer_divider">Or</string>
+    <string name="login_register">Don’t have an account yet? Register</string>
+    <string name="login_register_span">Register</string>
+
+    <string name="forget_password_success_dialog_confirm">OK</string>
+    <string name="forget_password_success_dialog_text">Password was successfully sent to your email. Check it out, please</string>
+</resources>

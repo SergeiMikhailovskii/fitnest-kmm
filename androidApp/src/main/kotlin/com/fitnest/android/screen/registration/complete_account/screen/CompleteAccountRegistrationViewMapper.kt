@@ -1,6 +1,6 @@
 package com.fitnest.android.screen.registration.complete_account.screen
 
-import com.fitnest.android.base.BaseViewMapper
+import com.fitnest.presentation.base.BaseViewMapper
 import com.fitnest.android.extension.format
 import com.fitnest.domain.entity.request.CompleteAccountStepRequest
 import kotlinx.datetime.LocalDate

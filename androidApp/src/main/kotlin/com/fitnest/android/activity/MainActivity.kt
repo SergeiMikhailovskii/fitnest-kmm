@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import com.fitnest.android.FitnestApplication
 import com.fitnest.android.base.FitnestApp
-import com.fitnest.android.internal.GoogleSignInService
+import com.fitnest.presentation.internal.GoogleSignInService
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), DIAware {
 
     private fun initServices() {
         val googleSignInService: GoogleSignInService by instance()
-        googleSignInService.init(this)
+        (googleSignInService as com.fitnest.android.internal.GoogleSignInService).init(this)
     }
 
     override val di by lazy {

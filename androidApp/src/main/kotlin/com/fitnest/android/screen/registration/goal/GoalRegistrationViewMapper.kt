@@ -1,7 +1,7 @@
 package com.fitnest.android.screen.registration.goal
 
 import com.fitnest.android.R
-import com.fitnest.android.base.BaseViewMapper
+import com.fitnest.presentation.base.BaseViewMapper
 import com.fitnest.android.screen.registration.goal.data.GoalPageUIModel
 import com.fitnest.android.screen.registration.goal.data.GoalRegistrationScreenData
 import com.fitnest.domain.entity.request.GoalStepRequest

@@ -1,4 +1,4 @@
-package com.fitnest.android.view.ui_elements
+package com.fitnest.presentation.view
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -17,13 +17,14 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import com.fitnest.android.extension.stringResourceByIdentifier
-import com.fitnest.android.style.ErrorStyle
+import com.fitnest.presentation.extension.errorLocalizedValue
+import com.fitnest.presentation.style.ErrorStyle
 import com.fitnest.presentation.style.Padding
+import dev.icerock.moko.resources.compose.stringResource
 
 @ExperimentalMaterial3Api
 @Composable
-internal fun FitnestTextField(
+fun FitnestTextField(
     value: String,
     modifier: Modifier,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -67,7 +68,7 @@ internal fun FitnestTextField(
         )
         if (error != null) {
             Text(
-                stringResourceByIdentifier(error),
+                stringResource(error.errorLocalizedValue),
                 style = ErrorStyle,
                 modifier = Modifier.padding(top = Padding.Small)
             )
@@ -76,6 +77,6 @@ internal fun FitnestTextField(
 
 }
 
-internal fun getPasswordVisualTransformation(passwordVisibility: Boolean) =
+fun getPasswordVisualTransformation(passwordVisibility: Boolean) =
     if (passwordVisibility) PasswordVisualTransformation()
     else VisualTransformation.None

@@ -24,7 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.localizedNames
-import com.fitnest.android.view.ui_elements.FitnestTextField
+import com.fitnest.presentation.view.FitnestTextField
 import com.fitnest.domain.enum.SexType
 
 @OptIn(ExperimentalMaterial3Api::class)

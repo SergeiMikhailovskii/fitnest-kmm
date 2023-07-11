@@ -1,22 +1,22 @@
-package com.fitnest.android.screen.registration.create_account
+package com.fitnest.presentation.screen.registration.create_account
 
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.entity.response.FacebookLoginResponse
+import com.fitnest.domain.entity.thirdparty.FitnestSignInAccount
 import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.presentation.base.BaseViewModel
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-internal class CreateAccountRegistrationViewModel(
+class CreateAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val validator: CreateAccountRegistrationValidationUseCase,
     private val viewMapper: CreateAccountRegistrationViewMapper,
@@ -26,7 +26,7 @@ internal class CreateAccountRegistrationViewModel(
     private var screenData = CreateAccountRegistrationScreenData()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
-    internal val screenDataFlow = _screenDataFlow.asStateFlow()
+    val screenDataFlow = _screenDataFlow.asStateFlow()
 
     override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is CreateAccountRegistrationScreenException) {
@@ -37,7 +37,7 @@ internal class CreateAccountRegistrationViewModel(
         }
     }
 
-    internal fun initializeStartData() {
+    fun initializeStartData() {
         val fields = registrationScreenState.fields
         if (fields is RegistrationStepModel.CreateAccountStepModel) {
             setInitialScreenData(fields)
@@ -45,7 +45,7 @@ internal class CreateAccountRegistrationViewModel(
         updateScreenData()
     }
 
-    internal fun updateFirstName(name: String) {
+    fun updateFirstName(name: String) {
         screenData = screenData.copy(
             firstName = name,
             exception = screenData.exception.copy(firstNameError = null)
@@ -53,7 +53,7 @@ internal class CreateAccountRegistrationViewModel(
         updateScreenData()
     }
 
-    internal fun updateLastName(lastName: String) {
+    fun updateLastName(lastName: String) {
         screenData = screenData.copy(
             lastName = lastName,
             exception = screenData.exception.copy(lastNameError = null)
@@ -61,7 +61,7 @@ internal class CreateAccountRegistrationViewModel(
         updateScreenData()
     }
 
-    internal fun updateEmail(email: String) {
+    fun updateEmail(email: String) {
         screenData = screenData.copy(
             email = email,
             exception = screenData.exception.copy(emailError = null)
@@ -69,7 +69,7 @@ internal class CreateAccountRegistrationViewModel(
         updateScreenData()
     }
 
-    internal fun updatePassword(password: String) {
+    fun updatePassword(password: String) {
         screenData = screenData.copy(
             password = password,
             exception = screenData.exception.copy(passwordError = null)
@@ -77,14 +77,14 @@ internal class CreateAccountRegistrationViewModel(
         updateScreenData()
     }
 
-    internal fun changePasswordVisibility() {
+    fun changePasswordVisibility() {
         screenData = screenData.copy(
             passwordVisible = !screenData.passwordVisible,
         )
         updateScreenData()
     }
 
-    internal fun submitRegistration() {
+    fun submitRegistration() {
         viewModelScope.launch(exceptionHandler) {
             val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
 
@@ -98,11 +98,11 @@ internal class CreateAccountRegistrationViewModel(
         }
     }
 
-    internal fun navigateToLogin() {
+    fun navigateToLogin() {
         handleRoute(com.fitnest.presentation.navigation.Route.Login)
     }
 
-    internal fun handleGoogleSignIn(account: GoogleSignInAccount) {
+    fun handleGoogleSignIn(account: FitnestSignInAccount) {
         screenData = screenData.copy(
             firstName = account.givenName,
             lastName = account.familyName,
@@ -113,7 +113,7 @@ internal class CreateAccountRegistrationViewModel(
         submitRegistration()
     }
 
-    internal fun handleFacebookSignIn(account: FacebookLoginResponse) {
+    fun handleFacebookSignIn(account: FacebookLoginResponse) {
         screenData = screenData.copy(
             firstName = account.firstName,
             lastName = account.lastName,
@@ -137,5 +137,4 @@ internal class CreateAccountRegistrationViewModel(
     private fun updateScreenData() {
         _screenDataFlow.update { screenData.copy() }
     }
-
 }

@@ -1,4 +1,4 @@
-package com.fitnest.android.base
+package com.fitnest.presentation.base
 
 import com.fitnest.domain.entity.base.BaseRequest
 

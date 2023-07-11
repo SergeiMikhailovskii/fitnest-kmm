@@ -19,14 +19,11 @@ import com.fitnest.android.screen.private_area.notification.NotificationsViewMap
 import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
 import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
 import com.fitnest.android.screen.private_area.settings.SettingsViewModel
-import com.fitnest.presentation.screen.proxy.ProxyViewModel
 import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
 import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBusImpl
 import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryViewModel
 import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewMapper
 import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
-import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewMapper
-import com.fitnest.android.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewMapper
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewModel
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationViewModel
@@ -62,6 +59,9 @@ import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidati
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
 import com.fitnest.presentation.screen.onboarding.OnboardingViewModel
+import com.fitnest.presentation.screen.proxy.ProxyViewModel
+import com.fitnest.presentation.screen.registration.create_account.CreateAccountRegistrationViewMapper
+import com.fitnest.presentation.screen.registration.create_account.CreateAccountRegistrationViewModel
 import com.fitnest.presentation.screen.splash.SplashViewModel
 import com.fitnest.worker.ClearCacheWorkerFactory
 import org.kodein.di.DI
@@ -82,14 +82,11 @@ val registrationModule = DI.Module("registration module") {
 }
 
 val serviceModule = DI.Module("service module") {
-    bindSingleton { GoogleSignInService() }
-    bindSingleton { FacebookService(instance()) }
+    bindSingleton<com.fitnest.presentation.internal.GoogleSignInService> { GoogleSignInService() }
+    bindSingleton<com.fitnest.presentation.internal.FacebookService> { FacebookService(instance()) }
     bindSingleton { SnackbarDelegate() }
     bindSingleton<com.fitnest.presentation.internal.ErrorHandlerDelegate> {
-        ErrorHandlerDelegate(
-            instance(),
-            instance()
-        )
+        ErrorHandlerDelegate(instance(), instance())
     }
     import(com.fitnest.di.serviceModule)
 }

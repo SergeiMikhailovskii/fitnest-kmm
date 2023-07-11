@@ -1,8 +1,8 @@
-package com.fitnest.android.screen.registration.create_account
+package com.fitnest.presentation.screen.registration.create_account
 
 import com.fitnest.domain.exception.CreateAccountRegistrationScreenException
 
-internal data class CreateAccountRegistrationScreenData(
+data class CreateAccountRegistrationScreenData(
     val firstName: String? = "",
     val lastName: String? = "",
     val email: String? = "",

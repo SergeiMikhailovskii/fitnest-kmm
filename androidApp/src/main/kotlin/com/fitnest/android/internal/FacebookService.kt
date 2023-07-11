@@ -10,14 +10,15 @@ import com.facebook.GraphRequest
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.fitnest.domain.entity.response.FacebookLoginResponse
+import com.fitnest.presentation.internal.FacebookService
 import io.github.aakira.napier.Napier
 
 
 internal class FacebookService(
     private val context: Context
-) {
+) : FacebookService {
 
-    internal fun login(onSuccess: (FacebookLoginResponse) -> Unit) {
+    override fun login(onSuccess: (FacebookLoginResponse) -> Unit) {
         val callbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance().registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -53,7 +54,5 @@ internal class FacebookService(
 
         LoginManager.getInstance()
             .logIn(context as ComponentActivity, callbackManager, listOf("email"))
-
     }
-
 }

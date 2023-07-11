@@ -175,7 +175,7 @@ fun FitnestApp(
                         },
                     ) {
                         when (it.arguments?.getString("stepName").orEmpty()) {
-                            "STEP_CREATE_ACCOUNT" -> CreateAccountRegistrationScreen(navController = navController)
+                            "STEP_CREATE_ACCOUNT" -> CreateAccountRegistrationScreen(navController::navigate)
                             "STEP_COMPLETE_ACCOUNT" ->
                                 CompleteAccountRegistrationScreen(navController = navController)
 
