@@ -11,7 +11,7 @@ domain = "1.0"
 data = "1.0"
 presentation = "1.0"
 
-material = "1.8.0"
+material = "1.9.0"
 appcompat = "1.6.1"
 constraintLayout = "2.1.4"
 playServicesAuth = "20.5.0"
