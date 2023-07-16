@@ -1,23 +1,25 @@
-package com.fitnest.android.screen.registration.complete_account.screen
+package com.fitnest.presentation.screen.registration.complete_account.screen
 
-import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEvent
-import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBusSubscriber
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
 import com.fitnest.domain.enum.SexType
 import com.fitnest.domain.exception.CompleteAccountRegistrationScreenException
 import com.fitnest.domain.functional.Failure
+import com.fitnest.domain.internal.date.Date
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.enum_type.CompleteAccountRegistrationScreenBottomSheetType
+import com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet
+import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEvent
+import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEventsBusSubscriber
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.Date
 
-internal class CompleteAccountRegistrationViewModel(
+class CompleteAccountRegistrationViewModel(
     private val registrationScreenState: RegistrationScreenState,
     private val viewMapper: CompleteAccountRegistrationViewMapper,
     private val validator: CompleteAccountRegistrationValidationUseCase,
@@ -95,7 +97,7 @@ internal class CompleteAccountRegistrationViewModel(
             currentAnthropometryType = CompleteAccountRegistrationScreenBottomSheetType.WEIGHT
         )
         handleRoute(
-            com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet(
+            AnthropometryBottomSheet(
                 minValue = 0,
                 maxValue = 200,
                 initialValue = 70
@@ -108,7 +110,7 @@ internal class CompleteAccountRegistrationViewModel(
             currentAnthropometryType = CompleteAccountRegistrationScreenBottomSheetType.HEIGHT
         )
         handleRoute(
-            com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet(
+            AnthropometryBottomSheet(
                 minValue = 0,
                 maxValue = 220,
                 initialValue = 188

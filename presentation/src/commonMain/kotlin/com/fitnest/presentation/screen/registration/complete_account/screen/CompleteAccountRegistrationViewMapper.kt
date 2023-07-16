@@ -1,8 +1,8 @@
-package com.fitnest.android.screen.registration.complete_account.screen
+package com.fitnest.presentation.screen.registration.complete_account.screen
 
-import com.fitnest.presentation.base.BaseViewMapper
-import com.fitnest.android.extension.format
 import com.fitnest.domain.entity.request.CompleteAccountStepRequest
+import com.fitnest.domain.extension.dateToString
+import com.fitnest.presentation.base.BaseViewMapper
 import kotlinx.datetime.LocalDate
 
 class CompleteAccountRegistrationViewMapper :
@@ -14,7 +14,7 @@ class CompleteAccountRegistrationViewMapper :
         val sex = data.sex?.name
         val weight = data.weight
         val height = data.height
-        val dateOfBirth = data.dateOfBirth?.let { LocalDate.parse(it.format("yyyy-MM-dd")) }
+        val dateOfBirth = data.dateOfBirth?.let { LocalDate.parse(it.dateToString("yyyy-MM-dd")) }
 
         return CompleteAccountStepRequest(
             sex = sex,

@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.presentation.R as MR
 import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.presentation.internal.ErrorHandlerDelegate
@@ -69,7 +70,7 @@ internal fun WelcomeBackRegistrationScreen(navController: NavController) = subDI
         )
         Text(
             text = stringResource(
-                id = R.string.registration_welcome_back_title,
+                id = MR.string.registration_welcome_back_title,
                 screenData.name.orEmpty()
             ),
             style = MaterialTheme.typography.titleMedium,
@@ -80,7 +81,7 @@ internal fun WelcomeBackRegistrationScreen(navController: NavController) = subDI
             )
         )
         Text(
-            text = stringResource(id = R.string.registration_welcome_back_description),
+            text = stringResource(id = MR.string.registration_welcome_back_description),
             style = MaterialTheme.typography.bodySmall.copy(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             ),
@@ -105,7 +106,7 @@ internal fun WelcomeBackRegistrationScreen(navController: NavController) = subDI
                 .fillMaxWidth(),
         ) {
             Text(
-                text = stringResource(id = R.string.registration_welcome_back_next_button_label),
+                text = stringResource(id = MR.string.registration_welcome_back_next_button_label),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Bold
                 )

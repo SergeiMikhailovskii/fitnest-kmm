@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration.complete_account.anthropometry
+package com.fitnest.presentation.screen.registration.complete_account.anthropometry
 
 sealed class AnthropometryEvent {
     class Submit(val value: Int) : AnthropometryEvent()

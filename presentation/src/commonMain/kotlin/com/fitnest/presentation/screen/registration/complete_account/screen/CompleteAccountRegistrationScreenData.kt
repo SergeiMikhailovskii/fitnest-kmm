@@ -1,9 +1,10 @@
-package com.fitnest.android.screen.registration.complete_account.screen
+package com.fitnest.presentation.screen.registration.complete_account.screen
 
-import com.fitnest.android.extension.format
 import com.fitnest.domain.enum.SexType
 import com.fitnest.domain.exception.CompleteAccountRegistrationScreenException
-import java.util.Date
+import com.fitnest.domain.extension.dateToString
+import com.fitnest.domain.internal.date.Date
+import com.fitnest.presentation.enum_type.CompleteAccountRegistrationScreenBottomSheetType
 
 data class CompleteAccountRegistrationScreenData(
     val sex: SexType? = null,
@@ -15,5 +16,5 @@ data class CompleteAccountRegistrationScreenData(
     val exception: CompleteAccountRegistrationScreenException = CompleteAccountRegistrationScreenException()
 ) {
 
-    internal fun formattedDateOfBirth() = dateOfBirth?.format("dd/MM/yyyy")
+    fun formattedDateOfBirth() = dateOfBirth?.dateToString("dd/MM/yyyy")
 }

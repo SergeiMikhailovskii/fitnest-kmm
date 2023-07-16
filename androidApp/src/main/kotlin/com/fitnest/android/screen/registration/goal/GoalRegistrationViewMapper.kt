@@ -1,11 +1,12 @@
 package com.fitnest.android.screen.registration.goal
 
 import com.fitnest.android.R
-import com.fitnest.presentation.base.BaseViewMapper
 import com.fitnest.android.screen.registration.goal.data.GoalPageUIModel
 import com.fitnest.android.screen.registration.goal.data.GoalRegistrationScreenData
 import com.fitnest.domain.entity.request.GoalStepRequest
 import com.fitnest.domain.enum.GoalType
+import com.fitnest.presentation.base.BaseViewMapper
+import com.fitnest.presentation.R as MR
 
 class GoalRegistrationViewMapper : BaseViewMapper<GoalRegistrationScreenData, GoalStepRequest> {
 
@@ -14,15 +15,15 @@ class GoalRegistrationViewMapper : BaseViewMapper<GoalRegistrationScreenData, Go
 
     internal fun mapGoalIndexToUIModel(index: Int): GoalPageUIModel {
         val title = when (index) {
-            0 -> R.string.registration_goal_improve_shape_title
-            1 -> R.string.registration_goal_improve_lean_tone_title
-            2 -> R.string.registration_goal_improve_lose_fat_title
+            0 -> MR.string.registration_goal_improve_shape_title
+            1 -> MR.string.registration_goal_improve_lean_tone_title
+            2 -> MR.string.registration_goal_improve_lose_fat_title
             else -> throw RuntimeException("unimplemented index=$index handler")
         }
         val description = when (index) {
-            0 -> R.string.registration_goal_improve_shape_description
-            1 -> R.string.registration_goal_improve_lean_tone_description
-            2 -> R.string.registration_goal_improve_lose_fat_description
+            0 -> MR.string.registration_goal_improve_shape_description
+            1 -> MR.string.registration_goal_improve_lean_tone_description
+            2 -> MR.string.registration_goal_improve_lose_fat_description
             else -> throw RuntimeException("unimplemented index=$index handler")
         }
         val image = when (index) {

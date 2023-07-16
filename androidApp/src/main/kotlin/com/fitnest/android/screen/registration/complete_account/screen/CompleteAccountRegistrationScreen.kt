@@ -32,37 +32,38 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.fitnest.android.R
 import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNameId
-import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.android.screen.registration.ui.AnthropometryTextField
 import com.fitnest.android.screen.registration.ui.DateOfBirthTextField
 import com.fitnest.android.screen.registration.ui.SexDropdown
+import com.fitnest.domain.enum.SexType
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
+import com.fitnest.presentation.navigation.Route
+import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.fitnest.presentation.style.Padding.Padding10
 import com.fitnest.presentation.style.Padding.Padding15
 import com.fitnest.presentation.style.Padding.Padding30
-import com.fitnest.domain.enum.SexType
-import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 import java.util.Date
+import com.fitnest.presentation.R as MR
 
 @Preview(device = Devices.PIXEL_4, showSystemUi = true, showBackground = true)
 @Composable
 internal fun CompleteAccountRegistrationScreenPreview() {
-    CompleteAccountRegistrationScreen(NavController(LocalContext.current))
+    CompleteAccountRegistrationScreen {}
 }
 
 @Composable
 internal fun CompleteAccountRegistrationScreen(
-    navController: NavController
+    navigate: (Route) -> Unit
 ) = subDI(diBuilder = {
     import(RegistrationModule.completeAccountRegistrationScreenModule)
 }) {
@@ -80,14 +81,8 @@ internal fun CompleteAccountRegistrationScreen(
     val context = LocalContext.current
 
     LaunchedEffect(null) {
-        launch {
-            viewModel.routeSharedFlow.collect {
-                handleNavigation(it, navController)
-            }
-        }
-        launch {
-            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
-        }
+        launch { viewModel.routeSharedFlow.collect(navigate) }
+        launch { viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure) }
     }
 
     ConstraintLayout(
@@ -123,7 +118,7 @@ internal fun CompleteAccountRegistrationScreen(
                 }
         )
         Text(
-            context.getString(R.string.registration_complete_account_title),
+            context.getString(MR.string.registration_complete_account_title),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.constrainAs(textStepTitle) {
                 bottom.linkTo(textStepDescription.top, Padding10)
@@ -132,7 +127,7 @@ internal fun CompleteAccountRegistrationScreen(
             }
         )
         Text(
-            context.getString(R.string.registration_complete_account_screen_description),
+            context.getString(MR.string.registration_complete_account_screen_description),
             style = MaterialTheme.typography.bodySmall.copy(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             ),
@@ -182,8 +177,8 @@ internal fun CompleteAccountRegistrationScreen(
                 },
             value = screenData.weight?.toString().orEmpty(),
             leadingIcon = R.drawable.ic_complete_registration_weight,
-            label = context.getString(R.string.registration_complete_account_weight_hint),
-            optionLabel = context.getString(R.string.registration_complete_account_weight_kg),
+            label = context.getString(MR.string.registration_complete_account_weight_hint),
+            optionLabel = context.getString(MR.string.registration_complete_account_weight_kg),
             error = screenData.exception.weightError,
             onTextFieldClick = viewModel::openWeightBottomSheet
         )
@@ -198,8 +193,8 @@ internal fun CompleteAccountRegistrationScreen(
                 },
             value = screenData.height?.toString().orEmpty(),
             leadingIcon = R.drawable.ic_complete_registration_height,
-            label = context.getString(R.string.registration_complete_account_height_hint),
-            optionLabel = context.getString(R.string.registration_complete_account_height_cm),
+            label = context.getString(MR.string.registration_complete_account_height_hint),
+            optionLabel = context.getString(MR.string.registration_complete_account_height_cm),
             error = screenData.exception.heightError,
             onTextFieldClick = viewModel::openHeightBottomSheet
         )
@@ -221,7 +216,7 @@ internal fun CompleteAccountRegistrationScreen(
                 .fillMaxWidth(),
         ) {
             Text(
-                text = stringResource(id = R.string.registration_complete_account_next_button_label),
+                text = stringResource(id = MR.string.registration_complete_account_next_button_label),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Bold
                 )
@@ -237,7 +232,7 @@ private fun showDatePicker(
     context: Context
 ) {
     MaterialDatePicker.Builder.datePicker()
-        .setTitleText(context.getString(R.string.registration_complete_account_date_of_birth))
+        .setTitleText(context.getString(MR.string.registration_complete_account_date_of_birth))
         .build()
         .apply {
             addOnPositiveButtonClickListener {

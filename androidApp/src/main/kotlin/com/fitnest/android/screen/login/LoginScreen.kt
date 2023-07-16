@@ -44,6 +44,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fitnest.android.R
+import com.fitnest.presentation.R as MR
 import com.fitnest.android.di.loginScreenModule
 import com.fitnest.android.navigation.handleNavigation
 import com.fitnest.presentation.style.Dimen
@@ -109,12 +110,12 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
         ) {
             Text(
                 modifier = Modifier.padding(top = Padding.Padding40),
-                text = stringResource(id = R.string.login_title),
+                text = stringResource(id = MR.string.login_title),
                 style = MaterialTheme.typography.bodyLarge
             )
             Text(
                 modifier = Modifier.padding(top = Padding.Padding5),
-                text = stringResource(id = R.string.login_description),
+                text = stringResource(id = MR.string.login_description),
                 style = MaterialTheme.typography.titleMedium
             )
             FitnestTextField(
@@ -132,7 +133,7 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
                 },
                 label = {
                     Text(
-                        stringResource(id = R.string.login_email_hint),
+                        stringResource(id = MR.string.login_email_hint),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 },
@@ -154,7 +155,7 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
                 },
                 label = {
                     Text(
-                        stringResource(id = R.string.login_password_hint),
+                        stringResource(id = MR.string.login_password_hint),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 },
@@ -172,7 +173,7 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
                 error = screenData.exception?.passwordError
             )
             Text(
-                text = stringResource(id = R.string.login_forgot_password),
+                text = stringResource(id = MR.string.login_forgot_password),
                 style = MaterialTheme.typography.bodySmall.copy(
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Medium,
@@ -204,7 +205,7 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
                         modifier = Modifier.padding(end = Padding.Padding10)
                     )
                     Text(
-                        text = stringResource(id = R.string.login_login_button),
+                        text = stringResource(id = MR.string.login_login_button),
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontWeight = FontWeight.Bold
                         )
@@ -220,7 +221,7 @@ internal fun LoginScreen(navController: NavController) = subDI(diBuilder = {
                     )
             ) {
                 Text(
-                    text = stringResource(id = R.string.login_footer_divider),
+                    text = stringResource(id = MR.string.login_footer_divider),
                     modifier = Modifier.padding(horizontal = Padding.Padding15),
                     style = MaterialTheme.typography.bodySmall
                 )

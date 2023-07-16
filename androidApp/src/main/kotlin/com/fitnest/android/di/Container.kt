@@ -19,11 +19,11 @@ import com.fitnest.android.screen.private_area.notification.NotificationsViewMap
 import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
 import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
 import com.fitnest.android.screen.private_area.settings.SettingsViewModel
-import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
-import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryEventsBusImpl
-import com.fitnest.android.screen.registration.complete_account.anthropometry.AnthropometryViewModel
-import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewMapper
-import com.fitnest.android.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
+import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
+import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEventsBusImpl
+import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryViewModel
+import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationViewMapper
+import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewMapper
 import com.fitnest.android.screen.registration.goal.GoalRegistrationViewModel
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationViewModel

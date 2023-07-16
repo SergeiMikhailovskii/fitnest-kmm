@@ -35,7 +35,7 @@ import androidx.compose.ui.util.lerp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.fitnest.android.R
+import com.fitnest.presentation.R
 import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.extension.brandGradient
 import com.fitnest.android.navigation.handleNavigation

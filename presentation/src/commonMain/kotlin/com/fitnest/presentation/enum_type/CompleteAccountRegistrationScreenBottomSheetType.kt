@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration.complete_account.screen
+package com.fitnest.presentation.enum_type
 
 enum class CompleteAccountRegistrationScreenBottomSheetType {
     HEIGHT, WEIGHT

@@ -1,8 +1,8 @@
 package com.fitnest.android.extension.enum
 
 import android.content.Context
-import com.fitnest.android.R
 import com.fitnest.domain.enum.SexType
+import com.fitnest.presentation.R
 
 val SexType.localizedNameId: Int
     get() = when (this) {

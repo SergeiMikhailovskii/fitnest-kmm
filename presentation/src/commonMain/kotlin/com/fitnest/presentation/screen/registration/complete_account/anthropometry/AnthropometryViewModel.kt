@@ -1,9 +1,11 @@
-package com.fitnest.android.screen.registration.complete_account.anthropometry
+package com.fitnest.presentation.screen.registration.complete_account.anthropometry
 
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEvent
+import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEventsBusPublisher
 import kotlinx.coroutines.launch
 
-internal class AnthropometryViewModel(
+class AnthropometryViewModel(
     private val anthropometryEventsBus: AnthropometryEventsBusPublisher
 ) : BaseViewModel() {
 

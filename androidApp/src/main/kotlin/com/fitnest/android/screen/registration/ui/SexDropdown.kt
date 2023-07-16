@@ -24,8 +24,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
 import com.fitnest.android.extension.enum.localizedNames
-import com.fitnest.presentation.view.FitnestTextField
 import com.fitnest.domain.enum.SexType
+import com.fitnest.presentation.view.FitnestTextField
+import com.fitnest.presentation.R as MR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,7 +64,7 @@ fun SexDropdown(
             },
             label = {
                 Text(
-                    context.getString(R.string.registration_complete_account_choose_gender),
+                    context.getString(MR.string.registration_complete_account_choose_gender),
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
