@@ -9,13 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,39 +24,36 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.util.lerp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.fitnest.presentation.R
 import com.fitnest.android.di.RegistrationModule
 import com.fitnest.android.extension.brandGradient
-import com.fitnest.android.navigation.handleNavigation
-import com.fitnest.presentation.internal.ErrorHandlerDelegate
+import com.fitnest.presentation.navigation.Route
+import com.fitnest.presentation.screen.registration.goal.GoalRegistrationViewMapper
+import com.fitnest.presentation.screen.registration.goal.GoalRegistrationViewModel
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
+import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun GoalRegistrationScreen(navController: NavController) = subDI(diBuilder = {
+fun GoalRegistrationScreen(navigate: (Route) -> Unit) = subDI(diBuilder = {
     import(RegistrationModule.goalRegistrationScreenModule)
 }) {
     val viewMapper: GoalRegistrationViewMapper by rememberInstance()
     val viewModelFactory: ViewModelProvider.Factory by rememberInstance()
-    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
     val viewModel = viewModel(
         factory = viewModelFactory,
@@ -67,6 +61,7 @@ fun GoalRegistrationScreen(navController: NavController) = subDI(diBuilder = {
     )
 
     val pagerState = rememberPagerState()
+    val pageCount = 3
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collectLatest { page ->
@@ -75,35 +70,10 @@ fun GoalRegistrationScreen(navController: NavController) = subDI(diBuilder = {
         }
     }
 
-    LaunchedEffect(null) {
-        launch {
-            viewModel.routeSharedFlow.collect {
-                handleNavigation(it, navController)
-            }
-        }
-        launch {
-            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
-        }
-    }
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    com.fitnest.presentation.screen.registration.goal.GoalRegistrationScreen(
+        viewModel = viewModel,
+        onNavigate = navigate
     ) {
-        val pageCount = 3
-
-        Text(
-            stringResource(id = R.string.registration_goal_title),
-            modifier = Modifier.padding(top = Padding.Padding40),
-            style = MaterialTheme.typography.titleMedium
-        )
-        Text(
-            stringResource(id = R.string.registration_goal_description),
-            modifier = Modifier.padding(top = Padding.Padding5),
-            style = MaterialTheme.typography.bodySmall.copy(
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        )
         CompositionLocalProvider(LocalOverscrollConfiguration provides null) {
             HorizontalPager(
                 contentPadding = PaddingValues(horizontal = Padding.Padding50),
@@ -142,12 +112,12 @@ fun GoalRegistrationScreen(navController: NavController) = subDI(diBuilder = {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
-                            painter = painterResource(id = pagerItemModel.image),
+                            painter = painterResource(pagerItemModel.image),
                             contentDescription = null
                         )
                         Spacer(modifier = Modifier.weight(1F))
                         Text(
-                            stringResource(id = pagerItemModel.title),
+                            stringResource(pagerItemModel.title),
                             style = MaterialTheme.typography.bodyMedium.copy(
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.SemiBold
@@ -162,7 +132,7 @@ fun GoalRegistrationScreen(navController: NavController) = subDI(diBuilder = {
                                 .background(MaterialTheme.colorScheme.onPrimary)
                         )
                         Text(
-                            stringResource(id = pagerItemModel.description),
+                            stringResource(pagerItemModel.description),
                             modifier = Modifier.padding(
                                 top = Padding.Padding20,
                                 start = Padding.Padding30,
@@ -177,25 +147,6 @@ fun GoalRegistrationScreen(navController: NavController) = subDI(diBuilder = {
                     }
                 }
             }
-        }
-        Button(
-            onClick = viewModel::submitRegistration,
-            shape = CircleShape,
-            modifier = Modifier
-                .padding(
-                    start = Padding.Padding30,
-                    end = Padding.Padding30,
-                    bottom = Padding.Padding40
-                )
-                .height(Dimen.Dimen60)
-                .fillMaxWidth(),
-        ) {
-            Text(
-                text = stringResource(id = R.string.registration_goal_next_button_label),
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontWeight = FontWeight.Bold
-                )
-            )
         }
     }
 }

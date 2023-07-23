@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.registration.goal.data
+package com.fitnest.presentation.screen.registration.goal.data
 
 import com.fitnest.domain.enum.GoalType
 

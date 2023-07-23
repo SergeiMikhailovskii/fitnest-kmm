@@ -1,9 +1,10 @@
-package com.fitnest.android.screen.registration.goal
+package com.fitnest.presentation.screen.registration.goal
 
-import com.fitnest.android.screen.registration.goal.data.GoalRegistrationScreenData
 import com.fitnest.domain.enum.GoalType
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.navigation.Route
+import com.fitnest.presentation.screen.registration.goal.data.GoalRegistrationScreenData
 import kotlinx.coroutines.launch
 
 class GoalRegistrationViewModel(
@@ -13,16 +14,16 @@ class GoalRegistrationViewModel(
 
     private var screenData = GoalRegistrationScreenData()
 
-    internal fun setGoal(goal: GoalType) {
+    fun setGoal(goal: GoalType) {
         screenData = screenData.copy(goalType = goal)
     }
 
-    internal fun submitRegistration() {
+    fun submitRegistration() {
         val requestData = viewMapper.mapScreenDataToStepRequestModel(screenData)
 
         viewModelScope.launch(exceptionHandler) {
             val response = submitRegistrationStepAndGetNextUseCase(requestData).getOrThrow()
-            response.step?.let { handleRoute(com.fitnest.presentation.navigation.Route.Registration.Step(it)) }
+            response.step?.let { handleRoute(Route.Registration.Step(it)) }
         }
     }
 
