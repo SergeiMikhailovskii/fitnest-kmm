@@ -48,7 +48,7 @@ class HomeViewMapper(private val context: Context) {
                 BMIType.NORMAL_WEIGHT -> R.string.private_area_dashboard_bmi_normal_weight
                 BMIType.OVERWEIGHT -> R.string.private_area_dashboard_bmi_overweight
                 BMIType.OBESITY -> R.string.private_area_dashboard_bmi_obesity
-                null -> R.string.error_unknown
+                null -> com.fitnest.presentation.R.string.error_unknown
             }
             HomeScreenData.BMIWidget(
                 index = bmiResponse.index,

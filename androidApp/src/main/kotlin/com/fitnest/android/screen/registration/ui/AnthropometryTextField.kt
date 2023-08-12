@@ -27,7 +27,7 @@ import com.fitnest.android.R
 import com.fitnest.android.extension.tertiaryGradient
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.fitnest.android.view.ui_elements.FitnestTextField
+import com.fitnest.presentation.view.FitnestTextField
 
 @Preview
 @Composable

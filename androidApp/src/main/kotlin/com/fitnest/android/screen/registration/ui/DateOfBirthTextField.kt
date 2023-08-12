@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.fitnest.android.R
-import com.fitnest.android.view.ui_elements.FitnestTextField
+import com.fitnest.presentation.R as MR
+import com.fitnest.presentation.view.FitnestTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +44,7 @@ internal fun DateOfBirthTextField(
         },
         label = {
             Text(
-                LocalContext.current.getString(R.string.registration_complete_account_date_of_birth),
+                LocalContext.current.getString(MR.string.registration_complete_account_date_of_birth),
                 style = MaterialTheme.typography.bodyMedium
             )
         },

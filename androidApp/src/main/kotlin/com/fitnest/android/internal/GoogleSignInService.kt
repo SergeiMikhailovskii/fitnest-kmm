@@ -7,16 +7,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.fitnest.android.BuildConfig
+import com.fitnest.domain.entity.thirdparty.FitnestSignInAccount
+import com.fitnest.presentation.internal.GoogleSignInService
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
-internal class GoogleSignInService {
+internal class GoogleSignInService : GoogleSignInService {
 
     private lateinit var startForResult: ActivityResultLauncher<Intent>
-    private var onSuccess: ((GoogleSignInAccount) -> Unit)? = null
+    private var onSuccess: ((FitnestSignInAccount) -> Unit)? = null
     private var activity: ComponentActivity? = null
+
+    override fun login(onSuccess: (FitnestSignInAccount) -> Unit) {
+        this.onSuccess = onSuccess
+        activity?.let {
+            val intent = getSignInClient(it).signInIntent
+            startForResult.launch(intent)
+        }
+    }
 
     internal fun init(activity: ComponentActivity) {
         this.activity = activity
@@ -25,19 +34,17 @@ internal class GoogleSignInService {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val intent = result.data
                     if (result.data != null) {
-                        val task = GoogleSignIn.getSignedInAccountFromIntent(intent).result
-                        onSuccess?.invoke(task)
+                        val taskResult = GoogleSignIn.getSignedInAccountFromIntent(intent).result
+                        val model = FitnestSignInAccount(
+                            givenName = taskResult.givenName,
+                            familyName = taskResult.familyName,
+                            email = taskResult.email,
+                            idToken = taskResult.idToken
+                        )
+                        onSuccess?.invoke(model)
                     }
                 }
             }
-    }
-
-    internal fun login(onSuccess: (GoogleSignInAccount) -> Unit) {
-        this.onSuccess = onSuccess
-        activity?.let {
-            val intent = getSignInClient(it).signInIntent
-            startForResult.launch(intent)
-        }
     }
 
     private fun getSignInClient(context: Context): GoogleSignInClient {

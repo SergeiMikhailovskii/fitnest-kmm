@@ -175,12 +175,10 @@ fun FitnestApp(
                         },
                     ) {
                         when (it.arguments?.getString("stepName").orEmpty()) {
-                            "STEP_CREATE_ACCOUNT" -> CreateAccountRegistrationScreen(navController = navController)
-                            "STEP_COMPLETE_ACCOUNT" ->
-                                CompleteAccountRegistrationScreen(navController = navController)
-
-                            "STEP_GOAL" -> GoalRegistrationScreen(navController = navController)
-                            "STEP_WELCOME_BACK" -> WelcomeBackRegistrationScreen(navController = navController)
+                            "STEP_CREATE_ACCOUNT" -> CreateAccountRegistrationScreen(navController::navigate)
+                            "STEP_COMPLETE_ACCOUNT" -> CompleteAccountRegistrationScreen(navController::navigate)
+                            "STEP_GOAL" -> GoalRegistrationScreen(navController::navigate)
+                            "STEP_WELCOME_BACK" -> WelcomeBackRegistrationScreen(navController::navigate)
                         }
                     }
                     bottomSheet(route = com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet().pattern) {

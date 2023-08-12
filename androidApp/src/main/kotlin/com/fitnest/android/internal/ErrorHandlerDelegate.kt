@@ -1,9 +1,9 @@
 package com.fitnest.android.internal
 
 import android.content.Context
-import com.fitnest.android.R
 import com.fitnest.android.enum.SnackbarState
 import com.fitnest.domain.functional.Failure
+import com.fitnest.presentation.R
 import com.fitnest.presentation.internal.ErrorHandlerDelegate
 
 internal class ErrorHandlerDelegate(

@@ -35,7 +35,7 @@ kotlin {
                 @OptIn(ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation(libs.kodeinCompose)
-                implementation("dev.icerock.moko:resources-compose:0.23.0")
+                api("dev.icerock.moko:resources-compose:0.23.0")
                 api(projects.data)
             }
         }
