@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class ProxyViewModel(
     private val getFlowUseCase: GetFlowUseCase,
     private val getOnboardingStepUseCase: GetOnboardingStepUseCase,
-    private val getRegistrationStepDataUseCase: GetRegistrationStepData,
+    private val getRegistrationStepDataUseCase: GetRegistrationStepData
 ) : BaseViewModel() {
 
     fun getNextFlow(flow: FlowType) {
