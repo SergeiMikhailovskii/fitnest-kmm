@@ -64,7 +64,7 @@ fun ButtonWithProgress(
         CircularProgressIndicator(
             modifier = Modifier.fillMaxSize(),
             progress = animatedProgress,
-            strokeWidth = 2.dp,
+            strokeWidth = 2.dp
         )
         Button(
             modifier = Modifier
@@ -77,7 +77,7 @@ fun ButtonWithProgress(
             Box(
                 modifier = Modifier
                     .fillMaxSize(),
-                contentAlignment = Alignment.Center,
+                contentAlignment = Alignment.Center
             ) {
                 body()
             }
