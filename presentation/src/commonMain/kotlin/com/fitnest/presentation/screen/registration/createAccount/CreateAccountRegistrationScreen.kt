@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.create_account
+package com.fitnest.presentation.screen.registration.createAccount
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -114,7 +114,6 @@ fun CreateAccountRegistrationScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Text(
             text = stringResource(MR.strings.registration_create_account_title),
             modifier = Modifier.padding(top = Padding40),
@@ -208,8 +207,11 @@ fun CreateAccountRegistrationScreen(
             trailingIcon = {
                 IconButton(onClick = viewModel::changePasswordVisibility) {
                     val painter =
-                        if (screenData.passwordVisible) painterResource("ic_password_show.xml")
-                        else painterResource("ic_password_hide.xml")
+                        if (screenData.passwordVisible) {
+                            painterResource("ic_password_show.xml")
+                        } else {
+                            painterResource("ic_password_hide.xml")
+                        }
                     Image(painter = painter, null)
                 }
             },
@@ -224,7 +226,7 @@ fun CreateAccountRegistrationScreen(
             modifier = Modifier
                 .padding(all = Padding30)
                 .height(Dimen.Dimen60)
-                .fillMaxWidth(),
+                .fillMaxWidth()
         ) {
             Text(
                 text = stringResource(MR.strings.registration_create_account_next_button_label),
@@ -265,11 +267,11 @@ fun CreateAccountRegistrationScreen(
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
+                    contentAlignment = Alignment.Center
                 ) {
                     Image(
                         painter = dev.icerock.moko.resources.compose.painterResource(MR.images.ic_google),
-                        contentDescription = null,
+                        contentDescription = null
                     )
                 }
             }
@@ -290,11 +292,11 @@ fun CreateAccountRegistrationScreen(
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
+                    contentAlignment = Alignment.Center
                 ) {
                     Image(
                         painter = painterResource("ic_facebook.xml"),
-                        contentDescription = null,
+                        contentDescription = null
                     )
                 }
             }

@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.create_account
+package com.fitnest.presentation.screen.registration.createAccount
 
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
@@ -79,7 +79,7 @@ class CreateAccountRegistrationViewModel(
 
     fun changePasswordVisibility() {
         screenData = screenData.copy(
-            passwordVisible = !screenData.passwordVisible,
+            passwordVisible = !screenData.passwordVisible
         )
         updateScreenData()
     }

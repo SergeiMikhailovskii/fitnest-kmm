@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.complete_account.screen
+package com.fitnest.presentation.screen.registration.completeAccount.screen
 
 import com.fitnest.domain.entity.request.CompleteAccountStepRequest
 import com.fitnest.domain.extension.dateToString

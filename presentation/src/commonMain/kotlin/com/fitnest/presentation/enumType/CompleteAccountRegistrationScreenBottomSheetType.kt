@@ -1,4 +1,4 @@
-package com.fitnest.presentation.enum_type
+package com.fitnest.presentation.enumType
 
 enum class CompleteAccountRegistrationScreenBottomSheetType {
     HEIGHT, WEIGHT

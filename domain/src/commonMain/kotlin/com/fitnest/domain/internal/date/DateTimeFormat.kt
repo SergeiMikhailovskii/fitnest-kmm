@@ -15,7 +15,7 @@ const val DEFAULT_PATTERN = "dd.MM.yyyy'T'HH:mm:ss"
 
 expect class Locale constructor(
     language: String,
-    country: String,
+    country: String
 ) {
 
     constructor()

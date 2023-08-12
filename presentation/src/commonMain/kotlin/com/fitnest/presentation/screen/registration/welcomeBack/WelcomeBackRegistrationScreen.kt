@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.welcome_back
+package com.fitnest.presentation.screen.registration.welcomeBack
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -93,7 +93,7 @@ fun WelcomeBackRegistrationScreen(
                     bottom = Padding.Padding40
                 )
                 .height(Dimen.Dimen60)
-                .fillMaxWidth(),
+                .fillMaxWidth()
         ) {
             Text(
                 text = stringResource(MR.strings.registration_welcome_back_next_button_label),

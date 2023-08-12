@@ -42,7 +42,7 @@ import com.fitnest.android.screen.registration.ui.SexDropdown
 import com.fitnest.domain.enum.SexType
 import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.navigation.Route
-import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
+import com.fitnest.presentation.screen.registration.completeAccount.screen.CompleteAccountRegistrationViewModel
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.fitnest.presentation.style.Padding.Padding10

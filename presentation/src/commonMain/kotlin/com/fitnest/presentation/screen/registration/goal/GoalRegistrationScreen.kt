@@ -85,7 +85,7 @@ fun GoalRegistrationScreen(
                     bottom = Padding.Padding40
                 )
                 .height(Dimen.Dimen60)
-                .fillMaxWidth(),
+                .fillMaxWidth()
         ) {
             Text(
                 text = stringResource(MR.strings.registration_goal_next_button_label),

@@ -26,5 +26,4 @@ class GoalRegistrationViewModel(
             response.step?.let { handleRoute(Route.Registration.Step(it)) }
         }
     }
-
 }

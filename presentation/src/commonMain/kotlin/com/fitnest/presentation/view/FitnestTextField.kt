@@ -43,9 +43,8 @@ fun FitnestTextField(
             .fillMaxWidth()
             .onFocusChanged {
                 onFocusChanged?.invoke(it.isFocused)
-            },
+            }
     ) {
-
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = value,
@@ -74,9 +73,11 @@ fun FitnestTextField(
             )
         }
     }
-
 }
 
 fun getPasswordVisualTransformation(passwordVisibility: Boolean) =
-    if (passwordVisibility) PasswordVisualTransformation()
-    else VisualTransformation.None
+    if (passwordVisibility) {
+        PasswordVisualTransformation()
+    } else {
+        VisualTransformation.None
+    }

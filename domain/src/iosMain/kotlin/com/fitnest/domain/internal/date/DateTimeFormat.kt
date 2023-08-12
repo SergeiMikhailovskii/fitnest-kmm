@@ -1,10 +1,14 @@
 package com.fitnest.domain.internal.date
 
-import platform.Foundation.*
+import platform.Foundation.NSDateFormatter
+import platform.Foundation.NSLocale
+import platform.Foundation.countryCode
+import platform.Foundation.currentLocale
+import platform.Foundation.languageCode
 
 actual class Locale actual constructor(
     private val language: String,
-    private val country: String,
+    private val country: String
 ) {
     actual constructor() : this(getDefault().language, getDefault().country)
     constructor(locale: NSLocale) : this(locale.languageCode, locale.countryCode.orEmpty())
@@ -25,7 +29,7 @@ actual class Locale actual constructor(
 
 actual class DateTimeFormat actual constructor(
     actual override var pattern: String,
-    private val locale: Locale,
+    private val locale: Locale
 ) : DateTimeFormatter {
 
     private val formatter by lazy {

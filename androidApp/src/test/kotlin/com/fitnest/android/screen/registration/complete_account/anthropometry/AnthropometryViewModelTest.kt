@@ -2,8 +2,8 @@ package com.fitnest.android.screen.registration.complete_account.anthropometry
 
 import com.fitnest.domain.functional.Failure
 import com.fitnest.presentation.navigation.Route
-import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
-import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryViewModel
+import com.fitnest.presentation.screen.registration.completeAccount.anthropometry.AnthropometryEventsBus
+import com.fitnest.presentation.screen.registration.completeAccount.anthropometry.AnthropometryViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

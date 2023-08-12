@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.complete_account.screen
+package com.fitnest.presentation.screen.registration.completeAccount.screen
 
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
@@ -9,10 +9,10 @@ import com.fitnest.domain.internal.date.Date
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import com.fitnest.presentation.base.BaseViewModel
-import com.fitnest.presentation.enum_type.CompleteAccountRegistrationScreenBottomSheetType
+import com.fitnest.presentation.enumType.CompleteAccountRegistrationScreenBottomSheetType
 import com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet
-import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEvent
-import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEventsBusSubscriber
+import com.fitnest.presentation.screen.registration.completeAccount.anthropometry.AnthropometryEvent
+import com.fitnest.presentation.screen.registration.completeAccount.anthropometry.AnthropometryEventsBusSubscriber
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,9 +40,11 @@ class CompleteAccountRegistrationViewModel(
 
     private fun handleEvent(event: AnthropometryEvent) {
         if (event is AnthropometryEvent.Submit) {
-            if (screenData.currentAnthropometryType == CompleteAccountRegistrationScreenBottomSheetType.WEIGHT)
+            if (screenData.currentAnthropometryType == CompleteAccountRegistrationScreenBottomSheetType.WEIGHT) {
                 saveWeight(event.value)
-            else saveHeight(event.value)
+            } else {
+                saveHeight(event.value)
+            }
         }
     }
 

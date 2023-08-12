@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.create_account
+package com.fitnest.presentation.screen.registration.createAccount
 
 import com.fitnest.domain.entity.request.CreateAccountStepRequest
 import com.fitnest.presentation.base.BaseViewMapper

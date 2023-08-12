@@ -2,7 +2,6 @@ package com.fitnest.domain.internal.date
 
 import java.util.Calendar
 
-
 actual typealias Date = java.util.Date
 
 actual val Date.timeInMs: Long
@@ -46,7 +45,7 @@ actual val Date.second: Int
         return calendar.get(Calendar.SECOND)
     }
 
-actual fun Date.setTimeInMs(timeInMs: Long) : Date {
+actual fun Date.setTimeInMs(timeInMs: Long): Date {
     this.time = timeInMs
     return this
 }

@@ -5,7 +5,7 @@ import java.util.Locale
 
 actual class Locale actual constructor(
     private val language: String,
-    private val country: String,
+    private val country: String
 ) {
     actual constructor() : this(Locale.getDefault().language, Locale.getDefault().country)
     constructor(locale: Locale) : this(locale.language, locale.country)
@@ -23,7 +23,7 @@ actual class Locale actual constructor(
 
 actual class DateTimeFormat actual constructor(
     actual override var pattern: String,
-    private val locale: com.fitnest.domain.internal.date.Locale,
+    private val locale: com.fitnest.domain.internal.date.Locale
 ) : DateTimeFormatter {
 
     private val sdf: SimpleDateFormat by lazy { SimpleDateFormat(pattern, locale.platformLocale()) }

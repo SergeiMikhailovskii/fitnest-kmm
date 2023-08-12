@@ -1,6 +1,6 @@
 package com.fitnest.android.screen.registration.complete_account.screen
 
-import com.fitnest.presentation.screen.registration.complete_account.anthropometry.AnthropometryEventsBus
+import com.fitnest.presentation.screen.registration.completeAccount.anthropometry.AnthropometryEventsBus
 import com.fitnest.domain.entity.GetRegistrationResponseData
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepValidationSchema
@@ -9,9 +9,9 @@ import com.fitnest.domain.enum.SexType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
-import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationScreenData
-import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationViewMapper
-import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
+import com.fitnest.presentation.screen.registration.completeAccount.screen.CompleteAccountRegistrationScreenData
+import com.fitnest.presentation.screen.registration.completeAccount.screen.CompleteAccountRegistrationViewMapper
+import com.fitnest.presentation.screen.registration.completeAccount.screen.CompleteAccountRegistrationViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every

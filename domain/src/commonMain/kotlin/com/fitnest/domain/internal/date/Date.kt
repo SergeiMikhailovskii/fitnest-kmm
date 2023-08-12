@@ -1,6 +1,5 @@
 package com.fitnest.domain.internal.date
 
-
 expect class Date constructor()
 expect fun Date.setTimeInMs(timeInMs: Long): Date
 expect val Date.timeInMs: Long

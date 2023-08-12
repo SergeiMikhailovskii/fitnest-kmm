@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.complete_account.anthropometry
+package com.fitnest.presentation.screen.registration.completeAccount.anthropometry
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
