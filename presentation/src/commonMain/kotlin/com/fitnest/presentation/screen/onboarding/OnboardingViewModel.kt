@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class OnboardingViewModel(
     currentStep: String,
     private val getOnboardingStepUseCase: GetOnboardingStepUseCase,
-    private val submitOnboardingStepUseCase: SubmitOnboardingStepUseCase,
+    private val submitOnboardingStepUseCase: SubmitOnboardingStepUseCase
 ) : BaseViewModel() {
 
     private val screenState = when (currentStep) {
@@ -85,5 +85,4 @@ class OnboardingViewModel(
         const val STEP_THIRD_ONBOARDING = "STEP_THIRD_ONBOARDING"
         const val STEP_FORTH_ONBOARDING = "STEP_FORTH_ONBOARDING"
     }
-
 }
