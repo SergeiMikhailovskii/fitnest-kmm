@@ -1,12 +1,12 @@
-package com.fitnest.android.screen.registration.welcome_back
+package com.fitnest.presentation.screen.registration.welcome_back
 
-import com.fitnest.android.screen.registration.welcome_back.data.WelcomeBackRegistrationScreenData
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.entity.RegistrationStepModel
 import com.fitnest.domain.entity.request.WelcomeBackStepRequest
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.screen.registration.welcome_back.data.WelcomeBackRegistrationScreenData
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

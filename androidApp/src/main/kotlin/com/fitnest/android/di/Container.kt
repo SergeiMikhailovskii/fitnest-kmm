@@ -26,7 +26,7 @@ import com.fitnest.presentation.screen.registration.complete_account.screen.Comp
 import com.fitnest.presentation.screen.registration.complete_account.screen.CompleteAccountRegistrationViewModel
 import com.fitnest.presentation.screen.registration.goal.GoalRegistrationViewMapper
 import com.fitnest.presentation.screen.registration.goal.GoalRegistrationViewModel
-import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationViewModel
+import com.fitnest.presentation.screen.registration.welcome_back.WelcomeBackRegistrationViewModel
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
