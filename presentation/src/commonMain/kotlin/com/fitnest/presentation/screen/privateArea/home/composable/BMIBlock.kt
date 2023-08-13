@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.home.composable
+package com.fitnest.presentation.screen.privateArea.home.composable
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -27,18 +27,20 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import com.fitnest.android.R
-import com.fitnest.android.extension.pxToDp
-import com.fitnest.android.extension.tertiaryGradient
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
+import com.fitnest.presentation.extension.fade
+import com.fitnest.presentation.extension.placeholder
+import com.fitnest.presentation.extension.pxToDp
+import com.fitnest.presentation.extension.tertiaryGradient
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.fade
-import com.google.accompanist.placeholder.material.placeholder
+import dev.icerock.moko.resources.compose.stringResource
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget?, progress: Boolean) {
     Box(
@@ -47,12 +49,12 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget?, progress: Boolean) {
             .padding(top = Padding.Padding30)
             .placeholder(
                 progress,
-                highlight = PlaceholderHighlight.fade(),
+                highlight = PlaceholderHighlightMultiplatform.fade(),
                 shape = RoundedCornerShape(Dimen.Dimen16)
             )
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_private_area_bmi_background),
+            painter = painterResource("ic_private_area_bmi_background.xml"),
             contentDescription = null,
             modifier = Modifier.matchParentSize(),
             contentScale = ContentScale.FillBounds
@@ -65,7 +67,7 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget?, progress: Boolean) {
                 modifier = Modifier.padding(vertical = Padding.Padding26)
             ) {
                 Text(
-                    stringResource(id = R.string.private_area_dashboard_bmi_title),
+                    stringResource(MR.strings.private_area_dashboard_bmi_title),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.onPrimary
                     )
@@ -73,7 +75,7 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget?, progress: Boolean) {
 
                 bmiWidget?.result?.let {
                     Text(
-                        stringResource(id = it),
+                        stringResource(it),
                         style = MaterialTheme.typography.bodySmall.copy(
                             color = MaterialTheme.colorScheme.onPrimary
                         )
@@ -87,14 +89,14 @@ internal fun BMIBlock(bmiWidget: HomeScreenData.BMIWidget?, progress: Boolean) {
                         .wrapContentWidth(),
                     onClick = { },
                     contentPadding = PaddingValues(),
-                    shape = CircleShape,
+                    shape = CircleShape
                 ) {
                     Box(
                         modifier = Modifier
                             .background(brush = Brush.horizontalGradient(MaterialTheme.colorScheme.tertiaryGradient))
                     ) {
                         Text(
-                            stringResource(id = R.string.private_area_dashboard_bmi_view_more),
+                            stringResource(MR.strings.private_area_dashboard_bmi_view_more),
                             modifier = Modifier.padding(
                                 horizontal = Padding.Padding20,
                                 vertical = Padding.Padding10
@@ -124,7 +126,7 @@ fun PieChart(modifier: Modifier, progress: Double) {
     Box(
         modifier = modifier
             .width(300.pxToDp())
-            .height(300.pxToDp()),
+            .height(300.pxToDp())
     ) {
         val circleColor = MaterialTheme.colorScheme.onPrimary
         Canvas(modifier = Modifier) {
@@ -144,7 +146,7 @@ fun PieChart(modifier: Modifier, progress: Double) {
         }
         Text(
             text = stringResource(
-                id = R.string.private_area_dashboard_bmi_progress_percent,
+                MR.strings.private_area_dashboard_bmi_progress_percent,
                 progress.toInt()
             ),
             modifier = Modifier.align(Alignment.Center),

@@ -1,13 +1,14 @@
-package com.fitnest.android.screen.private_area.home
+package com.fitnest.presentation.screen.privateArea.home
 
-import android.content.Context
-import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.entity.response.DashboardResponse
 import com.fitnest.domain.enum.BMIType
+import com.fitnest.domain.extension.orZero
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
+import dev.icerock.moko.resources.format
 import kotlinx.collections.immutable.toImmutableList
 
-class HomeViewMapper(private val context: Context) {
+class HomeViewMapper {
 
     internal fun mapDashboardResponseToScreenData(response: DashboardResponse): HomeScreenData {
         val headerResponse = response.widgets?.headerWidget
@@ -44,11 +45,11 @@ class HomeViewMapper(private val context: Context) {
     private fun mapBMIWidget(bmiResponse: DashboardResponse.BMIWidget?): HomeScreenData.BMIWidget? {
         return if (bmiResponse != null) {
             val bmiResult = when (bmiResponse.result) {
-                BMIType.UNDERWEIGHT -> R.string.private_area_dashboard_bmi_underweight
-                BMIType.NORMAL_WEIGHT -> R.string.private_area_dashboard_bmi_normal_weight
-                BMIType.OVERWEIGHT -> R.string.private_area_dashboard_bmi_overweight
-                BMIType.OBESITY -> R.string.private_area_dashboard_bmi_obesity
-                null -> com.fitnest.presentation.R.string.error_unknown
+                BMIType.UNDERWEIGHT -> MR.strings.private_area_dashboard_bmi_underweight
+                BMIType.NORMAL_WEIGHT -> MR.strings.private_area_dashboard_bmi_normal_weight
+                BMIType.OVERWEIGHT -> MR.strings.private_area_dashboard_bmi_overweight
+                BMIType.OBESITY -> MR.strings.private_area_dashboard_bmi_obesity
+                null -> MR.strings.error_unknown
             }
             HomeScreenData.BMIWidget(
                 index = bmiResponse.index,
@@ -116,18 +117,22 @@ class HomeViewMapper(private val context: Context) {
                     val hoursFrom = it.key
                     val hoursTo = it.key?.plus(1)
 
-                    val hoursFromStr = if (isBeforeMidDay(hoursFrom)) context.getString(
-                        R.string.private_area_dashboard_time_am,
-                        hoursFrom
-                    ) else context.getString(R.string.private_area_dashboard_time_pm, hoursFrom)
+                    val hoursFromStr =
+                        if (isBeforeMidDay(hoursFrom)) {
+                            MR.strings.private_area_dashboard_time_am.format(hoursFrom.orZero)
+                        } else {
+                            MR.strings.private_area_dashboard_time_pm.format(hoursFrom.orZero)
+                        }
 
-                    val hoursToStr = if (isBeforeMidDay(hoursTo)) context.getString(
-                        R.string.private_area_dashboard_time_am,
-                        hoursTo
-                    ) else context.getString(R.string.private_area_dashboard_time_pm, hoursTo)
+                    val hoursToStr =
+                        if (isBeforeMidDay(hoursTo)) {
+                            MR.strings.private_area_dashboard_time_am.format(hoursTo.orZero)
+                        } else {
+                            MR.strings.private_area_dashboard_time_pm.format(hoursTo.orZero)
+                        }
 
                     val timeDiapason = "$hoursFromStr - $hoursToStr"
-                    val amountByHour = it.value.sumOf { it.amountInMillis ?: 0 }
+                    val amountByHour = it.value.sumOf { it.amountInMillis.orZero }
                     HomeScreenData.WaterIntake(
                         timeDiapason = timeDiapason,
                         amountInMillis = amountByHour

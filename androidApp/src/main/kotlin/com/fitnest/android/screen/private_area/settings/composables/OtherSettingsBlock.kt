@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.R as PresentationR
 
 @Preview
 @Composable
@@ -30,7 +31,7 @@ internal fun OtherSettingsBlock(modifier: Modifier) {
     ) {
         Column(modifier = Modifier.padding(Padding.Padding20)) {
             Text(
-                text = stringResource(id = R.string.private_area_profile_screen_other_title),
+                text = stringResource(id = PresentationR.string.private_area_profile_screen_other_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -38,17 +39,17 @@ internal fun OtherSettingsBlock(modifier: Modifier) {
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_contact_us,
-                title = R.string.private_area_profile_screen_other_contact_us_item,
+                title = PresentationR.string.private_area_profile_screen_other_contact_us_item,
                 modifier = Modifier.padding(top = Padding.Padding15)
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_privacy_policy,
-                title = R.string.private_area_profile_screen_other_privacy_policy_item,
+                title = PresentationR.string.private_area_profile_screen_other_privacy_policy_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_settings,
-                title = R.string.private_area_profile_screen_other_settings_item,
+                title = PresentationR.string.private_area_profile_screen_other_settings_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
         }

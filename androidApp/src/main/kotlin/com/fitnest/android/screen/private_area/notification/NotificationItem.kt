@@ -38,7 +38,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
-import com.fitnest.android.extension.pxToDp
+import com.fitnest.presentation.extension.pxToDp
 import com.fitnest.android.extension.vibrate
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding

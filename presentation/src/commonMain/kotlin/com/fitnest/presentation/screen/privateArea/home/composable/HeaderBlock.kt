@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.home.composable
+package com.fitnest.presentation.screen.privateArea.home.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,17 +17,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.home.HomeViewModel
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
+import com.fitnest.presentation.extension.fade
+import com.fitnest.presentation.extension.placeholder
+import com.fitnest.presentation.screen.privateArea.home.HomeViewModel
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.fade
-import com.google.accompanist.placeholder.material.placeholder
+import dev.icerock.moko.resources.compose.stringResource
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 internal fun HeaderBlock(
     headerWidget: HomeScreenData.HeaderWidget?,
@@ -36,23 +38,23 @@ internal fun HeaderBlock(
 ) {
     Row(
         modifier = Modifier.padding(
-            top = Padding.Padding20,
+            top = Padding.Padding20
         ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column {
             Text(
-                text = stringResource(id = R.string.private_area_dashboard_header_welcome_back),
+                text = stringResource(MR.strings.private_area_dashboard_header_welcome_back),
                 style = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 ),
-                modifier = Modifier.placeholder(progress, highlight = PlaceholderHighlight.fade())
+                modifier = Modifier.placeholder(progress, highlight = PlaceholderHighlightMultiplatform.fade())
             )
             Text(
                 text = headerWidget?.name.orEmpty(),
                 modifier = Modifier
                     .padding(top = Padding.Padding5)
-                    .placeholder(progress, highlight = PlaceholderHighlight.fade())
+                    .placeholder(progress, highlight = PlaceholderHighlightMultiplatform.fade())
                     .run {
                         if (progress) {
                             width(Dimen.Dimen135)
@@ -69,17 +71,19 @@ internal fun HeaderBlock(
                 .width(Dimen.Dimen40)
                 .height(Dimen.Dimen40)
                 .clip(RoundedCornerShape(Dimen.Dimen8))
-                .placeholder(progress, highlight = PlaceholderHighlight.fade())
+                .placeholder(progress, highlight = PlaceholderHighlightMultiplatform.fade())
                 .background(MaterialTheme.colorScheme.surfaceVariant)
                 .clickable { if (!progress) viewModel.navigateToNotifications() },
             contentAlignment = Alignment.Center
         ) {
-            val notificationRes = if (headerWidget?.hasNotifications == true)
-                R.drawable.ic_private_area_has_notifications
-            else R.drawable.ic_private_area_no_notifications
+            val notificationRes = if (headerWidget?.hasNotifications == true) {
+                "ic_private_area_has_notifications.xml"
+            } else {
+                "ic_private_area_no_notifications.xml"
+            }
 
             Image(
-                painter = painterResource(id = notificationRes),
+                painter = painterResource(notificationRes),
                 contentDescription = null
             )
         }

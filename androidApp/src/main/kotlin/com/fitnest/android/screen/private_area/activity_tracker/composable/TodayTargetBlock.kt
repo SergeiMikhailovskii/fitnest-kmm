@@ -30,12 +30,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.extension.brandGradient
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
+import com.fitnest.presentation.R as PresentationR
 
 @Preview
 @Composable
@@ -71,7 +72,7 @@ internal fun TodayTargetBlock(
     ) {
         Row {
             Text(
-                stringResource(id = R.string.private_area_activity_tracker_screen_today_target_title),
+                stringResource(id = PresentationR.string.private_area_activity_tracker_screen_today_target_title),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.SemiBold
                 )
@@ -103,7 +104,7 @@ internal fun TodayTargetBlock(
                     .weight(1F),
                 icon = R.drawable.ic_activity_tracker_water,
                 amountText = data.waterIntake,
-                indexTitle = R.string.private_area_activity_tracker_screen_water_index
+                indexTitle = PresentationR.string.private_area_activity_tracker_screen_water_index
             )
             TargetViewBlock(
                 modifier = Modifier
@@ -114,7 +115,7 @@ internal fun TodayTargetBlock(
                     .weight(1F),
                 icon = R.drawable.ic_activity_tracker_steps,
                 amountText = data.steps,
-                indexTitle = R.string.private_area_activity_tracker_screen_steps_index
+                indexTitle = PresentationR.string.private_area_activity_tracker_screen_steps_index
             )
         }
     }
@@ -127,7 +128,7 @@ private fun TargetViewBlockPreview() {
         modifier = Modifier,
         icon = R.drawable.ic_activity_tracker_water,
         amountText = "8L",
-        indexTitle = R.string.private_area_activity_tracker_screen_water_index
+        indexTitle = PresentationR.string.private_area_activity_tracker_screen_water_index
     )
 }
 

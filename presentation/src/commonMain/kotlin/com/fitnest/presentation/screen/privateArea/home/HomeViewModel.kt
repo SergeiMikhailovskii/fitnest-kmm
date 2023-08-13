@@ -1,13 +1,13 @@
-package com.fitnest.android.screen.private_area.home
+package com.fitnest.presentation.screen.privateArea.home
 
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.usecase.privateArea.GetDashboardDataUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-internal class HomeViewModel(
+class HomeViewModel(
     getDashboardDataUseCase: GetDashboardDataUseCase,
     private val viewMapper: HomeViewMapper
 ) : BaseViewModel() {
@@ -39,5 +39,4 @@ internal class HomeViewModel(
     internal fun navigateToActivityTracker() {
         handleRoute(com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker)
     }
-
 }

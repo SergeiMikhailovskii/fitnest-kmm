@@ -24,6 +24,7 @@ import com.fitnest.presentation.style.Padding
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
+import com.fitnest.presentation.R as PresentationR
 
 @Preview
 @Composable
@@ -88,7 +89,7 @@ internal fun ProfileInfoBlock(
                 )
             ) {
                 Text(
-                    text = stringResource(id = R.string.private_area_profile_screen_profile_edit),
+                    text = stringResource(id = PresentationR.string.private_area_profile_screen_profile_edit),
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -108,10 +109,10 @@ internal fun ProfileInfoBlock(
                         shape = RoundedCornerShape(Dimen.Dimen16)
                     ),
                 value = stringResource(
-                    R.string.private_area_profile_screen_profile_height_value,
+                    PresentationR.string.private_area_profile_screen_profile_height_value,
                     screenData.height ?: 0
                 ),
-                description = stringResource(id = R.string.private_area_profile_screen_profile_height_label)
+                description = stringResource(id = PresentationR.string.private_area_profile_screen_profile_height_label)
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
@@ -123,10 +124,10 @@ internal fun ProfileInfoBlock(
                         shape = RoundedCornerShape(Dimen.Dimen16)
                     ),
                 value = stringResource(
-                    id = R.string.private_area_profile_screen_profile_weight_value,
+                    id = PresentationR.string.private_area_profile_screen_profile_weight_value,
                     screenData.weight ?: 0
                 ),
-                description = stringResource(id = R.string.private_area_profile_screen_profile_weight_label)
+                description = stringResource(id = PresentationR.string.private_area_profile_screen_profile_weight_label)
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
@@ -138,10 +139,10 @@ internal fun ProfileInfoBlock(
                         shape = RoundedCornerShape(Dimen.Dimen16)
                     ),
                 value = stringResource(
-                    id = R.string.private_area_profile_screen_profile_age_value,
+                    id = PresentationR.string.private_area_profile_screen_profile_age_value,
                     screenData.age ?: 0
                 ),
-                description = stringResource(id = R.string.private_area_profile_screen_profile_age_label)
+                description = stringResource(id = PresentationR.string.private_area_profile_screen_profile_age_label)
             )
         }
     }

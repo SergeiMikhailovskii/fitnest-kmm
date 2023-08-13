@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.home.composable
+package com.fitnest.presentation.screen.privateArea.home.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,27 +19,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
+import dev.icerock.moko.resources.compose.stringResource
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkoutWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                stringResource(id = R.string.private_area_dashboard_latest_workout_title),
+                stringResource(MR.strings.private_area_dashboard_latest_workout_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold
                 )
             )
             Spacer(modifier = Modifier.weight(1F))
             Text(
-                stringResource(id = R.string.private_area_dashboard_latest_workout_see_more),
+                stringResource(MR.strings.private_area_dashboard_latest_workout_see_more),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     color = MaterialTheme.colorScheme.outline
                 )
@@ -60,11 +61,12 @@ internal fun LatestWorkoutBlock(latestWorkoutWidget: HomeScreenData.LatestWorkou
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun LatestWorkoutItem(modifier: Modifier, model: HomeScreenData.Workout) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
         Image(
-            painter = painterResource(id = R.drawable.ic_private_area_workout),
+            painter = painterResource("ic_private_area_workout.xml"),
             contentDescription = null,
             modifier = Modifier
                 .padding(start = Padding.Padding15)
@@ -90,7 +92,7 @@ private fun LatestWorkoutItem(modifier: Modifier, model: HomeScreenData.Workout)
             )
             Text(
                 stringResource(
-                    id = R.string.private_area_dashboard_latest_workout_calories_burn,
+                    MR.strings.private_area_dashboard_latest_workout_calories_burn,
                     model.calories ?: 0,
                     model.minutes ?: 0
                 ),
@@ -105,11 +107,11 @@ private fun LatestWorkoutItem(modifier: Modifier, model: HomeScreenData.Workout)
                     .fillMaxWidth()
                     .padding(top = Padding.Padding15),
                 color = MaterialTheme.colorScheme.tertiary,
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
             )
         }
         Image(
-            painter = painterResource(id = R.drawable.ic_private_area_workout_btn),
+            painter = painterResource("ic_private_area_workout_btn.xml"),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = Padding.Padding15)

@@ -16,6 +16,7 @@ import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.R as PresentationR
 
 @Preview
 @Composable
@@ -36,7 +37,7 @@ internal fun NotificationSettingsBlock(
     ) {
         Column(modifier = Modifier.padding(Padding.Padding20)) {
             Text(
-                text = stringResource(id = R.string.private_area_profile_screen_notification_title),
+                text = stringResource(id = PresentationR.string.private_area_profile_screen_notification_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -44,7 +45,7 @@ internal fun NotificationSettingsBlock(
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_notification,
-                title = R.string.private_area_profile_screen_notification_item,
+                title = PresentationR.string.private_area_profile_screen_notification_item,
                 modifier = Modifier.padding(top = Padding.Padding15),
                 trailing = {
                     Switch(

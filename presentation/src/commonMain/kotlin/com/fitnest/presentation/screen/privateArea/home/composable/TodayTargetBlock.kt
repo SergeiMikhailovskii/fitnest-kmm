@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.home.composable
+package com.fitnest.presentation.screen.privateArea.home.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,16 +18,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.fitnest.android.R
-import com.fitnest.android.extension.brandGradient
-import com.fitnest.android.screen.private_area.home.HomeViewModel
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
+import com.fitnest.presentation.extension.brandGradient
+import com.fitnest.presentation.extension.fade
+import com.fitnest.presentation.extension.placeholder
+import com.fitnest.presentation.screen.privateArea.home.HomeViewModel
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.fade
-import com.google.accompanist.placeholder.material.placeholder
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun TodayTargetBlock(
@@ -45,7 +45,7 @@ internal fun TodayTargetBlock(
             )
             .placeholder(
                 progress,
-                highlight = PlaceholderHighlight.fade(),
+                highlight = PlaceholderHighlightMultiplatform.fade(),
                 shape = RoundedCornerShape(Dimen.Dimen16)
             )
     ) {
@@ -57,7 +57,7 @@ internal fun TodayTargetBlock(
             )
         ) {
             Text(
-                stringResource(id = R.string.private_area_dashboard_today_target_title),
+                stringResource(MR.strings.private_area_dashboard_today_target_title),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.Medium
                 )
@@ -69,7 +69,7 @@ internal fun TodayTargetBlock(
                 contentPadding = PaddingValues(),
                 modifier = Modifier
                     .wrapContentHeight()
-                    .wrapContentWidth(),
+                    .wrapContentWidth()
             ) {
                 Box(
                     modifier = Modifier.background(
@@ -77,7 +77,7 @@ internal fun TodayTargetBlock(
                     )
                 ) {
                     Text(
-                        stringResource(id = R.string.private_area_dashboard_today_target_check),
+                        stringResource(MR.strings.private_area_dashboard_today_target_check),
                         modifier = Modifier.padding(
                             horizontal = Padding.Padding20,
                             vertical = Padding.Padding10

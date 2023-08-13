@@ -31,11 +31,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
+import com.fitnest.domain.enum.ActivityType
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.fitnest.domain.enum.ActivityType
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import com.fitnest.presentation.R as PresentationR
 
 @Preview
 @Composable
@@ -92,7 +93,7 @@ internal fun LatestActivityBlock(
 ) {
     Column(modifier = modifier) {
         Text(
-            stringResource(id = R.string.private_area_activity_tracker_screen_latest_activity_title),
+            stringResource(id = PresentationR.string.private_area_activity_tracker_screen_latest_activity_title),
             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold)
         )
         activities?.forEach {
@@ -159,7 +160,7 @@ private fun LatestActivityItem(
                             viewModel.deleteActivity(activity)
                         },
                         text = {
-                            Text(stringResource(id = R.string.private_area_activity_tracker_screen_latest_activity_delete))
+                            Text(stringResource(id = PresentationR.string.private_area_activity_tracker_screen_latest_activity_delete))
                         }
                     )
                 }

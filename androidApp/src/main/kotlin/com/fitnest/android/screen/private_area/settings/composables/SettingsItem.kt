@@ -21,13 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.R as PresentationR
 
 @Preview
 @Composable
 private fun SettingsItemPreview() {
     SettingsItem(
         icon = R.drawable.ic_private_area_profile_activity,
-        title = R.string.private_area_profile_screen_account_personal_data_item
+        title = PresentationR.string.private_area_profile_screen_account_personal_data_item
     )
 }
 

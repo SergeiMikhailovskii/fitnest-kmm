@@ -1,9 +1,5 @@
-package com.fitnest.android.screen.private_area.home.composable
+package com.fitnest.presentation.screen.privateArea.home.composable
 
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.Rect
-import android.graphics.RectF
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,39 +30,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.LinearGradientShader
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import com.fitnest.android.R
-import com.fitnest.android.extension.brandGradient
-import com.fitnest.android.extension.pxToDp
-import com.fitnest.android.extension.tertiaryGradient
-import com.fitnest.android.extension.textBrush
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.extension.brandGradient
+import com.fitnest.presentation.extension.pxToDp
+import com.fitnest.presentation.extension.tertiaryGradient
+import com.fitnest.presentation.extension.textBrush
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.fitnest.presentation.style.TextSize
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
+import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.compose.stringResource
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @Composable
 internal fun ActivityStatusBlock(activityStatusWidget: HomeScreenData.ActivityStatusWidget) {
     Column(modifier = Modifier.padding(top = Padding.Padding30)) {
         Text(
-            stringResource(id = R.string.private_area_dashboard_activity_status_title),
+            stringResource(MR.strings.private_area_dashboard_activity_status_title),
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontWeight = FontWeight.Bold
             )
@@ -123,7 +113,7 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                 )
             ) {
                 Text(
-                    stringResource(id = R.string.private_area_dashboard_heart_rate_title),
+                    stringResource(MR.strings.private_area_dashboard_heart_rate_title),
                     modifier = Modifier.padding(start = Padding.Padding20),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.Medium
@@ -131,7 +121,7 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                 )
                 Text(
                     stringResource(
-                        id = R.string.private_area_dashboard_heart_rate_bpm,
+                        MR.strings.private_area_dashboard_heart_rate_bpm,
                         heartRateSubWidget.rate ?: 0
                     ),
                     modifier = Modifier
@@ -142,7 +132,7 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                     )
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.ic_private_area_heart_rate_graph),
+                    painter = painterResource(MR.images.ic_private_area_heart_rate_graph),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -153,40 +143,41 @@ private fun HeartRate(heartRateSubWidget: HomeScreenData.HeartRateSubWidget) {
                 )
             }
 
-            Column {
-                Box(
-                    modifier = Modifier.padding(
-                        start = (chartWidth * 0.62)
-                            .toInt()
-                            .pxToDp(),
-                        top = Padding.Padding50
-                    )
-                ) {
-                    Column {
-                        val lastHeartRateInstant =
-                            heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault())
-                                ?: return
-                        val diff = Clock.System.now() - lastHeartRateInstant
-                        val minutesDiff = diff.inWholeMinutes
-                        DrawTooltip(minutesDiff)
-                    }
-                }
+//            Column {
+//                Box(
+//                    modifier = Modifier.padding(
+//                        start = (chartWidth * 0.62)
+//                            .toInt()
+//                            .pxToDp(),
+//                        top = Padding.Padding50
+//                    )
+//                ) {
+//                    Column {
+//                        val lastHeartRateInstant =
+//                            heartRateSubWidget.date?.toInstant(TimeZone.currentSystemDefault())
+//                                ?: return
+//                        val diff = Clock.System.now() - lastHeartRateInstant
+//                        val minutesDiff = diff.inWholeMinutes
+//                        DrawTooltip(minutesDiff)
+//                    }
+//                }
 
-                Box(
-                    modifier = Modifier.padding(
-                        start = (chartWidth * 0.62)
-                            .toInt()
-                            .pxToDp(),
-                        top = Padding.Padding35
-                    )
-                ) {
-                    DrawActivityRing()
-                }
+            Box(
+                modifier = Modifier.padding(
+                    start = (chartWidth * 0.62)
+                        .toInt()
+                        .pxToDp(),
+                    top = Padding.Padding35
+                )
+            ) {
+                DrawActivityRing()
             }
+//            }
         }
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
     Box(
@@ -198,7 +189,7 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
     ) {
         Column {
             Text(
-                stringResource(id = R.string.private_area_dashboard_sleep_title),
+                stringResource(MR.strings.private_area_dashboard_sleep_title),
                 modifier = Modifier.padding(
                     start = Padding.Padding20,
                     top = Padding.Padding20
@@ -223,7 +214,7 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
                 )
             )
             Image(
-                painter = painterResource(id = R.drawable.ic_private_area_sleep_graph),
+                painter = org.jetbrains.compose.resources.painterResource("ic_private_area_sleep_graph.xml"),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(horizontal = Padding.Padding20, vertical = Padding.Padding5)
@@ -236,8 +227,8 @@ private fun SleepBlock(sleepSubWidget: HomeScreenData.SleepSubWidget) {
 
 @Composable
 private fun buildSleepDurationAnnotatedString(hours: Int, minutes: Int) = buildAnnotatedString {
-    val hoursText = stringResource(id = R.string.private_area_dashboard_sleep_hours)
-    val minutesText = stringResource(id = R.string.private_area_dashboard_sleep_minutes)
+    val hoursText = stringResource(MR.strings.private_area_dashboard_sleep_hours)
+    val minutesText = stringResource(MR.strings.private_area_dashboard_sleep_minutes)
     withStyle(SpanStyle(fontSize = TextSize.Size14)) {
         append(hours.toString())
     }
@@ -265,7 +256,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                stringResource(id = R.string.private_area_dashboard_calories_title),
+                stringResource(MR.strings.private_area_dashboard_calories_title),
                 modifier = Modifier
                     .padding(
                         start = Padding.Padding20,
@@ -278,7 +269,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
             )
             Text(
                 stringResource(
-                    id = R.string.private_area_dashboard_calories_value,
+                    MR.strings.private_area_dashboard_calories_value,
                     caloriesSubWidget.consumed ?: 0
                 ),
                 modifier = Modifier
@@ -302,10 +293,18 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                     modifier = Modifier
                         .fillMaxSize()
                         .rotate(180F),
-                    progress = ((caloriesSubWidget.consumed?.toDouble()
-                        ?: .0) / ((caloriesSubWidget.consumed
-                        ?: 0) + (caloriesSubWidget.left ?: 0))).toFloat(),
-                    color = MaterialTheme.colorScheme.primary,
+                    progress = (
+                        (
+                            caloriesSubWidget.consumed?.toDouble()
+                                ?: .0
+                            ) / (
+                            (
+                                caloriesSubWidget.consumed
+                                    ?: 0
+                                ) + (caloriesSubWidget.left ?: 0)
+                            )
+                        ).toFloat(),
+                    color = MaterialTheme.colorScheme.primary
                 )
                 Box(
                     modifier = Modifier
@@ -319,7 +318,7 @@ private fun CaloriesBlock(caloriesSubWidget: HomeScreenData.CaloriesSubWidget) {
                 ) {
                     Text(
                         stringResource(
-                            id = R.string.private_area_dashboard_calories_left_value,
+                            MR.strings.private_area_dashboard_calories_left_value,
                             caloriesSubWidget.left ?: 0
                         ),
                         modifier = Modifier.padding(all = Padding.Padding6),
@@ -384,14 +383,14 @@ private fun WaterIntakeBlock(
                     .padding(start = Padding.Padding10)
             ) {
                 Text(
-                    stringResource(id = R.string.private_area_dashboard_water_intake_title),
+                    stringResource(MR.strings.private_area_dashboard_water_intake_title),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.Medium
                     )
                 )
                 Text(
                     stringResource(
-                        id = R.string.private_area_dashboard_water_intake_liters,
+                        MR.strings.private_area_dashboard_water_intake_liters,
                         waterIntakeSubWidget.amount ?: .0
                     ),
                     modifier = Modifier
@@ -402,7 +401,7 @@ private fun WaterIntakeBlock(
                     )
                 )
                 Text(
-                    stringResource(id = R.string.private_area_dashboard_water_intake_realtime_updates),
+                    stringResource(MR.strings.private_area_dashboard_water_intake_realtime_updates),
                     modifier = Modifier.padding(top = Padding.Padding10),
                     style = MaterialTheme.typography.labelLarge.copy(
                         fontWeight = FontWeight.Medium,
@@ -419,7 +418,7 @@ private fun WaterIntakeBlock(
                     )
                     Text(
                         stringResource(
-                            id = R.string.private_area_dashboard_water_intake_millis,
+                            MR.strings.private_area_dashboard_water_intake_millis,
                             it.amountInMillis ?: 0
                         ),
                         style = MaterialTheme.typography.labelSmall.copy(
@@ -442,87 +441,87 @@ private fun DrawActivityRing() {
     Canvas(modifier = Modifier) {
         drawCircle(
             brush = Brush.horizontalGradient(circleGradient),
-            radius = Dimen.Dimen4.toPx(),
+            radius = Dimen.Dimen4.toPx()
         )
         drawCircle(
             color = Color.White,
-            radius = Dimen.Dimen2.toPx(),
+            radius = Dimen.Dimen2.toPx()
         )
     }
 }
 
-@Composable
-private fun DrawTooltip(lastHeartRate: Long) {
-    val textToDraw = stringResource(
-        id = R.string.private_area_dashboard_tooltip_minutes_left,
-        lastHeartRate
-    )
-    val paintColor = MaterialTheme.colorScheme.onPrimary.toArgb()
-    val shaderGradient = MaterialTheme.colorScheme.tertiaryGradient
-    Canvas(modifier = Modifier) {
-        val nativeCanvas = this.drawContext.canvas.nativeCanvas
-
-        val textPaint = Paint().apply {
-            textSize = TextSize.Size10.toPx()
-            color = paintColor
-        }
-        val textBounds = Rect()
-
-        textPaint.getTextBounds(textToDraw, 0, textToDraw.length, textBounds)
-
-        val tooltipWidth = textBounds.width().toFloat() + Dimen.Dimen20.toPx()
-        val tooltipHeight = textBounds.height().toFloat() + Dimen.Dimen10.toPx()
-
-        val rect = RectF(
-            0F,
-            0F,
-            tooltipWidth,
-            tooltipHeight
-        )
-        val path = Path()
-        path.addRoundRect(
-            rect,
-            floatArrayOf(50F, 50F, 50F, 50F, 50F, 50F, 50F, 50F),
-            Path.Direction.CW
-        )
-        path.apply {
-            fillType = Path.FillType.EVEN_ODD
-            moveTo(
-                tooltipWidth / 2 - Dimen.Dimen5.toPx(),
-                tooltipHeight
-            )
-            lineTo(
-                tooltipWidth / 2,
-                tooltipHeight + Dimen.Dimen5.toPx()
-            )
-            lineTo(
-                tooltipWidth / 2 + Dimen.Dimen5.toPx(),
-                tooltipHeight
-            )
-            close()
-        }
-
-        nativeCanvas.translate(-(tooltipWidth / 2), 0F)
-
-        nativeCanvas.drawPath(path, Paint().apply {
-            shader = LinearGradientShader(
-                Offset(
-                    0F,
-                    0F
-                ),
-                Offset(
-                    tooltipWidth,
-                    0F
-                ),
-                colors = shaderGradient
-            )
-        })
-
-        nativeCanvas.drawText(
-            textToDraw,
-            Dimen.Dimen10.toPx(),
-            textBounds.height() + Dimen.Dimen5.toPx(),
-            textPaint
-        )
-    }
-}
+// @Composable
+// private fun DrawTooltip(lastHeartRate: Long) {
+//    val textToDraw = stringResource(
+//        MR.strings.private_area_dashboard_tooltip_minutes_left,
+//        lastHeartRate
+//    )
+//    val paintColor = MaterialTheme.colorScheme.onPrimary
+//    val shaderGradient = MaterialTheme.colorScheme.tertiaryGradient
+//    Canvas(modifier = Modifier) {
+//        val nativeCanvas = this.drawContext.canvas.nativeCanvas
+//
+//        val textPaint = Paint().apply {
+//            textSize = TextSize.Size10.toPx()
+//            color = paintColor
+//        }
+//        val textBounds = Rect()
+//
+//        textPaint.getTextBounds(textToDraw, 0, textToDraw.length, textBounds)
+//
+//        val tooltipWidth = textBounds.width().toFloat() + Dimen.Dimen20.toPx()
+//        val tooltipHeight = textBounds.height().toFloat() + Dimen.Dimen10.toPx()
+//
+//        val rect = RectF(
+//            0F,
+//            0F,
+//            tooltipWidth,
+//            tooltipHeight
+//        )
+//        val path = Path()
+//        path.addRoundRect(
+//            rect,
+//            floatArrayOf(50F, 50F, 50F, 50F, 50F, 50F, 50F, 50F),
+//            Path.Direction.CW
+//        )
+//        path.apply {
+//            fillType = Path.FillType.EVEN_ODD
+//            moveTo(
+//                tooltipWidth / 2 - Dimen.Dimen5.toPx(),
+//                tooltipHeight
+//            )
+//            lineTo(
+//                tooltipWidth / 2,
+//                tooltipHeight + Dimen.Dimen5.toPx()
+//            )
+//            lineTo(
+//                tooltipWidth / 2 + Dimen.Dimen5.toPx(),
+//                tooltipHeight
+//            )
+//            close()
+//        }
+//
+//        nativeCanvas.translate(-(tooltipWidth / 2), 0F)
+//
+//        nativeCanvas.drawPath(path, Paint().apply {
+//            shader = LinearGradientShader(
+//                Offset(
+//                    0F,
+//                    0F
+//                ),
+//                Offset(
+//                    tooltipWidth,
+//                    0F
+//                ),
+//                colors = shaderGradient
+//            )
+//        })
+//
+//        nativeCanvas.drawText(
+//            textToDraw,
+//            Dimen.Dimen10.toPx(),
+//            textBounds.height() + Dimen.Dimen5.toPx(),
+//            textPaint
+//        )
+//    }
+// }

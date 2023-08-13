@@ -15,6 +15,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import java.text.SimpleDateFormat
+import com.fitnest.presentation.R as PresentationR
 import java.util.*
 
 internal class NotificationsViewMapper(private val context: Context) {
@@ -43,10 +44,10 @@ internal class NotificationsViewMapper(private val context: Context) {
 
         return if (isSameHour(millis)) {
             val minutesDiff = getMinutesDiff(millis)
-            context.getString(R.string.private_area_notifications_minutes_ago, minutesDiff)
+            context.getString(PresentationR.string.private_area_notifications_minutes_ago, minutesDiff)
         } else if (DateUtils.isToday((millis))) {
             val hoursDiff = getHoursDiff(millis)
-            context.getString(R.string.private_area_notifications_hours_ago, hoursDiff)
+            context.getString(PresentationR.string.private_area_notifications_hours_ago, hoursDiff)
         } else {
             SimpleDateFormat("dd MMMM", Locale.getDefault()).format(Date(millis))
         }

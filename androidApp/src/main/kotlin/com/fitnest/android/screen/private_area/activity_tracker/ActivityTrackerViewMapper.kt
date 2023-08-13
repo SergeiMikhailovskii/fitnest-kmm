@@ -8,14 +8,15 @@ import com.fitnest.android.R
 import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
 import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.enum.ActivityType
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.DayOfWeek
+import com.fitnest.presentation.R as PresentationR
 
 internal class ActivityTrackerViewMapper(
     private val context: Context,
@@ -57,7 +58,7 @@ internal class ActivityTrackerViewMapper(
                 screenData = screenData.copy(
                     todayTargetWidget = HomeScreenData.TodayTargetWidget(
                         waterIntake = context.getString(
-                            R.string.private_area_activity_tracker_screen_today_target_litres,
+                            PresentationR.string.private_area_activity_tracker_screen_today_target_litres,
                             ((it.waterIntake ?: 0).toDouble() / 1000)
                         ),
                         steps = it.steps?.toString().orEmpty()
@@ -98,10 +99,10 @@ internal class ActivityTrackerViewMapper(
 
     private fun mapActivityTypeToTitle(type: ActivityType, amount: Int) =
         if (type == ActivityType.WATER) context.getString(
-            R.string.private_area_activity_tracker_screen_latest_activity_water_title,
+            PresentationR.string.private_area_activity_tracker_screen_latest_activity_water_title,
             amount
         ) else context.getString(
-            R.string.private_area_activity_tracker_screen_latest_activity_steps_title,
+            PresentationR.string.private_area_activity_tracker_screen_latest_activity_steps_title,
             amount
         )
 

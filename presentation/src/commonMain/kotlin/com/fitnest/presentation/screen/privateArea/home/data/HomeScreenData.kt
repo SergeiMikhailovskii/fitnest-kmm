@@ -1,10 +1,10 @@
-package com.fitnest.android.screen.private_area.home.data
+package com.fitnest.presentation.screen.privateArea.home.data
 
-import androidx.annotation.StringRes
+import dev.icerock.moko.resources.StringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.LocalDateTime
 
-internal data class HomeScreenData(
+data class HomeScreenData(
     val headerWidget: HeaderWidget? = HeaderWidget(),
     val bmiWidget: BMIWidget? = BMIWidget(),
     val todayTargetWidget: TodayTargetWidget? = TodayTargetWidget(),
@@ -18,7 +18,7 @@ internal data class HomeScreenData(
 
     data class BMIWidget(
         val index: Double? = null,
-        @StringRes val result: Int? = null
+        val result: StringResource? = null
     )
 
     data class TodayTargetWidget(
@@ -30,7 +30,7 @@ internal data class HomeScreenData(
         val heartRateSubWidget: HeartRateSubWidget? = null,
         val waterIntakeSubWidget: WaterIntakeSubWidget? = null,
         val sleepSubWidget: SleepSubWidget? = null,
-        val caloriesSubWidget: CaloriesSubWidget? = null,
+        val caloriesSubWidget: CaloriesSubWidget? = null
     )
 
     data class HeartRateSubWidget(

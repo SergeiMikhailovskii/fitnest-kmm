@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.fitnest.android.R
 import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
+import com.fitnest.presentation.R
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.google.accompanist.placeholder.PlaceholderHighlight

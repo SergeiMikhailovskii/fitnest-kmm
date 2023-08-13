@@ -29,7 +29,7 @@ internal class SettingsViewMapper(private val context: Context) {
 
         return programName?.let {
             context.getString(
-                R.string.private_area_profile_screen_program_description,
+                MR.string.private_area_profile_screen_program_description,
                 it
             )
         }.orEmpty()

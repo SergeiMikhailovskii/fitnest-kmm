@@ -1,7 +1,7 @@
 package com.fitnest.android.screen.private_area.activity_tracker.data
 
 import androidx.annotation.DrawableRes
-import com.fitnest.android.screen.private_area.home.data.HomeScreenData
+import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import com.fitnest.domain.enum.ActivityType
 import kotlinx.collections.immutable.ImmutableList
 

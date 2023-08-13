@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.R as PresentationR
 
 @Preview
 @Composable
@@ -34,7 +35,7 @@ internal fun AccountSettingsBlock(
     ) {
         Column(modifier = Modifier.padding(Padding.Padding20)) {
             Text(
-                text = stringResource(id = R.string.private_area_profile_screen_account_title),
+                text = stringResource(id = PresentationR.string.private_area_profile_screen_account_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -42,24 +43,24 @@ internal fun AccountSettingsBlock(
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_profile,
-                title = R.string.private_area_profile_screen_account_personal_data_item,
+                title = PresentationR.string.private_area_profile_screen_account_personal_data_item,
                 modifier = Modifier.padding(top = Padding.Padding15)
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_document,
-                title = R.string.private_area_profile_screen_account_achievement_item,
+                title = PresentationR.string.private_area_profile_screen_account_achievement_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_activity,
-                title = R.string.private_area_profile_screen_account_activity_history_item,
+                title = PresentationR.string.private_area_profile_screen_account_activity_history_item,
                 modifier = Modifier
                     .padding(top = Padding.Padding10)
                     .clickable { onActivityHistoryClicked() }
             )
             SettingsItem(
                 icon = R.drawable.ic_private_area_profile_chart,
-                title = R.string.private_area_profile_screen_account_workout_progress_item,
+                title = PresentationR.string.private_area_profile_screen_account_workout_progress_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
         }
