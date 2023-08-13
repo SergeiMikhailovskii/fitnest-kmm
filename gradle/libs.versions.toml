@@ -27,7 +27,7 @@ composeThemeAdapter = "1.1.1"
 composeCompiler = "1.4.8"
 composeConstraintLayout = "1.0.1"
 
-composeJUnit = "1.4.3"
+composeJUnit = "1.5.0"
 jUnit = "5.10.0"
 testCore = "1.5.0"
 mockk = "1.13.3"
