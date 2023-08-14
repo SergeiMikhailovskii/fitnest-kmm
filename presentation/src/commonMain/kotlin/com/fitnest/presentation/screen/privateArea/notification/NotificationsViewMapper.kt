@@ -1,24 +1,26 @@
-package com.fitnest.android.screen.private_area.notification
+package com.fitnest.presentation.screen.privateArea.notification
 
-import android.content.Context
-import android.text.format.DateUtils
-import com.fitnest.android.R
-import com.fitnest.android.extension.getHoursDiff
-import com.fitnest.android.extension.getMinutesDiff
-import com.fitnest.android.extension.isSameHour
-import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.domain.entity.request.DeleteNotificationRequest
 import com.fitnest.domain.entity.request.PinNotificationRequest
 import com.fitnest.domain.entity.response.NotificationsPageResponse
 import com.fitnest.domain.enum.NotificationType
+import com.fitnest.domain.extension.dateToString
+import com.fitnest.domain.extension.isToday
+import com.fitnest.domain.internal.date.Date
+import com.fitnest.domain.internal.date.setTimeInMs
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.extension.getHoursDiff
+import com.fitnest.presentation.extension.getMinutesDiff
+import com.fitnest.presentation.extension.isSameHour
+import com.fitnest.presentation.screen.privateArea.notification.data.NotificationUIInfo
+import dev.icerock.moko.resources.desc.Raw
+import dev.icerock.moko.resources.desc.StringDesc
+import dev.icerock.moko.resources.format
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
-import java.text.SimpleDateFormat
-import com.fitnest.presentation.R as PresentationR
-import java.util.*
 
-internal class NotificationsViewMapper(private val context: Context) {
+class NotificationsViewMapper {
 
     internal fun mapServerNotificationsToUIModel(notifications: List<NotificationsPageResponse.Notification>?) =
         notifications?.map {
@@ -39,22 +41,24 @@ internal class NotificationsViewMapper(private val context: Context) {
     internal fun mapNotificationToDeleteRequest(notification: NotificationUIInfo) =
         DeleteNotificationRequest(notification.id)
 
-    private fun formatNotificationTime(date: LocalDateTime?): String {
+    private fun formatNotificationTime(date: LocalDateTime?): StringDesc {
         val millis = date?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: 0
 
         return if (isSameHour(millis)) {
             val minutesDiff = getMinutesDiff(millis)
-            context.getString(PresentationR.string.private_area_notifications_minutes_ago, minutesDiff)
-        } else if (DateUtils.isToday((millis))) {
+            MR.strings.private_area_notifications_minutes_ago.format(minutesDiff)
+        } else if (millis.isToday) {
             val hoursDiff = getHoursDiff(millis)
-            context.getString(PresentationR.string.private_area_notifications_hours_ago, hoursDiff)
+            MR.strings.private_area_notifications_hours_ago.format(hoursDiff)
         } else {
-            SimpleDateFormat("dd MMMM", Locale.getDefault()).format(Date(millis))
+            StringDesc.Raw(Date().apply { setTimeInMs(millis) }.dateToString("dd MMMM"))
         }
     }
 
     private fun getNotificationIcon(type: NotificationType?) =
-        if (type == NotificationType.WORKOUT) R.drawable.ic_private_area_notification_workout
-        else R.drawable.ic_private_area_notification_meal
-
+        if (type == NotificationType.WORKOUT) {
+            MR.images.ic_private_area_notification_workout
+        } else {
+            MR.images.ic_private_area_notification_meal
+        }
 }

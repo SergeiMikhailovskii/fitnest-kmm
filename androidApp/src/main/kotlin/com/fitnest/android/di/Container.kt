@@ -13,8 +13,8 @@ import com.fitnest.android.screen.onboarding.OnboardingViewModelFactory
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
 import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
-import com.fitnest.android.screen.private_area.notification.NotificationsViewMapper
-import com.fitnest.android.screen.private_area.notification.NotificationsViewModel
+import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewMapper
+import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewModel
 import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
 import com.fitnest.android.screen.private_area.settings.SettingsViewModel
 import com.fitnest.domain.entity.RegistrationScreenState
@@ -304,7 +304,7 @@ object PrivateAreaModule {
                     instance()
                 )
             }
-            bindProvider { NotificationsViewMapper(instance()) }
+            bindProvider { NotificationsViewMapper() }
             bindProvider { GetNotificationsPageUseCase(instance(), instance(), instance()) }
             bindProvider { DeactivateNotificationsUseCase(instance(), instance()) }
             bindProvider { PinNotificationUseCase(instance(), instance()) }

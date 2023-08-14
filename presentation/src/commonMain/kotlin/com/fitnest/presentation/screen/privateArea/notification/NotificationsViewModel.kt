@@ -1,18 +1,18 @@
-package com.fitnest.android.screen.private_area.notification
+package com.fitnest.presentation.screen.privateArea.notification
 
-import com.fitnest.android.screen.private_area.notification.data.NotificationScreenData
-import com.fitnest.android.screen.private_area.notification.data.NotificationUIInfo
 import com.fitnest.domain.entity.response.NotificationsPageResponse
 import com.fitnest.domain.usecase.privateArea.DeactivateNotificationsUseCase
 import com.fitnest.domain.usecase.privateArea.DeleteNotificationUseCase
 import com.fitnest.domain.usecase.privateArea.GetNotificationsPageUseCase
 import com.fitnest.domain.usecase.privateArea.PinNotificationUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.screen.privateArea.notification.data.NotificationScreenData
+import com.fitnest.presentation.screen.privateArea.notification.data.NotificationUIInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-internal class NotificationsViewModel(
+class NotificationsViewModel(
     private val getNotificationsPageUseCase: GetNotificationsPageUseCase,
     private val deactivateNotificationsUseCase: DeactivateNotificationsUseCase,
     private val pinNotificationUseCase: PinNotificationUseCase,
@@ -23,7 +23,7 @@ internal class NotificationsViewModel(
     private var screenData = NotificationScreenData()
 
     private val _screenDataFlow = MutableStateFlow(screenData.copy())
-    internal val screenDataFlow: StateFlow<NotificationScreenData> = _screenDataFlow
+    val screenDataFlow: StateFlow<NotificationScreenData> = _screenDataFlow
 
     init {
         viewModelScope.launch(exceptionHandler) {
@@ -38,12 +38,12 @@ internal class NotificationsViewModel(
         }
     }
 
-    internal fun updateNotifications(movedList: List<NotificationUIInfo>) {
+    fun updateNotifications(movedList: List<NotificationUIInfo>) {
         screenData = screenData.copy(notifications = movedList)
         updateScreen()
     }
 
-    internal fun pinNotification(id: Int) {
+    fun pinNotification(id: Int) {
         val notificationToPin = screenData.notifications.firstOrNull { it.id == id } ?: return
         val request = viewMapper.mapNotificationToPinRequest(notificationToPin)
 
@@ -64,7 +64,7 @@ internal class NotificationsViewModel(
         }
     }
 
-    internal fun deleteNotification(id: Int) {
+    fun deleteNotification(id: Int) {
         val notificationToDelete = screenData.notifications.firstOrNull { it.id == id } ?: return
         val request = viewMapper.mapNotificationToDeleteRequest(notificationToDelete)
 
@@ -109,5 +109,4 @@ internal class NotificationsViewModel(
             _screenDataFlow.emit(screenData.copy())
         }
     }
-
 }
