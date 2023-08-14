@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.settings.composables
+package com.fitnest.presentation.screen.privateArea.settings.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -14,26 +14,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
+import com.fitnest.domain.extension.orZero
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
+import com.fitnest.presentation.extension.fade
+import com.fitnest.presentation.extension.placeholder
+import com.fitnest.presentation.screen.privateArea.settings.data.SettingsScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.fade
-import com.google.accompanist.placeholder.material.placeholder
-import com.fitnest.presentation.R as PresentationR
+import dev.icerock.moko.resources.compose.localized
+import dev.icerock.moko.resources.compose.stringResource
+import dev.icerock.moko.resources.format
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
-@Preview
+@OptIn(ExperimentalResourceApi::class)
 @Composable
-private fun ProfileInfoBlockPreview() {
-    ProfileInfoBlock(modifier = Modifier, screenData = SettingsScreenData(), false)
-}
-
-@Composable
-internal fun ProfileInfoBlock(
+fun ProfileInfoBlock(
     modifier: Modifier,
     screenData: SettingsScreenData,
     progress: Boolean
@@ -41,7 +38,7 @@ internal fun ProfileInfoBlock(
     Column(modifier = modifier) {
         Row {
             Image(
-                painter = painterResource(id = R.drawable.ic_private_area_activity_water),
+                painter = painterResource("ic_private_area_activity_water.xml"),
                 contentDescription = null,
                 modifier = Modifier.size(Dimen.Dimen55)
             )
@@ -51,29 +48,38 @@ internal fun ProfileInfoBlock(
                     .padding(start = Padding.Padding15)
             ) {
                 Text(
-                    screenData.name.orEmpty(), style = MaterialTheme.typography.bodyMedium,
+                    screenData.name.orEmpty(),
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.placeholder(
                         progress,
-                        highlight = PlaceholderHighlight.fade(),
+                        highlight = PlaceholderHighlightMultiplatform.fade(),
                         shape = RoundedCornerShape(Dimen.Dimen16)
                     ).run {
-                        if (progress) width(Dimen.Dimen135)
-                        else this
+                        if (progress) {
+                            width(Dimen.Dimen135)
+                        } else {
+                            this
+                        }
                     }
                 )
                 Text(
-                    screenData.program.orEmpty(),
+                    MR.strings.private_area_profile_screen_program_description.format(
+                        screenData.program?.let { stringResource(it) }.orEmpty()
+                    ).localized(),
                     style = MaterialTheme.typography.bodySmall.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     ),
                     modifier = Modifier.padding(top = Padding.Padding5)
                         .placeholder(
                             progress,
-                            highlight = PlaceholderHighlight.fade(),
+                            highlight = PlaceholderHighlightMultiplatform.fade(),
                             shape = RoundedCornerShape(Dimen.Dimen16)
                         ).run {
-                            if (progress) width(Dimen.Dimen135)
-                            else this
+                            if (progress) {
+                                width(Dimen.Dimen135)
+                            } else {
+                                this
+                            }
                         }
                 )
             }
@@ -82,14 +88,15 @@ internal fun ProfileInfoBlock(
                     if (!progress) {
                         // handle click here
                     }
-                }, modifier = Modifier.placeholder(
+                },
+                modifier = Modifier.placeholder(
                     progress,
-                    highlight = PlaceholderHighlight.fade(),
+                    highlight = PlaceholderHighlightMultiplatform.fade(),
                     shape = CircleShape
                 )
             ) {
                 Text(
-                    text = stringResource(id = PresentationR.string.private_area_profile_screen_profile_edit),
+                    text = stringResource(MR.strings.private_area_profile_screen_profile_edit),
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -97,7 +104,7 @@ internal fun ProfileInfoBlock(
 
         Row(
             modifier = Modifier.padding(
-                top = Padding.Padding15,
+                top = Padding.Padding15
             )
         ) {
             ProfileUserInfoCard(
@@ -105,14 +112,14 @@ internal fun ProfileInfoBlock(
                     .weight(1F)
                     .placeholder(
                         progress,
-                        highlight = PlaceholderHighlight.fade(),
+                        highlight = PlaceholderHighlightMultiplatform.fade(),
                         shape = RoundedCornerShape(Dimen.Dimen16)
                     ),
                 value = stringResource(
-                    PresentationR.string.private_area_profile_screen_profile_height_value,
-                    screenData.height ?: 0
+                    MR.strings.private_area_profile_screen_profile_height_value,
+                    screenData.height.orZero
                 ),
-                description = stringResource(id = PresentationR.string.private_area_profile_screen_profile_height_label)
+                description = stringResource(MR.strings.private_area_profile_screen_profile_height_label)
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
@@ -120,14 +127,14 @@ internal fun ProfileInfoBlock(
                     .weight(1F)
                     .placeholder(
                         progress,
-                        highlight = PlaceholderHighlight.fade(),
+                        highlight = PlaceholderHighlightMultiplatform.fade(),
                         shape = RoundedCornerShape(Dimen.Dimen16)
                     ),
                 value = stringResource(
-                    id = PresentationR.string.private_area_profile_screen_profile_weight_value,
-                    screenData.weight ?: 0
+                    MR.strings.private_area_profile_screen_profile_weight_value,
+                    screenData.weight.orZero
                 ),
-                description = stringResource(id = PresentationR.string.private_area_profile_screen_profile_weight_label)
+                description = stringResource(MR.strings.private_area_profile_screen_profile_weight_label)
             )
             Box(modifier = Modifier.width(Dimen.Dimen15))
             ProfileUserInfoCard(
@@ -135,14 +142,14 @@ internal fun ProfileInfoBlock(
                     .weight(1F)
                     .placeholder(
                         progress,
-                        highlight = PlaceholderHighlight.fade(),
+                        highlight = PlaceholderHighlightMultiplatform.fade(),
                         shape = RoundedCornerShape(Dimen.Dimen16)
                     ),
                 value = stringResource(
-                    id = PresentationR.string.private_area_profile_screen_profile_age_value,
-                    screenData.age ?: 0
+                    MR.strings.private_area_profile_screen_profile_age_value,
+                    screenData.age.orZero
                 ),
-                description = stringResource(id = PresentationR.string.private_area_profile_screen_profile_age_label)
+                description = stringResource(MR.strings.private_area_profile_screen_profile_age_label)
             )
         }
     }

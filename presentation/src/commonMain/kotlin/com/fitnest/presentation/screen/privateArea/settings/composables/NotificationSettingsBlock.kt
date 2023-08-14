@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.settings.composables
+package com.fitnest.presentation.screen.privateArea.settings.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -9,20 +9,12 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.screen.privateArea.settings.data.SettingsScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.fitnest.presentation.R as PresentationR
-
-@Preview
-@Composable
-private fun NotificationSettingsBlockPreview() {
-    NotificationSettingsBlock(modifier = Modifier, screenData = SettingsScreenData()) {}
-}
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun NotificationSettingsBlock(
@@ -37,15 +29,15 @@ internal fun NotificationSettingsBlock(
     ) {
         Column(modifier = Modifier.padding(Padding.Padding20)) {
             Text(
-                text = stringResource(id = PresentationR.string.private_area_profile_screen_notification_title),
+                text = stringResource(MR.strings.private_area_profile_screen_notification_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_notification,
-                title = PresentationR.string.private_area_profile_screen_notification_item,
+                icon = "ic_private_area_profile_notification.xml",
+                title = MR.strings.private_area_profile_screen_notification_item,
                 modifier = Modifier.padding(top = Padding.Padding15),
                 trailing = {
                     Switch(

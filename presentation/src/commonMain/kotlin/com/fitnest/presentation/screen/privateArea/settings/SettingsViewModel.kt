@@ -1,14 +1,14 @@
-package com.fitnest.android.screen.private_area.settings
+package com.fitnest.presentation.screen.privateArea.settings
 
-import com.fitnest.android.screen.private_area.settings.data.SettingsScreenData
 import com.fitnest.domain.usecase.privateArea.GetProfilePageUseCase
 import com.fitnest.domain.usecase.privateArea.SetNotificationsEnabledUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.screen.privateArea.settings.data.SettingsScreenData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-internal class SettingsViewModel(
+class SettingsViewModel(
     private val getProfilePageUseCase: GetProfilePageUseCase,
     private val setNotificationsEnabledUseCase: SetNotificationsEnabledUseCase,
     private val viewMapper: SettingsViewMapper

@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.settings.composables
+package com.fitnest.presentation.screen.privateArea.settings.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -9,22 +9,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import com.fitnest.android.R
+import com.fitnest.presentation.MR
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.fitnest.presentation.R as PresentationR
-
-@Preview
-@Composable
-private fun AccountSettingsBlockPreview() {
-    AccountSettingsBlock(modifier = Modifier, onActivityHistoryClicked = {})
-}
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun AccountSettingsBlock(
+fun AccountSettingsBlock(
     modifier: Modifier,
     onActivityHistoryClicked: () -> Unit
 ) {
@@ -35,32 +27,32 @@ internal fun AccountSettingsBlock(
     ) {
         Column(modifier = Modifier.padding(Padding.Padding20)) {
             Text(
-                text = stringResource(id = PresentationR.string.private_area_profile_screen_account_title),
+                text = stringResource(MR.strings.private_area_profile_screen_account_title),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_profile,
-                title = PresentationR.string.private_area_profile_screen_account_personal_data_item,
+                icon = "ic_private_area_profile_profile.xml",
+                title = MR.strings.private_area_profile_screen_account_personal_data_item,
                 modifier = Modifier.padding(top = Padding.Padding15)
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_document,
-                title = PresentationR.string.private_area_profile_screen_account_achievement_item,
+                icon = "ic_private_area_profile_document.xml",
+                title = MR.strings.private_area_profile_screen_account_achievement_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_activity,
-                title = PresentationR.string.private_area_profile_screen_account_activity_history_item,
+                icon = "ic_private_area_profile_activity.xml",
+                title = MR.strings.private_area_profile_screen_account_activity_history_item,
                 modifier = Modifier
                     .padding(top = Padding.Padding10)
                     .clickable { onActivityHistoryClicked() }
             )
             SettingsItem(
-                icon = R.drawable.ic_private_area_profile_chart,
-                title = PresentationR.string.private_area_profile_screen_account_workout_progress_item,
+                icon = "ic_private_area_profile_chart.xml",
+                title = MR.strings.private_area_profile_screen_account_workout_progress_item,
                 modifier = Modifier.padding(top = Padding.Padding10)
             )
         }

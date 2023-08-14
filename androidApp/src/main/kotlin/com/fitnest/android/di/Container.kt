@@ -15,8 +15,8 @@ import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerV
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
 import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewMapper
 import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewModel
-import com.fitnest.android.screen.private_area.settings.SettingsViewMapper
-import com.fitnest.android.screen.private_area.settings.SettingsViewModel
+import com.fitnest.presentation.screen.privateArea.settings.SettingsViewMapper
+import com.fitnest.presentation.screen.privateArea.settings.SettingsViewModel
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
@@ -315,7 +315,7 @@ object PrivateAreaModule {
     val settingsPrivateAreaModule by lazy {
         DI.Module("settings private area module") {
             bindProvider { SettingsViewModel(instance(), instance(), instance()) }
-            bindProvider { SettingsViewMapper(instance()) }
+            bindProvider { SettingsViewMapper() }
             bindProvider {
                 GetProfilePageUseCase(
                     instance(),

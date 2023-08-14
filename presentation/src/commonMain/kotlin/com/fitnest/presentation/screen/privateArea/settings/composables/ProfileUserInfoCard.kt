@@ -1,4 +1,4 @@
-package com.fitnest.android.screen.private_area.settings.composables
+package com.fitnest.presentation.screen.privateArea.settings.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,15 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-
-@Preview
-@Composable
-private fun ProfileUserInfoCardPreview() {
-    ProfileUserInfoCard(Modifier, "180cm", "Height")
-}
 
 @Composable
 internal fun ProfileUserInfoCard(

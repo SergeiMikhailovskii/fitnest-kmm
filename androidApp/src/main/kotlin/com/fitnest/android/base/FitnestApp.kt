@@ -197,7 +197,7 @@ fun FitnestApp(
                         HomeScreen(navController::navigate)
                     }
                     composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Settings.pattern) {
-                        SettingsScreen(navController = navController)
+                        SettingsScreen(navController::navigate)
                     }
                     composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Photo.pattern) {
                         PhotoScreen()
