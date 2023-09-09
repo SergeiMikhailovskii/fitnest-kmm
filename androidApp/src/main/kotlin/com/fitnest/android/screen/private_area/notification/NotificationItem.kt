@@ -36,25 +36,11 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.fitnest.android.R
-import com.fitnest.android.extension.pxToDp
 import com.fitnest.android.extension.vibrate
+import com.fitnest.presentation.extension.pxToDp
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import kotlin.math.absoluteValue
-
-@Preview
-@Composable
-private fun NotificationItemPreview() {
-    NotificationItem(
-        title = "Hey, it’s time for lunch",
-        description = "About 1 minutes ago",
-        icon = R.drawable.ic_private_area_notification_meal,
-        isActive = true,
-        isPinned = true
-    )
-}
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -92,7 +78,8 @@ internal fun NotificationItem(
                     DismissValue.Default -> Color.Transparent
                     DismissValue.DismissedToEnd -> MaterialTheme.colorScheme.primary
                     DismissValue.DismissedToStart -> MaterialTheme.colorScheme.error
-                }
+                },
+                label = ""
             )
             val alignment = when (direction) {
                 DismissDirection.StartToEnd -> Alignment.CenterStart
@@ -103,7 +90,8 @@ internal fun NotificationItem(
                 DismissDirection.EndToStart -> Icons.Default.Delete
             }
             val scale by animateFloatAsState(
-                if (dismissState.targetValue == DismissValue.Default) 0.75f else 1f
+                if (dismissState.targetValue == DismissValue.Default) 0.75f else 1f,
+                label = ""
             )
 
             if (dismissState.offset.value.absoluteValue.toInt().pxToDp() > Padding.Padding16) {

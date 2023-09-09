@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="day_names_short_0">Mon</string>
+    <string name="day_names_short_1">Tue</string>
+    <string name="day_names_short_2">Wed</string>
+    <string name="day_names_short_3">Thu</string>
+    <string name="day_names_short_4">Fri</string>
+    <string name="day_names_short_5">Sat</string>
+    <string name="day_names_short_6">Sun</string>
+</resources>

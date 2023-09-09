@@ -37,14 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.fitnest.android.R
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.enum.fromLocalizedName
 import com.fitnest.android.extension.enum.localizedNames
+import com.fitnest.domain.enum.ActivityType
+import com.fitnest.presentation.R
+import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
-import com.fitnest.domain.enum.ActivityType
-import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance
 import org.kodein.di.compose.subDI
@@ -106,7 +106,8 @@ internal fun ActivityInputBottomSheet(
                     if (screenData.activityType == ActivityType.fromLocalizedName(it, context))
                         MaterialTheme.colorScheme.primary
                     else Color.Transparent,
-                    animationSpec = tween(AnimationConstants.DefaultDurationMillis)
+                    animationSpec = tween(AnimationConstants.DefaultDurationMillis),
+                    label = ""
                 )
                 Text(
                     it,

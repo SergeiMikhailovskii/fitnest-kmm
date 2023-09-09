@@ -17,6 +17,8 @@ import com.fitnest.android.screen.private_area.activity_tracker.composable.Activ
 import com.fitnest.android.screen.private_area.activity_tracker.composable.LatestActivityBlock
 import com.fitnest.android.screen.private_area.activity_tracker.composable.TodayTargetBlock
 import com.fitnest.presentation.internal.ErrorHandlerDelegate
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewMapper
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewModel
 import com.fitnest.presentation.style.Padding
 import kotlinx.coroutines.launch
 import org.kodein.di.compose.rememberInstance

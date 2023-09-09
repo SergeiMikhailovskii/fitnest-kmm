@@ -1,14 +1,16 @@
 package com.fitnest.android.screen.privateArea.activityTracker
 
-import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
-import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewMapper
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewModel
+import com.fitnest.presentation.screen.privateArea.activityTracker.data.ActivityTrackerScreenData
 import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.privateArea.DeleteActivityUseCase
 import com.fitnest.domain.usecase.privateArea.GetActivityTrackerPageUseCase
+import dev.icerock.moko.resources.desc.Raw
+import dev.icerock.moko.resources.desc.StringDesc
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -126,10 +128,10 @@ class ActivityTrackerViewModelTest {
 
         val mockActivity = ActivityTrackerScreenData.Activity(
             0,
-            "",
+            StringDesc.Raw(""),
             "",
             ActivityType.STEPS,
-            0
+            ""
         )
         val mockRequest = DeleteActivityRequest(0, ActivityType.STEPS)
         val mockResponse = ActivityTrackerPageResponse.ActivityTrackerWidgets()
@@ -163,10 +165,10 @@ class ActivityTrackerViewModelTest {
 
         val mockActivity = ActivityTrackerScreenData.Activity(
             0,
-            "",
+            StringDesc.Raw(""),
             "",
             ActivityType.STEPS,
-            0
+            ""
         )
         val mockRequest = DeleteActivityRequest(0, ActivityType.STEPS)
 

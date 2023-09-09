@@ -33,9 +33,9 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 @OptIn(ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
+                api(compose.components.resources)
                 implementation(libs.kodeinCompose)
-                api("dev.icerock.moko:resources-compose:0.23.0")
+                api(libs.resources.compose)
                 api(projects.data)
             }
         }
@@ -46,7 +46,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+                implementation(libs.lifecycle.viewmodel.ktx)
+                implementation(libs.accompanistPlaceholder)
             }
         }
     }

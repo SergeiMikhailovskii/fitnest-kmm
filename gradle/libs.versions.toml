@@ -1,6 +1,8 @@
 [versions]
 compileSdk = "33"
+lifecycleViewmodelKtx = "2.6.2"
 minSdk = "21"
+resourcesCompose = "0.23.0"
 targetSdk = "33"
 versionCode = "1"
 versionName = "1.0"
@@ -52,11 +54,13 @@ dataStoreCore = "1.1.0-alpha04"
 dataStoreAndroid = "1.1.0-alpha04"
 
 [libraries]
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
 analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 playServicesAuth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "resourcesCompose" }
 work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 facebook = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebook" }
 

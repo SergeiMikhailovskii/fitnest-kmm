@@ -28,9 +28,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.vibrate
-import com.fitnest.presentation.style.Padding
 import com.fitnest.domain.extension.move
 import com.fitnest.presentation.internal.ErrorHandlerDelegate
+import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewModel
+import com.fitnest.presentation.style.Padding
+import dev.icerock.moko.resources.compose.localized
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -136,8 +138,8 @@ internal fun NotificationsScreen() = subDI(diBuilder = {
                             translationY = offset ?: 0f
                         },
                     title = it.title,
-                    description = it.description,
-                    icon = it.icon,
+                    description = it.description.localized(),
+                    icon = it.icon.drawableResId,
                     isActive = it.isActive,
                     isPinned = it.isPinned,
                     onPin = {
