@@ -44,14 +44,14 @@ jobs:
 #          target: playstore
 
       - name: Upload Reports
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: Test-Reports
           path: androidApp/build/reports
         if: always()
 
       - name: Upload artifact to build info
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: androidApp-debug.apk
           path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
