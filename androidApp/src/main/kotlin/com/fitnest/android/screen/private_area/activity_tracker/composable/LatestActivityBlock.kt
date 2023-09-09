@@ -24,66 +24,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import com.fitnest.android.R
-import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
-import com.fitnest.domain.enum.ActivityType
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewModel
+import com.fitnest.presentation.screen.privateArea.activityTracker.data.ActivityTrackerScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
+import dev.icerock.moko.resources.compose.localized
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import com.fitnest.presentation.R as PresentationR
-
-@Preview
-@Composable
-internal fun LatestActivityBlockPreview() {
-    LatestActivityBlock(
-        modifier = Modifier,
-        viewModel = Any() as ActivityTrackerViewModel,
-        activities = persistentListOf(
-            ActivityTrackerScreenData.Activity(
-                1,
-                "Drinking 300ml Water",
-                "About 3 minutes ago",
-                ActivityType.WATER,
-                R.drawable.ic_private_area_activity_water
-            ),
-            ActivityTrackerScreenData.Activity(
-                2,
-                "Drinking 300ml Water",
-                "About 3 minutes ago",
-                ActivityType.WATER,
-                R.drawable.ic_private_area_activity_water
-            ),
-            ActivityTrackerScreenData.Activity(
-                3,
-                "Drinking 300ml Water",
-                "About 3 minutes ago",
-                ActivityType.WATER,
-                R.drawable.ic_private_area_activity_water
-            ),
-        )
-    )
-}
-
-@Preview
-@Composable
-internal fun LatestActivityItemPreview() {
-    LatestActivityItem(
-        ActivityTrackerScreenData.Activity(
-            1,
-            "Drinking 300ml Water",
-            "About 3 minutes ago",
-            ActivityType.WATER,
-            R.drawable.ic_private_area_activity_water
-        ),
-        Any() as ActivityTrackerViewModel
-    )
-}
 
 @Composable
 internal fun LatestActivityBlock(
@@ -102,6 +52,7 @@ internal fun LatestActivityBlock(
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun LatestActivityItem(
     activity: ActivityTrackerScreenData.Activity,
@@ -125,12 +76,12 @@ private fun LatestActivityItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = activity.icon),
+                painter = org.jetbrains.compose.resources.painterResource(activity.icon),
                 contentDescription = null
             )
             Column(modifier = Modifier.padding(start = Padding.Padding8)) {
                 Text(
-                    activity.title,
+                    activity.title.localized(),
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium)
                 )
                 Text(

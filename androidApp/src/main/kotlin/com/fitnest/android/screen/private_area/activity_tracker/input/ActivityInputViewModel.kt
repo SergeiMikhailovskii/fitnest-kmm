@@ -1,9 +1,10 @@
 package com.fitnest.android.screen.private_area.activity_tracker.input
 
-import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewMapper
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.usecase.privateArea.AddActivityUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.screen.privateArea.activityTracker.input.ActivityInputScreenData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

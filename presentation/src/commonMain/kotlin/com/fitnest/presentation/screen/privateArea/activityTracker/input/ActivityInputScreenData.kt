@@ -1,8 +1,8 @@
-package com.fitnest.android.screen.private_area.activity_tracker.input
+package com.fitnest.presentation.screen.privateArea.activityTracker.input
 
 import com.fitnest.domain.enum.ActivityType
 
-internal data class ActivityInputScreenData(
+data class ActivityInputScreenData(
     val activityType: ActivityType = ActivityType.WATER,
     val value: Int = 0
 )

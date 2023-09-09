@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import com.fitnest.android.R
 import com.fitnest.android.extension.brandGradient
 import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
@@ -36,18 +35,8 @@ import com.fitnest.presentation.style.Padding
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
+import dev.icerock.moko.resources.compose.localized
 import com.fitnest.presentation.R as PresentationR
-
-@Preview
-@Composable
-internal fun TodayTargetBlockPreview() {
-    TodayTargetBlock(
-        modifier = Modifier,
-        data = HomeScreenData.TodayTargetWidget(waterIntake = "8L", steps = "2400"),
-        onAddActivityClicked = {},
-        progress = false
-    )
-}
 
 @Composable
 internal fun TodayTargetBlock(
@@ -103,7 +92,7 @@ internal fun TodayTargetBlock(
                     .padding(top = Padding.Padding15)
                     .weight(1F),
                 icon = R.drawable.ic_activity_tracker_water,
-                amountText = data.waterIntake,
+                amountText = data.waterIntake.localized(),
                 indexTitle = PresentationR.string.private_area_activity_tracker_screen_water_index
             )
             TargetViewBlock(
@@ -119,17 +108,6 @@ internal fun TodayTargetBlock(
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun TargetViewBlockPreview() {
-    TargetViewBlock(
-        modifier = Modifier,
-        icon = R.drawable.ic_activity_tracker_water,
-        amountText = "8L",
-        indexTitle = PresentationR.string.private_area_activity_tracker_screen_water_index
-    )
 }
 
 @Composable

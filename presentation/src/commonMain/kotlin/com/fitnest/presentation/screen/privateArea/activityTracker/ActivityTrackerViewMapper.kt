@@ -1,25 +1,25 @@
-package com.fitnest.android.screen.private_area.activity_tracker
+package com.fitnest.presentation.screen.privateArea.activityTracker
 
-import android.content.Context
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.toArgb
-import com.fitnest.android.R
-import com.fitnest.android.mapper.DateMapper
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
-import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
 import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.entity.request.DeleteActivityRequest
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.enum.ActivityType
+import com.fitnest.domain.extension.orZero
+import com.fitnest.presentation.MR
+import com.fitnest.presentation.mapper.DateMapper
+import com.fitnest.presentation.screen.privateArea.activityTracker.data.ActivityTrackerScreenData
+import com.fitnest.presentation.screen.privateArea.activityTracker.input.ActivityInputScreenData
 import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
+import dev.icerock.moko.resources.desc.ResourceFormatted
+import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.DayOfWeek
-import com.fitnest.presentation.R as PresentationR
 
-internal class ActivityTrackerViewMapper(
-    private val context: Context,
+class ActivityTrackerViewMapper(
     private val dateMapper: DateMapper
 ) {
 
@@ -27,8 +27,11 @@ internal class ActivityTrackerViewMapper(
     fun mapActivityProgressesColors(progresses: ImmutableList<ActivityTrackerScreenData.Progress>?) =
         progresses?.mapIndexed { index, it ->
             it.copy(
-                color = if (index % 2 == 0) MaterialTheme.colorScheme.primary.toArgb()
-                else MaterialTheme.colorScheme.tertiary.toArgb()
+                color = if (index % 2 == 0) {
+                    MaterialTheme.colorScheme.primary.toArgb()
+                } else {
+                    MaterialTheme.colorScheme.tertiary.toArgb()
+                }
             )
         }?.toImmutableList()
 
@@ -57,9 +60,9 @@ internal class ActivityTrackerViewMapper(
             widgets?.todayTargetWidget?.let {
                 screenData = screenData.copy(
                     todayTargetWidget = HomeScreenData.TodayTargetWidget(
-                        waterIntake = context.getString(
-                            PresentationR.string.private_area_activity_tracker_screen_today_target_litres,
-                            ((it.waterIntake ?: 0).toDouble() / 1000)
+                        waterIntake = StringDesc.ResourceFormatted(
+                            MR.strings.private_area_activity_tracker_screen_today_target_litres,
+                            (it.waterIntake ?: 0).toDouble() / 1000
                         ),
                         steps = it.steps?.toString().orEmpty()
                     )
@@ -80,7 +83,7 @@ internal class ActivityTrackerViewMapper(
             ActivityTrackerScreenData.Activity(
                 id = it.id ?: 0,
                 type = it.type ?: ActivityType.WATER,
-                title = mapActivityTypeToTitle(it.type ?: ActivityType.WATER, it.amount ?: 0),
+                title = mapActivityTypeToTitle(it.type ?: ActivityType.WATER, it.amount.orZero),
                 description = dateMapper.mapLocalDateTimeToString(it.time, "dd MMMM, hh:mm"),
                 icon = mapActivityTypeToIcon(it.type)
             )
@@ -89,24 +92,39 @@ internal class ActivityTrackerViewMapper(
     private fun mapProgressesResponseModelToUIModel(progresses: List<ActivityTrackerPageResponse.Progress>?) =
         progresses?.map {
             ActivityTrackerScreenData.Progress(
-                day = it.date?.dayOfWeek?.let(::mapDayOfWeekToShortName).orEmpty(),
-                progress = (it.total?.toFloat() ?: 0F) / 10_000,
+                day = requireNotNull(it.date?.dayOfWeek?.let(::mapDayOfWeekToShortName)),
+                progress = (it.total?.toFloat() ?: 0F) / 10_000
             )
         }
 
     private fun mapDayOfWeekToShortName(dayOfWeek: DayOfWeek) =
-        context.resources.getStringArray(R.array.day_names_short)[dayOfWeek.ordinal]
+        listOf(
+            MR.strings.day_names_short_0,
+            MR.strings.day_names_short_1,
+            MR.strings.day_names_short_2,
+            MR.strings.day_names_short_3,
+            MR.strings.day_names_short_4,
+            MR.strings.day_names_short_5,
+            MR.strings.day_names_short_6
+        )[dayOfWeek.ordinal]
 
     private fun mapActivityTypeToTitle(type: ActivityType, amount: Int) =
-        if (type == ActivityType.WATER) context.getString(
-            PresentationR.string.private_area_activity_tracker_screen_latest_activity_water_title,
-            amount
-        ) else context.getString(
-            PresentationR.string.private_area_activity_tracker_screen_latest_activity_steps_title,
-            amount
-        )
+        if (type == ActivityType.WATER) {
+            StringDesc.ResourceFormatted(
+                MR.strings.private_area_activity_tracker_screen_latest_activity_water_title,
+                amount
+            )
+        } else {
+            StringDesc.ResourceFormatted(
+                MR.strings.private_area_activity_tracker_screen_latest_activity_steps_title,
+                amount
+            )
+        }
 
     private fun mapActivityTypeToIcon(type: ActivityType?) =
-        if (type == ActivityType.WATER) R.drawable.ic_private_area_activity_water
-        else R.drawable.ic_private_area_notification_workout
+        if (type == ActivityType.WATER) {
+            "ic_private_area_activity_water.xml"
+        } else {
+            "ic_private_area_notification_workout.xml"
+        }
 }

@@ -1,15 +1,15 @@
-package com.fitnest.android.screen.private_area.activity_tracker
+package com.fitnest.presentation.screen.privateArea.activityTracker
 
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.domain.entity.response.ActivityTrackerPageResponse
 import com.fitnest.domain.usecase.privateArea.DeleteActivityUseCase
 import com.fitnest.domain.usecase.privateArea.GetActivityTrackerPageUseCase
 import com.fitnest.presentation.base.BaseViewModel
+import com.fitnest.presentation.screen.privateArea.activityTracker.data.ActivityTrackerScreenData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-internal class ActivityTrackerViewModel(
+class ActivityTrackerViewModel(
     private val getActivityTrackerPageUseCase: GetActivityTrackerPageUseCase,
     private val deleteActivityUseCase: DeleteActivityUseCase,
     private val viewMapper: ActivityTrackerViewMapper

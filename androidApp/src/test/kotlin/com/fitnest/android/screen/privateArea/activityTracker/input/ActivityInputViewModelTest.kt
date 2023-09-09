@@ -1,7 +1,7 @@
 package com.fitnest.android.screen.privateArea.activityTracker.input
 
-import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
-import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewMapper
+import com.fitnest.presentation.screen.privateArea.activityTracker.input.ActivityInputScreenData
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
 import com.fitnest.domain.entity.request.AddActivityRequest
 import com.fitnest.domain.enum.ActivityType

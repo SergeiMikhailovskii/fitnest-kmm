@@ -33,7 +33,7 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 @OptIn(ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
+                api(compose.components.resources)
                 implementation(libs.kodeinCompose)
                 api(libs.resources.compose)
                 api(projects.data)

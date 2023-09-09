@@ -14,16 +14,15 @@ import androidx.compose.ui.test.performClick
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
-import com.fitnest.android.R
 import com.fitnest.android.base.FitnestApp
 import com.fitnest.android.di.PrivateAreaModule
 import com.fitnest.android.extension.enum.localizedName
-import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputScreenData
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
 import com.fitnest.android.scrollDown
 import com.fitnest.android.scrollUp
 import com.fitnest.domain.enum.ActivityType
 import com.fitnest.domain.functional.Failure
+import com.fitnest.presentation.screen.privateArea.activityTracker.input.ActivityInputScreenData
 import com.google.accompanist.navigation.animation.AnimatedComposeNavigator
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -130,7 +129,7 @@ class ActivityInputBottomSheetTest {
         }
         composeTestRule
             .onNodeWithText(
-                context.getString(R.string.private_area_activity_tracker_screen_latest_activity_save),
+                context.getString(com.fitnest.presentation.R.string.private_area_activity_tracker_screen_latest_activity_save),
                 ignoreCase = true
             )
             .performClick()
@@ -157,7 +156,7 @@ class ActivityInputBottomSheetTest {
         }
         composeTestRule
             .onNodeWithText(
-                context.getString(R.string.private_area_activity_tracker_screen_latest_activity_save),
+                context.getString(com.fitnest.presentation.R.string.private_area_activity_tracker_screen_latest_activity_save),
                 ignoreCase = true
             )
             .performClick()

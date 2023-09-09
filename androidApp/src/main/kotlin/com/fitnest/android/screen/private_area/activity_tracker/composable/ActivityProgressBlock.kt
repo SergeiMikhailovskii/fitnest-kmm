@@ -21,61 +21,14 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import com.fitnest.android.screen.private_area.activity_tracker.data.ActivityTrackerScreenData
 import com.fitnest.presentation.R
+import com.fitnest.presentation.screen.privateArea.activityTracker.data.ActivityTrackerScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-
-@Preview
-@Composable
-internal fun ActivityProgressBlockPreview() {
-    ActivityProgressBlock(
-        modifier = Modifier, sections = persistentListOf(
-            ActivityTrackerScreenData.Progress(
-                day = "Mon",
-                progress = 0.1F,
-                color = MaterialTheme.colorScheme.primary.toArgb()
-            ),
-            ActivityTrackerScreenData.Progress(
-                day = "Tue",
-                progress = 0.2F,
-                color = MaterialTheme.colorScheme.tertiary.toArgb()
-            ),
-            ActivityTrackerScreenData.Progress(
-                day = "Wed",
-                progress = 0.3F,
-                color = MaterialTheme.colorScheme.primary.toArgb()
-            ),
-            ActivityTrackerScreenData.Progress(
-                day = "Thu",
-                progress = 0.4F,
-                color = MaterialTheme.colorScheme.tertiary.toArgb()
-            ),
-            ActivityTrackerScreenData.Progress(
-                day = "Fri",
-                progress = 0.5F,
-                color = MaterialTheme.colorScheme.primary.toArgb()
-            ),
-            ActivityTrackerScreenData.Progress(
-                day = "Sat",
-                progress = 0.6F,
-                color = MaterialTheme.colorScheme.tertiary.toArgb()
-            ),
-            ActivityTrackerScreenData.Progress(
-                day = "Sun",
-                progress = 0.7F,
-                color = MaterialTheme.colorScheme.primary.toArgb()
-            )
-        ),
-        progress = false
-    )
-}
 
 @Composable
 internal fun ActivityProgressBlock(
@@ -156,7 +109,7 @@ internal fun ActivityProgressBlock(
                             })
                         }
                         Text(
-                            text = it.day,
+                            text = dev.icerock.moko.resources.compose.stringResource(it.day),
                             modifier = Modifier.padding(top = Padding.Padding7),
                             style = MaterialTheme.typography.bodySmall.copy(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant

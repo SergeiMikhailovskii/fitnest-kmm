@@ -6,17 +6,10 @@ import com.fitnest.android.internal.ErrorHandlerDelegate
 import com.fitnest.android.internal.FacebookService
 import com.fitnest.android.internal.GoogleSignInService
 import com.fitnest.android.internal.SnackbarDelegate
-import com.fitnest.android.mapper.DateMapper
 import com.fitnest.android.screen.login.LoginViewMapper
 import com.fitnest.android.screen.login.LoginViewModel
 import com.fitnest.android.screen.onboarding.OnboardingViewModelFactory
-import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewMapper
-import com.fitnest.android.screen.private_area.activity_tracker.ActivityTrackerViewModel
 import com.fitnest.android.screen.private_area.activity_tracker.input.ActivityInputViewModel
-import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewMapper
-import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewModel
-import com.fitnest.presentation.screen.privateArea.settings.SettingsViewMapper
-import com.fitnest.presentation.screen.privateArea.settings.SettingsViewModel
 import com.fitnest.domain.entity.RegistrationScreenState
 import com.fitnest.domain.mapper.db.ActivityTrackerCacheToResponseMapper
 import com.fitnest.domain.mapper.db.ActivityTrackerResponseToCacheMapper
@@ -48,9 +41,16 @@ import com.fitnest.domain.usecase.splash.GenerateTokenUseCase
 import com.fitnest.domain.usecase.validation.CompleteAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.CreateAccountRegistrationValidationUseCase
 import com.fitnest.domain.usecase.validation.LoginPageValidationUseCase
+import com.fitnest.presentation.mapper.DateMapper
 import com.fitnest.presentation.screen.onboarding.OnboardingViewModel
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewMapper
+import com.fitnest.presentation.screen.privateArea.activityTracker.ActivityTrackerViewModel
 import com.fitnest.presentation.screen.privateArea.home.HomeViewMapper
 import com.fitnest.presentation.screen.privateArea.home.HomeViewModel
+import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewMapper
+import com.fitnest.presentation.screen.privateArea.notification.NotificationsViewModel
+import com.fitnest.presentation.screen.privateArea.settings.SettingsViewMapper
+import com.fitnest.presentation.screen.privateArea.settings.SettingsViewModel
 import com.fitnest.presentation.screen.proxy.ProxyViewModel
 import com.fitnest.presentation.screen.registration.completeAccount.anthropometry.AnthropometryEventsBus
 import com.fitnest.presentation.screen.registration.completeAccount.anthropometry.AnthropometryEventsBusImpl
@@ -239,7 +239,7 @@ object PrivateAreaModule {
 
     val activityInputPrivateAreaModule by lazy {
         DI.Module("activity input private area module") {
-            bindProvider { ActivityTrackerViewMapper(instance(), instance()) }
+            bindProvider { ActivityTrackerViewMapper(instance()) }
             bindProvider { ActivityInputViewModel(instance(), instance()) }
             bindProvider {
                 AddActivityUseCase(
@@ -267,7 +267,7 @@ object PrivateAreaModule {
                     instance()
                 )
             }
-            bindProvider { ActivityTrackerViewMapper(instance(), instance()) }
+            bindProvider { ActivityTrackerViewMapper(instance()) }
             bindProvider {
                 GetActivityTrackerPageUseCase(
                     instance(),

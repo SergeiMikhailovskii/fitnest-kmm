@@ -1,6 +1,8 @@
 package com.fitnest.presentation.screen.privateArea.home.data
 
 import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.desc.Raw
+import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.LocalDateTime
 
@@ -22,7 +24,7 @@ data class HomeScreenData(
     )
 
     data class TodayTargetWidget(
-        val waterIntake: String = "",
+        val waterIntake: StringDesc = StringDesc.Raw(""),
         val steps: String = ""
     )
 
