@@ -1,4 +1,4 @@
-package com.fitnest.presentation.extension
+package com.fitnest.accompanistmultiplatform
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.FiniteAnimationSpec

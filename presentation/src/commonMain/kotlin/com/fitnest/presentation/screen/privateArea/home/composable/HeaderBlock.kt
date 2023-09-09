@@ -17,10 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import com.fitnest.accompanistmultiplatform.PlaceholderHighlightMultiplatform
+import com.fitnest.accompanistmultiplatform.fade
+import com.fitnest.accompanistmultiplatform.placeholder
 import com.fitnest.presentation.MR
-import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
-import com.fitnest.presentation.extension.fade
-import com.fitnest.presentation.extension.placeholder
 import com.fitnest.presentation.screen.privateArea.home.HomeViewModel
 import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
 import com.fitnest.presentation.style.Dimen

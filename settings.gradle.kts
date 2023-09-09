@@ -13,9 +13,6 @@ pluginManagement {
 }
 
 rootProject.name = "fitnest"
-include(":androidApp")
-include(":data")
-include(":domain")
-include(":presentation")
+include(":androidApp", ":data", ":domain", ":presentation", ":accompanistMultiplatform")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

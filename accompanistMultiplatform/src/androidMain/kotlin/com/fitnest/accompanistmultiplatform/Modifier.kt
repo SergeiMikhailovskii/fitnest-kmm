@@ -1,6 +1,4 @@
-@file:JvmName("ModifierJvm")
-
-package com.fitnest.presentation.extension
+package com.fitnest.accompanistmultiplatform
 
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.InfiniteRepeatableSpec

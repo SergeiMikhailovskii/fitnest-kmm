@@ -27,10 +27,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import com.fitnest.accompanistmultiplatform.PlaceholderHighlightMultiplatform
+import com.fitnest.accompanistmultiplatform.fade
+import com.fitnest.accompanistmultiplatform.placeholder
 import com.fitnest.presentation.MR
-import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
-import com.fitnest.presentation.extension.fade
-import com.fitnest.presentation.extension.placeholder
 import com.fitnest.presentation.extension.pxToDp
 import com.fitnest.presentation.extension.tertiaryGradient
 import com.fitnest.presentation.screen.privateArea.home.data.HomeScreenData
