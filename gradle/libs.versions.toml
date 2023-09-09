@@ -48,7 +48,7 @@ dateTime = "0.4.1"
 immutableCollections = "0.3.5"
 napier = "2.6.1"
 
-ktor = "2.3.3"
+ktor = "2.3.4"
 sqldelight = "1.5.5"
 dataStoreCore = "1.1.0-alpha04"
 dataStoreAndroid = "1.1.0-alpha04"
