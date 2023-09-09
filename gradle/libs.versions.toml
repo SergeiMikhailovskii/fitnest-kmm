@@ -1,6 +1,6 @@
 [versions]
 compileSdk = "33"
-lifecycleViewmodelKtx = "2.6.1"
+lifecycleViewmodelKtx = "2.6.2"
 minSdk = "21"
 resourcesCompose = "0.23.0"
 targetSdk = "33"
