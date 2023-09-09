@@ -17,7 +17,7 @@ kotlin {
     iosX64()
 
     cocoapods {
-        summary = "Some description for the Presentatuin Module"
+        summary = "Some description for the Presentation Module"
         homepage = "Link to the Presentation Module homepage"
         ios.deploymentTarget = libs.versions.deploymentTarget.get()
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
@@ -37,6 +37,7 @@ kotlin {
                 implementation(libs.kodeinCompose)
                 api(libs.resources.compose)
                 api(projects.data)
+                api(projects.accompanistMultiplatform)
             }
         }
         val commonTest by getting {
@@ -47,7 +48,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.lifecycle.viewmodel.ktx)
-                implementation(libs.accompanistPlaceholder)
             }
         }
     }

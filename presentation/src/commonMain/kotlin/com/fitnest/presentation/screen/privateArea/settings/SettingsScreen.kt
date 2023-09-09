@@ -12,9 +12,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
-import com.fitnest.presentation.extension.fade
-import com.fitnest.presentation.extension.placeholder
+import com.fitnest.accompanistmultiplatform.PlaceholderHighlightMultiplatform
+import com.fitnest.accompanistmultiplatform.fade
+import com.fitnest.accompanistmultiplatform.placeholder
 import com.fitnest.presentation.internal.ErrorHandlerDelegate
 import com.fitnest.presentation.navigation.Route
 import com.fitnest.presentation.screen.privateArea.settings.composables.AccountSettingsBlock

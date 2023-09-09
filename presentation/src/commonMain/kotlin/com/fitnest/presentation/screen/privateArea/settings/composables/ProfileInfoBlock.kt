@@ -14,11 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.fitnest.accompanistmultiplatform.PlaceholderHighlightMultiplatform
+import com.fitnest.accompanistmultiplatform.fade
+import com.fitnest.accompanistmultiplatform.placeholder
 import com.fitnest.domain.extension.orZero
 import com.fitnest.presentation.MR
-import com.fitnest.presentation.extension.PlaceholderHighlightMultiplatform
-import com.fitnest.presentation.extension.fade
-import com.fitnest.presentation.extension.placeholder
 import com.fitnest.presentation.screen.privateArea.settings.data.SettingsScreenData
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
