@@ -37,7 +37,7 @@ mockk = "1.13.3"
 espresso = "3.5.1"
 kotlin = "1.9.10"
 
-uiTestManifest = "1.4.3"
+uiTestManifest = "1.5.1"
 
 firebaseBom = "32.3.1"
 composeBom = "2023.09.00"
@@ -52,7 +52,7 @@ napier = "2.6.1"
 ktor = "2.3.4"
 sqldelight = "1.5.5"
 dataStoreCore = "1.1.0-alpha05"
-dataStoreAndroid = "1.1.0-alpha04"
+dataStoreAndroid = "1.1.0-alpha05"
 
 [libraries]
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
