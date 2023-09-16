@@ -1,16 +1,16 @@
 PODS:
-  - data (1.0)
+  - presentation (1.0)
 
 DEPENDENCIES:
-  - data (from `../data`)
+  - presentation (from `../presentation`)
 
 EXTERNAL SOURCES:
-  data:
-    :path: "../data"
+  presentation:
+    :path: "../presentation"
 
 SPEC CHECKSUMS:
-  data: c44a18e4ee38ade323b22c48a2ce443b62c58257
+  presentation: 1cea62b06fb78ded65aac967bccd1b8393dd0c5b
 
-PODFILE CHECKSUM: 0ca3a71b475a211a32eea6c7b3970f5799a3a7ac
+PODFILE CHECKSUM: f92ba6c4e880e80a2986f18549a231521485c2d8
 
 COCOAPODS: 1.12.1

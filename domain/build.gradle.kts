@@ -11,10 +11,9 @@ plugins {
 version = libs.versions.domain.get()
 
 kotlin {
-    android()
+    androidTarget()
     ios()
-    iosArm64()
-    iosX64()
+    iosSimulatorArm64()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -40,6 +39,9 @@ kotlin {
         val androidMain by getting
         val iosMain by getting {
             dependsOn(commonMain)
+        }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
         }
         val iosTest by getting {
             dependsOn(commonTest)
