@@ -11,10 +11,9 @@ plugins {
 version = libs.versions.presentation.get()
 
 kotlin {
-    android()
+    androidTarget()
     ios()
-    iosArm64()
-    iosX64()
+    iosSimulatorArm64()
 
     cocoapods {
         summary = "Some description for the Presentation Module"
@@ -44,6 +43,12 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
             }
+        }
+        val iosMain by getting {
+            dependsOn(commonMain)
+        }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
         }
         val androidMain by getting {
             dependencies {

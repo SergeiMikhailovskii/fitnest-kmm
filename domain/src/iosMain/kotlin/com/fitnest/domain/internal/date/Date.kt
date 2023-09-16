@@ -64,6 +64,6 @@ actual fun Date.subtractMonth(value: Long): Date {
     val offsetComponents = NSDateComponents()
     offsetComponents.calendar = calendar
     offsetComponents.setMonth(-value)
-    val date = calendar.dateByAddingComponents(comps = offsetComponents, this, 0)
-    return date ?: throw RuntimeException("[PLZMX][Date] cannot subtract month")
+    val date = calendar.dateByAddingComponents(comps = offsetComponents, this, 0u)
+    return date ?: throw RuntimeException("[Date] cannot subtract month")
 }
