@@ -51,7 +51,7 @@ napier = "2.6.1"
 
 ktor = "2.3.4"
 sqldelight = "1.5.5"
-dataStoreCore = "1.1.0-alpha04"
+dataStoreCore = "1.1.0-alpha05"
 dataStoreAndroid = "1.1.0-alpha04"
 
 [libraries]
