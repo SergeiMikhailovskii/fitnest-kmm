@@ -48,6 +48,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.lifecycle.viewmodel.ktx)
+                dependsOn(commonMain)
             }
         }
     }

@@ -38,7 +38,11 @@ fun GoalRegistrationScreen(
     val viewMapper: GoalRegistrationViewMapper by rememberInstance()
     val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
 
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f,
+        pageCount = { 3 }
+    )
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collectLatest { page ->

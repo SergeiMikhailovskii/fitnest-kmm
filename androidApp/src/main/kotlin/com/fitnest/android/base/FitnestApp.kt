@@ -126,24 +126,6 @@ fun FitnestApp(
                     composable(
                         route = com.fitnest.presentation.navigation.Route.OnboardingStep().pattern,
                         arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
-                        enterTransition = {
-                            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
-                        },
-                        exitTransition = {
-                            slideOutHorizontally(
-                                targetOffsetX = { -it },
-                                animationSpec = tween(300)
-                            )
-                        },
-                        popEnterTransition = {
-                            slideInHorizontally(
-                                initialOffsetX = { -it },
-                                animationSpec = tween(300)
-                            )
-                        },
-                        popExitTransition = {
-                            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
-                        },
                     ) {
                         OnboardingScreen(
                             it.arguments?.getString("stepName").orEmpty(),
@@ -155,24 +137,6 @@ fun FitnestApp(
                         arguments = listOf(
                             navArgument("stepName") { type = NavType.StringType },
                         ),
-                        enterTransition = {
-                            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
-                        },
-                        exitTransition = {
-                            slideOutHorizontally(
-                                targetOffsetX = { -it },
-                                animationSpec = tween(300)
-                            )
-                        },
-                        popEnterTransition = {
-                            slideInHorizontally(
-                                initialOffsetX = { -it },
-                                animationSpec = tween(300)
-                            )
-                        },
-                        popExitTransition = {
-                            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
-                        },
                     ) {
                         when (it.arguments?.getString("stepName").orEmpty()) {
                             "STEP_CREATE_ACCOUNT" -> CreateAccountRegistrationScreen(navController::navigate)

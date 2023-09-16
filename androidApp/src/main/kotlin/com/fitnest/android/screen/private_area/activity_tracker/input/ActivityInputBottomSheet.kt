@@ -53,7 +53,7 @@ import org.kodein.di.compose.subDI
 @Preview
 @Composable
 internal fun ActivityInputBottomSheetPreview() {
-    ActivityInputBottomSheet(sheetState = ModalBottomSheetState(ModalBottomSheetValue.Expanded)) {}
+    ActivityInputBottomSheet(sheetState = ModalBottomSheetState(ModalBottomSheetValue.Expanded, isSkipHalfExpanded = true)) {}
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -72,7 +72,6 @@ internal fun ActivityInputBottomSheet(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = null) {
-        launch { sheetState.animateTo(ModalBottomSheetValue.Expanded) }
         launch {
             viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
         }

@@ -4,7 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
 //    id("org.kodein.mock.mockmp") version "1.14.0"
-    kotlin("plugin.serialization") version "1.8.20"
+    kotlin("plugin.serialization") version "1.9.10"
     id("com.android.library")
 }
 
