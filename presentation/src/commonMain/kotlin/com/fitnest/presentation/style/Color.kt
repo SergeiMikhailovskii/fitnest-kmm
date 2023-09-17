@@ -1,4 +1,4 @@
-package com.fitnest.android.style
+package com.fitnest.presentation.style
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color

@@ -1,9 +1,6 @@
 package com.fitnest.android.base
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
@@ -43,9 +40,10 @@ import com.fitnest.android.screen.registration.create_account.CreateAccountRegis
 import com.fitnest.android.screen.registration.goal.GoalRegistrationScreen
 import com.fitnest.android.screen.registration.welcome_back.WelcomeBackRegistrationScreen
 import com.fitnest.android.screen.splash.SplashScreen
-import com.fitnest.android.style.FitnestTheme
+import com.fitnest.presentation.style.FitnestTheme
 import com.fitnest.domain.enum.FlowType
 import com.fitnest.domain.extension.orZero
+import com.fitnest.presentation.navigation.Route
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -108,14 +106,14 @@ fun FitnestApp(
                     startDestination = startDestination,
                     modifier = Modifier.padding(it)
                 ) {
-                    composable(route = com.fitnest.presentation.navigation.Route.Splash.pattern) {
+                    composable(route = Route.Splash.pattern) {
                         SplashScreen(navController::navigate)
                     }
-                    composable(route = com.fitnest.presentation.navigation.Route.Login.pattern) {
+                    composable(route = Route.Login.pattern) {
                         LoginScreen(navController = navController)
                     }
                     composable(
-                        route = com.fitnest.presentation.navigation.Route.Proxy().pattern,
+                        route = Route.Proxy().pattern,
                         arguments = listOf(navArgument("flowType") {
                             type = NavType.EnumType(type = FlowType::class.java)
                         })
@@ -124,7 +122,7 @@ fun FitnestApp(
                         ProxyScreen(flowType, navController::navigate)
                     }
                     composable(
-                        route = com.fitnest.presentation.navigation.Route.OnboardingStep().pattern,
+                        route = Route.OnboardingStep().pattern,
                         arguments = listOf(navArgument("stepName") { type = NavType.StringType }),
                     ) {
                         OnboardingScreen(
@@ -133,7 +131,7 @@ fun FitnestApp(
                         )
                     }
                     composable(
-                        route = com.fitnest.presentation.navigation.Route.Registration.Step().pattern,
+                        route = Route.Registration.Step().pattern,
                         arguments = listOf(
                             navArgument("stepName") { type = NavType.StringType },
                         ),
@@ -145,7 +143,7 @@ fun FitnestApp(
                             "STEP_WELCOME_BACK" -> WelcomeBackRegistrationScreen(navController::navigate)
                         }
                     }
-                    bottomSheet(route = com.fitnest.presentation.navigation.Route.Registration.AnthropometryBottomSheet().pattern) {
+                    bottomSheet(route = Route.Registration.AnthropometryBottomSheet().pattern) {
                         val minValue = it.arguments?.getString("minValue")?.toIntOrNull().orZero
                         val maxValue = it.arguments?.getString("maxValue")?.toIntOrNull().orZero
                         val initialValue =
@@ -157,25 +155,25 @@ fun FitnestApp(
                             navigate = navController::navigate
                         )
                     }
-                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Home.pattern) {
+                    composable(route = Route.PrivateArea.Home.pattern) {
                         HomeScreen(navController::navigate)
                     }
-                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Settings.pattern) {
+                    composable(route = Route.PrivateArea.Settings.pattern) {
                         SettingsScreen(navController::navigate)
                     }
-                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Photo.pattern) {
+                    composable(route = Route.PrivateArea.Photo.pattern) {
                         PhotoScreen()
                     }
-                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.Screen.pattern) {
+                    composable(route = Route.PrivateArea.Tracker.Screen.pattern) {
                         TrackerScreen()
                     }
-                    bottomSheet(route = com.fitnest.presentation.navigation.Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern) {
+                    bottomSheet(route = Route.PrivateArea.Tracker.ActivityInputBottomSheet.pattern) {
                         ActivityInputBottomSheet(sheetState, navController::navigate)
                     }
-                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.Notifications.pattern) {
+                    composable(route = Route.PrivateArea.Notifications.pattern) {
                         NotificationsScreen()
                     }
-                    composable(route = com.fitnest.presentation.navigation.Route.PrivateArea.ActivityTracker.pattern) {
+                    composable(route = Route.PrivateArea.ActivityTracker.pattern) {
                         ActivityTrackerScreen(navController, navController::navigate)
                     }
                 }
