@@ -12,7 +12,7 @@ import presentation
 struct ContentView: View {
     @ViewBuilder var body: some View {
         ComposeView()
-            .ignoresSafeArea(.all, edges: .bottom)
+            .ignoresSafeArea(.all, edges: .vertical)
     }
 }
 

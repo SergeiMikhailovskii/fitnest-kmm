@@ -14,6 +14,6 @@ fun FitnestTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = colorScheme,
         content = content,
-        typography = Typography.getTypography()
+        typography = getTypography()
     )
 }

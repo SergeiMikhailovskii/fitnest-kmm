@@ -81,3 +81,38 @@ fun SplashScreen(
         }
     }
 }
+
+@Composable
+fun SplashScreenUI() {
+    Box(
+        modifier = Modifier
+            .background(brush = Brush.verticalGradient(colors = MaterialTheme.colorScheme.brandGradient))
+            .fillMaxSize()
+    ) {
+        Image(
+            painter = dev.icerock.moko.resources.compose.painterResource(MR.images.ic_splash_logo),
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.Center)
+        )
+        FilledTonalButton(
+            onClick = {},
+            modifier = Modifier
+                .padding(
+                    start = Padding.Padding30,
+                    end = Padding.Padding30,
+                    bottom = Padding.Padding40
+                )
+                .height(Dimen.Dimen60)
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .testTag("splash_btn_next")
+        ) {
+            Text(
+                text = stringResource(MR.strings.splash_button_title),
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        }
+    }
+}
