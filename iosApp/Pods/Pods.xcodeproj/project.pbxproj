@@ -27,7 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AE1D7DBA5D6696EF336AEEF2B4F9120B /* PBXContainerItemProxy */ = {
+		7D67CA11B6AF9DD14F37DFA836964ABD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -38,52 +38,53 @@
 
 /* Begin PBXFileReference section */
 		015E0D7EA7331961AB63E5AFECA86BB5 /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
-		02B3B357E7AAA930AF2025BC968F3510 /* ic_private_area_workout.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_workout.xml; path = src/commonMain/resources/ic_private_area_workout.xml; sourceTree = "<group>"; };
-		053ACB81437322AD9ADC714795952BBC /* ic_private_area_profile_privacy_policy.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_privacy_policy.xml; path = src/commonMain/resources/ic_private_area_profile_privacy_policy.xml; sourceTree = "<group>"; };
+		0B53D976D12290914DF965B5D2E47935 /* ic_user_login.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_user_login.xml; path = src/commonMain/resources/ic_user_login.xml; sourceTree = "<group>"; };
+		0FC010601D9001C418C123752FE09056 /* ic_private_area_activity_water.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_activity_water.xml; path = src/commonMain/resources/ic_private_area_activity_water.xml; sourceTree = "<group>"; };
 		11C9B998CE0869936AE6BE69270DAAC9 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
-		20499DAC13E03DF2AF3497C6FEA20909 /* ic_private_area_profile_chart.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_chart.xml; path = src/commonMain/resources/ic_private_area_profile_chart.xml; sourceTree = "<group>"; };
+		1739708C689A5F9921CF97968075C0EE /* presentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = presentation.release.xcconfig; sourceTree = "<group>"; };
 		244FC2DAA936A0B07ACEFDC74E2D54B8 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
-		26BCF26655BEA39DC883D4ACAD478BF3 /* ic_private_area_bmi_background.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_bmi_background.xml; path = src/commonMain/resources/ic_private_area_bmi_background.xml; sourceTree = "<group>"; };
-		2D7B06746C1516591640EE3E25B925BC /* presentation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = presentation.framework; path = build/cocoapods/framework/presentation.framework; sourceTree = "<group>"; };
-		33DC15EB065E4F75603B3DEF51A5A515 /* ic_email.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_email.xml; path = src/commonMain/resources/ic_email.xml; sourceTree = "<group>"; };
-		3A35E271B81F2B38E259286D97C43B01 /* ic_onboarding_third.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_third.xml; path = src/commonMain/resources/ic_onboarding_third.xml; sourceTree = "<group>"; };
-		3AF184657D81D2CC8E55BEF58378EF17 /* ic_user_login.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_user_login.xml; path = src/commonMain/resources/ic_user_login.xml; sourceTree = "<group>"; };
-		3F910EECEB00919BCD862D1A62B971B7 /* ic_splash_logo.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_splash_logo.xml; path = src/commonMain/resources/ic_splash_logo.xml; sourceTree = "<group>"; };
-		4A50338C505DF2D03BAAE53F06E2AD8D /* ic_private_area_has_notifications.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_has_notifications.xml; path = src/commonMain/resources/ic_private_area_has_notifications.xml; sourceTree = "<group>"; };
-		4D678E4085921A19C9A91CAB2EBDB9A3 /* ic_private_area_profile_document.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_document.xml; path = src/commonMain/resources/ic_private_area_profile_document.xml; sourceTree = "<group>"; };
-		4DBA838F8AB878D40267BB6D5C1B67D0 /* ic_private_area_activity_water.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_activity_water.xml; path = src/commonMain/resources/ic_private_area_activity_water.xml; sourceTree = "<group>"; };
-		503F05224CCB0929E01E6EB4FFF400C9 /* ic_private_area_profile_activity.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_activity.xml; path = src/commonMain/resources/ic_private_area_profile_activity.xml; sourceTree = "<group>"; };
-		549193B660774D026DA4A8B32E803C16 /* ic_private_area_no_notifications.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_no_notifications.xml; path = src/commonMain/resources/ic_private_area_no_notifications.xml; sourceTree = "<group>"; };
+		27F90E6E79473EA2007FAEA817C9E9D8 /* ic_private_area_profile_contact_us.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_contact_us.xml; path = src/commonMain/resources/ic_private_area_profile_contact_us.xml; sourceTree = "<group>"; };
+		284FCB9B690CC35A5855571070D853AC /* ic_private_area_profile_document.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_document.xml; path = src/commonMain/resources/ic_private_area_profile_document.xml; sourceTree = "<group>"; };
+		28508FA600EAA3E2E443AF1CD0BC3BFD /* ic_onboarding_arrow_right.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_arrow_right.xml; path = src/commonMain/resources/ic_onboarding_arrow_right.xml; sourceTree = "<group>"; };
+		35E2FEAF8B7AA916684D353941D7C98D /* ic_lock.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_lock.xml; path = src/commonMain/resources/ic_lock.xml; sourceTree = "<group>"; };
+		441131DDE0D8ED3E7C87DCE26C00DFE6 /* ic_private_area_no_notifications.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_no_notifications.xml; path = src/commonMain/resources/ic_private_area_no_notifications.xml; sourceTree = "<group>"; };
+		550086BB02260C1E88E5D75895AB5885 /* ic_private_area_has_notifications.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_has_notifications.xml; path = src/commonMain/resources/ic_private_area_has_notifications.xml; sourceTree = "<group>"; };
+		555BBFE59762BE9B3F38D766C11834DD /* ic_private_area_profile_notification.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_notification.xml; path = src/commonMain/resources/ic_private_area_profile_notification.xml; sourceTree = "<group>"; };
 		55ABB06C8A1800962A74E007E7733796 /* Pods-iosApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-frameworks.sh"; sourceTree = "<group>"; };
-		5F19348D166DEB62AD7E22ED6EDC7ABE /* ic_onboarding_arrow_right.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_arrow_right.xml; path = src/commonMain/resources/ic_onboarding_arrow_right.xml; sourceTree = "<group>"; };
-		65A431C371F66B01602314557EAE1E57 /* presentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = presentation.debug.xcconfig; sourceTree = "<group>"; };
+		61A020C3C838EF687B537ED288F82A3A /* ic_chevron_right.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_chevron_right.xml; path = src/commonMain/resources/ic_chevron_right.xml; sourceTree = "<group>"; };
+		627D90636A1892DFD0BAFB9391B3A4B5 /* presentation.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = presentation.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6939159EFEF62AE87AC072E4DAF8201C /* ic_private_area_profile_chart.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_chart.xml; path = src/commonMain/resources/ic_private_area_profile_chart.xml; sourceTree = "<group>"; };
 		6F3B5FED07117E377CFAC3D49B490F17 /* Pods-iosApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-resources.sh"; sourceTree = "<group>"; };
-		70156563165A778990588F4E99EE8359 /* ic_facebook.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_facebook.xml; path = src/commonMain/resources/ic_facebook.xml; sourceTree = "<group>"; };
-		703BE31290CF811EFA2060FEDB884C74 /* ic_private_area_profile_contact_us.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_contact_us.xml; path = src/commonMain/resources/ic_private_area_profile_contact_us.xml; sourceTree = "<group>"; };
-		7277180694FBDB173F48181E297B908C /* ic_private_area_profile_notification.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_notification.xml; path = src/commonMain/resources/ic_private_area_profile_notification.xml; sourceTree = "<group>"; };
-		72A06D36FC689604BC7D8038DF071287 /* ic_onboarding_forth.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_forth.xml; path = src/commonMain/resources/ic_onboarding_forth.xml; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		763E9A5DD17B18009CC3A74629B5854C /* presentation-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "presentation-copy-dsyms.sh"; sourceTree = "<group>"; };
 		76A263267985B0185D85E24D40FCEE9A /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
 		76D28488EA8CF5C697DFF07967A9960E /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
-		8CB1CA852D55EDDD7CCFC3B029F9395A /* ic_lock.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_lock.xml; path = src/commonMain/resources/ic_lock.xml; sourceTree = "<group>"; };
-		8E6AA7964285D4DF7DF81A8F1CFA87A1 /* MR */ = {isa = PBXFileReference; includeInIndex = 1; name = MR; path = src/commonMain/resources/MR; sourceTree = "<group>"; };
-		8FFA281C5B3BC61DEB710D08E619A7AE /* ic_password_hide.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_password_hide.xml; path = src/commonMain/resources/ic_password_hide.xml; sourceTree = "<group>"; };
-		976060D95E436F72842EBB0449FB77E4 /* ic_onboarding_second.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_second.xml; path = src/commonMain/resources/ic_onboarding_second.xml; sourceTree = "<group>"; };
-		9ADBA106BE3BA352BA1ED1B4A68EE416 /* ic_private_area_profile_profile.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_profile.xml; path = src/commonMain/resources/ic_private_area_profile_profile.xml; sourceTree = "<group>"; };
+		786B0C6364CA79F949C0271657FFD5BF /* ic_facebook.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_facebook.xml; path = src/commonMain/resources/ic_facebook.xml; sourceTree = "<group>"; };
+		7C355EFD63F0415258D3E8C7EF7C4690 /* ic_private_area_profile_privacy_policy.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_privacy_policy.xml; path = src/commonMain/resources/ic_private_area_profile_privacy_policy.xml; sourceTree = "<group>"; };
+		7F7D4C4C1B76C9BEEB8BB002152602B5 /* ic_onboarding_first.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_first.xml; path = src/commonMain/resources/ic_onboarding_first.xml; sourceTree = "<group>"; };
+		8AEDBD3310EF01E1ACC056DFB2AFEEAE /* ic_splash_logo.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_splash_logo.xml; path = src/commonMain/resources/ic_splash_logo.xml; sourceTree = "<group>"; };
+		8EDE7EAFA08354FCDEB0AA9F39B0A6AD /* ic_email.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_email.xml; path = src/commonMain/resources/ic_email.xml; sourceTree = "<group>"; };
+		9441C5B851D22E61360DC69CEC70F9F5 /* ic_registration_welcome_back.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_registration_welcome_back.xml; path = src/commonMain/resources/ic_registration_welcome_back.xml; sourceTree = "<group>"; };
+		9C52060724EB2F44A00E2ADACF315F53 /* ic_onboarding_forth.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_forth.xml; path = src/commonMain/resources/ic_onboarding_forth.xml; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A7A00BDB9058E9932AF18686E9FBDF9A /* ic_private_area_workout_btn.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_workout_btn.xml; path = src/commonMain/resources/ic_private_area_workout_btn.xml; sourceTree = "<group>"; };
-		A861212410E12AAAB7B7901629D79166 /* ic_password_show.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_password_show.xml; path = src/commonMain/resources/ic_password_show.xml; sourceTree = "<group>"; };
+		A236AF2440D02BAB0A646269F8F5809C /* ic_private_area_profile_profile.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_profile.xml; path = src/commonMain/resources/ic_private_area_profile_profile.xml; sourceTree = "<group>"; };
+		A6DCB8B61BC85A73593F22C9532C72C1 /* ic_password_hide.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_password_hide.xml; path = src/commonMain/resources/ic_password_hide.xml; sourceTree = "<group>"; };
+		ABD23CCF058B9783ABE8A03DD9E4EB78 /* ic_onboarding_second.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_second.xml; path = src/commonMain/resources/ic_onboarding_second.xml; sourceTree = "<group>"; };
 		B097DD7534E741D5C41838011D755842 /* Pods-iosApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-iosApp"; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B638E52C01FB51418C3CDB53BF18F66C /* presentation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = presentation.release.xcconfig; sourceTree = "<group>"; };
-		BCC74AB6C384A4DEB06190D7FB4A975C /* ic_registration_welcome_back.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_registration_welcome_back.xml; path = src/commonMain/resources/ic_registration_welcome_back.xml; sourceTree = "<group>"; };
+		B2772531871ACE7E323FD42BE077B093 /* presentation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = presentation.framework; path = build/cocoapods/framework/presentation.framework; sourceTree = "<group>"; };
+		B5FB65494EBEADDA3FDD855A0C8E9DBD /* ic_password_show.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_password_show.xml; path = src/commonMain/resources/ic_password_show.xml; sourceTree = "<group>"; };
+		C47A5E4608BB95523B8BDFD030F468BD /* ic_private_area_workout_btn.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_workout_btn.xml; path = src/commonMain/resources/ic_private_area_workout_btn.xml; sourceTree = "<group>"; };
+		DF8A2751DD77309B66C4D6A8B953E2ED /* MR */ = {isa = PBXFileReference; includeInIndex = 1; name = MR; path = src/commonMain/resources/MR; sourceTree = "<group>"; };
 		E462E23B3674BF94EAB1504D506F2803 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E4C923318724794E3CC670804C2D6A6B /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E5C21BBE1C9FD7A5E5AE92794A9584A1 /* ic_private_area_sleep_graph.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_sleep_graph.xml; path = src/commonMain/resources/ic_private_area_sleep_graph.xml; sourceTree = "<group>"; };
 		E6DB2A5F5DADA1DDE45F36B1A2D6AC16 /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
-		E8B6A1D56EC40439302C2AF0046ED978 /* presentation.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = presentation.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		EA1F21B2CC856043F1940C27B5D3EDAF /* ic_onboarding_first.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_first.xml; path = src/commonMain/resources/ic_onboarding_first.xml; sourceTree = "<group>"; };
-		F0B20877F4A11F8E3D7E26517CFE1338 /* ic_chevron_right.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_chevron_right.xml; path = src/commonMain/resources/ic_chevron_right.xml; sourceTree = "<group>"; };
-		F3137B6CE793A9E6D744FD65C87AD552 /* ic_private_area_profile_settings.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_settings.xml; path = src/commonMain/resources/ic_private_area_profile_settings.xml; sourceTree = "<group>"; };
-		F74929FAA415C42CCA3AD84E7B20A638 /* presentation-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "presentation-copy-dsyms.sh"; sourceTree = "<group>"; };
+		E8807C114C523A529120F7C979BE12D3 /* presentation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = presentation.debug.xcconfig; sourceTree = "<group>"; };
+		EAD65C2ACD6BB6C82B460EDC3DE9B6C7 /* ic_onboarding_third.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_onboarding_third.xml; path = src/commonMain/resources/ic_onboarding_third.xml; sourceTree = "<group>"; };
+		ED3276653F581D6ED89CFEBFFEA5B81B /* ic_private_area_profile_settings.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_settings.xml; path = src/commonMain/resources/ic_private_area_profile_settings.xml; sourceTree = "<group>"; };
+		ED8B148D2810C79FF5108EAFF66AA522 /* ic_private_area_bmi_background.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_bmi_background.xml; path = src/commonMain/resources/ic_private_area_bmi_background.xml; sourceTree = "<group>"; };
+		F9AA37F6E921DC7BFDB24DFB9C5E1FC9 /* ic_private_area_workout.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_workout.xml; path = src/commonMain/resources/ic_private_area_workout.xml; sourceTree = "<group>"; };
+		FE680FE8F324C327B4DA81F67CBEC78E /* ic_private_area_profile_activity.xml */ = {isa = PBXFileReference; includeInIndex = 1; name = ic_private_area_profile_activity.xml; path = src/commonMain/resources/ic_private_area_profile_activity.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,15 +99,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B70610AF15603A23F2CEC482153C27A /* Support Files */ = {
+		128799A92973A96F4709767093F27BBF /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F74929FAA415C42CCA3AD84E7B20A638 /* presentation-copy-dsyms.sh */,
-				65A431C371F66B01602314557EAE1E57 /* presentation.debug.xcconfig */,
-				B638E52C01FB51418C3CDB53BF18F66C /* presentation.release.xcconfig */,
+				9C023A04D042D2BED899DD4634B5E68B /* presentation */,
 			);
-			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/presentation";
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		1F86AA6785DF34AFD5A71790761717DE /* Products */ = {
@@ -117,14 +115,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		344DA846A0C3C20CFF230E6F11E1AAB5 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9EDA71D2CD0EE5D684A2E78A4BEB3D6E /* presentation */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,60 +123,64 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		9EDA71D2CD0EE5D684A2E78A4BEB3D6E /* presentation */ = {
+		8505F5C5FA9B3F1D1B29082D4E9130EE /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				F0B20877F4A11F8E3D7E26517CFE1338 /* ic_chevron_right.xml */,
-				33DC15EB065E4F75603B3DEF51A5A515 /* ic_email.xml */,
-				70156563165A778990588F4E99EE8359 /* ic_facebook.xml */,
-				8CB1CA852D55EDDD7CCFC3B029F9395A /* ic_lock.xml */,
-				5F19348D166DEB62AD7E22ED6EDC7ABE /* ic_onboarding_arrow_right.xml */,
-				EA1F21B2CC856043F1940C27B5D3EDAF /* ic_onboarding_first.xml */,
-				72A06D36FC689604BC7D8038DF071287 /* ic_onboarding_forth.xml */,
-				976060D95E436F72842EBB0449FB77E4 /* ic_onboarding_second.xml */,
-				3A35E271B81F2B38E259286D97C43B01 /* ic_onboarding_third.xml */,
-				8FFA281C5B3BC61DEB710D08E619A7AE /* ic_password_hide.xml */,
-				A861212410E12AAAB7B7901629D79166 /* ic_password_show.xml */,
-				4DBA838F8AB878D40267BB6D5C1B67D0 /* ic_private_area_activity_water.xml */,
-				26BCF26655BEA39DC883D4ACAD478BF3 /* ic_private_area_bmi_background.xml */,
-				4A50338C505DF2D03BAAE53F06E2AD8D /* ic_private_area_has_notifications.xml */,
-				549193B660774D026DA4A8B32E803C16 /* ic_private_area_no_notifications.xml */,
-				503F05224CCB0929E01E6EB4FFF400C9 /* ic_private_area_profile_activity.xml */,
-				20499DAC13E03DF2AF3497C6FEA20909 /* ic_private_area_profile_chart.xml */,
-				703BE31290CF811EFA2060FEDB884C74 /* ic_private_area_profile_contact_us.xml */,
-				4D678E4085921A19C9A91CAB2EBDB9A3 /* ic_private_area_profile_document.xml */,
-				7277180694FBDB173F48181E297B908C /* ic_private_area_profile_notification.xml */,
-				053ACB81437322AD9ADC714795952BBC /* ic_private_area_profile_privacy_policy.xml */,
-				9ADBA106BE3BA352BA1ED1B4A68EE416 /* ic_private_area_profile_profile.xml */,
-				F3137B6CE793A9E6D744FD65C87AD552 /* ic_private_area_profile_settings.xml */,
-				02B3B357E7AAA930AF2025BC968F3510 /* ic_private_area_workout.xml */,
-				A7A00BDB9058E9932AF18686E9FBDF9A /* ic_private_area_workout_btn.xml */,
-				BCC74AB6C384A4DEB06190D7FB4A975C /* ic_registration_welcome_back.xml */,
-				3F910EECEB00919BCD862D1A62B971B7 /* ic_splash_logo.xml */,
-				3AF184657D81D2CC8E55BEF58378EF17 /* ic_user_login.xml */,
-				8E6AA7964285D4DF7DF81A8F1CFA87A1 /* MR */,
-				A6A86DFDE7970558F3D9D775F334AE10 /* Frameworks */,
-				A9782329D6E8859C446818E52B01CC02 /* Pod */,
-				1B70610AF15603A23F2CEC482153C27A /* Support Files */,
+				763E9A5DD17B18009CC3A74629B5854C /* presentation-copy-dsyms.sh */,
+				E8807C114C523A529120F7C979BE12D3 /* presentation.debug.xcconfig */,
+				1739708C689A5F9921CF97968075C0EE /* presentation.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../iosApp/Pods/Target Support Files/presentation";
+			sourceTree = "<group>";
+		};
+		9C023A04D042D2BED899DD4634B5E68B /* presentation */ = {
+			isa = PBXGroup;
+			children = (
+				61A020C3C838EF687B537ED288F82A3A /* ic_chevron_right.xml */,
+				8EDE7EAFA08354FCDEB0AA9F39B0A6AD /* ic_email.xml */,
+				786B0C6364CA79F949C0271657FFD5BF /* ic_facebook.xml */,
+				35E2FEAF8B7AA916684D353941D7C98D /* ic_lock.xml */,
+				28508FA600EAA3E2E443AF1CD0BC3BFD /* ic_onboarding_arrow_right.xml */,
+				7F7D4C4C1B76C9BEEB8BB002152602B5 /* ic_onboarding_first.xml */,
+				9C52060724EB2F44A00E2ADACF315F53 /* ic_onboarding_forth.xml */,
+				ABD23CCF058B9783ABE8A03DD9E4EB78 /* ic_onboarding_second.xml */,
+				EAD65C2ACD6BB6C82B460EDC3DE9B6C7 /* ic_onboarding_third.xml */,
+				A6DCB8B61BC85A73593F22C9532C72C1 /* ic_password_hide.xml */,
+				B5FB65494EBEADDA3FDD855A0C8E9DBD /* ic_password_show.xml */,
+				0FC010601D9001C418C123752FE09056 /* ic_private_area_activity_water.xml */,
+				ED8B148D2810C79FF5108EAFF66AA522 /* ic_private_area_bmi_background.xml */,
+				550086BB02260C1E88E5D75895AB5885 /* ic_private_area_has_notifications.xml */,
+				441131DDE0D8ED3E7C87DCE26C00DFE6 /* ic_private_area_no_notifications.xml */,
+				FE680FE8F324C327B4DA81F67CBEC78E /* ic_private_area_profile_activity.xml */,
+				6939159EFEF62AE87AC072E4DAF8201C /* ic_private_area_profile_chart.xml */,
+				27F90E6E79473EA2007FAEA817C9E9D8 /* ic_private_area_profile_contact_us.xml */,
+				284FCB9B690CC35A5855571070D853AC /* ic_private_area_profile_document.xml */,
+				555BBFE59762BE9B3F38D766C11834DD /* ic_private_area_profile_notification.xml */,
+				7C355EFD63F0415258D3E8C7EF7C4690 /* ic_private_area_profile_privacy_policy.xml */,
+				A236AF2440D02BAB0A646269F8F5809C /* ic_private_area_profile_profile.xml */,
+				ED3276653F581D6ED89CFEBFFEA5B81B /* ic_private_area_profile_settings.xml */,
+				E5C21BBE1C9FD7A5E5AE92794A9584A1 /* ic_private_area_sleep_graph.xml */,
+				F9AA37F6E921DC7BFDB24DFB9C5E1FC9 /* ic_private_area_workout.xml */,
+				C47A5E4608BB95523B8BDFD030F468BD /* ic_private_area_workout_btn.xml */,
+				9441C5B851D22E61360DC69CEC70F9F5 /* ic_registration_welcome_back.xml */,
+				8AEDBD3310EF01E1ACC056DFB2AFEEAE /* ic_splash_logo.xml */,
+				0B53D976D12290914DF965B5D2E47935 /* ic_user_login.xml */,
+				DF8A2751DD77309B66C4D6A8B953E2ED /* MR */,
+				A5FCC6FC3438C096937C643BBF8DB807 /* Frameworks */,
+				D07EFBAD5C87D1309DAB8272B3874A10 /* Pod */,
+				8505F5C5FA9B3F1D1B29082D4E9130EE /* Support Files */,
 			);
 			name = presentation;
 			path = ../../presentation;
 			sourceTree = "<group>";
 		};
-		A6A86DFDE7970558F3D9D775F334AE10 /* Frameworks */ = {
+		A5FCC6FC3438C096937C643BBF8DB807 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2D7B06746C1516591640EE3E25B925BC /* presentation.framework */,
+				B2772531871ACE7E323FD42BE077B093 /* presentation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A9782329D6E8859C446818E52B01CC02 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				E8B6A1D56EC40439302C2AF0046ED978 /* presentation.podspec */,
-			);
-			name = Pod;
 			sourceTree = "<group>";
 		};
 		BA6B7BC2729F657E9D3682E55CA6E980 /* Pods-iosApp */ = {
@@ -211,11 +205,19 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				344DA846A0C3C20CFF230E6F11E1AAB5 /* Development Pods */,
+				128799A92973A96F4709767093F27BBF /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				1F86AA6785DF34AFD5A71790761717DE /* Products */,
 				D456857FB6E5BC3266BEC21401D60DB5 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		D07EFBAD5C87D1309DAB8272B3874A10 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				627D90636A1892DFD0BAFB9391B3A4B5 /* presentation.podspec */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
@@ -260,7 +262,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D6966B6A747C8C34A09C299B3E657BDF /* PBXTargetDependency */,
+				7BC5DDA792DD7719D5E819B7839657AF /* PBXTargetDependency */,
 			);
 			name = "Pods-iosApp";
 			productName = Pods_iosApp;
@@ -347,11 +349,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D6966B6A747C8C34A09C299B3E657BDF /* PBXTargetDependency */ = {
+		7BC5DDA792DD7719D5E819B7839657AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = presentation;
 			target = CA23A621E427291AD7AAC241FE14977E /* presentation */;
-			targetProxy = AE1D7DBA5D6696EF336AEEF2B4F9120B /* PBXContainerItemProxy */;
+			targetProxy = 7D67CA11B6AF9DD14F37DFA836964ABD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -420,7 +422,7 @@
 		};
 		62DA9F714D51A654A00AC1B689B96BDA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B638E52C01FB51418C3CDB53BF18F66C /* presentation.release.xcconfig */;
+			baseConfigurationReference = 1739708C689A5F9921CF97968075C0EE /* presentation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -579,7 +581,7 @@
 		};
 		DE82A3E4B308955D9C5B87A2261C904B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65A431C371F66B01602314557EAE1E57 /* presentation.debug.xcconfig */;
+			baseConfigurationReference = E8807C114C523A529120F7C979BE12D3 /* presentation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
