@@ -40,6 +40,7 @@ kotlin = "1.9.10"
 uiTestManifest = "1.5.1"
 
 decompose = "2.0.2-compose-experimental"
+essenty = "1.1.0"
 
 firebaseBom = "32.3.1"
 composeBom = "2023.09.00"
@@ -102,6 +103,7 @@ composeMaterial = { module = "androidx.compose.material3:material3" }
 
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose"}
 decomposeExtensionsComposeMultiplatform = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose"}
+essenty = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
 
 firebaseBom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 composeBom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }

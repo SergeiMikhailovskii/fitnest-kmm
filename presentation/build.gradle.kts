@@ -23,15 +23,16 @@ kotlin {
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
         framework {
             baseName = "presentation"
-            export("com.arkivanov.decompose:decompose:${libs.versions.decompose}")
-            export("com.arkivanov.essenty:lifecycle:1.1.0")
+            export("com.arkivanov.decompose:decompose:${libs.versions.decompose.get()}")
+            export("com.arkivanov.essenty:lifecycle:${libs.versions.essenty.get()}")
         }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.decompose)
+                api(libs.decompose)
+                api(libs.essenty)
                 implementation(libs.decomposeExtensionsComposeMultiplatform)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
