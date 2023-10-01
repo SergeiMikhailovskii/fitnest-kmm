@@ -1,4 +1,4 @@
-package com.fitnest.presentation.decompose
+package com.fitnest.presentation.decompose.unauthorizedArea
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
@@ -7,15 +7,14 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import com.fitnest.presentation.decompose.unauthorizedArea.DefaultUnauthorizedAreaComponent
+import com.fitnest.presentation.decompose.unauthorizedArea.splash.DefaultSplashComponent
 
-class DefaultRootComponent(
+class DefaultUnauthorizedAreaComponent(
     context: ComponentContext
-) : RootComponent, ComponentContext by context {
-
+) : UnauthorizedAreaComponent, ComponentContext by context {
     private val navigation = StackNavigation<Config>()
 
-    override val childStack: Value<ChildStack<*, RootComponent.Child>> = childStack(
+    override val childStack: Value<ChildStack<*, UnauthorizedAreaComponent.Child>> = childStack(
         source = navigation,
         initialConfiguration = Config.Unauthorized,
         handleBackButton = true,
@@ -23,7 +22,7 @@ class DefaultRootComponent(
     )
 
     private fun createChild(config: Config, context: ComponentContext) = when (config) {
-        Config.Unauthorized -> RootComponent.Child.UnauthorizedChild(DefaultUnauthorizedAreaComponent(context))
+        Config.Unauthorized -> UnauthorizedAreaComponent.Child.SplashChild(DefaultSplashComponent())
     }
 
     private sealed interface Config : Parcelable {

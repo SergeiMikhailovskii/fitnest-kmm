@@ -10,15 +10,27 @@ import SwiftUI
 import presentation
 
 struct ContentView: View {
+    private let component: RootComponent
+    
+    init(_ component: RootComponent) {
+        self.component = component
+    }
+    
     @ViewBuilder var body: some View {
-        ComposeView()
+        ComposeView(component)
             .ignoresSafeArea(.all, edges: .vertical)
     }
 }
 
 fileprivate struct ComposeView: UIViewControllerRepresentable {
+    private let component: RootComponent
+    
+    init(_ component: RootComponent) {
+        self.component = component
+    }
+    
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController()
+        MainViewControllerKt.MainViewController(component: component)
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}

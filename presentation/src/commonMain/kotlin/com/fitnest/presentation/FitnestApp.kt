@@ -1,15 +1,18 @@
 package com.fitnest.presentation
 
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import com.fitnest.presentation.screen.splash.SplashScreenUI
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
+import com.fitnest.presentation.decompose.RootComponent
+import com.fitnest.presentation.decompose.unauthorizedArea.UnauthorizedAreaView
 import com.fitnest.presentation.style.FitnestTheme
 
 @Composable
-fun FitnestApp() {
+fun FitnestApp(component: RootComponent) {
     FitnestTheme {
-        Scaffold {
-            SplashScreenUI()
+        Children(component.childStack) {
+            when (val child = it.instance) {
+                is RootComponent.Child.UnauthorizedChild -> UnauthorizedAreaView(child.component)
+            }
         }
     }
 }

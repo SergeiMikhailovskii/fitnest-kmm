@@ -15,7 +15,7 @@ struct iOSApp: App {
     
     @ViewBuilder var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(rootHolder.root)
                 .onChange(of: scenePhase) { newPhase in
                     switch newPhase {
                     case .background: LifecycleRegistryExtKt.stop(rootHolder.lifecycle)
