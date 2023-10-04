@@ -40,7 +40,7 @@ kotlin = "1.9.10"
 uiTestManifest = "1.5.2"
 
 firebaseBom = "32.3.1"
-composeBom = "2023.09.02"
+composeBom = "2023.10.00"
 
 kodein = "7.20.2"
 serialization = "1.6.0"
