@@ -25,6 +25,7 @@ kotlin {
             baseName = "presentation"
             export("com.arkivanov.decompose:decompose:${libs.versions.decompose.get()}")
             export("com.arkivanov.essenty:lifecycle:${libs.versions.essenty.get()}")
+            linkerOpts.add("-lsqlite3")
         }
     }
 

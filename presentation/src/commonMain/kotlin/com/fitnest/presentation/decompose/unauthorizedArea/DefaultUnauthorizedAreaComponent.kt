@@ -7,10 +7,13 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import com.fitnest.presentation.decompose.unauthorizedArea.splash.DefaultSplashComponent
+import com.fitnest.presentation.decompose.unauthorizedArea.splash.SplashComponent
+import org.kodein.di.DI
+import org.kodein.di.instance
 
 class DefaultUnauthorizedAreaComponent(
-    context: ComponentContext
+    context: ComponentContext,
+    private val di: DI
 ) : UnauthorizedAreaComponent, ComponentContext by context {
     private val navigation = StackNavigation<Config>()
 
@@ -22,7 +25,10 @@ class DefaultUnauthorizedAreaComponent(
     )
 
     private fun createChild(config: Config, context: ComponentContext) = when (config) {
-        Config.Unauthorized -> UnauthorizedAreaComponent.Child.SplashChild(DefaultSplashComponent())
+        Config.Unauthorized -> {
+            val component by di.instance<SplashComponent> { context }
+            UnauthorizedAreaComponent.Child.SplashChild(component)
+        }
     }
 
     private sealed interface Config : Parcelable {

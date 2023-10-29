@@ -8,7 +8,7 @@ import com.fitnest.presentation.decompose.unauthorizedArea.splash.SplashView
 fun UnauthorizedAreaView(component: UnauthorizedAreaComponent) {
     Children(component.childStack) {
         when (val child = it.instance) {
-            is UnauthorizedAreaComponent.Child.SplashChild -> SplashView()
+            is UnauthorizedAreaComponent.Child.SplashChild -> SplashView(child.component)
         }
     }
 }

@@ -24,7 +24,7 @@ import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun SplashView() {
+fun SplashView(component: SplashComponent) {
     Box(
         modifier = Modifier
             .background(brush = Brush.verticalGradient(colors = MaterialTheme.colorScheme.brandGradient))
@@ -36,7 +36,7 @@ fun SplashView() {
             modifier = Modifier.align(Alignment.Center)
         )
         FilledTonalButton(
-            onClick = {},
+            onClick = component::onButtonNextClicked,
             modifier = Modifier
                 .padding(
                     start = Padding.Padding30,
