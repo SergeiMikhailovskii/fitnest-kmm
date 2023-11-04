@@ -21,7 +21,7 @@ playServicesAuth = "20.7.0"
 work = "2.8.1"
 facebook = "16.2.0"
 
-accompanist = "0.28.0"
+accompanist = "0.32.0"
 
 composeActivity = "1.8.0"
 composeConstraint = "1.0.1"
