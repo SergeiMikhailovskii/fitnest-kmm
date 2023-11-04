@@ -21,7 +21,7 @@ playServicesAuth = "20.7.0"
 work = "2.8.1"
 facebook = "16.2.0"
 
-accompanist = "0.28.0"
+accompanist = "0.32.0"
 
 composeActivity = "1.8.0"
 composeConstraint = "1.0.1"
@@ -38,6 +38,9 @@ espresso = "3.5.1"
 kotlin = "1.9.10"
 
 uiTestManifest = "1.5.3"
+
+decompose = "2.0.2-compose-experimental"
+essenty = "1.1.0"
 
 firebaseBom = "32.3.1"
 composeBom = "2023.10.00"
@@ -67,7 +70,6 @@ facebook = { module = "com.facebook.android:facebook-android-sdk", version.ref =
 
 accompanistNavigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 accompanistNavigationMaterial = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
-accompanistInsets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 accompanistPager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
 accompanistPagerIndicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
 accompanistPermissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
@@ -98,6 +100,10 @@ composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
 composeUtil = { module = "androidx.compose.ui:ui-util" }
 composeMaterialIcons = { module = "androidx.compose.material:material-icons-extended" }
 composeMaterial = { module = "androidx.compose.material3:material3" }
+
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose"}
+decomposeExtensionsComposeMultiplatform = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose"}
+essenty = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
 
 firebaseBom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 composeBom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
@@ -145,7 +151,6 @@ android = [
 compose = [
     "accompanistNavigationAnimation",
     "accompanistNavigationMaterial",
-    "accompanistInsets",
     "accompanistPager",
     "accompanistPagerIndicators",
     "accompanistPermissions",

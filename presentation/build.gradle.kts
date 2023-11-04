@@ -6,6 +6,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("kotlin-parcelize")
 }
 
 version = libs.versions.presentation.get()
@@ -22,12 +23,18 @@ kotlin {
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
         framework {
             baseName = "presentation"
+            export("com.arkivanov.decompose:decompose:${libs.versions.decompose.get()}")
+            export("com.arkivanov.essenty:lifecycle:${libs.versions.essenty.get()}")
+            linkerOpts.add("-lsqlite3")
         }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(libs.decompose)
+                api(libs.essenty)
+                implementation(libs.decomposeExtensionsComposeMultiplatform)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)

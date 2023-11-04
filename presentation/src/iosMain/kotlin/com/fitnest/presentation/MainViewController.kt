@@ -1,6 +1,6 @@
 package com.fitnest.presentation
 
-import androidx.compose.material3.Text
 import androidx.compose.ui.window.ComposeUIViewController
+import com.fitnest.presentation.decompose.RootComponent
 
-fun MainViewController() = ComposeUIViewController { Text("Hello from iOS") }
+fun MainViewController(component: RootComponent) = ComposeUIViewController { FitnestApp(component) }

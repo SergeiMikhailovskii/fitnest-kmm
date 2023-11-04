@@ -15,14 +15,6 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
     }
     namespace = "com.fitnest"
-//    configurations {
-//        create("androidTestApi")
-//        create("androidTestDebugApi")
-//        create("androidTestReleaseApi")
-//        create("testApi")
-//        create("testDebugApi")
-//        create("testReleaseApi")
-//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
