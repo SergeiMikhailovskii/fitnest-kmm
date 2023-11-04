@@ -26,7 +26,7 @@ class DefaultUnauthorizedAreaComponent(
 
     private fun createChild(config: Config, context: ComponentContext) = when (config) {
         Config.Unauthorized -> {
-            val component by di.instance<SplashComponent> { context }
+            val component by di.instance<ComponentContext, SplashComponent> { context }
             UnauthorizedAreaComponent.Child.SplashChild(component)
         }
     }

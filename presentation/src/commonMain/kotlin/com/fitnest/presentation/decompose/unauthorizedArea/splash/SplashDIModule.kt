@@ -8,7 +8,7 @@ import org.kodein.di.bindProvider
 import org.kodein.di.instance
 
 val splashDIModule by lazy {
-    DI.Module {
+    DI.Module("splashDIModule") {
         bindFactory<ComponentContext, SplashComponent> {
             DefaultSplashComponent(it, instance())
         }

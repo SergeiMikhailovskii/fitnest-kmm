@@ -22,6 +22,13 @@ class DefaultRootComponent(
 
     private val navigation = StackNavigation<Config>()
 
+    override val di by DI.lazy {
+        import(dataExceptionHandlerModule)
+        import(serviceModule)
+        import(repositoryModule)
+        import(unauthorizedAreaDIModule)
+    }
+
     override val childStack: Value<ChildStack<*, RootComponent.Child>> = childStack(
         source = navigation,
         initialConfiguration = Config.Unauthorized,
@@ -31,7 +38,7 @@ class DefaultRootComponent(
 
     private fun createChild(config: Config, context: ComponentContext) = when (config) {
         Config.Unauthorized -> {
-            val component by di.instance<UnauthorizedAreaComponent> { context }
+            val component by di.instance<ComponentContext, UnauthorizedAreaComponent> { context }
             RootComponent.Child.UnauthorizedChild(component)
         }
     }
@@ -39,12 +46,5 @@ class DefaultRootComponent(
     private sealed interface Config : Parcelable {
         @Parcelize
         data object Unauthorized : Config
-    }
-
-    override val di by DI.lazy {
-        import(dataExceptionHandlerModule)
-        import(serviceModule)
-        import(repositoryModule)
-        import(unauthorizedAreaDIModule)
     }
 }
