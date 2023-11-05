@@ -1,7 +1,9 @@
 package com.fitnest.network
 
+import io.ktor.util.PlatformUtils
+
 object Endpoints {
-    const val BASE_URL = "http://10.0.2.2:8080/"
+    val BASE_URL = if (PlatformUtils.IS_NATIVE) "http://localhost:8080/" else "http://10.0.2.2:8080/"
 
     object Flow : Group {
         override val name = "flow"
