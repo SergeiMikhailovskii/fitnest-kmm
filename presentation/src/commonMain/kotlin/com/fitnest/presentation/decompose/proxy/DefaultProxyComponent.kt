@@ -35,7 +35,7 @@ class DefaultProxyComponent(
         when (flow) {
             FlowType.ONBOARDING -> {
                 val response = getOnboardingStepUseCase().getOrThrow()
-                response?.let { onNavigate(Route.OnboardingStep(it)) }
+                response?.let { onNavigate(Route.Onboarding(it)) }
             }
 
             FlowType.REGISTRATION -> {

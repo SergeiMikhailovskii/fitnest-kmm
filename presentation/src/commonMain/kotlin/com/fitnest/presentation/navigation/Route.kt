@@ -13,6 +13,10 @@ sealed class Route(val screenName: String) {
             get() = "proxy/{flowType}"
     }
 
+    open class Onboarding(val initialStep: String) : Route("onboarding") {
+        class Step(stepName: String) : Onboarding(stepName)
+    }
+
     class OnboardingStep(stepName: String = "") : Route("onboardingStep/$stepName") {
         override val pattern: String
             get() = "onboardingStep/{stepName}"

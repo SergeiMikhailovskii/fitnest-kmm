@@ -1,0 +1,3 @@
+package com.fitnest.presentation.decompose.onboarding
+
+interface OnboardingAreaComponent

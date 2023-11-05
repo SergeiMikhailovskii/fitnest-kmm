@@ -14,6 +14,9 @@ import com.fitnest.di.serializationModule
 import com.fitnest.di.serviceModule
 import com.fitnest.domain.di.mapperModule
 import com.fitnest.domain.enum.FlowType
+import com.fitnest.presentation.decompose.onboarding.OnboardingAreaComponent
+import com.fitnest.presentation.decompose.onboarding.OnboardingAreaComponentDIParams
+import com.fitnest.presentation.decompose.onboarding.onboardingAreaDIModule
 import com.fitnest.presentation.decompose.proxy.ProxyComponent
 import com.fitnest.presentation.decompose.proxy.ProxyComponentDIParams
 import com.fitnest.presentation.decompose.proxy.proxyDIModule
@@ -41,6 +44,7 @@ class DefaultRootComponent(
         import(splashDIModule)
         import(proxyDIModule)
         import(registrationDIModule)
+        import(onboardingAreaDIModule)
     }
 
     override val childStack: Value<ChildStack<*, RootComponent.Child>> = childStack(
@@ -64,11 +68,20 @@ class DefaultRootComponent(
             }
             RootComponent.Child.Proxy(component)
         }
+
+        is Config.Onboarding -> {
+            val component by di.instance<OnboardingAreaComponentDIParams, OnboardingAreaComponent> {
+                OnboardingAreaComponentDIParams(context, ::handle)
+            }
+            RootComponent.Child.Onboarding(component)
+        }
     }
 
     private fun handle(route: Route) {
         if (route is Route.Proxy) {
             navigation.replaceAll(Config.Proxy(route.flow))
+        } else if (route is Route.Onboarding) {
+            navigation.replaceAll(Config.Onboarding(route.initialStep))
         }
     }
 
@@ -78,5 +91,8 @@ class DefaultRootComponent(
 
         @Parcelize
         data class Proxy(val flowType: FlowType) : Config
+
+        @Parcelize
+        data class Onboarding(val initialStep: String) : Config
     }
 }
