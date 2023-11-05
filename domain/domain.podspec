@@ -11,6 +11,17 @@ Pod::Spec.new do |spec|
     spec.ios.deployment_target = '14.1'
                 
                 
+    if !Dir.exist?('build/cocoapods/framework/domain.framework') || Dir.empty?('build/cocoapods/framework/domain.framework')
+        raise "
+
+        Kotlin framework 'domain' doesn't exist yet, so a proper Xcode project can't be generated.
+        'pod install' should be executed after running ':generateDummyFramework' Gradle task:
+
+            ./gradlew :domain:generateDummyFramework
+
+        Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
+    end
+                
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':domain',
         'PRODUCT_MODULE_NAME' => 'domain',

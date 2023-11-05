@@ -13,8 +13,10 @@ version = libs.versions.presentation.get()
 
 kotlin {
     androidTarget()
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
+    applyDefaultHierarchyTemplate()
 
     cocoapods {
         summary = "Some description for the Presentation Module"
