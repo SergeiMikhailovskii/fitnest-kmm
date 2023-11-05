@@ -16,7 +16,7 @@ class ProxyViewModel(
     fun getNextFlow(flow: FlowType) {
         if (flow == FlowType.UNKNOWN) {
             viewModelScope.launch(exceptionHandler) {
-                val flowResponse = getFlowUseCase().getOrThrow()
+                val flowResponse = getFlowUseCase()
                 showNextScreen(flowResponse)
             }
         } else {

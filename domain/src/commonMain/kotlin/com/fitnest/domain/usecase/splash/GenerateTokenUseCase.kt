@@ -13,4 +13,5 @@ class GenerateTokenUseCase(
         repository.generateToken()
         Unit
     }.mapError(exceptionHandler::getError)
+        .getOrThrow()
 }
