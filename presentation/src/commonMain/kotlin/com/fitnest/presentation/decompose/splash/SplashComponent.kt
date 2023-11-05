@@ -1,4 +1,4 @@
-package com.fitnest.presentation.decompose.unauthorizedArea.splash
+package com.fitnest.presentation.decompose.splash
 
 import com.arkivanov.decompose.value.Value
 

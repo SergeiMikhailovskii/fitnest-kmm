@@ -12,7 +12,7 @@ class SplashViewModel(
     internal fun generateToken() {
         viewModelScope.launch(exceptionHandler) {
             handleProgress(true)
-            generateTokenUseCase().getOrThrow()
+            generateTokenUseCase()
             handleProgress()
         }
     }

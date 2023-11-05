@@ -1,4 +1,4 @@
-package com.fitnest.presentation.decompose.unauthorizedArea.splash
+package com.fitnest.presentation.decompose.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

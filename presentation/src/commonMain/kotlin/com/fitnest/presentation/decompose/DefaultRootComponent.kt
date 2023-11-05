@@ -4,14 +4,24 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import com.fitnest.di.dataExceptionHandlerModule
 import com.fitnest.di.repositoryModule
+import com.fitnest.di.serializationModule
 import com.fitnest.di.serviceModule
-import com.fitnest.presentation.decompose.unauthorizedArea.UnauthorizedAreaComponent
-import com.fitnest.presentation.decompose.unauthorizedArea.unauthorizedAreaDIModule
+import com.fitnest.domain.di.mapperModule
+import com.fitnest.domain.enum.FlowType
+import com.fitnest.presentation.decompose.proxy.ProxyComponent
+import com.fitnest.presentation.decompose.proxy.ProxyComponentDIParams
+import com.fitnest.presentation.decompose.proxy.proxyDIModule
+import com.fitnest.presentation.decompose.registration.registrationDIModule
+import com.fitnest.presentation.decompose.splash.SplashComponent
+import com.fitnest.presentation.decompose.splash.SplashComponentDIParams
+import com.fitnest.presentation.decompose.splash.splashDIModule
+import com.fitnest.presentation.navigation.Route
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.instance
@@ -25,26 +35,48 @@ class DefaultRootComponent(
     override val di by DI.lazy {
         import(dataExceptionHandlerModule)
         import(serviceModule)
+        import(serializationModule)
+        import(mapperModule)
         import(repositoryModule)
-        import(unauthorizedAreaDIModule)
+        import(splashDIModule)
+        import(proxyDIModule)
+        import(registrationDIModule)
     }
 
     override val childStack: Value<ChildStack<*, RootComponent.Child>> = childStack(
         source = navigation,
-        initialConfiguration = Config.Unauthorized,
+        initialConfiguration = Config.Splash,
         handleBackButton = true,
         childFactory = ::createChild
     )
 
     private fun createChild(config: Config, context: ComponentContext) = when (config) {
-        Config.Unauthorized -> {
-            val component by di.instance<ComponentContext, UnauthorizedAreaComponent> { context }
-            RootComponent.Child.UnauthorizedChild(component)
+        Config.Splash -> {
+            val component by di.instance<SplashComponentDIParams, SplashComponent> {
+                SplashComponentDIParams(context, ::handle)
+            }
+            RootComponent.Child.Splash(component)
+        }
+
+        is Config.Proxy -> {
+            val component by di.instance<ProxyComponentDIParams, ProxyComponent> {
+                ProxyComponentDIParams(context, FlowType.UNKNOWN, ::handle)
+            }
+            RootComponent.Child.Proxy(component)
+        }
+    }
+
+    private fun handle(route: Route) {
+        if (route is Route.Proxy) {
+            navigation.replaceAll(Config.Proxy(route.flow))
         }
     }
 
     private sealed interface Config : Parcelable {
         @Parcelize
-        data object Unauthorized : Config
+        data object Splash : Config
+
+        @Parcelize
+        data class Proxy(val flowType: FlowType) : Config
     }
 }

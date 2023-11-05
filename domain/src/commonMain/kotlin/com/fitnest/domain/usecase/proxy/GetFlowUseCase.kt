@@ -13,4 +13,5 @@ class GetFlowUseCase(
         val response = repository.generateToken()
         response.getFlow()
     }.mapError(exceptionHandler::getError)
+        .getOrThrow()
 }
