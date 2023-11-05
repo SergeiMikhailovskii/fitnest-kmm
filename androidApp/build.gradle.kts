@@ -67,9 +67,7 @@ android {
     namespace = "com.fitnest.android"
     packaging {
         resources.excludes.apply {
-            add("META-INF/INDEX.LIST")
-            add("META-INF/LICENSE.md")
-            add("META-INF/LICENSE-notice.md")
+            add("META-INF/**")
         }
     }
     testOptions {
