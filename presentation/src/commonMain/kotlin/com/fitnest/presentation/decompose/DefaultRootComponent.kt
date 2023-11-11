@@ -71,7 +71,7 @@ class DefaultRootComponent(
 
         is Config.Onboarding -> {
             val component by di.instance<OnboardingAreaComponentDIParams, OnboardingAreaComponent> {
-                OnboardingAreaComponentDIParams(context, ::handle)
+                OnboardingAreaComponentDIParams(context, config.initialStep, ::handle)
             }
             RootComponent.Child.Onboarding(component)
         }
