@@ -2,6 +2,7 @@ package com.fitnest.presentation.decompose.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FabPosition
@@ -12,19 +13,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import com.fitnest.presentation.MR
 import com.fitnest.presentation.style.Dimen
 import com.fitnest.presentation.style.Padding
 import com.fitnest.presentation.view.ButtonWithProgress
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun OnboardingAreaView(component: OnboardingAreaComponent) {
-    Children(component.childStack) {
-        val component = it.instance.component
-        val model = component.model.value
+    Children(component.childStack, animation = stackAnimation(slide())) {
+        val pageComponent = it.instance.component
+        val model = pageComponent.model.value
 
         Scaffold(
             floatingActionButton = {
@@ -32,15 +34,16 @@ fun OnboardingAreaView(component: OnboardingAreaComponent) {
                     size = Dimen.Dimen50,
                     previousProgress = model.progress - 0.25F,
                     progress = model.progress,
-                    onClick = component::submitStep
+                    onClick = pageComponent::submitStep
                 ) {
                     Image(
-                        painter = painterResource("ic_onboarding_arrow_right.xml"),
+                        painter = painterResource(MR.images.ic_onboarding_arrow_right),
                         contentDescription = null
                     )
                 }
             },
-            floatingActionButtonPosition = FabPosition.End
+            floatingActionButtonPosition = FabPosition.End,
+            contentWindowInsets = WindowInsets(0, 0, 0, 0)
         ) {
             Column(modifier = Modifier.padding(it)) {
                 Image(

@@ -1,6 +1,7 @@
 package com.fitnest.presentation.decompose.onboarding.page
 
 import com.arkivanov.decompose.value.Value
+import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
 
 interface OnboardingPageComponent {
@@ -9,7 +10,7 @@ interface OnboardingPageComponent {
     fun submitStep()
 
     data class Model(
-        val image: String,
+        val image: ImageResource,
         val title: StringResource,
         val description: StringResource,
         val progress: Float

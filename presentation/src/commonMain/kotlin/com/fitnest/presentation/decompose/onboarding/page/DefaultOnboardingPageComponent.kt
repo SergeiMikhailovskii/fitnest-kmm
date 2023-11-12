@@ -2,10 +2,11 @@ package com.fitnest.presentation.decompose.onboarding.page
 
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
 
 class DefaultOnboardingPageComponent(
-    image: String,
+    image: ImageResource,
     title: StringResource,
     description: StringResource,
     progress: Float,

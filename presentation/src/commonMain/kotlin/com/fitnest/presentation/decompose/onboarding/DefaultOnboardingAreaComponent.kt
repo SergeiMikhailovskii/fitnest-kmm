@@ -10,6 +10,7 @@ import com.fitnest.domain.usecase.onboarding.SubmitAndGetNextOnboardingStepUseCa
 import com.fitnest.presentation.MR
 import com.fitnest.presentation.decompose.onboarding.page.DefaultOnboardingPageComponent
 import com.fitnest.presentation.extension.disposableScope
+import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -59,7 +60,7 @@ class DefaultOnboardingAreaComponent(
     }
 
     sealed class PageConfig(
-        val image: String,
+        val image: ImageResource,
         val title: StringResource,
         val description: StringResource,
         val progress: Float
@@ -67,7 +68,7 @@ class DefaultOnboardingAreaComponent(
 
         @Parcelize
         data object First : PageConfig(
-            "ic_onboarding_first.xml",
+            MR.images.ic_onboarding_first,
             MR.strings.onboarding_first_title,
             MR.strings.onboarding_first_description,
             0.25F
@@ -75,25 +76,25 @@ class DefaultOnboardingAreaComponent(
 
         @Parcelize
         data object Second : PageConfig(
-            "ic_onboarding_first.xml",
-            MR.strings.onboarding_first_title,
-            MR.strings.onboarding_first_description,
+            MR.images.ic_onboarding_second,
+            MR.strings.onboarding_second_title,
+            MR.strings.onboarding_second_description,
             0.5F
         )
 
         @Parcelize
         data object Third : PageConfig(
-            "ic_onboarding_first.xml",
-            MR.strings.onboarding_first_title,
-            MR.strings.onboarding_first_description,
+            MR.images.ic_onboarding_third,
+            MR.strings.onboarding_third_title,
+            MR.strings.onboarding_third_description,
             0.75F
         )
 
         @Parcelize
         data object Forth : PageConfig(
-            "ic_onboarding_first.xml",
-            MR.strings.onboarding_first_title,
-            MR.strings.onboarding_first_description,
+            MR.images.ic_onboarding_forth,
+            MR.strings.onboarding_forth_title,
+            MR.strings.onboarding_forth_description,
             1F
         )
     }
