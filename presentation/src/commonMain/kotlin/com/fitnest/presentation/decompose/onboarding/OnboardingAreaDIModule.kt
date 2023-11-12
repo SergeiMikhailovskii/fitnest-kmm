@@ -13,7 +13,8 @@ val onboardingAreaDIModule by lazy {
         bindFactory<OnboardingAreaComponentDIParams, OnboardingAreaComponent> {
             val context = it.componentContext
             val initialStep = it.initialStep
-            DefaultOnboardingAreaComponent(context, initialStep, instance())
+            val onNavigate = it.onNavigate
+            DefaultOnboardingAreaComponent(context, initialStep, instance(), onNavigate)
         }
         bindProvider { SubmitAndGetNextOnboardingStepUseCase(instance(), instance(), instance()) }
     }

@@ -6,12 +6,15 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import com.fitnest.domain.functional.Failure
 import com.fitnest.domain.usecase.onboarding.SubmitAndGetNextOnboardingStepUseCase
 import com.fitnest.presentation.MR
 import com.fitnest.presentation.decompose.onboarding.page.DefaultOnboardingPageComponent
 import com.fitnest.presentation.extension.disposableScope
+import com.fitnest.presentation.navigation.Route
 import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -19,7 +22,8 @@ import kotlinx.coroutines.launch
 class DefaultOnboardingAreaComponent(
     context: ComponentContext,
     initialStep: String,
-    private val submitOnboardingStepUseCase: SubmitAndGetNextOnboardingStepUseCase
+    private val submitOnboardingStepUseCase: SubmitAndGetNextOnboardingStepUseCase,
+    private val onNavigate: (Route) -> Unit
 ) : OnboardingAreaComponent,
     CoroutineScope by context.disposableScope(),
     ComponentContext by context {
@@ -34,7 +38,11 @@ class DefaultOnboardingAreaComponent(
     )
 
     private val errorHandler = CoroutineExceptionHandler { _, throwable ->
-        throwable.printStackTrace()
+        if (throwable is Failure.OnboardingFinished) {
+            onNavigate(Route.Proxy())
+        } else {
+            Napier.e(throwable.message.orEmpty(), throwable)
+        }
     }
 
     private fun createChild(config: PageConfig, context: ComponentContext) = OnboardingAreaComponent.Page(
