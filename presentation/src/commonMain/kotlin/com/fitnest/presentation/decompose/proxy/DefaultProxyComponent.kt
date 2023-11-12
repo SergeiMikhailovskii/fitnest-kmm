@@ -40,7 +40,7 @@ class DefaultProxyComponent(
 
             FlowType.REGISTRATION -> {
                 val response = getRegistrationStepDataUseCase().getOrThrow()
-                onNavigate(Route.Registration.Step(stepName = response.step.orEmpty()))
+                onNavigate(Route.Registration2(response.step.orEmpty()))
             }
 
             FlowType.MAIN -> {

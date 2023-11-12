@@ -4,6 +4,7 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import com.fitnest.presentation.decompose.onboarding.OnboardingAreaComponent
 import com.fitnest.presentation.decompose.proxy.ProxyComponent
+import com.fitnest.presentation.decompose.registration.RegistrationAreaComponent
 import com.fitnest.presentation.decompose.splash.SplashComponent
 
 interface RootComponent {
@@ -13,5 +14,6 @@ interface RootComponent {
         data class Splash(val component: SplashComponent) : Child
         data class Proxy(val component: ProxyComponent) : Child
         data class Onboarding(val component: OnboardingAreaComponent) : Child
+        data class Registration(val component: RegistrationAreaComponent) : Child
     }
 }

@@ -5,6 +5,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.fitnest.presentation.decompose.RootComponent
 import com.fitnest.presentation.decompose.onboarding.OnboardingAreaView
 import com.fitnest.presentation.decompose.proxy.ProxyView
+import com.fitnest.presentation.decompose.registration.RegistrationAreaView
 import com.fitnest.presentation.decompose.splash.SplashView
 import com.fitnest.presentation.style.FitnestTheme
 
@@ -16,6 +17,7 @@ fun FitnestApp(component: RootComponent) {
                 is RootComponent.Child.Splash -> SplashView(child.component)
                 is RootComponent.Child.Proxy -> ProxyView(child.component)
                 is RootComponent.Child.Onboarding -> OnboardingAreaView(child.component)
+                is RootComponent.Child.Registration -> RegistrationAreaView(child.component)
             }
         }
     }

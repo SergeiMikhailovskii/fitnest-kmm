@@ -9,4 +9,5 @@ import org.kodein.di.bindSingleton
 val registrationDIModule = DI.Module("registrationDIModule") {
     bindSingleton { RegistrationScreenState() }
     bindSingleton<AnthropometryEventsBus> { AnthropometryEventsBusImpl() }
+    import(registrationAreaDIModule)
 }

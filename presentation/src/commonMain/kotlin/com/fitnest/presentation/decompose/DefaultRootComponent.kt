@@ -20,6 +20,8 @@ import com.fitnest.presentation.decompose.onboarding.onboardingAreaDIModule
 import com.fitnest.presentation.decompose.proxy.ProxyComponent
 import com.fitnest.presentation.decompose.proxy.ProxyComponentDIParams
 import com.fitnest.presentation.decompose.proxy.proxyDIModule
+import com.fitnest.presentation.decompose.registration.RegistrationAreaComponent
+import com.fitnest.presentation.decompose.registration.RegistrationAreaComponentDIParams
 import com.fitnest.presentation.decompose.registration.registrationDIModule
 import com.fitnest.presentation.decompose.splash.SplashComponent
 import com.fitnest.presentation.decompose.splash.SplashComponentDIParams
@@ -75,13 +77,21 @@ class DefaultRootComponent(
             }
             RootComponent.Child.Onboarding(component)
         }
+
+        is Config.Registration -> {
+            val component by di.instance<RegistrationAreaComponentDIParams, RegistrationAreaComponent> {
+                RegistrationAreaComponentDIParams(context, config.initialStep, ::handle)
+            }
+            RootComponent.Child.Registration(component)
+        }
     }
 
     private fun handle(route: Route) {
-        if (route is Route.Proxy) {
-            navigation.replaceAll(Config.Proxy(route.flow))
-        } else if (route is Route.Onboarding) {
-            navigation.replaceAll(Config.Onboarding(route.initialStep))
+        when (route) {
+            is Route.Proxy -> navigation.replaceAll(Config.Proxy(route.flow))
+            is Route.Onboarding -> navigation.replaceAll(Config.Onboarding(route.initialStep))
+            is Route.Registration2 -> navigation.replaceAll(Config.Registration(route.initialStep))
+            else -> error("route $route is unsupported yet")
         }
     }
 
@@ -94,5 +104,8 @@ class DefaultRootComponent(
 
         @Parcelize
         data class Onboarding(val initialStep: String) : Config
+
+        @Parcelize
+        data class Registration(val initialStep: String) : Config
     }
 }

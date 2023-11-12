@@ -17,6 +17,10 @@ sealed class Route(val screenName: String) {
         class Step(stepName: String) : Onboarding(stepName)
     }
 
+    open class Registration2(val initialStep: String) : Route("registration") {
+        class Step(stepName: String) : Registration2(stepName)
+    }
+
     class OnboardingStep(stepName: String = "") : Route("onboardingStep/$stepName") {
         override val pattern: String
             get() = "onboardingStep/{stepName}"
@@ -24,6 +28,7 @@ sealed class Route(val screenName: String) {
 
     object Login : Route("login")
 
+    @Deprecated("should be deleted after Android part decompose refactoring. Use Registration2 instead")
     sealed class Registration(screenName: String) : Route(screenName) {
         data class Step(val stepName: String = "") : Registration("registrationStep/$stepName") {
             override val pattern: String
