@@ -1,4 +1,4 @@
-package com.fitnest.presentation.screen.registration.createAccount
+package com.fitnest.presentation.decompose.registration.steps.createAccount
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -26,8 +26,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,55 +35,24 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.fitnest.presentation.MR
-import com.fitnest.presentation.internal.ErrorHandlerDelegate
-import com.fitnest.presentation.internal.FacebookService
-import com.fitnest.presentation.internal.GoogleSignInService
-import com.fitnest.presentation.navigation.Route
+import com.fitnest.presentation.screen.registration.createAccount.CreateAccountRegistrationScreenUtils
 import com.fitnest.presentation.style.BodyLargeOnBackground
 import com.fitnest.presentation.style.Dimen
-import com.fitnest.presentation.style.Dimen.Dimen1
-import com.fitnest.presentation.style.Dimen.Dimen14
-import com.fitnest.presentation.style.Dimen.Dimen50
-import com.fitnest.presentation.style.Padding.Padding15
-import com.fitnest.presentation.style.Padding.Padding20
-import com.fitnest.presentation.style.Padding.Padding30
-import com.fitnest.presentation.style.Padding.Padding40
+import com.fitnest.presentation.style.Padding
 import com.fitnest.presentation.style.TitleMediumOnBackground
 import com.fitnest.presentation.view.DividerWithChild
 import com.fitnest.presentation.view.FitnestTextField
 import com.fitnest.presentation.view.getPasswordVisualTransformation
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
-import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
-import org.kodein.di.compose.rememberInstance
 
-@OptIn(ExperimentalResourceApi::class)
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateAccountRegistrationScreen(
-    viewModel: CreateAccountRegistrationViewModel,
-    onNavigate: (Route) -> Unit
-) {
-    val googleSignInService: GoogleSignInService by rememberInstance()
-    val facebookSignInService: FacebookService by rememberInstance()
-    val errorHandlerDelegate: ErrorHandlerDelegate by rememberInstance()
-
+fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent) {
     val focusManager = LocalFocusManager.current
-
-    val screenData by viewModel.screenDataFlow.collectAsState()
-
-    LaunchedEffect(key1 = null) {
-        launch {
-            viewModel.routeSharedFlow.collect(onNavigate)
-        }
-        launch {
-            viewModel.failureSharedFlow.collect(errorHandlerDelegate::defaultHandleFailure)
-        }
-        viewModel.initializeStartData()
-    }
-
+    val model by component.model.subscribeAsState()
     val loginAnnotatedText = buildAnnotatedString {
         val str = stringResource(MR.strings.registration_create_account_login)
         val loginSpan = stringResource(MR.strings.registration_create_account_login_span)
@@ -104,7 +71,6 @@ fun CreateAccountRegistrationScreen(
             end = endIndex
         )
     }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -116,7 +82,7 @@ fun CreateAccountRegistrationScreen(
     ) {
         Text(
             text = stringResource(MR.strings.registration_create_account_title),
-            modifier = Modifier.padding(top = Padding40),
+            modifier = Modifier.padding(top = Padding.Padding40),
             style = BodyLargeOnBackground
         )
         Text(
@@ -124,15 +90,15 @@ fun CreateAccountRegistrationScreen(
             style = TitleMediumOnBackground
         )
         FitnestTextField(
-            value = screenData.firstName.orEmpty(),
+            value = model.firstName,
             modifier = Modifier.padding(
-                top = Padding30,
-                start = Padding30,
-                end = Padding30
+                top = Padding.Padding30,
+                start = Padding.Padding30,
+                end = Padding.Padding30
             ),
             leadingIcon = {
                 Image(
-                    painter = painterResource("ic_user_login.xml"),
+                    painter = painterResource(MR.images.ic_user_login),
                     contentDescription = null
                 )
             },
@@ -142,19 +108,21 @@ fun CreateAccountRegistrationScreen(
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
-            onValueChange = viewModel::updateFirstName,
-            error = screenData.exception.firstNameError
+            onValueChange = {
+//                viewModel::updateFirstName
+            }
+//            error = screenData.exception.firstNameError
         )
         FitnestTextField(
-            value = screenData.lastName.orEmpty(),
+            value = model.lastName,
             modifier = Modifier.padding(
-                top = Padding15,
-                start = Padding30,
-                end = Padding30
+                top = Padding.Padding15,
+                start = Padding.Padding30,
+                end = Padding.Padding30
             ),
             leadingIcon = {
                 Image(
-                    painter = painterResource("ic_user_login.xml"),
+                    painter = painterResource(MR.images.ic_user_login),
                     contentDescription = null
                 )
             },
@@ -164,19 +132,21 @@ fun CreateAccountRegistrationScreen(
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
-            onValueChange = viewModel::updateLastName,
-            error = screenData.exception.lastNameError
+            onValueChange = {
+//                viewModel::updateLastName
+            }
+//            error = screenData.exception.lastNameError
         )
         FitnestTextField(
-            value = screenData.email.orEmpty(),
+            value = model.email,
             modifier = Modifier.padding(
-                top = Padding15,
-                start = Padding30,
-                end = Padding30
+                top = Padding.Padding15,
+                start = Padding.Padding30,
+                end = Padding.Padding30
             ),
             leadingIcon = {
                 Image(
-                    painter = painterResource("ic_email.xml"),
+                    painter = painterResource(MR.images.ic_email),
                     contentDescription = null
                 )
             },
@@ -186,45 +156,53 @@ fun CreateAccountRegistrationScreen(
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
-            onValueChange = viewModel::updateEmail,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            error = screenData.exception.emailError
+            onValueChange = {
+//                viewModel::updateEmail
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+//            error = screenData.exception.emailError
         )
         FitnestTextField(
-            value = screenData.password.orEmpty(),
+            value = model.password,
             modifier = Modifier.padding(
-                top = Padding15,
-                start = Padding30,
-                end = Padding30
+                top = Padding.Padding15,
+                start = Padding.Padding30,
+                end = Padding.Padding30
             ),
             leadingIcon = {
                 Image(
-                    painter = painterResource("ic_lock.xml"),
+                    painter = painterResource(MR.images.ic_lock),
                     contentDescription = null
                 )
             },
             label = { Text(stringResource(MR.strings.registration_create_account_password_label)) },
             trailingIcon = {
-                IconButton(onClick = viewModel::changePasswordVisibility) {
+                IconButton(onClick = {
+//                    viewModel::changePasswordVisibility
+                }) {
                     val painter =
-                        if (screenData.passwordVisible) {
-                            painterResource("ic_password_show.xml")
+                        if (model.isPasswordVisible) {
+                            painterResource(MR.images.ic_password_show)
                         } else {
-                            painterResource("ic_password_hide.xml")
+                            painterResource(MR.images.ic_password_hide)
                         }
                     Image(painter = painter, null)
                 }
             },
-            onValueChange = viewModel::updatePassword,
-            visualTransformation = getPasswordVisualTransformation(!screenData.passwordVisible),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            error = screenData.exception.passwordError
+            onValueChange = {
+//                viewModel::updatePassword
+            },
+            visualTransformation = getPasswordVisualTransformation(!model.isPasswordVisible),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+//            error = screenData.exception.passwordError
         )
         Button(
-            onClick = viewModel::submitRegistration,
+            onClick = {
+//                viewModel.submitRegistration()
+            },
             shape = CircleShape,
             modifier = Modifier
-                .padding(all = Padding30)
+                .padding(all = Padding.Padding30)
                 .height(Dimen.Dimen60)
                 .fillMaxWidth()
         ) {
@@ -238,14 +216,14 @@ fun CreateAccountRegistrationScreen(
         DividerWithChild(
             modifier = Modifier
                 .padding(
-                    start = Padding30,
-                    end = Padding30,
-                    bottom = Padding20
+                    start = Padding.Padding30,
+                    end = Padding.Padding30,
+                    bottom = Padding.Padding20
                 )
         ) {
             Text(
                 text = stringResource(MR.strings.registration_create_account_divider_label),
-                modifier = Modifier.padding(horizontal = Padding15),
+                modifier = Modifier.padding(horizontal = Padding.Padding15),
                 style = MaterialTheme.typography.bodySmall
             )
         }
@@ -253,14 +231,14 @@ fun CreateAccountRegistrationScreen(
         Row {
             Card(
                 modifier = Modifier
-                    .padding(end = Padding15)
-                    .height(Dimen50)
-                    .width(Dimen50)
+                    .padding(end = Padding.Padding15)
+                    .height(Dimen.Dimen50)
+                    .width(Dimen.Dimen50)
                     .clickable {
-                        googleSignInService.login(viewModel::handleGoogleSignIn)
+//                        googleSignInService.login(viewModel::handleGoogleSignIn)
                     },
-                shape = RoundedCornerShape(Dimen14),
-                border = BorderStroke(Dimen1, MaterialTheme.colorScheme.surfaceVariant),
+                shape = RoundedCornerShape(Dimen.Dimen14),
+                border = BorderStroke(Dimen.Dimen1, MaterialTheme.colorScheme.surfaceVariant),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.inverseOnSurface
                 )
@@ -270,7 +248,7 @@ fun CreateAccountRegistrationScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = dev.icerock.moko.resources.compose.painterResource(MR.images.ic_google),
+                        painter = painterResource(MR.images.ic_google),
                         contentDescription = null
                     )
                 }
@@ -278,14 +256,14 @@ fun CreateAccountRegistrationScreen(
 
             Card(
                 modifier = Modifier
-                    .padding(start = Padding15)
-                    .height(Dimen50)
-                    .width(Dimen50)
+                    .padding(start = Padding.Padding15)
+                    .height(Dimen.Dimen50)
+                    .width(Dimen.Dimen50)
                     .clickable {
-                        facebookSignInService.login(viewModel::handleFacebookSignIn)
+//                        facebookSignInService.login(viewModel::handleFacebookSignIn)
                     },
-                shape = RoundedCornerShape(Dimen14),
-                border = BorderStroke(Dimen1, MaterialTheme.colorScheme.surfaceVariant),
+                shape = RoundedCornerShape(Dimen.Dimen14),
+                border = BorderStroke(Dimen.Dimen1, MaterialTheme.colorScheme.surfaceVariant),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.inverseOnSurface
                 )
@@ -295,7 +273,7 @@ fun CreateAccountRegistrationScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource("ic_facebook.xml"),
+                        painter = painterResource(MR.images.ic_facebook),
                         contentDescription = null
                     )
                 }
@@ -310,20 +288,16 @@ fun CreateAccountRegistrationScreen(
                     it,
                     it
                 ).firstOrNull()?.let {
-                    viewModel.navigateToLogin()
+//                    viewModel.navigateToLogin()
                 }
             },
             modifier = Modifier
                 .padding(
-                    start = Padding30,
-                    end = Padding30,
-                    bottom = Padding40,
-                    top = Padding30
+                    start = Padding.Padding30,
+                    end = Padding.Padding30,
+                    bottom = Padding.Padding40,
+                    top = Padding.Padding30
                 )
         )
     }
-}
-
-object CreateAccountRegistrationScreenUtils {
-    const val LOGIN_SPAN_TAG = "LOGIN"
 }

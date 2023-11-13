@@ -6,6 +6,7 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
+import com.fitnest.presentation.decompose.registration.steps.createAccount.DefaultCreateAccountRegistrationComponent
 import com.fitnest.presentation.navigation.Route
 
 class DefaultRegistrationAreaComponent(
@@ -26,7 +27,10 @@ class DefaultRegistrationAreaComponent(
 
     private fun createChild(config: Config, context: ComponentContext): RegistrationAreaComponent.Child =
         when (config) {
-            Config.CreateAccount -> TODO()
+            Config.CreateAccount -> RegistrationAreaComponent.Child.CreateAccount(
+                DefaultCreateAccountRegistrationComponent()
+            )
+
             Config.CompleteAccount -> TODO()
             Config.Goal -> TODO()
             Config.WelcomeBack -> TODO()
