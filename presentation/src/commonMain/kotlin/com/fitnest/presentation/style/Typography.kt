@@ -8,6 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.fitnest.presentation.MR
 import dev.icerock.moko.resources.compose.asFont
+import dev.icerock.moko.resources.compose.fontFamilyResource
 
 private val poppinsFamily: FontFamily
     @Composable get() = FontFamily(
@@ -46,7 +47,7 @@ fun getTypography() = Typography(
         fontWeight = FontWeight.Normal
     ),
     bodyMedium = TextStyle(
-        fontFamily = poppinsFamily,
+        fontFamily = fontFamilyResource(MR.fonts.Poppins.regular),
         fontSize = 14.sp,
         lineHeight = 21.sp,
         fontWeight = FontWeight.Normal

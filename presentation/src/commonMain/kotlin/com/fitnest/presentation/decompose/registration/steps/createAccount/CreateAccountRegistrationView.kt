@@ -7,23 +7,23 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -73,11 +73,11 @@ fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent)
     }
     Column(
         modifier = Modifier
+            .padding(top = ScaffoldDefaults.contentWindowInsets.asPaddingValues().calculateTopPadding())
             .fillMaxWidth()
             .pointerInput(Unit) {
                 detectTapGestures { focusManager.clearFocus() }
-            }
-            .verticalScroll(rememberScrollState()),
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -108,10 +108,8 @@ fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent)
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
-            onValueChange = {
-//                viewModel::updateFirstName
-            }
-//            error = screenData.exception.firstNameError
+            onValueChange = component::setFirstName,
+            error = model.exception.firstNameError
         )
         FitnestTextField(
             value = model.lastName,
@@ -132,10 +130,8 @@ fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent)
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
-            onValueChange = {
-//                viewModel::updateLastName
-            }
-//            error = screenData.exception.lastNameError
+            onValueChange = component::setLastName,
+            error = model.exception.lastNameError
         )
         FitnestTextField(
             value = model.email,
@@ -156,11 +152,9 @@ fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent)
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
-            onValueChange = {
-//                viewModel::updateEmail
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-//            error = screenData.exception.emailError
+            onValueChange = component::setEmail,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            error = model.exception.emailError
         )
         FitnestTextField(
             value = model.password,
@@ -175,11 +169,14 @@ fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent)
                     contentDescription = null
                 )
             },
-            label = { Text(stringResource(MR.strings.registration_create_account_password_label)) },
+            label = {
+                Text(
+                    stringResource(MR.strings.registration_create_account_password_label),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
             trailingIcon = {
-                IconButton(onClick = {
-//                    viewModel::changePasswordVisibility
-                }) {
+                IconButton(onClick = component::changePasswordVisibility) {
                     val painter =
                         if (model.isPasswordVisible) {
                             painterResource(MR.images.ic_password_show)
@@ -189,17 +186,13 @@ fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent)
                     Image(painter = painter, null)
                 }
             },
-            onValueChange = {
-//                viewModel::updatePassword
-            },
+            onValueChange = component::setPassword,
             visualTransformation = getPasswordVisualTransformation(!model.isPasswordVisible),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-//            error = screenData.exception.passwordError
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            error = model.exception.passwordError
         )
         Button(
-            onClick = {
-//                viewModel.submitRegistration()
-            },
+            onClick = component::submitRegistration,
             shape = CircleShape,
             modifier = Modifier
                 .padding(all = Padding.Padding30)
@@ -288,7 +281,7 @@ fun CreateAccountRegistrationView(component: CreateAccountRegistrationComponent)
                     it,
                     it
                 ).firstOrNull()?.let {
-//                    viewModel.navigateToLogin()
+                    component.navigateToLogin()
                 }
             },
             modifier = Modifier
