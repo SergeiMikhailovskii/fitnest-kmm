@@ -3,16 +3,20 @@ package com.fitnest.presentation.decompose.registration
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
-import com.fitnest.presentation.decompose.registration.steps.createAccount.DefaultCreateAccountRegistrationComponent
+import com.fitnest.presentation.decompose.registration.steps.completeAccount.DefaultCompleteAccountRegistrationComponent
+import com.fitnest.presentation.decompose.registration.steps.createAccount.CreateAccountRegistrationComponent
+import com.fitnest.presentation.decompose.registration.steps.createAccount.CreateAccountRegistrationComponentDIParams
 import com.fitnest.presentation.navigation.Route
+import org.kodein.di.DI
+import org.kodein.di.instance
 
 class DefaultRegistrationAreaComponent(
     context: ComponentContext,
     initialStep: String,
-    private val submitRegistrationStepUseCase: SubmitRegistrationStepAndGetNextUseCase,
+    private val di: DI,
     private val onNavigate: (Route) -> Unit
 ) : RegistrationAreaComponent, ComponentContext by context {
 
@@ -27,11 +31,17 @@ class DefaultRegistrationAreaComponent(
 
     private fun createChild(config: Config, context: ComponentContext): RegistrationAreaComponent.Child =
         when (config) {
-            Config.CreateAccount -> RegistrationAreaComponent.Child.CreateAccount(
-                DefaultCreateAccountRegistrationComponent()
+            Config.CreateAccount -> {
+                val component by di.instance<CreateAccountRegistrationComponentDIParams, CreateAccountRegistrationComponent> {
+                    CreateAccountRegistrationComponentDIParams(context, ::handle)
+                }
+                RegistrationAreaComponent.Child.CreateAccount(component)
+            }
+
+            Config.CompleteAccount -> RegistrationAreaComponent.Child.CompleteAccount(
+                DefaultCompleteAccountRegistrationComponent()
             )
 
-            Config.CompleteAccount -> TODO()
             Config.Goal -> TODO()
             Config.WelcomeBack -> TODO()
         }
@@ -42,6 +52,15 @@ class DefaultRegistrationAreaComponent(
         "STEP_GOAL" -> Config.Goal
         "STEP_WELCOME_BACK" -> Config.WelcomeBack
         else -> error("Unknown step - $stepName")
+    }
+
+    private fun handle(route: Route) {
+        if (route is Route.Registration2.Step) {
+            val config = getStepByName(route.stepName)
+            navigation.replaceAll(config)
+        } else {
+            onNavigate(route)
+        }
     }
 
     sealed interface Config : Parcelable {

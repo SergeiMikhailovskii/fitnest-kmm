@@ -18,7 +18,7 @@ sealed class Route(val screenName: String) {
     }
 
     open class Registration2(val initialStep: String) : Route("registration") {
-        class Step(stepName: String) : Registration2(stepName)
+        class Step(val stepName: String) : Registration2("")
     }
 
     class OnboardingStep(stepName: String = "") : Route("onboardingStep/$stepName") {
@@ -60,7 +60,4 @@ sealed class Route(val screenName: String) {
     }
 
     object DismissBottomSheet : Route("")
-
-    // for not implemented routes
-    object Unknown : Route("unknown")
 }

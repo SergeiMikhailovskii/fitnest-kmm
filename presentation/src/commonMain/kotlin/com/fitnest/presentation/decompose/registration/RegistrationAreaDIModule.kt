@@ -2,6 +2,7 @@ package com.fitnest.presentation.decompose.registration
 
 import com.arkivanov.decompose.ComponentContext
 import com.fitnest.domain.usecase.registration.SubmitRegistrationStepAndGetNextUseCase
+import com.fitnest.presentation.decompose.registration.steps.createAccount.createAccountRegistrationDIModule
 import com.fitnest.presentation.navigation.Route
 import org.kodein.di.DI
 import org.kodein.di.bindFactory
@@ -14,7 +15,7 @@ val registrationAreaDIModule by lazy {
             val context = it.componentContext
             val initialStep = it.initialStep
             val onNavigate = it.onNavigate
-            DefaultRegistrationAreaComponent(context, initialStep, instance(), onNavigate)
+            DefaultRegistrationAreaComponent(context, initialStep, di, onNavigate)
         }
         bindProvider {
             SubmitRegistrationStepAndGetNextUseCase(
@@ -24,6 +25,7 @@ val registrationAreaDIModule by lazy {
                 instance()
             )
         }
+        import(createAccountRegistrationDIModule)
     }
 }
 
