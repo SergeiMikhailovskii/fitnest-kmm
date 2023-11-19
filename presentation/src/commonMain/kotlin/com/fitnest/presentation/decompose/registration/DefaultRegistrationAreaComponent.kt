@@ -39,7 +39,7 @@ class DefaultRegistrationAreaComponent(
             }
 
             Config.CompleteAccount -> RegistrationAreaComponent.Child.CompleteAccount(
-                DefaultCompleteAccountRegistrationComponent()
+                DefaultCompleteAccountRegistrationComponent(context)
             )
 
             Config.Goal -> TODO()

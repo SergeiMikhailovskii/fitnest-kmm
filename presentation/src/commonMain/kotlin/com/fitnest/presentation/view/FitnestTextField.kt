@@ -8,8 +8,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -36,7 +36,8 @@ fun FitnestTextField(
     onFocusChanged: ((Boolean) -> Unit)? = null,
     error: String? = null,
     readOnly: Boolean = false,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    enabled: Boolean = true
 ) {
     Column(
         modifier = modifier
@@ -49,10 +50,13 @@ fun FitnestTextField(
             modifier = Modifier.fillMaxWidth(),
             value = value,
             singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                focusedLabelColor = MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = Color.Transparent
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                unfocusedBorderColor = Color.Transparent,
+                disabledBorderColor = Color.Transparent,
+                focusedLabelColor = MaterialTheme.colorScheme.primary
             ),
             leadingIcon = leadingIcon,
             label = label,
@@ -63,7 +67,8 @@ fun FitnestTextField(
             trailingIcon = trailingIcon,
             keyboardOptions = keyboardOptions,
             readOnly = readOnly,
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
+            enabled = enabled
         )
         if (error != null) {
             Text(

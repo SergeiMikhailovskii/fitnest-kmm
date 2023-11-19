@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -15,11 +16,15 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.fitnest.domain.enum.SexType
+import com.fitnest.domain.extension.dateToString
 import com.fitnest.presentation.MR
+import com.fitnest.presentation.decompose.dialog.date.DateDialogComponent
+import com.fitnest.presentation.dialog.DatePickerDialog
 import com.fitnest.presentation.extension.enumType.fromStringResource
 import com.fitnest.presentation.extension.enumType.stringResource
 import com.fitnest.presentation.extension.enumType.stringResources
 import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.view.DateTextField
 import com.fitnest.presentation.view.FitnestDropdown
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
@@ -28,6 +33,7 @@ import dev.icerock.moko.resources.compose.stringResource
 fun CompleteAccountRegistrationView(component: CompleteAccountRegistrationComponent) {
     val focusManager = LocalFocusManager.current
     val model by component.model.subscribeAsState()
+    val dialogSlot by component.dialog.subscribeAsState()
 
     Column(
         modifier = Modifier
@@ -72,20 +78,16 @@ fun CompleteAccountRegistrationView(component: CompleteAccountRegistrationCompon
             value = model.sexType?.stringResource?.let { stringResource(it) }.orEmpty(),
             error = model.exception.genderError
         )
-//        DateOfBirthTextField(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(start = Padding.Padding30, end = Padding.Padding30)
-//                .constrainAs(inputBirthDate) {
-//                    bottom.linkTo(inputWeight.top, Padding.Padding15)
-//                    start.linkTo(parent.start)
-//                    end.linkTo(parent.end)
-//                },
-//            value = screenData.formattedDateOfBirth().orEmpty(),
-//            error = screenData.exception.birthDateError
-//        ) {
-//            showDatePicker(context as AppCompatActivity, viewModel::saveBirthDate, context)
-//        }
+        DateTextField(
+            title = MR.strings.registration_complete_account_date_of_birth,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Padding.Padding30)
+                .padding(top = Padding.Padding15),
+            value = model.dateOfBirth?.dateToString("dd/MM/yyyy").orEmpty(),
+            error = model.exception.birthDateError,
+            onClick = component::showDateOfBirthPicker
+        )
 //        AnthropometryTextField(
 //            modifier = Modifier
 //                .fillMaxWidth()
@@ -143,5 +145,11 @@ fun CompleteAccountRegistrationView(component: CompleteAccountRegistrationCompon
 //            )
 //            Icon(imageVector = Icons.Filled.ChevronRight, contentDescription = null)
 //        }
+    }
+
+    dialogSlot.child?.instance?.also {
+        if (it is DateDialogComponent) {
+            DatePickerDialog(it)
+        }
     }
 }
