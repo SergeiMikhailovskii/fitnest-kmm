@@ -24,6 +24,7 @@ import com.fitnest.presentation.extension.enumType.fromStringResource
 import com.fitnest.presentation.extension.enumType.stringResource
 import com.fitnest.presentation.extension.enumType.stringResources
 import com.fitnest.presentation.style.Padding
+import com.fitnest.presentation.view.AnthropometryTextField
 import com.fitnest.presentation.view.DateTextField
 import com.fitnest.presentation.view.FitnestDropdown
 import dev.icerock.moko.resources.compose.painterResource
@@ -88,22 +89,22 @@ fun CompleteAccountRegistrationView(component: CompleteAccountRegistrationCompon
             error = model.exception.birthDateError,
             onClick = component::showDateOfBirthPicker
         )
-//        AnthropometryTextField(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(start = Padding.Padding30, end = Padding.Padding30)
-//                .constrainAs(inputWeight) {
-//                    bottom.linkTo(inputHeight.top, Padding.Padding15)
-//                    start.linkTo(parent.start)
-//                    end.linkTo(parent.end)
-//                },
-//            value = screenData.weight?.toString().orEmpty(),
-//            leadingIcon = R.drawable.ic_complete_registration_weight,
-//            label = context.getString(MR.string.registration_complete_account_weight_hint),
-//            optionLabel = context.getString(MR.string.registration_complete_account_weight_kg),
-//            error = screenData.exception.weightError,
-//            onTextFieldClick = viewModel::openWeightBottomSheet
-//        )
+        AnthropometryTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = Padding.Padding15
+                )
+                .padding(horizontal = Padding.Padding30),
+            value = model.weight?.toString().orEmpty(),
+            leadingIcon = MR.images.ic_complete_registration_weight,
+            label = MR.strings.registration_complete_account_weight_hint,
+            optionLabel = MR.strings.registration_complete_account_weight_kg,
+            error = model.exception.weightError,
+            onTextFieldClick = {
+                component.openWeightBottomSheet()
+            }
+        )
 //        AnthropometryTextField(
 //            modifier = Modifier
 //                .fillMaxWidth()

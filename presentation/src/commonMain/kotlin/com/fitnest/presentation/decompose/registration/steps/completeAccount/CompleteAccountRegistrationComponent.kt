@@ -14,10 +14,12 @@ interface CompleteAccountRegistrationComponent {
     fun submitRegistration()
     fun setSex(sexType: SexType)
     fun showDateOfBirthPicker()
+    fun openWeightBottomSheet()
 
     data class Model(
         val sexType: SexType? = null,
         val dateOfBirth: Date? = null,
+        val weight: Int? = null,
         val exception: CompleteAccountRegistrationScreenException = CompleteAccountRegistrationScreenException()
     )
 }
