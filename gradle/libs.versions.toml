@@ -55,7 +55,7 @@ napier = "2.6.1"
 ktor = "2.3.6"
 sqldelight = "1.5.5"
 dataStoreCore = "1.1.0-alpha06"
-dataStoreAndroid = "1.1.0-alpha06"
+dataStoreAndroid = "1.1.0-beta01"
 
 [libraries]
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
