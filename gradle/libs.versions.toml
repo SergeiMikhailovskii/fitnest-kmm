@@ -46,7 +46,7 @@ firebaseBom = "32.5.0"
 composeBom = "2023.10.01"
 
 kodein = "7.21.0"
-serialization = "1.6.0"
+serialization = "1.6.2"
 coroutines = "1.7.3"
 dateTime = "0.4.1"
 immutableCollections = "0.3.6"
