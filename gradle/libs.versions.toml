@@ -49,7 +49,7 @@ kodein = "7.21.0"
 serialization = "1.6.2"
 coroutines = "1.7.3"
 dateTime = "0.4.1"
-immutableCollections = "0.3.6"
+immutableCollections = "0.3.7"
 napier = "2.6.1"
 
 ktor = "2.3.6"
