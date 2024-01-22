@@ -48,7 +48,7 @@ composeBom = "2023.10.01"
 kodein = "7.21.2"
 serialization = "1.6.2"
 coroutines = "1.7.3"
-dateTime = "0.4.1"
+dateTime = "0.5.0"
 immutableCollections = "0.3.7"
 napier = "2.6.1"
 
